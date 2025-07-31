@@ -1,6 +1,6 @@
 import { RandomIcon } from '@/components/random-icon';
 import { routeMap } from '@/routes';
-import { Sidebar } from '@bestlyg/common';
+import { Sidebar } from '@bestlyg/server/type/index.ts';
 import { request } from './request';
 
 declare const __MODE__: 'development' | 'production' | undefined;

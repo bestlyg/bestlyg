@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "cross-env NODE_OPTIONS=--max-old-space-size=4096 tsc -b && vite build",
+        "build": "cross-env NODE_OPTIONS=--max-old-space-size=4096 vite build",
         "lint": "eslint .",
         "preview": "vite preview",
         "deploy": "node scripts/deploy.mjs"
@@ -98,6 +98,7 @@
         "@tailwindcss/postcss": "^4.1.4",
         "@tailwindcss/vite": "^4.1.4",
         "@types/lodash": "catalog:",
+        "@bestlyg/server": "workspace:^",
         "@types/node": "catalog:",
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",

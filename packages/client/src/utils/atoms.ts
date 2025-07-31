@@ -1,7 +1,7 @@
 import { atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
 import { sidebarCategories } from './constants';
-import { SidebarGroup, SidebarItem } from '@bestlyg/common';
+import { SidebarGroup, SidebarItem  } from '@bestlyg/server/type/index.ts';
 
 export const activeSidebarCategoryAtom = atom<(typeof sidebarCategories)[number] | null>(null);
 

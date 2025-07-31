@@ -1,7 +1,6 @@
 import { Suspense } from '@/components/suspense';
 import * as echarts from 'echarts';
 import { Skeleton } from '@/shadcn/ui/skeleton';
-import { Prisma } from '@bestlyg/common/prisma-client';
 import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/shadcn/ui/card';
@@ -13,11 +12,9 @@ import {
     getDayOnDay,
     getQuarterOnQuarter,
     getHalfYearOnHalfYear,
-    apiMap,
 } from '@bestlyg/common';
+import type { Xuan as XuanDB } from '@bestlyg/server/type/index.ts';
 import { request } from '@/utils';
-
-export type XuanData = Prisma.XuanGetPayload<{}>;
 
 function XuansSkeleton() {
     const item = (
@@ -39,10 +36,10 @@ function XuansSkeleton() {
     );
 }
 
-async function fetchXuan(): Promise<XuanData[] | null> {
+async function fetchXuan(): Promise<XuanDB[] | null> {
     const data = await request({
-        url: apiMap.XuanController.getXuanList.path,
-        method: apiMap.XuanController.getXuanList.method,
+        url: '/api/database/xuan/list',
+        method: 'get',
         data: {},
         serializer: 'json',
     });
@@ -124,7 +121,7 @@ function XuanSummary({ promise }: { promise: ReturnType<typeof fetchXuan> }) {
     const data = React.use(promise) ?? [];
     const F = 'YYYY-MM-DD';
     const { map, now, yoy, mom, dod, qoq, hyohy } = React.useMemo(() => {
-        const map: Record<string, XuanData> = {};
+        const map: Record<string, XuanDB> = {};
         for (const item of data) {
             map[dayjs(item.date).format(F)] = item;
         }

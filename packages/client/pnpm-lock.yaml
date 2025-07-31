@@ -82,8 +82,6 @@ catalogs:
       specifier: ^4.0.5
       version: 4.0.5
 
-pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
-
 importers:
 
   .:
@@ -335,6 +333,9 @@ importers:
         specifier: 'catalog:'
         version: 4.0.5
     devDependencies:
+      '@bestlyg/server':
+        specifier: workspace:^
+        version: link:../server
       '@tailwindcss/postcss':
         specifier: ^4.1.4
         version: 4.1.11

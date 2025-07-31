@@ -15,7 +15,7 @@ import { ScrollToTop } from '@/components/scroll-to-top';
 import { ArrowUpToLine } from 'lucide-react';
 import { AppSummary } from './app-summary';
 import { AppFooter } from './app-footer';
-import { SidebarGroup, SidebarItem } from '@bestlyg/common';
+import { SidebarGroup, SidebarItem } from '@bestlyg/server/type/index.ts';
 
 export * from './app-header';
 export * from './app-sidebar';
