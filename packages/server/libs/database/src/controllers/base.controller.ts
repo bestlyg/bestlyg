@@ -38,6 +38,7 @@ export abstract class BaseController<Entity extends BaseEntity> {
         opts: BaseOptions,
         options: Parameters<typeof this.service.findOne>[0] = { where: { id: opts.params.id } },
     ) {
+        console.log("FIND", opts, options)
         const data = await this.service.findOne(options);
         return data;
     }

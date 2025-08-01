@@ -21,6 +21,12 @@ export class LeetcodeProblemController extends BaseController<LeetcodeProblem> {
         });
     }
 
+    protected async _findOne(opts: BaseOptions) {
+        return super._findOne(opts, {
+            relations: ['solutions'],
+        });
+    }
+
     protected async _find(opts: BaseOptions) {
         const { name } = opts.query;
         return super._find(opts, {
