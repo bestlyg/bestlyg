@@ -26,6 +26,11 @@
                     "methodName": "findOne",
                     "path": "/:id"
                 },
+                "find": {
+                    "requestMethod": "GET",
+                    "methodName": "find",
+                    "path": "/"
+                },
                 "save": {
                     "requestMethod": "POST",
                     "methodName": "save",
@@ -72,6 +77,11 @@
                     "requestMethod": "GET",
                     "methodName": "findOne",
                     "path": "/:id"
+                },
+                "find": {
+                    "requestMethod": "GET",
+                    "methodName": "find",
+                    "path": "/"
                 },
                 "save": {
                     "requestMethod": "POST",
@@ -120,6 +130,11 @@
                     "methodName": "findOne",
                     "path": "/:id"
                 },
+                "find": {
+                    "requestMethod": "GET",
+                    "methodName": "find",
+                    "path": "/"
+                },
                 "save": {
                     "requestMethod": "POST",
                     "methodName": "save",
@@ -166,6 +181,11 @@
                     "requestMethod": "GET",
                     "methodName": "findOne",
                     "path": "/:id"
+                },
+                "find": {
+                    "requestMethod": "GET",
+                    "methodName": "find",
+                    "path": "/"
                 },
                 "save": {
                     "requestMethod": "POST",
@@ -214,6 +234,11 @@
                     "methodName": "findOne",
                     "path": "/:id"
                 },
+                "find": {
+                    "requestMethod": "GET",
+                    "methodName": "find",
+                    "path": "/"
+                },
                 "save": {
                     "requestMethod": "POST",
                     "methodName": "save",
@@ -260,6 +285,11 @@
                     "requestMethod": "GET",
                     "methodName": "findOne",
                     "path": "/:id"
+                },
+                "find": {
+                    "requestMethod": "GET",
+                    "methodName": "find",
+                    "path": "/"
                 },
                 "save": {
                     "requestMethod": "POST",
@@ -308,6 +338,11 @@
                     "methodName": "findOne",
                     "path": "/:id"
                 },
+                "find": {
+                    "requestMethod": "GET",
+                    "methodName": "find",
+                    "path": "/"
+                },
                 "save": {
                     "requestMethod": "POST",
                     "methodName": "save",
@@ -354,6 +389,11 @@
                     "requestMethod": "GET",
                     "methodName": "findOne",
                     "path": "/:id"
+                },
+                "find": {
+                    "requestMethod": "GET",
+                    "methodName": "find",
+                    "path": "/"
                 },
                 "save": {
                     "requestMethod": "POST",

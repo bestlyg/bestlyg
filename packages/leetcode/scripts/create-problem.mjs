@@ -14,14 +14,15 @@ import axios from 'axios';
 import { problem as problemFromCreate } from './problem.mjs';
 import { username, password } from '../temp/utils.mjs';
 
-axios.defaults.baseURL = 'http://127.0.0.1:10000';
-
 const leetcode = new LeetCode({
     credential: {
         csrf: process.env.BESTLYG_LEETCODE_CSRF,
         session: process.env.BESTLYG_LEETCODE_SESSION,
     },
 });
+
+axios.defaults.baseURL = 'http://127.0.0.1:10000';
+axios.defaults.headers.Authorization = 'Bearer ' + (await login()).accessToken;
 
 let problem = problemFromCreate;
 
@@ -49,26 +50,27 @@ problem.tagList = problemResult.topicTags.map(v => v.translatedName);
 problem.solutions.forEach(s => {
     s.date = best.dayjs(s.date).format(DATE_FORMAT_SOLUTION);
 });
+
 if (problem.exist) {
-    throw new Error('XXX');
     // const problemData = await prisma.leetcodeProblem.findFirst({
     //     where: { name: problem.name },
     // });
 
-    // problemData.tags = problem.tagList;
-    // problemData.level = problem.level;
-    // await prisma.leetcodeProblem.update({ data: problemData, where: { id: problemData.id } });
-    // await prisma.leetcodeSolution.createMany({
-    //     data: problem.solutions.map(({ script, time, memory, desc, code, date }) => ({
-    //         script,
-    //         time,
-    //         memory,
-    //         desc,
-    //         code,
-    //         date: new Date(date),
-    //         leetcodeProblemId: problemData.id,
-    //     })),
-    // });
+    const existProblem = await getProblem(problem.name);
+    console.log('problem', existProblem);
+    const id = existProblem.id;
+
+    await createSolution(
+        problem.solutions.map(({ script, time, memory, desc, code, date }) => ({
+            script,
+            time,
+            memory,
+            desc,
+            code,
+            date: new Date(date),
+            problemId: id,
+        })),
+    );
 } else {
     problem.desc = descFormat(problem.desc);
 
@@ -120,4 +122,28 @@ async function createProblem(problem) {
     });
 
     console.log(resp.data);
+}
+
+async function getProblem(name) {
+    console.log('getProblem');
+
+    const resp = await axios({
+        method: 'get',
+        url: '/api/database/leetcode-problem',
+        params: { name },
+    });
+
+    return resp.data.data;
+}
+
+async function createSolution(solution) {
+    console.log('createSolution');
+
+    const resp = await axios({
+        method: 'post',
+        url: '/api/database/leetcode-solution',
+        data: solution,
+    });
+
+    return resp.data.data;
 }

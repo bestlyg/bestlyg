@@ -82,6 +82,18 @@
             }
         },
         "/api/database/casbin-rule": {
+            "get": {
+                "operationId": "CasbinRuleController_find",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "CasbinRule"
+                ]
+            },
             "post": {
                 "operationId": "CasbinRuleController_save",
                 "parameters": [],
@@ -200,6 +212,18 @@
             }
         },
         "/api/database/ledger": {
+            "get": {
+                "operationId": "LedgerController_find",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Ledger"
+                ]
+            },
             "post": {
                 "operationId": "LedgerController_save",
                 "parameters": [],
@@ -318,6 +342,18 @@
             }
         },
         "/api/database/leetcode-problem": {
+            "get": {
+                "operationId": "LeetcodeProblemController_find",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeProblem"
+                ]
+            },
             "post": {
                 "operationId": "LeetcodeProblemController_save",
                 "parameters": [],
@@ -436,6 +472,18 @@
             }
         },
         "/api/database/leetcode-solution": {
+            "get": {
+                "operationId": "LeetcodeSolutionController_find",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeSolution"
+                ]
+            },
             "post": {
                 "operationId": "LeetcodeSolutionController_save",
                 "parameters": [],
@@ -554,6 +602,18 @@
             }
         },
         "/api/database/secrets": {
+            "get": {
+                "operationId": "SecretsController_find",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Secrets"
+                ]
+            },
             "post": {
                 "operationId": "SecretsController_save",
                 "parameters": [],
@@ -672,6 +732,18 @@
             }
         },
         "/api/database/serverless": {
+            "get": {
+                "operationId": "ServerlessController_find",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
             "post": {
                 "operationId": "ServerlessController_save",
                 "parameters": [],
@@ -790,6 +862,18 @@
             }
         },
         "/api/database/user": {
+            "get": {
+                "operationId": "UserController_find",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
+            },
             "post": {
                 "operationId": "UserController_save",
                 "parameters": [],
@@ -908,6 +992,18 @@
             }
         },
         "/api/database/xuan": {
+            "get": {
+                "operationId": "XuanController_find",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
+            },
             "post": {
                 "operationId": "XuanController_save",
                 "parameters": [],

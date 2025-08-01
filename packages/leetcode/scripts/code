@@ -1,9 +1,6 @@
 class Solution:
-    def doesValidArrayExist(self, derived: List[int]) -> bool:
-        n = len(derived)
-        def run(start: int) -> bool:
-            arr = [start]
-            for i in range(n):
-                arr.append(derived[i] ^ arr[-1])
-            return arr[0] == arr[-1]
-        return run(0) or run(1)
+    def generate(self, numRows: int) -> List[List[int]]:
+        res = [[1], [1, 1]]
+        while len(res) < numRows:
+            res.append([1] + [n1 + n2 for n1, n2 in pairwise(res[-1])] + [1])
+        return res[: numRows]

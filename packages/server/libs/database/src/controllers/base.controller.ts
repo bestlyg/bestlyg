@@ -1,4 +1,15 @@
-import { Body, Delete, Get, Headers, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
+import {
+    Body,
+    Delete,
+    Get,
+    Headers,
+    Param,
+    Patch,
+    Post,
+    Put,
+    Query,
+    UseGuards,
+} from '@nestjs/common';
 import { EntityService } from '@bestlyg-server/database';
 import { PageParam, ResponseEntity } from '@bestlyg/common';
 import { BaseEntity } from '../entities/base.entity';
@@ -15,7 +26,15 @@ export interface BaseOptions {
 export abstract class BaseController<Entity extends BaseEntity> {
     constructor(protected readonly service: EntityService<Entity>) {}
 
-    protected async _select(
+    protected async _find(
+        opts: BaseOptions,
+        options: Parameters<typeof this.service.findOne>[0] = { where: { id: opts.params.id } },
+    ) {
+        const data = await this.service.findOne(options);
+        return data;
+    }
+
+    protected async _findOne(
         opts: BaseOptions,
         options: Parameters<typeof this.service.findOne>[0] = { where: { id: opts.params.id } },
     ) {
@@ -92,7 +111,13 @@ export abstract class BaseController<Entity extends BaseEntity> {
 
     @Get(':id')
     async findOne(@Param() params, @Query() query, @Body() body, @Headers() headers) {
-        const data = await this._select({ params, query, body, headers });
+        const data = await this._findOne({ params, query, body, headers });
+        return ResponseEntity.ofSuccess(data);
+    }
+
+    @Get()
+    async find(@Param() params, @Query() query, @Body() body, @Headers() headers) {
+        const data = await this._find({ params, query, body, headers });
         return ResponseEntity.ofSuccess(data);
     }
 
