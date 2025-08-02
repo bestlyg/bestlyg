@@ -1,6 +1,30 @@
 class Solution:
-    def generate(self, numRows: int) -> List[List[int]]:
-        res = [[1], [1, 1]]
-        while len(res) < numRows:
-            res.append([1] + [n1 + n2 for n1, n2 in pairwise(res[-1])] + [1])
-        return res[: numRows]
+    def minCost(self, basket1: List[int], basket2: List[int]) -> int:
+        c = Counter(basket1 + basket2)
+        for num, cnt in c.items():
+            if cnt % 2 != 0: return -1
+            c[num] //= 2
+        c1 = Counter(basket1)
+        c2 = Counter(basket2)
+        diff1 = Counter()
+        diff2 = Counter()
+        for num, cnt in c.items():
+            if c1[num] > cnt:
+                diff1[num] += c1[num] - cnt
+            elif c1[num] < cnt:
+                diff2[num] += cnt - c1[num]
+        v1 = sorted(diff1.items())
+        v2 = sorted(diff2.items())
+        nmin = min(basket1 + basket2)
+        res1 = 0
+        for num, cnt in v1:
+            while cnt:
+                num2, cnt2 = v2[-1]
+                val = min(num, num2)
+                val_cnt = min(cnt, cnt2)
+                res1 += min(val * val_cnt, val_cnt * nmin * 2)
+                cnt -= val_cnt
+                v2[-1] = (num2, cnt2 - val_cnt)
+                if v2[-1][-1] == 0: v2.pop()
+        return res1
+       
