@@ -26,6 +26,10 @@ export const apiMap = {
             "method": "delete",
             "path": "/api/database/casbin-rule/{id}"
         },
+        "find": {
+            "method": "get",
+            "path": "/api/database/casbin-rule"
+        },
         "save": {
             "method": "post",
             "path": "/api/database/casbin-rule"
@@ -63,6 +67,10 @@ export const apiMap = {
         "delete": {
             "method": "delete",
             "path": "/api/database/ledger/{id}"
+        },
+        "find": {
+            "method": "get",
+            "path": "/api/database/ledger"
         },
         "save": {
             "method": "post",
@@ -102,6 +110,10 @@ export const apiMap = {
             "method": "delete",
             "path": "/api/database/leetcode-problem/{id}"
         },
+        "find": {
+            "method": "get",
+            "path": "/api/database/leetcode-problem"
+        },
         "save": {
             "method": "post",
             "path": "/api/database/leetcode-problem"
@@ -139,6 +151,10 @@ export const apiMap = {
         "delete": {
             "method": "delete",
             "path": "/api/database/leetcode-solution/{id}"
+        },
+        "find": {
+            "method": "get",
+            "path": "/api/database/leetcode-solution"
         },
         "save": {
             "method": "post",
@@ -178,6 +194,10 @@ export const apiMap = {
             "method": "delete",
             "path": "/api/database/secrets/{id}"
         },
+        "find": {
+            "method": "get",
+            "path": "/api/database/secrets"
+        },
         "save": {
             "method": "post",
             "path": "/api/database/secrets"
@@ -215,6 +235,10 @@ export const apiMap = {
         "delete": {
             "method": "delete",
             "path": "/api/database/serverless/{id}"
+        },
+        "find": {
+            "method": "get",
+            "path": "/api/database/serverless"
         },
         "save": {
             "method": "post",
@@ -286,6 +310,10 @@ export const apiMap = {
             "method": "delete",
             "path": "/api/database/user/{id}"
         },
+        "find": {
+            "method": "get",
+            "path": "/api/database/user"
+        },
         "save": {
             "method": "post",
             "path": "/api/database/user"
@@ -323,6 +351,10 @@ export const apiMap = {
         "delete": {
             "method": "delete",
             "path": "/api/database/xuan/{id}"
+        },
+        "find": {
+            "method": "get",
+            "path": "/api/database/xuan"
         },
         "save": {
             "method": "post",

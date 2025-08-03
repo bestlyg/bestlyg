@@ -35,6 +35,12 @@ export const ConfigurationSchema = z
                 iv: z.string().readonly(),
             })
             .required(),
+        auth: z
+            .object({
+                username: z.string().readonly(),
+                password: z.string().readonly(),
+            })
+            .required(),
     })
     .required();
 export type Configuration = z.infer<typeof ConfigurationSchema>;
@@ -42,6 +48,10 @@ export type Configuration = z.infer<typeof ConfigurationSchema>;
 export function getConfiguration() {
     return {
         mode: process.env.NODE_ENV,
+        auth: {
+            username: process.env.BESTLYG_USERNAME,
+            password: process.env.BESTLYG_PASSWORD,
+        },
         server: {
             port: process.env.BESTLYG_SERVER_PORT,
             database: {

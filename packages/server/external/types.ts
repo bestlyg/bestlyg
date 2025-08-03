@@ -11,13 +11,21 @@ import type {
 
 export * from '../libs/database/src/entities/enums';
 
-export type CasbinRule = CasbinRuleEntity;
-export type LeetcodeProblem = LeetcodeProblemEntity;
-export type LeetcodeSolution = LeetcodeSolutionEntity;
-export type Ledger = LedgerEntity;
-export type Secrets = SecretsEntity;
-export type Serverless = ServerlessEntity;
-export type User = UserEntity;
-export type Xuan = XuanEntity;
+type ConvertDateToUnion<T> = {
+    [K in keyof T]: T[K] extends Date
+        ? Date | string // 如果是Date类型，转换为Date | string
+        : T[K] extends object
+          ? ConvertDateToUnion<T[K]> // 如果是对象，递归处理
+          : T[K]; // 其他类型保持不变
+};
+
+export type CasbinRule = ConvertDateToUnion<CasbinRuleEntity>;
+export type LeetcodeProblem = ConvertDateToUnion<LeetcodeProblemEntity>;
+export type LeetcodeSolution = ConvertDateToUnion<LeetcodeSolutionEntity>;
+export type Ledger = ConvertDateToUnion<LedgerEntity>;
+export type Secrets = ConvertDateToUnion<SecretsEntity>;
+export type Serverless = ConvertDateToUnion<ServerlessEntity>;
+export type User = ConvertDateToUnion<UserEntity>;
+export type Xuan = ConvertDateToUnion<XuanEntity>;
 
 export * from '../libs/api/src/api.dto';
