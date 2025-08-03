@@ -71,6 +71,10 @@ if (problem.exist) {
             problemId: id,
         })),
     );
+
+    delete problem.solutions;
+
+    await updateProblem(problem);
 } else {
     problem.desc = descFormat(problem.desc);
 
@@ -131,6 +135,19 @@ async function getProblem(name) {
         method: 'get',
         url: '/api/database/leetcode-problem',
         params: { name },
+    });
+
+    return resp.data.data;
+}
+
+async function updateProblem(problem) {
+    console.log('updateProblem');
+    console.log(JSON.stringify(problem, null, 4));
+
+    const resp = await axios({
+        method: 'patch',
+        url: '/api/database/leetcode-problem/' + problem.id,
+        data: problem,
     });
 
     return resp.data.data;
