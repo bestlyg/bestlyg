@@ -1,35 +1,16 @@
 class Solution:
-    def maxTotalFruits(self, fruits: List[List[int]], startPos: int, k: int) -> int:
-        fruits = [[-inf, 0]] + fruits + [[inf, 0]]
+    def totalFruit(self, fruits: List[int]) -> int:
+        c = Counter()
+        n = len(fruits)
+        cnt = 0
+        l = -1
         res = 0
-        idx = bisect_right(fruits, [startPos, inf])
-        lidx = idx - 1
-        ridx = idx - 1
-        cur = 0
-        while k - (fruits[ridx + 1][0] - startPos) >= 0:
-            cur += fruits[ridx + 1][1]
-            ridx += 1
-        res = max(res, cur)
-        while k - (startPos - fruits[lidx][0]) >= 0:
-            cur += fruits[lidx][1]
-            while fruits[ridx][0] - startPos > k - (startPos - fruits[lidx][0]) * 2:
-                cur -= fruits[ridx][1]
-                ridx -= 1
-            lidx -= 1
-            res = max(res, cur)
-
-        lidx = idx
-        ridx = idx
-        cur = 0
-        while fruits[lidx - 1][0] != -inf and k - (startPos - fruits[lidx - 1][0]) >= 0:
-            cur += fruits[lidx - 1][1]
-            lidx -= 1
-        res = max(res, cur)
-        while fruits[ridx][0] != inf and k - (startPos - fruits[ridx][0]) >= 0:
-            cur += fruits[ridx][1]
-            while startPos - fruits[lidx][0] > k - (fruits[ridx][0] - startPos) * 2:
-                cur -= fruits[lidx][1]
-                lidx += 1
-            ridx += 1
-            res = max(res, cur)
+        for r in range(n):
+            c[fruits[r]] += 1
+            if c[fruits[r]] == 1: cnt += 1
+            while cnt > 2:
+                c[fruits[l + 1]] -= 1
+                if c[fruits[l + 1]] == 0: cnt -= 1
+                l += 1
+            res = max(res, r - l)
         return res

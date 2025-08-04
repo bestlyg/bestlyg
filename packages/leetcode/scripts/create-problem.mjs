@@ -74,7 +74,7 @@ if (problem.exist) {
 
     delete problem.solutions;
 
-    await updateProblem(problem);
+    await updateProblem(existProblem.id, problem);
 } else {
     problem.desc = descFormat(problem.desc);
 
@@ -140,13 +140,13 @@ async function getProblem(name) {
     return resp.data.data;
 }
 
-async function updateProblem(problem) {
+async function updateProblem(id, problem) {
     console.log('updateProblem');
     console.log(JSON.stringify(problem, null, 4));
 
     const resp = await axios({
         method: 'patch',
-        url: '/api/database/leetcode-problem/' + problem.id,
+        url: '/api/database/leetcode-problem/' + id,
         data: problem,
     });
 
@@ -155,6 +155,7 @@ async function updateProblem(problem) {
 
 async function createSolution(solution) {
     console.log('createSolution');
+    console.log(JSON.stringify(solution, null, 4));
 
     const resp = await axios({
         method: 'post',
