@@ -1,16 +1,13 @@
 class Solution:
-    def totalFruit(self, fruits: List[int]) -> int:
-        c = Counter()
-        n = len(fruits)
-        cnt = 0
-        l = -1
+    def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
         res = 0
-        for r in range(n):
-            c[fruits[r]] += 1
-            if c[fruits[r]] == 1: cnt += 1
-            while cnt > 2:
-                c[fruits[l + 1]] -= 1
-                if c[fruits[l + 1]] == 0: cnt -= 1
-                l += 1
-            res = max(res, r - l)
+        used = set()
+        for fruit in fruits:
+            f = False
+            for i in range(len(baskets)):
+                if baskets[i] >= fruit and i not in used:
+                    used.add(i)
+                    f = True
+                    break
+            if not f: res += 1
         return res
