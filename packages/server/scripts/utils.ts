@@ -1,7 +1,7 @@
 import '@bestlyg/cli/globals';
 import dayjs from 'dayjs';
 import axios, { AxiosInstance } from 'axios';
-import { Xuan } from '../external';
+import { Ledger, Xuan } from '../external';
 
 const { config } = best;
 
@@ -30,5 +30,10 @@ export const yesterday = nDaysAgo(1);
 
 export async function createXuanData(request: AxiosInstance, dataList: Partial<Xuan>[]) {
     const res = await request.post('/api/database/xuan', dataList);
+    return res.data.data;
+}
+
+export async function createLedger(request: AxiosInstance, dataList: Partial<Ledger>[]) {
+    const res = await request.post('/api/database/ledger', dataList);
     return res.data.data;
 }

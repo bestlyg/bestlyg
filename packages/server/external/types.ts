@@ -19,13 +19,13 @@ type ConvertDateToUnion<T> = {
           : T[K]; // 其他类型保持不变
 };
 
-export type CasbinRule = ConvertDateToUnion<CasbinRuleEntity>;
-export type LeetcodeProblem = ConvertDateToUnion<LeetcodeProblemEntity>;
-export type LeetcodeSolution = ConvertDateToUnion<LeetcodeSolutionEntity>;
-export type Ledger = ConvertDateToUnion<LedgerEntity>;
-export type Secrets = ConvertDateToUnion<SecretsEntity>;
-export type Serverless = ConvertDateToUnion<ServerlessEntity>;
-export type User = ConvertDateToUnion<UserEntity>;
-export type Xuan = ConvertDateToUnion<XuanEntity>;
+export type CasbinRule = Partial<ConvertDateToUnion<CasbinRuleEntity>>;
+export type LeetcodeProblem = Partial<ConvertDateToUnion<LeetcodeProblemEntity>>;
+export type LeetcodeSolution = Partial<ConvertDateToUnion<LeetcodeSolutionEntity>>;
+export type Ledger = Partial<ConvertDateToUnion<LedgerEntity>>;
+export type Secrets = Partial<ConvertDateToUnion<SecretsEntity>>;
+export type Serverless = Partial<ConvertDateToUnion<ServerlessEntity>>;
+export type User = Partial<ConvertDateToUnion<UserEntity>>;
+export type Xuan = Partial<ConvertDateToUnion<XuanEntity>>;
 
 export * from '../libs/api/src/api.dto';
