@@ -4,19 +4,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '3477. 水果成篮 II',
-    url: 'https://leetcode.cn/problems/fruits-into-baskets-ii',
+    exist: true,
+    name: '808. 分汤',
+    url: 'https://leetcode.cn/problems/soup-servings',
     level: 'Easy',
     tagList: [],
-    desc: `返回所有可能分配完成后，剩余未放置的水果种类的数量。`,
+    desc: `返回汤 A 在 B 前耗尽的概率，加上两种汤在 同一回合 耗尽概率的一半。返回值在正确答案 10-5 的范围内将被认为是正确的。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 40,
-            memory: 17.8,
-            desc: '遍历',
+            time: 4,
+            memory: 9.3,
+            desc: 'dfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

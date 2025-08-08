@@ -1,13 +1,15 @@
 class Solution:
-    def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
-        res = 0
-        used = set()
-        for fruit in fruits:
-            f = False
-            for i in range(len(baskets)):
-                if baskets[i] >= fruit and i not in used:
-                    used.add(i)
-                    f = True
-                    break
-            if not f: res += 1
-        return res
+    def soupServings(self, n: int) -> float:
+        if n >= 5000: return 1.0
+        @cache
+        def run(a: int, b: int) -> int:
+            if a <= 0 and b <= 0: return 0.5
+            if a <= 0: return 1.0
+            if b <= 0: return 0.0
+            return (
+                run(a - 100, b) +
+                run(a - 75, b - 25) +
+                run(a - 50, b - 50) +
+                run(a - 25, b - 75)
+            ) / 4
+        return run(n, n)
