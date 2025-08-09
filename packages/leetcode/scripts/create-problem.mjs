@@ -68,11 +68,15 @@ if (problem.exist) {
             desc,
             code,
             date: new Date(date),
-            problemId: id,
+            problem: { id },
         })),
     );
 
     delete problem.solutions;
+    delete problem.exist;
+    problem.tags = problem.tagList;
+    delete problem.tagList;
+    delete problem.id;
 
     await updateProblem(existProblem.id, problem);
 } else {
