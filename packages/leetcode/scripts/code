@@ -1,4 +1,9 @@
+arr = [Counter(str(2 ** i)) for i in range(30)]
+
 class Solution:
-    def isPowerOfTwo(self, n: int) -> bool:
-        if n < 0: return False
-        return bin(n).count('1') == 1
+    def reorderedPowerOf2(self, n: int) -> bool:
+        c1 = Counter(str(n))
+        for c2 in arr:
+            if c1 == c2:
+                return True
+        return False
