@@ -1,9 +1,8 @@
-arr = [Counter(str(2 ** i)) for i in range(30)]
-
 class Solution:
-    def reorderedPowerOf2(self, n: int) -> bool:
-        c1 = Counter(str(n))
-        for c2 in arr:
-            if c1 == c2:
-                return True
-        return False
+    def productQueries(self, n: int, queries: List[List[int]]) -> List[int]:
+        mod = 10 ** 9 + 7
+        arr = [1 << i for i in range(32) if n & (1 << i)]
+        sums = [1]
+        for num in arr:
+            sums.append(num * sums[-1])
+        return [sums[end + 1] // sums[start] % mod for start, end in queries]
