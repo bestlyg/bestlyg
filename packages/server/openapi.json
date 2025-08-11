@@ -275,6 +275,29 @@
                 ]
             }
         },
+        "/api/database/leetcode-problem/slug/{slug}": {
+            "post": {
+                "operationId": "LeetcodeProblemController_createWithSlug",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeProblem"
+                ]
+            }
+        },
         "/api/database/leetcode-problem/list": {
             "get": {
                 "operationId": "LeetcodeProblemController_findList",

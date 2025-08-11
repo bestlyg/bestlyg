@@ -90,6 +90,10 @@ export const apiMap = {
         }
     },
     "LeetcodeProblemController": {
+        "createWithSlug": {
+            "method": "post",
+            "path": "/api/database/leetcode-problem/slug/{id}"
+        },
         "findList": {
             "method": "get",
             "path": "/api/database/leetcode-problem/list"

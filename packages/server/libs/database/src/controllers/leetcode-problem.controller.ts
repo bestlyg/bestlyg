@@ -1,11 +1,16 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Param, Post } from '@nestjs/common';
 import { BaseController, BaseOptions } from './base.controller';
 import { LeetcodeProblem } from '../entities';
 import { LeetcodeProblemService } from '../services';
+import { LeetCodeService } from '@bestlyg-server/common';
+import { ResponseEntity } from '@bestlyg/common';
 
 @Controller('/database/leetcode-problem')
 export class LeetcodeProblemController extends BaseController<LeetcodeProblem> {
-    constructor(readonly service: LeetcodeProblemService) {
+    constructor(
+        readonly service: LeetcodeProblemService,
+        private readonly leetcodeService: LeetCodeService,
+    ) {
         super(service);
     }
 
@@ -33,5 +38,13 @@ export class LeetcodeProblemController extends BaseController<LeetcodeProblem> {
             relations: ['solutions'],
             where: { name },
         });
+    }
+
+    @Post('/slug/:slug')
+    async createWithSlug(@Param('slug') slug: string) {
+        console.log('logger', slug);
+        const leetcode = await this.leetcodeService.getProblem(slug);
+        console.log(leetcode);
+        return ResponseEntity.ofSuccess(true);
     }
 }

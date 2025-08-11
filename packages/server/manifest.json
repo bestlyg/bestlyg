@@ -115,6 +115,11 @@
                 }
             },
             "LeetcodeProblemController": {
+                "createWithSlug": {
+                    "requestMethod": "POST",
+                    "methodName": "createWithSlug",
+                    "path": "/slug/:slug"
+                },
                 "findList": {
                     "requestMethod": "GET",
                     "methodName": "findList",

@@ -41,6 +41,10 @@ export const ConfigurationSchema = z
                 password: z.string().readonly(),
             })
             .required(),
+        leetcode: z.object({
+            csrf: z.string().readonly(),
+            session: z.string().readonly(),
+        }),
     })
     .required();
 export type Configuration = z.infer<typeof ConfigurationSchema>;
@@ -75,6 +79,10 @@ export function getConfiguration() {
         aes: {
             key: process.env.BESTLYG_AES_KEY,
             iv: process.env.BESTLYG_AES_IV,
+        },
+        leetcode: {
+            csrf: process.env.BESTLYG_LEETCODE_CSRF,
+            session: process.env.BESTLYG_LEETCODE_SESSION,
         },
     };
 }
