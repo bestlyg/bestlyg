@@ -5,18 +5,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2438. 二的幂数组中查询范围内的乘积',
-    url: 'https://leetcode.cn/problems/range-product-queries-of-powers',
+    name: '2787. 将一个数字表示成幂的和的方案数',
+    url: 'https://leetcode.cn/problems/ways-to-express-an-integer-as-sum-of-powers',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回一个数组 answers ，长度与 queries 的长度相同，其中 answers[i]是第 i 个查询的答案。由于查询的结果可能非常大，请你将每个 answers[i] 都对 109 + 7 取余 。`,
+    desc: `给你两个 正 整数 n 和 x 。请你返回将 n 表示成一些 互不相同 正整数的 x 次幂之和的方案数。换句话说，你需要返回互不相同整数 [n1, n2, ..., nk] 的集合数目，满足 n = n1x + n2x + ... + nkx 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 47,
-            memory: 47.24,
-            desc: '对n的每一个1位进行记录',
+            time: 2072,
+            memory: 664.86,
+            desc: 'dfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
