@@ -1,9 +1,8 @@
 class Solution:
-    def numberOfWays(self, n: int, x: int) -> int:
-        @cache
-        def dfs(num: int, cur: int) -> int:
-            val = num ** x
-            if val > cur: return 0
-            if val == cur: return 1
-            return dfs(num + 1, cur) + dfs(num + 1, cur - val)
-        return dfs(1, n) % (10 ** 9 + 7)
+    def isPowerOfThree(self, n: int) -> bool:
+        i = 0
+        while True:
+            num = 3 ** i
+            if num > n: return False
+            if num == n: return True
+            i += 1
