@@ -1,8 +1,3 @@
 class Solution:
-    def checkPowersOfThree(self, n: int) -> bool:
-        @cache
-        def dfs(num: int, cur: int) -> bool:
-          if 3 ** num > cur: return False
-          if 3 ** num == cur: return True
-          return dfs(num + 1, cur - 3 ** num) or dfs(num + 1, cur)
-        return dfs(0, n)
+    def isPowerOfFour(self, n: int) -> bool:
+        return n > 0 and n.bit_count() == 1 and sqrt(n) ** 2 == n

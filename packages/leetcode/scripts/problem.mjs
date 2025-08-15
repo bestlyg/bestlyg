@@ -5,18 +5,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: true,
-    name: '1780. 判断一个数字是否可以表示成三的幂的和',
-    url: 'https://leetcode.cn/problems/check-if-number-is-a-sum-of-powers-of-three',
+    name: '342. 4的幂',
+    url: 'https://leetcode.cn/problems/power-of-four',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数 n ，如果你可以将 n 表示成若干个不同的三的幂之和，请你返回 true ，否则请返回 false 。对于一个整数 y ，如果存在整数 x 满足 y == 3x ，我们称这个整数 y 是三的幂。`,
+    desc: `给定一个整数，写一个函数来判断它是否是 4 的幂次方。如果是，返回 true ；否则，返回 false 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 744,
-            memory: 231.39,
-            desc: 'dfs',
+            time: 0,
+            memory: 17.36,
+            desc: '判断他是大于0的且开根号后是个整数的且二进制只有一个1的数',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
