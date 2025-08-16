@@ -4,19 +4,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '342. 4的幂',
-    url: 'https://leetcode.cn/problems/power-of-four',
+    exist: !true,
+    name: '1323. 6 和 9 组成的最大数字',
+    url: 'https://leetcode.cn/problems/maximum-69-number',
     level: 'Easy',
     tagList: [],
-    desc: `给定一个整数，写一个函数来判断它是否是 4 的幂次方。如果是，返回 true ；否则，返回 false 。`,
+    desc: `给你一个仅由数字 6 和 9 组成的正整数 num。你最多只能翻转一位数字，将 6 变成 9，或者把 9 变成 6 。请返回你可以得到的最大数字。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
             time: 0,
             memory: 17.36,
-            desc: '判断他是大于0的且开根号后是个整数的且二进制只有一个1的数',
+            desc: '找最近的6变成9',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
