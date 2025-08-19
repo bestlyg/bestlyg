@@ -5,18 +5,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1323. 6 和 9 组成的最大数字',
-    url: 'https://leetcode.cn/problems/maximum-69-number',
+    name: '2348. 全 0 子数组的数目',
+    url: 'https://leetcode.cn/problems/number-of-zero-filled-subarrays',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个仅由数字 6 和 9 组成的正整数 num。你最多只能翻转一位数字，将 6 变成 9，或者把 9 变成 6 。请返回你可以得到的最大数字。`,
+    desc: `给你一个整数数组 nums ，返回全部为 0 的 子数组 数目。子数组 是一个数组中一段连续非空元素组成的序列。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 0,
-            memory: 17.36,
-            desc: '找最近的6变成9',
+            time: 60,
+            memory: 27.88,
+            desc: '遍历所有的0',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
