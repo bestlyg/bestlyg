@@ -5,18 +5,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2348. 全 0 子数组的数目',
-    url: 'https://leetcode.cn/problems/number-of-zero-filled-subarrays',
+    name: '1277. 统计全为 1 的正方形子矩阵',
+    url: 'https://leetcode.cn/problems/count-square-submatrices-with-all-ones',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 nums ，返回全部为 0 的 子数组 数目。子数组 是一个数组中一段连续非空元素组成的序列。`,
+    desc: `给你一个 m * n 的矩阵，矩阵中的元素不是 0 就是 1，请你统计并返回其中完全由 1 组成的 正方形 子矩阵的个数。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 60,
-            memory: 27.88,
-            desc: '遍历所有的0',
+            time: 163,
+            memory: 22.04,
+            desc: '前缀和记录以当前点为结尾的总和',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

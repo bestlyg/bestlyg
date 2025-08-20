@@ -1,15 +1,22 @@
 class Solution:
-    def zeroFilledSubarray(self, nums: List[int]) -> int:
+    def countSquares(self, matrix: List[List[int]]) -> int:
+        n = len(matrix)
+        m = len(matrix[0])
+        sums = [[0] * (m + 1) for i in range(n + 1)]
+        for i in range(n):
+            for j in range(m):
+                sums[i + 1][j + 1] = sums[i][j + 1] + sums[i + 1][j] - sums[i][j] + matrix[i][j]
+        for item in sums: print(item)
         res = 0
-        n = len(nums)
-        i = 0
-        while i < n:
-            if nums[i] == 0:
-                cnt = 1
-                res += cnt
-                while i + 1 < n and nums[i + 1] == 0:
-                    i += 1
-                    cnt += 1
-                    res += cnt
-            i += 1
+        for i in range(n):
+            for j in range(m):
+                ni = i
+                nj = j
+                while ni < n and nj < m:
+                    if matrix[ni][nj] == 0: break
+                    num = sums[ni + 1][nj + 1] - sums[i][nj + 1] - sums[ni + 1][j] + sums[i][j]
+                    if int(num ** 0.5) ** 2 != num: break
+                    res += 1
+                    ni += 1
+                    nj += 1
         return res
