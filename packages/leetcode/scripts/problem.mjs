@@ -5,18 +5,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1277. 统计全为 1 的正方形子矩阵',
-    url: 'https://leetcode.cn/problems/count-square-submatrices-with-all-ones',
+    name: '3195. 包含所有 1 的最小矩形面积 I',
+    url: 'https://leetcode.cn/problems/find-the-minimum-area-to-cover-all-ones-i',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个 m * n 的矩阵，矩阵中的元素不是 0 就是 1，请你统计并返回其中完全由 1 组成的 正方形 子矩阵的个数。`,
+    desc: `给你一个二维 二进制 数组 grid。请你找出一个边在水平方向和竖直方向上、面积 最小 的矩形，并且满足 grid 中所有的 1 都在矩形的内部。返回这个矩形可能的 最小 面积。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 163,
-            memory: 22.04,
-            desc: '前缀和记录以当前点为结尾的总和',
+            time: 549,
+            memory: 53.89,
+            desc: '记录存在1的最大边界',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
