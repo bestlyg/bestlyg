@@ -3,12 +3,17 @@ import { parseMarkdown, MailService } from '@bestlyg-server/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { execSync } from 'child_process';
+import { ConfigService } from '@nestjs/config';
+import { Configuration } from '@bestlyg/common/server';
 
 @Injectable()
 export class TasksService {
     private readonly logger = new Logger(TasksService.name);
 
-    constructor(private readonly mailService: MailService) {}
+    constructor(
+        private readonly mailService: MailService,
+        private readonly configService: ConfigService,
+    ) {}
 
     async sendMailToLyg(name: string, content: string) {
         await this.mailService.sendMail(['1057966749@qq.com'], `定时提醒-${name}`, content);
@@ -19,6 +24,8 @@ export class TasksService {
 
     @Cron('0 0 0 * * *')
     async backupDB() {
+        const mod: Configuration['mode'] = this.configService.get('mode')!;
+        if (mod !== 'production') return;
         const cmd = `PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f /root/best_data.sql best_data -c`;
         this.logger.log(`backup: ${cmd}`);
         execSync(cmd);
