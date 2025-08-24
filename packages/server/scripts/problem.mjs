@@ -1,0 +1,23 @@
+import '@bestlyg/cli/globals';
+import { PATH_CODE } from '@bestlyg/leetcode';
+
+// /** @type {import("../dist/types").LeetCodeProblem} */
+/** @type {Problem} */
+export const problem = {
+    exist: !true,
+    name: '1493. 删掉一个元素以后全为 1 的最长子数组',
+    url: 'https://leetcode.cn/problems/longest-subarray-of-1s-after-deleting-one-element',
+    level: 'Easy',
+    tagList: [],
+    desc: `给你一个二进制数组 nums ，你需要从中删掉一个元素。请你在删掉元素的结果数组中，返回最长的且只包含 1 的非空子数组的长度。如果不存在这样的子数组，请返回 0 。`,
+    solutions: [
+        {
+            script: 'python',
+            // date: '2025.05.24',
+            time: 74,
+            memory: 21.20,
+            desc: '滑动窗口',
+            code: await fs.readFile(PATH_CODE, 'utf8'),
+        },
+    ],
+};
