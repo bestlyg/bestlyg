@@ -1,12 +1,11 @@
 class Solution:
-    def minimumArea(self, grid: List[List[int]]) -> int:
-        t = l = inf
-        b = r = -inf
-        for i in range(len(grid)):
-            for j in range(len(grid[i])):
-                if grid[i][j] == 1:
-                    t = min(t, i)
-                    l = min(l, j)
-                    b = max(b, i)
-                    r = max(r, j)
-        return (b - t + 1) * (r - l + 1)
+    def longestSubarray(self, nums: List[int]) -> int:
+        n = len(nums)
+        l = c0 = res = 0
+        for r in range(n):
+            c0 += nums[r] == 0
+            while c0 == 2:
+                c0 -= nums[l] == 0
+                l += 1
+            res = max(res, r - l)
+        return res
