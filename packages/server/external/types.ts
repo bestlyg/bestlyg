@@ -37,3 +37,5 @@ export type User = Partial<ConvertDateToUnion<UserEntity>>;
 export type Xuan = Partial<ConvertDateToUnion<XuanEntity>>;
 
 export * from '../libs/api/src/api.dto';
+
+export { defineConfig, BestlygConfig } from '../libs/common/src/config/utils';
