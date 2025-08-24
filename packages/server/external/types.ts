@@ -20,8 +20,16 @@ type ConvertDateToUnion<T> = {
 };
 
 export type CasbinRule = Partial<ConvertDateToUnion<CasbinRuleEntity>>;
-export type LeetcodeProblem = Partial<ConvertDateToUnion<LeetcodeProblemEntity>>;
-export type LeetcodeSolution = Partial<ConvertDateToUnion<LeetcodeSolutionEntity>>;
+export type LeetcodeProblem = Omit<
+    Partial<ConvertDateToUnion<LeetcodeProblemEntity>>,
+    'solutions'
+> & {
+    solutions: Omit<LeetcodeSolution, 'problem'>[];
+};
+export type LeetcodeSolution = Omit<
+    Partial<ConvertDateToUnion<LeetcodeSolutionEntity>>,
+    'problem'
+> & { problem: { id: string } };
 export type Ledger = Partial<ConvertDateToUnion<LedgerEntity>>;
 export type Secrets = Partial<ConvertDateToUnion<SecretsEntity>>;
 export type Serverless = Partial<ConvertDateToUnion<ServerlessEntity>>;

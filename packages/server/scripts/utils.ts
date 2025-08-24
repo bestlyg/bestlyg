@@ -1,7 +1,7 @@
 import '@bestlyg/cli/globals';
 import dayjs from 'dayjs';
 import axios, { AxiosInstance } from 'axios';
-import { Ledger, Xuan } from '../external';
+import { Ledger, LeetcodeProblem, Xuan, LeetcodeSolution } from '../external';
 
 const { config } = best;
 
@@ -36,4 +36,47 @@ export async function createXuanData(request: AxiosInstance, dataList: Partial<X
 export async function createLedger(request: AxiosInstance, dataList: Partial<Ledger>[]) {
     const res = await request.post('/api/database/ledger', dataList);
     return res.data.data;
+}
+
+export async function createProblem(request: AxiosInstance, problem: Partial<LeetcodeProblem[]>) {
+    console.log('CreateProblem');
+    console.log(JSON.stringify(problem, null, 4));
+    const resp = await request.post('/api/database/leetcode-problem', problem);
+    console.log(resp.data);
+    return resp.data.data;
+}
+
+export async function getProblem(request: AxiosInstance, name: string) {
+    console.log('getProblem');
+
+    const resp = await request.get('/api/database/leetcode-problem', {
+        params: { name },
+    });
+
+    return resp.data.data;
+}
+
+export async function updateProblem(
+    request: AxiosInstance,
+    id: string,
+    problem: Partial<LeetcodeProblem>,
+) {
+    console.log('updateProblem');
+    console.log(JSON.stringify(problem, null, 4));
+
+    const resp = await request.patch('/api/database/leetcode-problem/' + id, problem);
+
+    return resp.data.data;
+}
+
+export async function createSolution(
+    request: AxiosInstance,
+    solution: Partial<LeetcodeSolution[]>,
+) {
+    console.log('createSolution');
+    console.log(JSON.stringify(solution, null, 4));
+
+    const resp = await request.post('/api/database/leetcode-solution', solution);
+
+    return resp.data.data;
 }
