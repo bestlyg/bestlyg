@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { getDirNameFromProblemName, dirSort, problemSort } from '@bestlyg/leetcode';
-import { resolve } from '@bestlyg-server/common';
+import { resolve, leetcode } from '@bestlyg-server/common';
 import { LeetcodeProblemService } from '@bestlyg-server/database';
 import fs from 'fs-extra';
 import path from 'path';
@@ -80,7 +79,7 @@ export class ClientService {
         const problems = await this.leetcodeService.find({ relations: ['solutions'] });
         const groups: NonNullable<Sidebar['groups']> = [];
         for (const problem of problems) {
-            const dirName = getDirNameFromProblemName(problem.name);
+            const dirName = leetcode.getDirNameFromProblemName(problem.name);
             let group = groups.find(v => v.name === dirName);
             if (!group) groups.push((group = { name: dirName, items: [] }));
             group.items?.push({
@@ -88,8 +87,8 @@ export class ClientService {
                 link: `/leetcode/${dirName}/${problem.name}`,
             });
         }
-        groups.map(({ items }) => items?.sort((a, b) => problemSort(a.name, b.name)));
-        groups.sort((a, b) => dirSort(a.name, b.name));
+        groups.map(({ items }) => items?.sort((a, b) => leetcode.problemSort(a.name, b.name)));
+        groups.sort((a, b) => leetcode.dirSort(a.name, b.name));
         return {
             groups: [
                 {

@@ -2,14 +2,14 @@ import { Controller, Param, Post } from '@nestjs/common';
 import { BaseController, BaseOptions } from './base.controller';
 import { LeetcodeProblem } from '../entities';
 import { LeetcodeProblemService } from '../services';
-import { LeetCodeService } from '@bestlyg-server/common';
+import { leetcode } from '@bestlyg-server/common';
 import { ResponseEntity } from '@bestlyg/common';
 
 @Controller('/database/leetcode-problem')
 export class LeetcodeProblemController extends BaseController<LeetcodeProblem> {
     constructor(
         readonly service: LeetcodeProblemService,
-        private readonly leetcodeService: LeetCodeService,
+        private readonly leetcodeService: leetcode.LeetCodeService,
     ) {
         super(service);
     }
