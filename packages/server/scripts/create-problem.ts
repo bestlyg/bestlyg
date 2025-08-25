@@ -7,7 +7,7 @@ import '@bestlyg/cli/globals';
 import axios from 'axios';
 import { problem as problemFromCreate } from './problem';
 import { getDirNameFromProblemName, getTitleSlugFromURL, DATE_FORMAT_SOLUTION } from '../external';
-import { getProblem, createRequest, createSolution, createProblem, updateProblem } from './utils';
+import { getProblem, createRequest, createSolution, createProblem, updateProblem, getProblemWithSlug } from './utils';
 
 function descFormat(str: string) {
     return str.endsWith('。') ? str : str + '。';
@@ -23,7 +23,8 @@ async function main() {
     // const filePath = resolve(PATH_DATA, dirName, problem.name + '.json');
 
     const titleSlug = getTitleSlugFromURL(problem.url!);
-    const problemResult = await getProblem(request, titleSlug);
+    const problemResult = await getProblemWithSlug(request, titleSlug);
+    console.log('problemResult', problemResult);
     problem.id = problemResult.questionId;
     problem.name = (problemResult.questionFrontendId + '.' + problemResult.translatedTitle).replace(
         / /g,

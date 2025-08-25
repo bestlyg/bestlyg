@@ -44,7 +44,6 @@ export class LeetcodeProblemController extends BaseController<LeetcodeProblem> {
     async createWithSlug(@Param('slug') slug: string) {
         console.log('logger', slug);
         const leetcode = await this.leetcodeService.getProblem(slug);
-        console.log(leetcode);
-        return ResponseEntity.ofSuccess(true);
+        return ResponseEntity.ofSuccess(leetcode);
     }
 }

@@ -56,6 +56,14 @@ export async function getProblem(request: AxiosInstance, name: string) {
     return resp.data.data;
 }
 
+export async function getProblemWithSlug(request: AxiosInstance, slug: string) {
+    console.log('getProblem');
+
+    const resp = await request.post('/api/database/leetcode-problem/slug/' + slug);
+
+    return resp.data.data;
+}
+
 export async function updateProblem(
     request: AxiosInstance,
     id: string,
