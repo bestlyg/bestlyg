@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: true,
-    name: '498. 对角线遍历',
-    url: 'https://leetcode.cn/problems/diagonal-traverse',
+    exist: !true,
+    name: '3446. 按对角线进行矩阵排序',
+    url: 'https://leetcode.cn/problems/sort-matrix-by-diagonals',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个大小为 m x n 的矩阵 mat ，请以对角线遍历的顺序，用一个数组返回这个矩阵中的所有元素。`,
+    desc: `给你一个大小为 n x n 的整数方阵 grid。返回一个经过如下调整的矩阵：左下角三角形（包括中间对角线）的对角线按 非递增顺序 排序。右上角三角形 的对角线按 非递减顺序 排序。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 15,
-            memory: 20.45,
-            desc: '遍历',
+            time: 4,
+            memory: 17.61,
+            desc: '按照斜线遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
