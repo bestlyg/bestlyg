@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3446. 按对角线进行矩阵排序',
-    url: 'https://leetcode.cn/problems/sort-matrix-by-diagonals',
+    name: '3021. Alice 和 Bob 玩鲜花游戏',
+    url: 'https://leetcode.cn/problems/alice-and-bob-playing-flower-game',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个大小为 n x n 的整数方阵 grid。返回一个经过如下调整的矩阵：左下角三角形（包括中间对角线）的对角线按 非递增顺序 排序。右上角三角形 的对角线按 非递减顺序 排序。`,
+    desc: `请你返回满足题目描述的数对 (x, y) 的数目。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 4,
-            memory: 17.61,
-            desc: '按照斜线遍历',
+            time: 0,
+            memory: 17.69,
+            desc: '如果是奇数，alice就能赢',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

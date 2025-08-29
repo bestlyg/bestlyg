@@ -1,24 +1,13 @@
+def count_odds(n: int):
+    if n % 2 != 0: n += 1
+    return n // 2
 class Solution:
-    def sortMatrix(self, grid: List[List[int]]) -> List[List[int]]:
-        n = len(grid)
-        def run(i: int, j: int, r: bool):
-            arr = []
-            ni = i
-            nj = j
-            while ni < n and nj < n:
-                arr.append(grid[ni][nj])
-                ni += 1
-                nj += 1
-            arr.sort(reverse = r)
-            ni -= 1
-            nj -= 1
-            while ni >= 0 and nj >= 0:
-                grid[ni][nj] = arr.pop()
-                ni -= 1
-                nj -= 1
-
-        for start in range(n):
-            if start + 1 < n:
-                run(0, start + 1, False)
-            run(start, 0, True)
-        return grid
+    def flowerGame(self, n: int, m: int) -> int:
+        res = 0
+        nodd = count_odds(n)
+        neven = n - nodd
+        modd = count_odds(m)
+        meven = m - modd
+        res += nodd * meven
+        res += neven * modd
+        return res
