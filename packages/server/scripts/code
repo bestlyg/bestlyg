@@ -1,13 +1,26 @@
-def count_odds(n: int):
-    if n % 2 != 0: n += 1
-    return n // 2
+def validate(board: List[List[str]], si: int, sj: int, ei: int, ej: int) -> bool:
+    s = set()
+    for i in range(si, ei):
+        for j in range(sj, ej):
+            if board[i][j] != '.':
+                if board[i][j] in s:
+                    return False
+                else:
+                    s.add(board[i][j])
+    return True
+
+N = 9
+
 class Solution:
-    def flowerGame(self, n: int, m: int) -> int:
-        res = 0
-        nodd = count_odds(n)
-        neven = n - nodd
-        modd = count_odds(m)
-        meven = m - modd
-        res += nodd * meven
-        res += neven * modd
-        return res
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        for i in range(N):
+            if not validate(board, i, 0, i + 1, N):
+                return False
+        for j in range(N):
+            if not validate(board, 0, j, N, j + 1):
+                return False
+        for i in range(0, N, 3):
+            for j in range(0, N, 3):
+                if not validate(board, i, j, i + 3, j + 3):
+                    return False
+        return True

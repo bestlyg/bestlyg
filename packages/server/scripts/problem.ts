@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: !true,
-    name: '3021. Alice 和 Bob 玩鲜花游戏',
-    url: 'https://leetcode.cn/problems/alice-and-bob-playing-flower-game',
+    exist: true,
+    name: '36. 有效的数独',
+    url: 'https://leetcode.cn/problems/valid-sudoku',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你返回满足题目描述的数对 (x, y) 的数目。`,
+    desc: `请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 0,
-            memory: 17.69,
-            desc: '如果是奇数，alice就能赢',
+            time: 7,
+            memory: 17.73,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
