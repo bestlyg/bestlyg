@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: true,
-    name: '36. 有效的数独',
-    url: 'https://leetcode.cn/problems/valid-sudoku',
+    name: '37. 解数独',
+    url: 'https://leetcode.cn/problems/sudoku-solver',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。`,
+    desc: `编写一个程序，通过填充空格来解决数独问题。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 7,
-            memory: 17.73,
-            desc: '遍历',
+            time: 2678,
+            memory: 17.64,
+            desc: '递归，剪枝',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

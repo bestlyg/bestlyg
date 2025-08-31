@@ -1,26 +1,33 @@
-def validate(board: List[List[str]], si: int, sj: int, ei: int, ej: int) -> bool:
-    s = set()
-    for i in range(si, ei):
-        for j in range(sj, ej):
-            if board[i][j] != '.':
-                if board[i][j] in s:
-                    return False
-                else:
-                    s.add(board[i][j])
-    return True
-
-N = 9
-
 class Solution:
-    def isValidSudoku(self, board: List[List[str]]) -> bool:
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        N = 9
+        rows = [set() for _ in range(N)]
+        cols = [set() for _ in range(N)]
+        cells = [[set() for _ in range(N // 3)] for _ in range(N // 3)]
         for i in range(N):
-            if not validate(board, i, 0, i + 1, N):
-                return False
-        for j in range(N):
-            if not validate(board, 0, j, N, j + 1):
-                return False
-        for i in range(0, N, 3):
-            for j in range(0, N, 3):
-                if not validate(board, i, j, i + 3, j + 3):
-                    return False
-        return True
+            for j in range(N):
+                num = board[i][j]
+                if num == '.': continue
+                rows[i].add(num)
+                cols[j].add(num)
+                cells[i // 3][j // 3].add(num)
+        def fill(i: int, j: int) -> bool:
+            if j == N: return fill(i + 1, 0)
+            if i == N: return True
+            if board[i][j] != '.': return fill(i, j + 1)
+            for num in range(N):
+                s = str(num + 1)
+                if s in rows[i] or s in cols[j] or s in cells[i // 3][j // 3]: continue
+                board[i][j] = s
+                rows[i].add(s)
+                cols[j].add(s)
+                cells[i // 3][j // 3].add(s)
+                if fill(i, j + 1):
+                    return True
+                board[i][j] = '.'
+                rows[i].remove(s)
+                cols[j].remove(s)
+                cells[i // 3][j // 3].remove(s)
+            return False
+
+        fill(0, 0)
