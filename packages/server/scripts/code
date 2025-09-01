@@ -1,33 +1,18 @@
 class Solution:
-    def solveSudoku(self, board: List[List[str]]) -> None:
-        N = 9
-        rows = [set() for _ in range(N)]
-        cols = [set() for _ in range(N)]
-        cells = [[set() for _ in range(N // 3)] for _ in range(N // 3)]
-        for i in range(N):
-            for j in range(N):
-                num = board[i][j]
-                if num == '.': continue
-                rows[i].add(num)
-                cols[j].add(num)
-                cells[i // 3][j // 3].add(num)
-        def fill(i: int, j: int) -> bool:
-            if j == N: return fill(i + 1, 0)
-            if i == N: return True
-            if board[i][j] != '.': return fill(i, j + 1)
-            for num in range(N):
-                s = str(num + 1)
-                if s in rows[i] or s in cols[j] or s in cells[i // 3][j // 3]: continue
-                board[i][j] = s
-                rows[i].add(s)
-                cols[j].add(s)
-                cells[i // 3][j // 3].add(s)
-                if fill(i, j + 1):
-                    return True
-                board[i][j] = '.'
-                rows[i].remove(s)
-                cols[j].remove(s)
-                cells[i // 3][j // 3].remove(s)
-            return False
-
-        fill(0, 0)
+    def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:
+        q = []
+        for p, t in classes:
+            r = ((p + 1) / (t + 1)) - (p / t)
+            heappush(q, (-r, p, t))
+        for _ in range(extraStudents):
+            _, p, t = heappop(q)
+            p += 1
+            t += 1
+            r = ((p + 1) / (t + 1)) - (p / t)
+            heappush(q, (-r, p, t))
+        n = len(q)
+        num = 0
+        while q:
+            _, p, t = heappop(q)
+            num += p / t
+        return num / n
