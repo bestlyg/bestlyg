@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: true,
-    name: '1792. 最大平均通过率',
-    url: 'https://leetcode.cn/problems/maximum-average-pass-ratio',
+    exist: !true,
+    name: '3025. 人员站位的方案数 I',
+    url: 'https://leetcode.cn/problems/find-the-number-of-ways-to-place-people-i',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你返回在安排这 extraStudents 个学生去对应班级后的 最大 平均通过率。与标准答案误差范围在 10-5 以内的结果都会视为正确结果。`,
+    desc: `给你一个  n x 2 的二维数组 points ，它表示二维平面上的一些点坐标，其中 points[i] = [xi, yi] 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 1492,
-            memory: 53.89,
-            desc: '用堆记录当前最应该增加人数的班级',
+            time: 495,
+            memory:17.51,
+            desc: '枚举',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

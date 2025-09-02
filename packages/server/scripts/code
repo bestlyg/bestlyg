@@ -1,18 +1,32 @@
 class Solution:
-    def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:
-        q = []
-        for p, t in classes:
-            r = ((p + 1) / (t + 1)) - (p / t)
-            heappush(q, (-r, p, t))
-        for _ in range(extraStudents):
-            _, p, t = heappop(q)
-            p += 1
-            t += 1
-            r = ((p + 1) / (t + 1)) - (p / t)
-            heappush(q, (-r, p, t))
-        n = len(q)
-        num = 0
-        while q:
-            _, p, t = heappop(q)
-            num += p / t
-        return num / n
+    def numberOfPairs(self, points: List[List[int]]) -> int:
+        n = len(points)
+        if n == 2:
+            p1 = points[0]
+            p2 = points[1]
+            if p1[0] > p2[0] or p1[0] == p2[0] and p1[1] < p2[1]: p1, p2 = p2, p1
+            return int(p1[0] <= p2[0] and p1[1] >= p2[1])
+            
+        def check(i1: int, i2: int, i3: int) -> int:
+            p1 = points[i1]
+            p2 = points[i2]
+            if p1[0] == p2[0] and p1[1] < p2[1]: return True
+            if p1[1] == p2[1] and p1[0] > p2[0]: return True
+            if p1[0] > p2[0]: return True
+            if p1[0] < p2[0] and p1[1] < p2[1]: return True
+            if i3 == -1: return False
+            p3 = points[i3]
+            return p1[0] <= p3[0] <= p2[0] and p2[1] <= p3[1] <= p1[1]
+
+        res = 0
+        for i1 in range(n):
+            for i2 in range(n):
+                if i1 == i2: continue
+                f = True
+                for i3 in range(n):
+                    if i1 == i3 or i2 == i3: continue
+                    if check(i1, i2, i3):
+                        f = False
+                        break
+                if f: res += 1
+        return res
