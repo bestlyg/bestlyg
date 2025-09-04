@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3025. 人员站位的方案数 I',
-    url: 'https://leetcode.cn/problems/find-the-number-of-ways-to-place-people-i',
+    name: '3516. 找到最近的人',
+    url: 'https://leetcode.cn/problems/find-closest-person',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个  n x 2 的二维数组 points ，它表示二维平面上的一些点坐标，其中 points[i] = [xi, yi] 。`,
+    desc: `第 1 个人和第 2 个人以 相同 的速度向第 3 个人移动。判断谁会 先 到达第 3 个人的位置。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 495,
-            memory:17.51,
-            desc: '枚举',
+            time: 0,
+            memory: 17.64,
+            desc: '直接计算',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
