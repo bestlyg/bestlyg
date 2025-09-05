@@ -33,6 +33,7 @@ await run(
 const serverName = `bestlyg-server`;
 
 const commands = [
+    'source /root/.bashrc',
     `cd ${config.ssh.projectPath}`,
     `PGPASSWORD=root psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
     `pm2 del ${serverName}`,
@@ -50,7 +51,11 @@ const commands = [
     `pnpm --filter @bestlyg/server run build`,
     `pm2 start ${config.ssh.projectPath}/packages/server/ecosystem.config.cjs`,
 ];
-console.log('===[SERVER COMMAND]===', commands.join('\n'));
+console.log(
+    '===[SERVER COMMAND]===\n',
+    `ssh -T ${config.ssh.username}@${config.ssh.ip} "${commands.join('; ')}"`,
+    commands.join('\n'),
+);
 execSync(`ssh -T ${config.ssh.username}@${config.ssh.ip} "${commands.join('; ')}"`, {
     stdio: 'inherit',
 });
