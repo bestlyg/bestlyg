@@ -1,75 +1,46 @@
 {
-  "compilerOptions": {
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ESNext",
-    "module": "ESNext",
-    "lib": [
-      "ESNext"
-    ],
-    "moduleResolution": "Bundler",
-    "sourceMap": true,
-    "strictPropertyInitialization": false,
-    "outDir": "./dist",
-    "esModuleInterop": true,
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
-    "strict": true,
-    "paths": {
-      "@bestlyg-server/api": [
-        "libs/api/src"
-      ],
-      "@bestlyg-server/api/*": [
-        "libs/api/src/*"
-      ],
-      "@bestlyg-server/auth": [
-        "libs/auth/src"
-      ],
-      "@bestlyg-server/auth/*": [
-        "libs/auth/src/*"
-      ],
-      "@bestlyg-server/common": [
-        "libs/common/src"
-      ],
-      "@bestlyg-server/common/*": [
-        "libs/common/src/*"
-      ],
-      "@bestlyg-server/database": [
-        "libs/database/src"
-      ],
-      "@bestlyg-server/database/*": [
-        "libs/database/src/*"
-      ],
-      "@bestlyg-server/serverless": [
-        "libs/serverless/src"
-      ],
-      "@bestlyg-server/serverless/*": [
-        "libs/serverless/src/*"
-      ],
-      "@bestlyg-server/static": [
-        "libs/static/src"
-      ],
-      "@bestlyg-server/static/*": [
-        "libs/static/src/*"
-      ],
-      "@bestlyg-server/zjuer": [
-        "libs/zjuer/src"
-      ],
-      "@bestlyg-server/zjuer/*": [
-        "libs/zjuer/src/*"
-      ]
+    "compilerOptions": {
+        "declaration": true,
+        "removeComments": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "ESNext",
+        "module": "ESNext",
+        "lib": ["ESNext"],
+        "moduleResolution": "Bundler",
+        "sourceMap": true,
+        "strictPropertyInitialization": false,
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "baseUrl": "./",
+        "incremental": true,
+        "skipLibCheck": true,
+        "strictNullChecks": true,
+        "noImplicitAny": false,
+        "strictBindCallApply": false,
+        "forceConsistentCasingInFileNames": false,
+        "noFallthroughCasesInSwitch": false,
+        // "typeRoots": [
+        //   "./node_modules/@types"
+        // ],
+        "types": ["node"],
+        "strict": true,
+        "paths": {
+            "@bestlyg-server/api": ["libs/api/src"],
+            "@bestlyg-server/api/*": ["libs/api/src/*"],
+            "@bestlyg-server/auth": ["libs/auth/src"],
+            "@bestlyg-server/auth/*": ["libs/auth/src/*"],
+            "@bestlyg-server/common": ["libs/common/src"],
+            "@bestlyg-server/common/*": ["libs/common/src/*"],
+            "@bestlyg-server/database": ["libs/database/src"],
+            "@bestlyg-server/database/*": ["libs/database/src/*"],
+            "@bestlyg-server/serverless": ["libs/serverless/src"],
+            "@bestlyg-server/serverless/*": ["libs/serverless/src/*"],
+            "@bestlyg-server/static": ["libs/static/src"],
+            "@bestlyg-server/static/*": ["libs/static/src/*"],
+            "@bestlyg-server/zjuer": ["libs/zjuer/src"],
+            "@bestlyg-server/zjuer/*": ["libs/zjuer/src/*"]
+        }
     }
-  }
 }
