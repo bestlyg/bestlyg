@@ -1,5 +1,18 @@
 class Solution:
-    def getNoZeroIntegers(self, n: int) -> List[int]:
-        for n1 in range(1, n):
-            if str(n1).count('0') == 0 and str(n - n1).count('0') == 0:
-                return [n1, n - n1]
+    def peopleAwareOfSecret(self, n: int, delay: int, forget: int) -> int:
+        mod = 10 ** 9 + 7
+        forget_q = deque([1])
+        delay_q = deque([1])
+        cur = 0
+        for day in range(2, n + 1):
+            if len(delay_q) == delay:
+                cur += delay_q.popleft() % mod
+            if len(forget_q) == forget:
+                cur -= forget_q.popleft() % mod
+            delay_q.append(cur)
+            forget_q.append(cur)
+        return sum(forget_q) % mod
+
+
+            
+       
