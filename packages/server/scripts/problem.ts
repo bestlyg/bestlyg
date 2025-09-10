@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '2327. 知道秘密的人数',
-    url: 'https://leetcode.cn/problems/number-of-people-aware-of-a-secret',
+    name: '1733. 需要教语言的最少人数',
+    url: 'https://leetcode.cn/problems/minimum-number-of-people-to-teach',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个整数 n ，请你返回在第 n 天结束时，知道秘密的人数。`,
+    desc: `你可以选择 一门 语言并教会一些用户，使得所有好友之间都可以相互沟通。请返回你 最少 需要教会多少名用户。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 3,
-            memory: 17.60,
-            desc: '存储遗忘队列和等待队列',
+            time: 237,
+            memory: 26.87,
+            desc: '枚举每一个语言要学会的人数',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

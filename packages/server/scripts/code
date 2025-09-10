@@ -1,18 +1,24 @@
 class Solution:
-    def peopleAwareOfSecret(self, n: int, delay: int, forget: int) -> int:
-        mod = 10 ** 9 + 7
-        forget_q = deque([1])
-        delay_q = deque([1])
-        cur = 0
-        for day in range(2, n + 1):
-            if len(delay_q) == delay:
-                cur += delay_q.popleft() % mod
-            if len(forget_q) == forget:
-                cur -= forget_q.popleft() % mod
-            delay_q.append(cur)
-            forget_q.append(cur)
-        return sum(forget_q) % mod
-
-
-            
-       
+    def minimumTeachings(self, n: int, languages: List[List[int]], friendships: List[List[int]]) -> int:
+        m = len(languages)
+        users = [[] for _ in range(m + 1)]
+        for u1, u2 in friendships:
+            users[u1].append(u2)
+            users[u2].append(u1)
+        skip_set = set()
+        for user in range(1, m + 1):
+            can_skip = True
+            for friend in users[user]:
+                if not set(languages[user - 1]) & set(languages[friend - 1]):
+                    can_skip = False
+                    break
+            if can_skip:
+                skip_set.add(user)
+        res = inf
+        for lang in range(1, n + 1):
+            cur = 0
+            for user in range(1, m + 1):
+                if user not in skip_set and lang not in languages[user - 1]:
+                    cur += 1
+            res = min(res, cur)
+        return res
