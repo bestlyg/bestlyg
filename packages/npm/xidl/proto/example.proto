@@ -2,8 +2,13 @@ syntax = "proto2";
 
 package api.example;
 
+message Parent {
+  required string name = 1;
+}
+
 // 阿斯顿
 message User {
+  option (extend) = "Parent";
   // 名字
   required string first_name = 1;
   required string last_name = 2;

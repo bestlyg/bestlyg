@@ -2,7 +2,7 @@ import { tapable, protobufjs as pb, fs, CWD, lodash } from '@xidl/shared';
 import { XIdl as XIdlCore, XIdlConfig as XIdlCoreConfig } from '@xidl/core';
 import path from 'path';
 
-export const prefix = 'XIDL_TYPESCRIPT_CORE';
+export const prefix = 'XIDL_PYTHON_CORE';
 
 export interface XIdlConfig extends XIdlCoreConfig {}
 
@@ -31,19 +31,19 @@ export class XIdl extends XIdlCore {
             const res = await Promise.all(obj.nestedArray.map(obj => this.genObj(obj)));
             return code + res.join(this.config.splitChar);
         });
-        this.hooks.gen.onGenType.tapPromise(prefix, async (code, obj) => {
-            const info = await this.extractInfoFromType(obj);
-            const fieldItems = await Promise.all(
-                obj.fieldsArray.map(field => this.genField(field, info.required)),
-            );
-            return (
-                code +
-                (await this.genComment({
-                    content: `export interface ${obj.name} ${info.extends} {\n${fieldItems.join(this.config.splitChar)}\n}`,
-                    comment: obj.comment,
-                }))
-            );
-        });
+        // this.hooks.gen.onGenType.tapPromise(prefix, async (code, obj) => {
+        //     const info = await this.extractInfoFromType(obj);
+        //     const fieldItems = await Promise.all(
+        //         obj.fieldsArray.map(field => this.genField(field, info.required)),
+        //     );
+        //     return (
+        //         code +
+        //         (await this.genComment({
+        //             content: `export interface ${obj.name} ${info.extends} {\n${fieldItems.join(this.config.splitChar)}\n}`,
+        //             comment: obj.comment,
+        //         }))
+        //     );
+        // });
         this.hooks.gen.onGenNamespace.tapPromise(prefix, async (code, obj) => {
             const outputDir = path.resolve(
                 CWD,
@@ -55,13 +55,13 @@ export class XIdl extends XIdlCore {
                 config: lodash.merge({}, this.config, {
                     output: {
                         dirPath: outputDir,
-                        fileName: 'index.ts',
+                        fileName: '__init__.py',
                     },
                 }),
                 code: resCode.join(this.config.splitChar),
             });
-            const name = obj.name;
-            return code + `export * as ${name} from './${name}/index';`;
+            // const name = obj.name;
+            return code;
         });
         this.hooks.gen.onGenEnum.tapPromise(prefix, async (code, obj) => {
             const valueList = await Promise.all(
@@ -77,52 +77,37 @@ export class XIdl extends XIdlCore {
             return (
                 code +
                 (await this.genComment({
-                    content: `export enum ${obj.name} {\n${valueList.join(this.config.splitChar)}\n}`,
+                    content: `class ${obj.name}(IntEnum):${this.config.indent}${valueList.join(this.config.splitChar)}`,
                     comment: obj.comment,
                 }))
             );
         });
-        this.hooks.gen.onGenService.tapPromise(prefix, async (code, obj) => {
-            const methodStr = (
-                await Promise.all(obj.methodsArray.map(method => this.genObj(method)))
-            ).join(this.config.splitChar);
-            return (
-                code +
-                (await this.genComment({
-                    content: [`export namespace ${obj.name} {\n${methodStr}\n}`].join(
-                        this.config.splitChar,
-                    ),
-                    comment: obj.comment,
-                }))
-            );
-        });
-        this.hooks.gen.onGenMethod.tapPromise(prefix, async (code, obj) => {
-            const REG = /\(api\.(.*?)\)/g;
-            const options = Object.entries(obj.options ?? {})
-                .map(([key, value]) => {
-                    const newKey = Array.from(key.matchAll(REG))[0][1];
-                    return [newKey, value];
-                })
-                .filter(([k]) => k);
-            const content = [
-                `export namespace ${obj.name} {`,
-                ...[
-                    `export type Request = ${obj.requestType};`,
-                    `export type Response = ${obj.responseType};`,
-                    ...options.map(([k, v]) => `export const ${k} = ${v};`),
-                    await this.hooks.gen.onGenMethodField.promise('', obj),
-                ].map(content => this.contactIndent({ content })),
-                '}',
-            ].join(this.config.splitChar);
-            return (
-                code +
-                (await this.genComment({
-                    content: this.contactIndent({ content }),
-                    comment: obj.comment,
-                }))
-            );
-        });
-
+        // this.hooks.gen.onGenMethod.tapPromise(prefix, async (code, obj) => {
+        //     const REG = /\(api\.(.*?)\)/g;
+        //     const options = Object.entries(obj.options ?? {})
+        //         .map(([key, value]) => {
+        //             const newKey = Array.from(key.matchAll(REG))[0][1];
+        //             return [newKey, value];
+        //         })
+        //         .filter(([k]) => k);
+        //     const content = [
+        //         `export namespace ${obj.name} {`,
+        //         ...[
+        //             `export type Request = ${obj.requestType};`,
+        //             `export type Response = ${obj.responseType};`,
+        //             ...options.map(([k, v]) => `export const ${k} = ${v};`),
+        //             await this.hooks.gen.onGenMethodField.promise('', obj),
+        //         ].map(content => this.contactIndent({ content })),
+        //         '}',
+        //     ].join(this.config.splitChar);
+        //     return (
+        //         code +
+        //         (await this.genComment({
+        //             content: this.contactIndent({ content }),
+        //             comment: obj.comment,
+        //         }))
+        //     );
+        // });
         this.hooks.output.onOutput.tapPromise(prefix, async (code, config) => {
             const outputDir = path.resolve(CWD, config.config.output.dirPath);
             await fs.ensureDir(outputDir);
@@ -140,19 +125,14 @@ export class XIdl extends XIdlCore {
         indentCount?: number;
     }): Promise<string> {
         if (!comment) return content;
-        return `${this.config.indent.repeat(indentCount)}/** ${comment} */\n${content}`;
+        return `${this.config.indent.repeat(indentCount)}\n${this.config.indent.repeat(indentCount)}''' ${comment} '''\n${content}`;
     }
 
     async genValueType(type: string): Promise<string> {
-        if (type === 'bool') {
-            return 'boolean';
-        } else if (
-            type.includes('int') ||
-            type.includes('fixed') ||
-            type === 'float' ||
-            type === 'double'
-        ) {
-            return 'number';
+        if (type.includes('int') || type.includes('fixed')) {
+            return 'int';
+        } else if (type === 'float' || type === 'double') {
+            return 'float'
         } else if (type === 'bytes') {
             return 'string';
         } else {

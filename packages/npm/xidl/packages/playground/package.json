@@ -38,6 +38,7 @@
         "@xidl/typescript-client": "workspace:^",
         "@xidl/typescript-core": "workspace:^",
         "@xidl/typescript-server": "workspace:^",
+        "@xidl/python-core": "workspace:^",
         "tsx": "^4.19.3",
         "typescript": "catalog:"
     },

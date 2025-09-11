@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package mobius.event;
+
+// ========== Event 类型 ==========
+enum MobiusEventType {
+  MOBIUS_EVENT_TYPE_UNKNOWN = 0;
+  MOBIUS_EVENT_TYPE_START = 1;
+  MOBIUS_EVENT_TYPE_END = 2;
+  MOBIUS_EVENT_TYPE_HIL = 3;
+  MOBIUS_EVENT_TYPE_MSG = 4;
+  MOBIUS_EVENT_TYPE_ERR = 5;
+}
+
+message MobiusEvent {
+  required MobiusStartEvent type = 1;
+}
+
+message MobiusStartEvent {
+  option (extend) = "MobiusContent";
+}
+
+message MobiusEndEvent {
+  option (extend) = "MobiusContent";
+}
+
+message MobiusHumanInLoopEvent {
+  option (extend) = "MobiusContent";
+  string schema = 2; // 原本是 any[]，这里简化成 string[]
+}
+
+message MobiusMessageEvent {
+  option (extend) = "MobiusContent";
+  MobiusMessage message = 2;
+}
+
+// ========== Message ==========
+message MobiusMessage {
+  option (required) = "namespace";
+  repeated string namespace = 1;
+  required string id = 2;
+  required string pid = 3;
+  required bool is_finish = 4;
+  required string conversation_id = 5;
+  required string trace_id = 6;
+  required string user_id = 7;
+  required MobiusContent content = 8;
+}
+
+// ========== Content 类型 ==========
+enum MobiusContentType {
+  MOBIUS_CONTENT_TYPE_UNKNOWN = 0;
+  MOBIUS_CONTENT_TYPE_TEXT = 1;
+  MOBIUS_CONTENT_TYPE_TABLE = 2;
+  MOBIUS_CONTENT_TYPE_IMAGE = 3;
+  MOBIUS_CONTENT_TYPE_CODE = 4;
+  MOBIUS_CONTENT_TYPE_CHART = 5;
+  MOBIUS_CONTENT_TYPE_DOC_REFER = 6;
+}
+
+message MobiusContent {
+  required MobiusContentType type = 1;
+}
+
+
+message MobiusTableContentColumn {
+  string column_name = 1;
+  string column_type = 2;
+}
+message MobiusTableContentRow {
+  map<string, string> values = 1;
+}
+
+message MobiusTableContent {
+  option (extend) = "MobiusContent";
+  repeated MobiusTableContentColumn schema = 2;
+  repeated MobiusTableContentRow data = 3;
+}
+
+message MobiusImageContent {
+  option (extend) = "MobiusContent";
+  string link = 2;
+  string base64 = 3;
+}
+
+message MobiusCodeContent {
+  option (extend) = "MobiusContent";
+  string code = 2;
+}
+
+message MobiusChartContent {
+  option (extend) = "MobiusContent";
+}

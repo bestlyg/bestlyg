@@ -1,4 +1,5 @@
 import { XIdl as XIdlCore } from '@xidl/typescript-core';
+import { XIdl as XIdlPyCore } from '@xidl/python-core';
 import { XIdl as XIdlClient } from '@xidl/typescript-client';
 import { XIdl as XIdlServer } from '@xidl/typescript-server';
 import path from 'path';
@@ -37,10 +38,21 @@ const xIdlCore = new XIdlCore({
     },
 });
 
+const xIdlPyCore = new XIdlPyCore({
+    input: {
+        filePath: resolve('../../proto/index.proto'),
+    },
+    output: {
+        dirPath: resolve('dist/py-core'),
+        fileName: '__init__.py',
+    },
+});
+
 async function main() {
     await xidlClient.output();
     await xidlServer.output();
     await xIdlCore.output();
+    await xIdlPyCore.output();
 }
 
 main().catch(err => {

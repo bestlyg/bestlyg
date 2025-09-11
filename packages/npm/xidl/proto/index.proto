@@ -1,3 +1,4 @@
 syntax = "proto2";
 
 import "./example.proto";
+import "./mobius-event.proto";
