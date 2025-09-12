@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '2785. 将字符串中的元音字母排序',
-    url: 'https://leetcode.cn/problems/sort-vowels-in-a-string',
+    name: '3227. 字符串元音游戏',
+    url: 'https://leetcode.cn/problems/vowels-game-in-a-string',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个下标从 0 开始的字符串 s ，将 s 中的元素重新 排列 得到新的字符串 t 。`,
+    desc: `如果小红赢得游戏，返回 true，否则返回 false。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 127,
-            memory: 20.23,
-            desc: '获取所有元音进行排序',
+            time: 36,
+            memory: 17.79,
+            desc: '只要存在元音，alice必赢',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

@@ -1,14 +1,6 @@
 class Solution:
-    def sortVowels(self, s: str) -> str:
-        arr = list(s)
-        n = len(arr)
-        vowels = []
-        for i in range(n):
-            if arr[i].lower() in 'aeiou':
-                vowels.append(arr[i])
-                arr[i] = '.'
-        vowels.sort(reverse = True)
-        for i in range(n):
-            if arr[i] == '.':
-                arr[i] = vowels.pop()
-        return ''.join(arr)
+    def doesAliceWin(self, s: str) -> bool:
+       vowels = [c for c in s if c in 'aeiou'] 
+       n = len(vowels)
+       if n == 0: return False
+       return True
