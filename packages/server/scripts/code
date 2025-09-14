@@ -1,6 +1,22 @@
 class Solution:
-    def doesAliceWin(self, s: str) -> bool:
-       vowels = [c for c in s if c in 'aeiou'] 
-       n = len(vowels)
-       if n == 0: return False
-       return True
+    def spellchecker(self, wordlist: List[str], queries: List[str]) -> List[str]:
+        normalize = lambda word: ''.join(c if c not in 'aeiou' else '.' for c in word.lower())
+        fullmatchset = set(wordlist)
+
+        lowermatchmap = {}
+        for i in range(len(wordlist)):
+            if wordlist[i].lower() not in lowermatchmap:
+                lowermatchmap[wordlist[i].lower()] = wordlist[i]
+
+        matchlist = [normalize(word) for word in wordlist]
+        map = {}
+        for i in range(len(matchlist)):
+            if matchlist[i] not in map:
+                map[matchlist[i]] = i
+
+        def run(q: str) -> str:
+            if q in fullmatchset: return q
+            if q.lower() in lowermatchmap: return lowermatchmap[q.lower()]
+            if normalize(q) in map: return wordlist[map[normalize(q)]]
+            return ''
+        return [run(q) for q in queries]
