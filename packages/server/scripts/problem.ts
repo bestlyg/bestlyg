@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '966. 元音拼写检查器',
-    url: 'https://leetcode.cn/problems/vowel-spellchecker',
+    name: '1935. 可以输入的最大单词数',
+    url: 'https://leetcode.cn/problems/maximum-number-of-words-you-can-type',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给出一些查询 queries，返回一个单词列表 answer，其中 answer[i] 是由查询 query = queries[i] 得到的正确单词。`,
+    desc: `键盘出现了一些故障，有些字母键无法正常工作。而键盘上所有其他键都能够正常工作。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 47,
-            memory: 20.13,
-            desc: '预处理所有的可能',
+            time: 2,
+            memory: 17.81,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
