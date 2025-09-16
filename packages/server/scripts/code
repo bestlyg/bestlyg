@@ -1,7 +1,8 @@
 class Solution:
-    def canBeTypedWords(self, text: str, brokenLetters: str) -> int:
-        brokenset = set(brokenLetters)
-        return sum(
-            all([c not in brokenset for c in s])
-            for s in text.split(' ')
-        )
+    def replaceNonCoprimes(self, nums: List[int]) -> List[int]:
+        stack = []
+        for num in nums:
+            stack.append(num)
+            while len(stack) >= 2 and gcd(stack[-1], stack[-2]) > 1:
+                stack.append(lcm(stack.pop(), stack.pop()))
+        return stack
