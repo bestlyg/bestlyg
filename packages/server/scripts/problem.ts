@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '2197. 替换数组中的非互质数',
-    url: 'https://leetcode.cn/problems/replace-non-coprime-numbers-in-array',
+    name: '2349. 设计数字容器系统',
+    url: 'https://leetcode.cn/problems/design-a-number-container-system',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个整数数组 nums 。请你对数组执行下述操作：返回修改后得到的 最终 数组。可以证明的是，以 任意 顺序替换相邻的非互质数都可以得到相同的结果。`,
+    desc: `设计一个数字容器系统，可以实现以下功能：在系统中给定下标处 插入 或者 替换 一个数字。返回 系统中给定数字的最小下标。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 166,
-            memory: 31.51,
-            desc: '遍历时用栈存储',
+            time: 195,
+            memory: 80.1,
+            desc: '用堆存储每个数字下最小的下标',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
