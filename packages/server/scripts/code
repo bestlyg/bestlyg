@@ -1,8 +1,25 @@
-class Solution:
-    def replaceNonCoprimes(self, nums: List[int]) -> List[int]:
-        stack = []
-        for num in nums:
-            stack.append(num)
-            while len(stack) >= 2 and gcd(stack[-1], stack[-2]) > 1:
-                stack.append(lcm(stack.pop(), stack.pop()))
-        return stack
+class TaskManager:
+    def __init__(self, tasks: List[List[int]]):
+        self.q = []
+        self.user_tasks = defaultdict(dict)
+        self.tasks = {}
+        for user, task, pri in tasks:
+            self.add(user, task, pri)
+    def add(self, userId: int, taskId: int, priority: int) -> None:
+        self.user_tasks[userId][taskId] = priority
+        heappush(self.q, (-priority, -taskId, userId))
+        self.tasks[taskId] = userId
+    def edit(self, taskId: int, newPriority: int) -> None:
+        self.user_tasks[self.tasks[taskId]][taskId] = newPriority
+        heappush(self.q, (-newPriority, -taskId, self.tasks[taskId]))
+    def rmv(self, taskId: int) -> None:
+        del self.user_tasks[self.tasks[taskId]][taskId]
+        del self.tasks[taskId]
+    def execTop(self) -> int:
+        while self.q:
+            pri, taskId, userId = heappop(self.q)
+            if -taskId not in self.user_tasks[userId]: continue
+            if -pri != self.user_tasks[userId][-taskId]: continue
+            self.rmv(-taskId)
+            return userId
+        return -1
