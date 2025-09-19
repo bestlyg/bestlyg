@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3408. 设计任务管理器',
-    url: 'https://leetcode.cn/problems/design-task-manager',
+    name: '3484. 设计电子表格',
+    url: 'https://leetcode.cn/problems/design-spreadsheet',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你设计一个 TaskManager 类。`,
+    desc: `请你实现一个 Spreadsheet 类。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 753,
-            memory:135.35,
-            desc: '懒堆记录所有事件用户的优先级',
+            time: 110,
+            memory: 23.21,
+            desc: '哈希记录所有单元格',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
