@@ -1,18 +1,24 @@
-class Spreadsheet:
-    def __init__(self, rows: int):
-        self.sheet = defaultdict(int)
-    def setCell(self, cell: str, value: int) -> None:
-        self.sheet[cell] = value
-    def resetCell(self, cell: str) -> None:
-        self.sheet[cell] = 0
-    def getValue(self, formula: str) -> int:
-        v1, v2 = formula[1:].split('+')
-        if 65 <= ord(v1[0]) <= 90:
-            v1 = self.sheet[v1]
-        else:
-            v1 = int(v1)
-        if 65 <= ord(v2[0]) <= 90:
-            v2 = self.sheet[v2]
-        else:
-            v2 = int(v2)
-        return v1 + v2
+class Router:
+    def __init__(self, memoryLimit: int):
+        self.memory = memoryLimit
+        self.list = deque()
+        self.used = set()
+        self.map = defaultdict(list)
+    def addPacket(self, source: int, destination: int, timestamp: int) -> bool:
+        item = (source, destination, timestamp)
+        if item in self.used: return False
+        if len(self.used) == self.memory: self.forwardPacket()
+        self.list.append(item)
+        self.used.add(item)
+        self.map[destination].append((timestamp, source))
+        return True
+    def forwardPacket(self) -> List[int]:
+        if not self.list: return []
+        item = self.list.popleft()
+        self.used.remove(item)
+        self.map[item[1]].remove((item[2], item[0]))
+        return list(item)
+    def getCount(self, destination: int, startTime: int, endTime: int) -> int:
+        lidx = bisect_left(self.map[destination], (startTime, -inf))
+        ridx = bisect_right(self.map[destination], (endTime, inf))
+        return ridx - lidx

@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3484. 设计电子表格',
-    url: 'https://leetcode.cn/problems/design-spreadsheet',
+    name: '3508. 设计路由器',
+    url: 'https://leetcode.cn/problems/implement-router',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你实现一个 Spreadsheet 类。`,
+    desc: `请你设计一个数据结构来高效管理网络路由器中的数据包。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 110,
-            memory: 23.21,
-            desc: '哈希记录所有单元格',
+            time: 331,
+            memory: 81.59,
+            desc: '哈希记录列表，二分查找时间段',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
