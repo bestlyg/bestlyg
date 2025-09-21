@@ -1,24 +1,21 @@
-class Router:
-    def __init__(self, memoryLimit: int):
-        self.memory = memoryLimit
-        self.list = deque()
-        self.used = set()
-        self.map = defaultdict(list)
-    def addPacket(self, source: int, destination: int, timestamp: int) -> bool:
-        item = (source, destination, timestamp)
-        if item in self.used: return False
-        if len(self.used) == self.memory: self.forwardPacket()
-        self.list.append(item)
-        self.used.add(item)
-        self.map[destination].append((timestamp, source))
-        return True
-    def forwardPacket(self) -> List[int]:
-        if not self.list: return []
-        item = self.list.popleft()
-        self.used.remove(item)
-        self.map[item[1]].remove((item[2], item[0]))
-        return list(item)
-    def getCount(self, destination: int, startTime: int, endTime: int) -> int:
-        lidx = bisect_left(self.map[destination], (startTime, -inf))
-        ridx = bisect_right(self.map[destination], (endTime, inf))
-        return ridx - lidx
+from sortedcontainers import SortedList
+class MovieRentingSystem:
+    def __init__(self, n: int, entries: List[List[int]]):
+        self.prices = defaultdict(lambda: defaultdict(int))
+        self.movies = defaultdict(SortedList)
+        for shop, movie, price in entries:
+            self.prices[shop][movie] = price
+            self.movies[movie].add((price, shop))
+        self.rented = SortedList()
+    def search(self, movie: int) -> List[int]:
+        return list(map(lambda v: v[1], self.movies[movie][:5]))
+    def rent(self, shop: int, movie: int) -> None:
+        price = self.prices[shop][movie]
+        self.rented.add((price, shop, movie))
+        self.movies[movie].remove((price, shop))
+    def drop(self, shop: int, movie: int) -> None:
+        price = self.prices[shop][movie]
+        self.movies[movie].add((price, shop))
+        self.rented.remove((price, shop, movie))
+    def report(self) -> List[List[int]]:
+        return list(map(lambda v: list(v[1:]), self.rented[:5]))
