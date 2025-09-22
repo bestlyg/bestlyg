@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '1912. 设计电影租借系统',
-    url: 'https://leetcode.cn/problems/design-movie-rental-system',
+    name: '3005. 最大频率元素计数',
+    url: 'https://leetcode.cn/problems/count-elements-with-maximum-frequency',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `你有一个电影租借公司和 n 个电影商店。你想要实现一个电影租借系统，它支持查询、预订和返还电影的操作。同时系统还能生成一份当前被借出电影的报告。所有电影用二维整数数组 entries 表示，其中 entries[i] = [shopi, moviei, pricei] 表示商店 shopi 有一份电影 moviei 的拷贝，租借价格为 pricei 。每个商店有 至多一份 编号为 moviei 的电影拷贝。`,
+    desc: `给你一个由 正整数 组成的数组 nums 。返回数组 nums 中所有具有 最大 频率的元素的 总频率 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 792,
-            memory: 128.48,
-            desc: '有序数组',
+            time: 3,
+            memory: 17.77,
+            desc: '计数',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
