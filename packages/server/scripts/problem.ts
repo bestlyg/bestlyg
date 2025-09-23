@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: !true,
-    name: '3005. 最大频率元素计数',
-    url: 'https://leetcode.cn/problems/count-elements-with-maximum-frequency',
+    exist: true,
+    name: '165. 比较版本号',
+    url: 'https://leetcode.cn/problems/compare-version-numbers',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个由 正整数 组成的数组 nums 。返回数组 nums 中所有具有 最大 频率的元素的 总频率 。`,
+    desc: `给你两个 版本号字符串 version1 和 version2 ，请你比较它们。版本号由被点 '.' 分开的修订号组成。修订号的值 是它 转换为整数 并忽略前导零。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 3,
-            memory: 17.77,
-            desc: '计数',
+            time: 0,
+            memory: 17.57,
+            desc: '分割后遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
