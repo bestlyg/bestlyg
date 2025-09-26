@@ -1,8 +1,15 @@
 class Solution:
-    def minimumTotal(self, triangle: List[List[int]]) -> int:
-        @cache
-        def dfs(row: int, col: int) -> int:
-            if row == len(triangle): return 0
-            cur = triangle[row][col]
-            return cur + min(dfs(row + 1, col), dfs(row + 1, col + 1))
-        return dfs(0, 0)
+    def triangleNumber(self, nums: List[int]) -> int:
+        nums = sorted(filter(lambda v: v > 0, nums))
+        res = 0
+        for i in range(len(nums)):
+            for j in range(i):
+                nmin = nums[i] - nums[j] + 1
+                nmax = nums[i] + nums[j] - 1
+                lidx = bisect_left(nums, nmin)
+                ridx = bisect_right(nums, nmax)
+                cnt = ridx - lidx
+                if nmin <= nums[i] <= nmax: cnt -= 1
+                if nmin <= nums[j] <= nmax: cnt -= 1
+                res += cnt
+        return res // 3
