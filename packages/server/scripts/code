@@ -1,7 +1,10 @@
 class Solution:
-    def largestPerimeter(self, nums: List[int]) -> int:
-        nums.sort()
-        for i in range(len(nums) - 1, 1, -1):
-            if nums[i] < nums[i - 1] + nums[i - 2]:
-                return nums[i] + nums[i - 1] + nums[i - 2]
-        return 0
+    def minScoreTriangulation(self, values: List[int]) -> int:
+        @cache
+        def dfs(i: int, j: int) -> int:
+            if i + 1 == j: return 0
+            return min(
+                dfs(i, k) + dfs(k, j) + values[i] * values[j] * values[k]
+                for k in range(i + 1, j)
+            )
+        return dfs(0, len(values) - 1)

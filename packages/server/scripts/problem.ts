@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: true,
-    name: '976. 三角形的最大周长',
-    url: 'https://leetcode.cn/problems/largest-perimeter-triangle',
+    name: '1039. 多边形三角剖分的最低得分',
+    url: 'https://leetcode.cn/problems/minimum-score-triangulation-of-polygon',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给定由一些正数（代表长度）组成的数组 nums ，返回 由其中三个长度组成的、面积不为零的三角形的最大周长 。如果不能形成任何面积不为零的三角形，返回 0。`,
+    desc: `返回 多边形进行三角剖分后可以得到的最低分 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 2,
-            memory: 18.38,
-            desc: '排序后遍历',
+            time: 51,
+            memory: 18.20,
+            desc: 'dfs判断每一个三角形分割后的最小值',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
