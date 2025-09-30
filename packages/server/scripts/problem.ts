@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: true,
-    name: '1039. 多边形三角剖分的最低得分',
-    url: 'https://leetcode.cn/problems/minimum-score-triangulation-of-polygon',
+    exist: !true,
+    name: '2221. 数组的三角和',
+    url: 'https://leetcode.cn/problems/find-triangular-sum-of-an-array',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回 多边形进行三角剖分后可以得到的最低分 。`,
+    desc: `请你返回 nums 的三角和。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 51,
-            memory: 18.20,
-            desc: 'dfs判断每一个三角形分割后的最小值',
+            time: 1356,
+            memory: 21.93,
+            desc: 'dfs',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

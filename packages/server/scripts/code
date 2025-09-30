@@ -1,10 +1,4 @@
 class Solution:
-    def minScoreTriangulation(self, values: List[int]) -> int:
-        @cache
-        def dfs(i: int, j: int) -> int:
-            if i + 1 == j: return 0
-            return min(
-                dfs(i, k) + dfs(k, j) + values[i] * values[j] * values[k]
-                for k in range(i + 1, j)
-            )
-        return dfs(0, len(values) - 1)
+    def triangularSum(self, nums: List[int]) -> int:
+        if len(nums) == 1: return nums[0]
+        return self.triangularSum([(v1 + v2) % 10 for v1, v2 in pairwise(nums)])
