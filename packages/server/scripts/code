@@ -1,4 +1,7 @@
 class Solution:
-    def triangularSum(self, nums: List[int]) -> int:
-        if len(nums) == 1: return nums[0]
-        return self.triangularSum([(v1 + v2) % 10 for v1, v2 in pairwise(nums)])
+    def numWaterBottles(self, numBottles: int, numExchange: int) -> int:
+        res = numBottles
+        while numBottles >= numExchange:
+            res += numBottles // numExchange
+            numBottles = numBottles // numExchange + numBottles % numExchange
+        return res
