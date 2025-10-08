@@ -1,27 +1,7 @@
 class Solution:
-    def avoidFlood(self, rains: List[int]) -> List[int]:
-        n = len(rains)
-        q = []
-        res = [-1] * n
-        cities = defaultdict(deque)
-        fullcities = defaultdict(int)
-        for i in range(n):
-            if rains[i] != 0:
-                cities[rains[i]].append(i)
-        for i in range(n):
-            rain = rains[i]
-            if rain == 0:
-                if not q:
-                    res[i] = 1
-                else:
-                    idx, city = heappop(q)
-                    res[i] = city
-                    fullcities[city] = 0
-            else:
-                if fullcities[rain]: return []
-                fullcities[rain] = 1
-                while cities[rain] and cities[rain][0] <= i:
-                    cities[rain].popleft()
-                if cities[rain]:
-                    heappush(q, (cities[rain].popleft(), rain))
-        return res
+    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        potions.sort()
+        return [
+            len(potions) - bisect_left(potions, success / spell)
+            for spell in spells
+        ]

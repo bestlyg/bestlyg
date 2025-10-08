@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: true,
-    name: '1488. 避免洪水泛滥',
-    url: 'https://leetcode.cn/problems/avoid-flood-in-the-city',
+    name: '2300. 咒语和药水的成功对数',
+    url: 'https://leetcode.cn/problems/successful-pairs-of-spells-and-potions',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `你的国家有无数个湖泊，所有湖泊一开始都是空的。当第 n 个湖泊下雨前是空的，那么它就会装满水。如果第 n 个湖泊下雨前是 满的 ，这个湖泊会发生 洪水 。你的目标是避免任意一个湖泊发生洪水。`,
+    desc: `请你返回一个长度为 n 的整数数组 pairs，其中 pairs[i] 是能跟第 i 个咒语成功组合的 药水 数目。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 331,
-            memory: 92.38,
-            desc: '用堆记录最先应该被清空的水库',
+            time: 244,
+            memory: 41.73,
+            desc: '排序后二分',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
