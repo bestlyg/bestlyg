@@ -1,7 +1,8 @@
 class Solution:
-    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
-        potions.sort()
-        return [
-            len(potions) - bisect_left(potions, success / spell)
-            for spell in spells
-        ]
+    def maximumEnergy(self, energy: List[int], k: int) -> int:
+        n = len(energy)
+        @cache
+        def run(idx: int) -> int:
+            if idx >= n: return 0
+            return energy[idx] + run(idx + k)
+        return max(run(i) for i in range(n))

@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: true,
-    name: '2300. 咒语和药水的成功对数',
-    url: 'https://leetcode.cn/problems/successful-pairs-of-spells-and-potions',
+    exist: !true,
+    name: '3147. 从魔法师身上吸取的最大能量',
+    url: 'https://leetcode.cn/problems/taking-maximum-energy-from-the-mystic-dungeon',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你返回一个长度为 n 的整数数组 pairs，其中 pairs[i] 是能跟第 i 个咒语成功组合的 药水 数目。`,
+    desc: `给定一个数组 energy 和一个整数k，返回你能获得的 最大 能量。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 244,
-            memory: 41.73,
-            desc: '排序后二分',
+            time: 1765,
+            memory: 188.72,
+            desc: 'dfs',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
