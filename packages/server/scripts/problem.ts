@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3147. 从魔法师身上吸取的最大能量',
-    url: 'https://leetcode.cn/problems/taking-maximum-energy-from-the-mystic-dungeon',
+    name: '3186. 施咒的最大总伤害',
+    url: 'https://leetcode.cn/problems/maximum-total-damage-with-spell-casting',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给定一个数组 energy 和一个整数k，返回你能获得的 最大 能量。`,
+    desc: `请你返回这个魔法师可以达到的伤害值之和的 最大值 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 1765,
-            memory: 188.72,
-            desc: 'dfs',
+            time: 820,
+            memory: 44.46,
+            desc: 'dp[i]标识以i为结尾时的最大伤害',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
