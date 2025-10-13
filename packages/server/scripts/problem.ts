@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3186. 施咒的最大总伤害',
-    url: 'https://leetcode.cn/problems/maximum-total-damage-with-spell-casting',
+    name: '2273. 移除字母异位词后的结果数组',
+    url: 'https://leetcode.cn/problems/find-resultant-array-after-removing-anagrams',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你返回这个魔法师可以达到的伤害值之和的 最大值 。`,
+    desc: `在执行所有操作后，返回 words 。可以证明，按任意顺序为每步操作选择下标都会得到相同的结果。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 820,
-            memory: 44.46,
-            desc: 'dp[i]标识以i为结尾时的最大伤害',
+            time: 35,
+            memory: 17.50,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

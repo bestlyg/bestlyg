@@ -1,19 +1,7 @@
 class Solution:
-    def maximumTotalDamage(self, power: List[int]) -> int:
-        counter = Counter(power)
-        arr = sorted(counter.items())
-        n = len(arr)
-        dp = [0] * n
-        nmax = 0
-        p = -1
-        for i in range(n):
-            val = nmax
-            while p + 1 < n and arr[p + 1][0] < arr[i][0] - 2:
-                p += 1
-            if p != -1:
-                val = max(val, dp[p] + arr[i][0] * arr[i][1])
-            else:
-                val = max(val, arr[i][0] * arr[i][1])
-            dp[i] = val
-            nmax = max(nmax, dp[i])
-        return nmax
+    def removeAnagrams(self, words: List[str]) -> List[str]:
+        s = [words[0]]
+        for word in words:
+            if Counter(s[-1]) != Counter(word):
+                s.append(word)
+        return s
