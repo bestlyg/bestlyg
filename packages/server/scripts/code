@@ -1,7 +1,12 @@
 class Solution:
-    def removeAnagrams(self, words: List[str]) -> List[str]:
-        s = [words[0]]
-        for word in words:
-            if Counter(s[-1]) != Counter(word):
-                s.append(word)
-        return s
+    def hasIncreasingSubarrays(self, nums: List[int], k: int) -> bool:
+        n = len(nums)
+        def check(start: int, end: int) -> bool:
+            for i in range(start, end):
+                if nums[i] > nums[i + 1] - 1:
+                    return False
+            return True
+        return any(
+            check(i, i + k - 1) and check(i + k, i + 2 * k - 1)
+            for i in range(n - 2 * k + 1)
+        )
