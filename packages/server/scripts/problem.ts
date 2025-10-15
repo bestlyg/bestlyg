@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3349. 检测相邻递增子数组 I',
-    url: 'https://leetcode.cn/problems/adjacent-increasing-subarrays-detection-i',
+    name: '3350. 检测相邻递增子数组 II',
+    url: 'https://leetcode.cn/problems/adjacent-increasing-subarrays-detection-ii',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `如果可以找到这样的 两个 子数组，请返回 true；否则返回 false。`,
+    desc: `返回 k 的 最大可能 值。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.05.24',
-            time: 123,
-            memory: 17.41,
-            desc: '遍历',
+            time: 1765,
+            memory: 46.39,
+            desc: '二分答案',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

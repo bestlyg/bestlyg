@@ -1,12 +1,26 @@
 class Solution:
-    def hasIncreasingSubarrays(self, nums: List[int], k: int) -> bool:
+    def maxIncreasingSubarrays(self, nums: List[int]) -> int:
         n = len(nums)
-        def check(start: int, end: int) -> bool:
-            for i in range(start, end):
-                if nums[i] > nums[i + 1] - 1:
-                    return False
-            return True
-        return any(
-            check(i, i + k - 1) and check(i + k, i + 2 * k - 1)
-            for i in range(n - 2 * k + 1)
-        )
+        prev = [i for i in range(n)]
+        i = 0
+        while i < n:
+            start = i
+            while i + 1 < n and nums[i + 1] > nums[i]:
+                i += 1
+                prev[i] = start
+            i += 1
+        print(prev)
+        def check_k(k: int) -> bool:
+            for i in range(n - 2 * k + 1):
+                if prev[i + k - 1] <= prev[i] and prev[i + 2 * k - 1] <= prev[i + k]:
+                    return True
+            return False
+        l = 0
+        r = n // 2
+        while l < r:
+            m = (l + r + 1) // 2
+            if check_k(m):
+                l = m
+            else:
+                r = m - 1
+        return l
