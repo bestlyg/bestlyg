@@ -23,7 +23,7 @@ export const problem: LeetcodeProblem & { exist: boolean } = {
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            // date: '2025.05.24',
+            date: '2025.10.15',
             time: 1765,
             memory: 46.39,
             desc: '二分答案',
