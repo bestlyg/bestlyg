@@ -55,23 +55,23 @@ export class TasksService {
         await this.sendMailToLyg(subject, content);
     }
 
-    @Cron('0 55 9 * * 3')
-    async coupon3() {
-        await this.sendMailToYzx('抢劵', '抢劵');
-    }
+    // @Cron('0 55 9 * * 3')
+    // async coupon3() {
+    //     await this.sendMailToYzx('抢劵', '抢劵');
+    // }
 
-    @Cron('0 55 10 * * 5')
-    async coupon5() {
-        await this.sendMailToYzx('抢劵', '抢劵');
-    }
+    // @Cron('0 55 10 * * 5')
+    // async coupon5() {
+    //     await this.sendMailToYzx('抢劵', '抢劵');
+    // }
 
-    @Cron('0 30 7 * * *')
-    async dailyYzx() {
-        await this.sendMailToYzx('建行/番茄/支付宝小鸡/淘金币', '建行/番茄/支付宝小鸡/淘金币');
-    }
+    // @Cron('0 30 7 * * *')
+    // async dailyYzx() {
+    //     await this.sendMailToYzx('建行/番茄/支付宝小鸡/淘金币', '建行/番茄/支付宝小鸡/淘金币');
+    // }
 
-    @Cron('0 0 22 * * *')
-    async medicine() {
-        await this.sendMailToYzx('吃药', '吃药');
-    }
+    // @Cron('0 0 22 * * *')
+    // async medicine() {
+    //     await this.sendMailToYzx('吃药', '吃药');
+    // }
 }
