@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: !true,
-    name: '3350. 检测相邻递增子数组 II',
-    url: 'https://leetcode.cn/problems/adjacent-increasing-subarrays-detection-ii',
+    exist: true,
+    name: '2011. 执行操作后的变量值',
+    url: 'https://leetcode.cn/problems/final-value-of-variable-after-performing-operations',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回 k 的 最大可能 值。`,
+    desc: `给你一个字符串数组 operations ，这是由操作组成的一个列表，返回执行所有操作后， X 的 最终值 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            date: '2025.10.15',
-            time: 1765,
-            memory: 46.39,
-            desc: '二分答案',
+            // date: '2025.10.15',
+            time: 3,
+            memory: 17.67,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
