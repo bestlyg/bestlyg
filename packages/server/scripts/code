@@ -1,13 +1,4 @@
 class Solution:
-    def maxFrequency(self, nums: List[int], k: int, numOperations: int) -> int:
-        c = Counter(nums)
-        map = defaultdict(int)
-        for num in nums:
-            map[num - k] += 1
-            map[num] += 0
-            map[num + k + 1] -= 1
-        res = cnt = 0
-        for num in sorted(map.keys()):
-            cnt += map[num]
-            res = max(res, min(cnt - c[num], numOperations) + c[num])
-        return res
+    def hasSameDigits(self, s: str) -> bool:
+        return self.hasSameDigits(''.join(str((int(v1) + int(v2)) % 10) for v1, v2 in pairwise(s))) \
+        if len(s) > 2 else s[0] == s[1]
