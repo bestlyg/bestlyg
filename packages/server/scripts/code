@@ -1,4 +1,10 @@
 class Solution:
-    def hasSameDigits(self, s: str) -> bool:
-        return self.hasSameDigits(''.join(str((int(v1) + int(v2)) % 10) for v1, v2 in pairwise(s))) \
-        if len(s) > 2 else s[0] == s[1]
+    def totalMoney(self, n: int) -> int:
+        prev = res = cur = 0
+        for day in range(n):
+            if day % 7 == 0:
+                prev += 1
+                cur = prev
+            res += cur
+            cur += 1
+        return res
