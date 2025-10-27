@@ -1,19 +1,6 @@
-class Bank:
-    def __init__(self, balance: List[int]):
-        self.balance = [0] + balance
-    def transfer(self, account1: int, account2: int, money: int) -> bool:
-        if account1 < 0 or account1 >= len(self.balance): return False
-        if account2 < 0 or account2 >= len(self.balance): return False
-        if self.balance[account1] < money: return False
-        self.balance[account1] -= money
-        self.balance[account2] += money
-        return True
-    def deposit(self, account: int, money: int) -> bool:
-        if account < 0 or account >= len(self.balance): return False
-        self.balance[account] += money
-        return True
-    def withdraw(self, account: int, money: int) -> bool:
-        if account < 0 or account >= len(self.balance): return False
-        if self.balance[account] < money: return False
-        self.balance[account] -= money
-        return True
+class Solution:
+    def numberOfBeams(self, bank: List[str]) -> int:
+        return sum(
+            l1.count('1') * l2.count('1')
+            for l1, l2 in pairwise(l for l in bank if l.count('1') != 0)
+        ) 
