@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '2125. 银行中的激光束数量',
-    url: 'https://leetcode.cn/problems/number-of-laser-beams-in-a-bank',
+    name: '3354. 使数组元素等于零',
+    url: 'https://leetcode.cn/problems/make-array-elements-equal-to-zero',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回银行中激光束的总数量。`,
+    desc: `返回可能的有效选择方案数目。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.10.15',
-            time: 13,
-            memory: 19.45,
-            desc: '模拟',
+            time: 41,
+            memory: 17.73,
+            desc: '判断0的左右数据总和',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

@@ -1,6 +1,13 @@
 class Solution:
-    def numberOfBeams(self, bank: List[str]) -> int:
-        return sum(
-            l1.count('1') * l2.count('1')
-            for l1, l2 in pairwise(l for l in bank if l.count('1') != 0)
-        ) 
+    def countValidSelections(self, nums: List[int]) -> int:
+        rsum = sum(nums)
+        lsum = 0
+        res = 0
+        for num in nums:
+            lsum += num
+            rsum -= num
+            if num == 0:
+                d = abs(lsum - rsum)
+                if d == 0: res += 2
+                elif d == 1: res += 1
+        return res
