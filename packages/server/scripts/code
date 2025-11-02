@@ -1,3 +1,10 @@
 class Solution:
-    def smallestNumber(self, n: int) -> int:
-        return pow(2, len(bin(n)) - 2) - 1
+    def modifiedList(self, nums: List[int], head: Optional[ListNode]) -> Optional[ListNode]:
+        tmp = ListNode(0, head)
+        p = tmp
+        num_set = set(nums)
+        while p:
+            while p.next and p.next.val in num_set:
+                p.next = p.next.next
+            p = p.next
+        return tmp.next

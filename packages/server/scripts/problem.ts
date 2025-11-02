@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3370. 仅含置位位的最小整数',
-    url: 'https://leetcode.cn/problems/smallest-number-with-all-set-bits',
+    name: '3289. 数字小镇中的捣蛋鬼',
+    url: 'https://leetcode.cn/problems/the-two-sneaky-numbers-of-digitville',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回 大于等于 n 且二进制表示仅包含 置位 位的 最小 整数 x 。`,
+    desc: `返回一个长度为 2 的数组，包含这两个数字（顺序任意）。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            // date: '2025.10.15',
-            time: 0,
-            memory: 17.62,
-            desc: '找最高位1',
+            date: '2025.10.31',
+            time: 3,
+            memory: 17.45,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
