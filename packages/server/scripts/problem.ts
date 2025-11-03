@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3289. 数字小镇中的捣蛋鬼',
-    url: 'https://leetcode.cn/problems/the-two-sneaky-numbers-of-digitville',
+    name: '1578. 使绳子变成彩色的最短时间',
+    url: 'https://leetcode.cn/problems/minimum-time-to-make-rope-colorful',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回一个长度为 2 的数组，包含这两个数字（顺序任意）。`,
+    desc: `返回 Bob 使绳子变成 彩色 需要的 最少时间 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            date: '2025.10.31',
-            time: 3,
-            memory: 17.45,
-            desc: '遍历',
+            // date: '2025.10.31',
+            time: 215,
+            memory: 25.8,
+            desc: '每个连续的颜色段求时间和，并保留最大时间的气球',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

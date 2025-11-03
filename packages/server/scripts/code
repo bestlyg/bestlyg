@@ -1,10 +1,16 @@
 class Solution:
-    def modifiedList(self, nums: List[int], head: Optional[ListNode]) -> Optional[ListNode]:
-        tmp = ListNode(0, head)
-        p = tmp
-        num_set = set(nums)
-        while p:
-            while p.next and p.next.val in num_set:
-                p.next = p.next.next
-            p = p.next
-        return tmp.next
+    def minCost(self, colors: str, neededTime: List[int]) -> int:
+        n = len(colors)
+        i = 0
+        res = 0
+        while i < n:
+            max_time = neededTime[i]
+            sum_time = max_time
+            start = i
+            while i + 1 < n and colors[i + 1] == colors[start]:
+                i += 1
+                max_time = max(max_time, neededTime[i])
+                sum_time += neededTime[i]
+            res += sum_time - max_time
+            i += 1
+        return res
