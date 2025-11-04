@@ -1,16 +1,8 @@
 class Solution:
-    def minCost(self, colors: str, neededTime: List[int]) -> int:
-        n = len(colors)
-        i = 0
-        res = 0
-        while i < n:
-            max_time = neededTime[i]
-            sum_time = max_time
-            start = i
-            while i + 1 < n and colors[i + 1] == colors[start]:
-                i += 1
-                max_time = max(max_time, neededTime[i])
-                sum_time += neededTime[i]
-            res += sum_time - max_time
-            i += 1
+    def findXSum(self, nums: List[int], k: int, x: int) -> List[int]:
+        n = len(nums)
+        res = []
+        for i in range(n - k + 1):
+            sub_nums = sorted(Counter(nums[i: i + k]).items(), key = lambda v: (v[1], v[0]), reverse = True)[:x]
+            res.append(sum(num * cnt for num, cnt in sub_nums))
         return res

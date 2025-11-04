@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '1578. 使绳子变成彩色的最短时间',
-    url: 'https://leetcode.cn/problems/minimum-time-to-make-rope-colorful',
+    name: '3318. 计算子数组的 x-sum I',
+    url: 'https://leetcode.cn/problems/find-x-sum-of-all-k-long-subarrays-i',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回 Bob 使绳子变成 彩色 需要的 最少时间 。`,
+    desc: `返回一个长度为 n - k + 1 的整数数组 answer，其中 answer[i] 是 子数组 nums[i..i + k - 1] 的 x-sum。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.10.31',
-            time: 215,
-            memory: 25.8,
-            desc: '每个连续的颜色段求时间和，并保留最大时间的气球',
+            time: 31,
+            memory: 17.49,
+            desc: '遍历每个子数组',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
