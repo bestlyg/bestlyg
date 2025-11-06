@@ -1,8 +1,44 @@
+class UnionFind:
+    def __init__(self, n) -> None:
+        self.n = n
+        self.data = [i for i in range(0, n)]
+        self.sizes = [1] * n
+        self.cnt = n
+    def size(self, v: int) -> int:
+        return self.sizes[self.find(v)]
+    def find(self, v: int) -> int:
+        if self.data[v] != v:
+            self.data[v] = self.find(self.data[v])
+        return self.data[v]
+    def uni(self, v1: int, v2: int):
+        p1 = self.find(v1)
+        p2 = self.find(v2)
+        if p1 != p2:
+            self.sizes[p1] += self.sizes[p2]
+            self.cnt -= self.sizes[p2]
+            self.data[p2] = p1
+    def same(self, v1: int, v2: int):
+        return self.find(v1) == self.find(v2)
 class Solution:
-    def findXSum(self, nums: List[int], k: int, x: int) -> List[int]:
-        n = len(nums)
+    def processQueries(self, c: int, connections: List[List[int]], queries: List[List[int]]) -> List[int]:
+        uf = UnionFind(c + 1)
+        for u, v in connections: uf.uni(u, v)
+        groups = {}
+        for power in range(1, c + 1):
+            group_head = uf.find(power)
+            if group_head not in groups:
+                groups[group_head] = SortedList()
+            groups[group_head].add(power)
+        actives = set(i for i in range(1, c + 1))
         res = []
-        for i in range(n - k + 1):
-            sub_nums = sorted(Counter(nums[i: i + k]).items(), key = lambda v: (v[1], v[0]), reverse = True)[:x]
-            res.append(sum(num * cnt for num, cnt in sub_nums))
+        for ty, power in queries:
+            group = groups[uf.find(power)]
+            if ty == 2:
+                if power in actives:
+                    actives.remove(power)
+                    group.remove(power)
+            elif power in actives:
+                res.append(power)
+            elif power not in actives:
+                res.append(group[0] if group else -1)
         return res
