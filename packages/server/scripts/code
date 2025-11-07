@@ -1,44 +1,30 @@
-class UnionFind:
-    def __init__(self, n) -> None:
-        self.n = n
-        self.data = [i for i in range(0, n)]
-        self.sizes = [1] * n
-        self.cnt = n
-    def size(self, v: int) -> int:
-        return self.sizes[self.find(v)]
-    def find(self, v: int) -> int:
-        if self.data[v] != v:
-            self.data[v] = self.find(self.data[v])
-        return self.data[v]
-    def uni(self, v1: int, v2: int):
-        p1 = self.find(v1)
-        p2 = self.find(v2)
-        if p1 != p2:
-            self.sizes[p1] += self.sizes[p2]
-            self.cnt -= self.sizes[p2]
-            self.data[p2] = p1
-    def same(self, v1: int, v2: int):
-        return self.find(v1) == self.find(v2)
 class Solution:
-    def processQueries(self, c: int, connections: List[List[int]], queries: List[List[int]]) -> List[int]:
-        uf = UnionFind(c + 1)
-        for u, v in connections: uf.uni(u, v)
-        groups = {}
-        for power in range(1, c + 1):
-            group_head = uf.find(power)
-            if group_head not in groups:
-                groups[group_head] = SortedList()
-            groups[group_head].add(power)
-        actives = set(i for i in range(1, c + 1))
-        res = []
-        for ty, power in queries:
-            group = groups[uf.find(power)]
-            if ty == 2:
-                if power in actives:
-                    actives.remove(power)
-                    group.remove(power)
-            elif power in actives:
-                res.append(power)
-            elif power not in actives:
-                res.append(group[0] if group else -1)
-        return res
+    def maxPower(self, stations: List[int], radius: int, k: int) -> int:
+        stations = [0] + stations + [0]
+        n = len(stations)
+        def check(power: int) -> bool:
+            powers = [0] * n
+            for i in range(n):
+                powers[max(i - radius, 0)] += stations[i]
+                powers[min(i + radius + 1, n - 1)] -= stations[i]
+            need = 0
+            arr = []
+            val = 0
+            for i in range(n):
+                val += powers[i]
+                if 1 <= i <= n - 2:
+                    if val < power:
+                        d = power - val
+                        need += d
+                        val += d
+                        powers[min(i + 2 * radius + 1, n - 1)] -= d
+            return need <= k
+        l = 0
+        r = sum(stations) + k
+        while l < r:
+            m = (l + r + 1) // 2
+            if check(m):
+                l = m
+            else:
+                r = m - 1
+        return l
