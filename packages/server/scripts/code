@@ -1,5 +1,11 @@
 class Solution:
-    def countOperations(self, num1: int, num2: int, cnt = 0) -> int:
-        if num1 == 0 or num2 == 0: return cnt
-        if num1 >= num2: return self.countOperations(num1 - num2, num2, cnt + 1)
-        return self.countOperations(num1, num2 - num1, cnt + 1)
+    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
+        @cache
+        def dfs(idx: int, m: int, n: int) -> int:
+            if m < 0 or n < 0: return -inf
+            if idx >= len(strs): return 0
+            return max(
+                dfs(idx + 1, m, n),
+                dfs(idx + 1, m - strs[idx].count('0'), n - strs[idx].count('1')) + 1
+            )
+        return dfs(0, m, n)

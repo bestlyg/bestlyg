@@ -15,17 +15,17 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '2169. 得到 0 的操作数',
-    url: 'https://leetcode.cn/problems/count-operations-to-obtain-zero',
+    name: '474. 一和零',
+    url: 'https://leetcode.cn/problems/ones-and-zeroes',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回使 num1 = 0 或 num2 = 0 的 操作数 。`,
+    desc: `请你找出并返回 strs 的最大子集的长度，该子集中 最多 有 m 个 0 和 n 个 1 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.10.31',
-            time: 143,
-            memory: 37.82,
+            time: 1815,
+            memory: 302.77,
             desc: '递归遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
