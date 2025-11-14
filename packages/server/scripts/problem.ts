@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '474. 一和零',
-    url: 'https://leetcode.cn/problems/ones-and-zeroes',
+    name: '2536. 子矩阵元素加 1',
+    url: 'https://leetcode.cn/problems/increment-submatrices-by-one',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你找出并返回 strs 的最大子集的长度，该子集中 最多 有 m 个 0 和 n 个 1 。`,
+    desc: `返回执行完所有操作后得到的矩阵 mat 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.10.31',
-            time: 1815,
-            memory: 302.77,
-            desc: '递归遍历',
+            time: 186,
+            memory: 39.88,
+            desc: '每遍历到一串0，就把前面每个1移动一次',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
