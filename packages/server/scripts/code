@@ -1,5 +1,13 @@
 class Solution:
-    def numSub(self, s: str) -> int:
-        def run(n: int) -> int:
-            return (1 + n) * n // 2
-        return sum(run(len(subs)) for subs in s.split('0')) % (10 ** 9 + 7)
+    def isOneBitCharacter(self, bits: List[int]) -> bool:
+        if bits[-1] != 0: return False
+        n = len(bits)
+        @cache
+        def dfs(idx: int) -> bool:
+            if idx == n - 1: return True
+            if idx == n - 2: return bits[idx] == 0
+            if bits[idx] == 0:
+                return dfs(idx + 1)
+            else:
+                return dfs(idx + 2)
+        return dfs(0)

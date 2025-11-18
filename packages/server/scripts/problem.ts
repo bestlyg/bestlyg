@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '1513. 仅含 1 的子串数',
-    url: 'https://leetcode.cn/problems/number-of-substrings-with-only-1s',
+    name: '717. 1 比特与 2 比特字符',
+    url: 'https://leetcode.cn/problems/1-bit-and-2-bit-characters',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回所有字符都为 1 的子字符串的数目。`,
+    desc: `给你一个以 0 结尾的二进制数组 bits ，如果最后一个字符必须是一个一比特字符，则返回 true 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.10.31',
-            time: 7,
-            memory:18.46,
-            desc: '每遍历到一串0，就把前面每个1移动一次',
+            time: 4,
+            memory: 18.54,
+            desc: 'dfs',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
