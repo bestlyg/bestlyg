@@ -14,7 +14,7 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: !true,
+    exist: true,
     name: '717. 1 比特与 2 比特字符',
     url: 'https://leetcode.cn/problems/1-bit-and-2-bit-characters',
     level: LeetcodeLevelType.Easy,
@@ -23,7 +23,7 @@ export const problem: LeetcodeProblem & { exist: boolean } = {
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            // date: '2025.10.31',
+            date: '2025.11.19',
             time: 4,
             memory: 18.54,
             desc: 'dfs',

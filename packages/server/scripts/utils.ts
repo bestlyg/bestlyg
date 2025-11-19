@@ -16,7 +16,7 @@ export async function login(request: AxiosInstance, username: string, password: 
 }
 
 export async function createRequest() {
-    const request = axios.create({ baseURL: 'http://127.0.0.1:10000' });
+    const request = axios.create({ baseURL: 'http://localhost:10000' });
     const loginResult = await login(request, config.auth.username, config.auth.password);
     request.defaults.headers.Authorization = 'Bearer ' + loginResult.accessToken;
     return request;
@@ -36,6 +36,11 @@ export async function createXuanData(request: AxiosInstance, dataList: Partial<X
 
 export async function createLedger(request: AxiosInstance, dataList: Partial<Ledger>[]) {
     const res = await request.post('/api/database/ledger', dataList);
+    return res.data.data;
+}
+
+export async function getLedgerList(request: AxiosInstance) {
+    const res = await request.get('/api/database/ledger/list');
     return res.data.data;
 }
 

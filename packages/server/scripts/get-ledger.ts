@@ -1,9 +1,8 @@
-import { createLedger, createRequest } from './utils';
-import { data } from '../temp/ledger';
+import { getLedgerList, createRequest } from './utils';
 
 async function main() {
     const request = await createRequest();
-    const resp = await createLedger(request, data);
+    const resp = await getLedgerList(request);
     console.log(JSON.stringify(resp));
 }
 
