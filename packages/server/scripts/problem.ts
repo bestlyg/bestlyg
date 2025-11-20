@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: true,
-    name: '717. 1 比特与 2 比特字符',
-    url: 'https://leetcode.cn/problems/1-bit-and-2-bit-characters',
+    name: '757. 设置交集大小至少为2',
+    url: 'https://leetcode.cn/problems/set-intersection-size-at-least-two',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个以 0 结尾的二进制数组 bits ，如果最后一个字符必须是一个一比特字符，则返回 true 。`,
+    desc: `返回包含集合可能的最小大小。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            date: '2025.11.19',
-            time: 4,
-            memory: 18.54,
-            desc: 'dfs',
+            // date: '2025.11.19',
+            time: 23,
+            memory: 19.13,
+            desc: '排序后贪心的从后面取',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

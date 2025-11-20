@@ -1,13 +1,16 @@
 class Solution:
-    def isOneBitCharacter(self, bits: List[int]) -> bool:
-        if bits[-1] != 0: return False
-        n = len(bits)
-        @cache
-        def dfs(idx: int) -> bool:
-            if idx == n - 1: return True
-            if idx == n - 2: return bits[idx] == 0
-            if bits[idx] == 0:
-                return dfs(idx + 1)
-            else:
-                return dfs(idx + 2)
-        return dfs(0)
+    def intersectionSizeTwo(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key = lambda v: (v[1], v[0]))
+        arr = SortedList()
+        res = 0
+        for start, end in intervals:
+            cnt = len(arr) - arr.bisect_left(start)
+            if cnt == 1:
+                while end in arr: end -= 1
+                arr.add(end)
+                res += 1
+            elif cnt == 0:
+                arr.add(end)
+                arr.add(end - 1)
+                res += 2
+        return res
