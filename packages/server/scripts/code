@@ -1,16 +1,16 @@
 class Solution:
-    def intersectionSizeTwo(self, intervals: List[List[int]]) -> int:
-        intervals.sort(key = lambda v: (v[1], v[0]))
-        arr = SortedList()
-        res = 0
-        for start, end in intervals:
-            cnt = len(arr) - arr.bisect_left(start)
-            if cnt == 1:
-                while end in arr: end -= 1
-                arr.add(end)
-                res += 1
-            elif cnt == 0:
-                arr.add(end)
-                arr.add(end - 1)
-                res += 2
-        return res
+    def countPalindromicSubsequence(self, s: str) -> int:
+        cright = Counter(s)
+        cleft = Counter()
+        n = len(s)
+        used = defaultdict(set)
+        matched = set()
+        for c in s:
+            cright[c] -= 1
+            if (cleft[c] == 0 or cright[c] == 0) and c in matched:
+                matched.remove(c)
+            used[c] |= matched
+            cleft[c] += 1
+            if cleft[c] > 0 and cright[c] > 0:
+                matched.add(c)
+        return sum(len(item) for item in used.values())

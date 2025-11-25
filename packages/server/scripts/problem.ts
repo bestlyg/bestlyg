@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: true,
-    name: '757. 设置交集大小至少为2',
-    url: 'https://leetcode.cn/problems/set-intersection-size-at-least-two',
+    exist: !true,
+    name: '1930. 长度为 3 的不同回文子序列',
+    url: 'https://leetcode.cn/problems/unique-length-3-palindromic-subsequences',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回包含集合可能的最小大小。`,
+    desc: `给你一个字符串 s ，返回 s 中 长度为 3 的不同回文子序列 的个数。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            // date: '2025.11.19',
-            time: 23,
-            memory: 19.13,
-            desc: '排序后贪心的从后面取',
+            // date: '2025.11.21',
+            time: 495,
+            memory: 18.05,
+            desc: '遍历每一个中间字符，记录存在左右对称的字符',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
