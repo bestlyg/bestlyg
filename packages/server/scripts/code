@@ -1,16 +1,17 @@
 class Solution:
-    def countPalindromicSubsequence(self, s: str) -> int:
-        cright = Counter(s)
-        cleft = Counter()
-        n = len(s)
-        used = defaultdict(set)
-        matched = set()
-        for c in s:
-            cright[c] -= 1
-            if (cleft[c] == 0 or cright[c] == 0) and c in matched:
-                matched.remove(c)
-            used[c] |= matched
-            cleft[c] += 1
-            if cleft[c] > 0 and cright[c] > 0:
-                matched.add(c)
-        return sum(len(item) for item in used.values())
+    def minSubarray(self, nums: List[int], p: int) -> int:
+        nsum = sum(nums)
+        target = nsum % p
+        if nsum < p: return -1
+        if target == 0: return 0
+        c = Counter()
+        c[0] = -1
+        val = 0
+        res = inf
+        for i in range(len(nums)):
+            num = nums[i]
+            val = (val + num) % p
+            if (val - target) % p in c:
+                res = min(res, i - c[(val - target) % p])
+            c[val] = i
+        return res if res < len(nums) else -1
