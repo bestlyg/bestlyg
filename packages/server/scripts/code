@@ -1,17 +1,15 @@
 class Solution:
-    def minSubarray(self, nums: List[int], p: int) -> int:
-        nsum = sum(nums)
-        target = nsum % p
-        if nsum < p: return -1
-        if target == 0: return 0
-        c = Counter()
-        c[0] = -1
-        val = 0
-        res = inf
-        for i in range(len(nums)):
-            num = nums[i]
-            val = (val + num) % p
-            if (val - target) % p in c:
-                res = min(res, i - c[(val - target) % p])
-            c[val] = i
-        return res if res < len(nums) else -1
+    def countTrapezoids(self, points: List[List[int]]) -> int:
+        mod = 10 ** 9 + 7
+        res = 0
+        counter = Counter()
+        for x, y in points:
+            counter[y] += 1
+        arr = list(counter.values())
+        compute = lambda v: (1 + v - 1) * (v - 1) // 2
+        prev = compute(arr[0])
+        for curr in arr[1:]:
+            v = compute(curr)
+            res += prev * v
+            prev += v
+        return res % mod
