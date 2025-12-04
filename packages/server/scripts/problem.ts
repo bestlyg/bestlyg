@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3623. 统计梯形的数目 I',
-    url: 'https://leetcode.cn/problems/count-number-of-trapezoids-i',
+    name: '2211. 统计道路上的碰撞次数',
+    url: 'https://leetcode.cn/problems/count-collisions-on-a-road',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回可以从 points 中任意选择四个不同点组成的 水平梯形 数量。`,
+    desc: `返回在这条道路上发生的 碰撞总次数 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 143,
-            memory: 62.29,
-            desc: '记录每条线存在多少个节点',
+            time: 771,
+            memory: 19.23,
+            desc: '遍历时记录LRS的位置并转换',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
