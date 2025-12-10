@@ -15,17 +15,17 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '1523. 在区间范围内统计奇数数目',
-    url: 'https://leetcode.cn/problems/count-odd-numbers-in-an-interval-range',
+    name: '3583. 统计特殊三元组',
+    url: 'https://leetcode.cn/problems/count-special-triplets',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你两个非负整数 low 和 high 。请你返回 low 和 high 之间（包括二者）奇数的数目。`,
+    desc: `返回数组中 特殊三元组 的总数。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 0,
-            memory: 17.68,
+            time: 719,
+            memory: 50.95,
             desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },

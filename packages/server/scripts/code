@@ -1,6 +1,18 @@
 class Solution:
-    def countOdds(self, low: int, high: int) -> int:
-        cnt = high - low + 1
-        if low % 2 != 0 and high % 2 != 0:
-            cnt += 1
-        return cnt // 2
+    def specialTriplets(self, nums: List[int]) -> int:
+        n = len(nums)
+        m = defaultdict(list)
+        res = 0
+        for i in range(n):
+            m[nums[i]].append(i)
+        for i in range(n):
+            num = nums[i]
+            arr = m[num * 2]
+            if not arr: continue
+            idx = bisect_left(arr, i)
+            lcnt = idx
+            rcnt = len(arr) - idx
+            if num == 0:
+                rcnt -= 1
+            res += lcnt * rcnt
+        return res % (10 ** 9 + 7)
