@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3583. 统计特殊三元组',
-    url: 'https://leetcode.cn/problems/count-special-triplets',
+    name: '3531. 统计被覆盖的建筑',
+    url: 'https://leetcode.cn/problems/count-covered-buildings',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回数组中 特殊三元组 的总数。`,
+    desc: `返回 被覆盖 的建筑数量。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 719,
-            memory: 50.95,
-            desc: '遍历',
+            time: 347,
+            memory: 59.02,
+            desc: '遍历每个存在建筑的行，再依次遍历每个建筑',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

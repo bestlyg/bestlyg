@@ -1,18 +1,20 @@
 class Solution:
-    def specialTriplets(self, nums: List[int]) -> int:
-        n = len(nums)
-        m = defaultdict(list)
+    def countCoveredBuildings(self, n: int, buildings: List[List[int]]) -> int:
+        rows = defaultdict(list)
+        cols = defaultdict(list)
+        for x, y in buildings:
+            rows[y].append(x)
+            cols[x].append(y)
+        for arr in rows.values():
+            arr.sort()
+        for arr in cols.values():
+            arr.sort()
         res = 0
-        for i in range(n):
-            m[nums[i]].append(i)
-        for i in range(n):
-            num = nums[i]
-            arr = m[num * 2]
-            if not arr: continue
-            idx = bisect_left(arr, i)
-            lcnt = idx
-            rcnt = len(arr) - idx
-            if num == 0:
-                rcnt -= 1
-            res += lcnt * rcnt
-        return res % (10 ** 9 + 7)
+        for x, arr in rows.items():
+            if len(arr) < 2: continue
+            for y in arr[1:-1]:
+                yarr = cols[y]
+                if len(yarr) < 2: continue
+                if yarr[0] < x < yarr[-1]:
+                    res += 1
+        return res
