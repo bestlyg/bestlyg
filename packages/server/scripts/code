@@ -1,20 +1,25 @@
 class Solution:
-    def countCoveredBuildings(self, n: int, buildings: List[List[int]]) -> int:
-        rows = defaultdict(list)
-        cols = defaultdict(list)
-        for x, y in buildings:
-            rows[y].append(x)
-            cols[x].append(y)
-        for arr in rows.values():
-            arr.sort()
-        for arr in cols.values():
-            arr.sort()
-        res = 0
-        for x, arr in rows.items():
-            if len(arr) < 2: continue
-            for y in arr[1:-1]:
-                yarr = cols[y]
-                if len(yarr) < 2: continue
-                if yarr[0] < x < yarr[-1]:
-                    res += 1
+    def countMentions(self, n: int, events: List[List[str]]) -> List[int]:
+        res = [0 for u in range(n)]
+        online_users = set(u for u in range(n))
+        events.sort(key = lambda v: (int(v[1]), v[0] == 'MESSAGE'))
+        offline_users = deque()
+        for e in events:
+            t = int(e[1])
+            while offline_users and offline_users[0][1] <= t:
+                uid, _ = offline_users.popleft()
+                online_users.add(uid)
+            if e[0] == 'MESSAGE':
+                if e[2] == 'ALL':
+                    uids = range(n)
+                elif e[2] == 'HERE':
+                    uids = online_users
+                else:
+                    uids = [int(sid[2:]) for sid in e[2].split(' ')]
+                for i in uids:
+                    res[i] += 1
+            else:
+                uid = int(e[2])
+                online_users.remove(uid)
+                offline_users.append((uid, t + 60))
         return res
