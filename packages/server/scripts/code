@@ -1,25 +1,15 @@
 class Solution:
-    def countMentions(self, n: int, events: List[List[str]]) -> List[int]:
-        res = [0 for u in range(n)]
-        online_users = set(u for u in range(n))
-        events.sort(key = lambda v: (int(v[1]), v[0] == 'MESSAGE'))
-        offline_users = deque()
-        for e in events:
-            t = int(e[1])
-            while offline_users and offline_users[0][1] <= t:
-                uid, _ = offline_users.popleft()
-                online_users.add(uid)
-            if e[0] == 'MESSAGE':
-                if e[2] == 'ALL':
-                    uids = range(n)
-                elif e[2] == 'HERE':
-                    uids = online_users
-                else:
-                    uids = [int(sid[2:]) for sid in e[2].split(' ')]
-                for i in uids:
-                    res[i] += 1
-            else:
-                uid = int(e[2])
-                online_users.remove(uid)
-                offline_users.append((uid, t + 60))
-        return res
+    def validateCoupons(self, code: List[str], businessLine: List[str], isActive: List[bool]) -> List[str]:
+        bus_list = ["electronics", "grocery", "pharmacy", "restaurant"]
+        bus_set = set(bus_list)
+        n = len(code)
+        idxs = [
+            i 
+            for i in range(n)
+            if isActive[i]
+            if businessLine[i] in bus_set
+            if code[i]
+            if all(c.isalnum() or c == '_' for c in code[i])
+        ]
+        idxs.sort(key = lambda i: (bus_list.index(businessLine[i]), code[i]))
+        return [code[i] for i in idxs]

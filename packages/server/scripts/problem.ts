@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3433. 统计用户被提及情况',
-    url: 'https://leetcode.cn/problems/count-mentions-per-user',
+    name: '3606. 优惠券校验器',
+    url: 'https://leetcode.cn/problems/coupon-code-validator',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回数组 mentions ，其中 mentions[i] 表示  id 为  i 的用户在所有 MESSAGE 事件中被提及的次数。`,
+    desc: `返回所有 有效优惠券的标识符 组成的数组。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 38,
-            memory: 17.83,
-            desc: '模拟',
+            time: 11,
+            memory: 17.84,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
