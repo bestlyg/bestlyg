@@ -1,15 +1,12 @@
 class Solution:
-    def validateCoupons(self, code: List[str], businessLine: List[str], isActive: List[bool]) -> List[str]:
-        bus_list = ["electronics", "grocery", "pharmacy", "restaurant"]
-        bus_set = set(bus_list)
-        n = len(code)
-        idxs = [
-            i 
-            for i in range(n)
-            if isActive[i]
-            if businessLine[i] in bus_set
-            if code[i]
-            if all(c.isalnum() or c == '_' for c in code[i])
-        ]
-        idxs.sort(key = lambda i: (bus_list.index(businessLine[i]), code[i]))
-        return [code[i] for i in idxs]
+    def getDescentPeriods(self, prices: List[int]) -> int:
+        n = len(prices)
+        prev = 0
+        res = 1
+        for i in range(1, n):
+            res += 1
+            if prices[i] == prices[i - 1] - 1:
+                res += i - prev
+            else:
+                prev = i
+        return res
