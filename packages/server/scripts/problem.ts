@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: !true,
-    name: '3573. 买卖股票的最佳时机 V',
-    url: 'https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-v',
+    exist: true,
+    name: '944. 删列造序',
+    url: 'https://leetcode.cn/problems/delete-columns-to-make-sorted',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `通过进行 最多 k 笔交易，返回你可以获得的最大总利润。`,
+    desc: `返回你需要删除的列数。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 5579,
-            memory: 194.18,
-            desc: 'dfs',
+            time: 107,
+            memory: 18,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

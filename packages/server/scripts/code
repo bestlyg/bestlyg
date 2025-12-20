@@ -1,27 +1,6 @@
 class Solution:
-    def maximumProfit(self, prices: List[int], k: int) -> int:
-        n = len(prices)
-        # 0 空 1 普通 2 做空
-        @cache
-        def dfs(idx: int, k: int, f: int) -> int:
-            # print(f'idx = {idx}, k = {k}, f = {f}')
-            if idx == n:
-                if f != 0: return -inf
-                return 0
-            if k == 0:
-                if f == 1: return max(prices[idx], dfs(idx + 1, k, f))
-                if f == 2: return max(-prices[idx], dfs(idx + 1, k, f))
-                return 0
-            res = dfs(idx + 1, k, f)
-            if f == 0:
-                res = max(res, dfs(idx + 1, k - 1, 1) - prices[idx])
-                res = max(res, dfs(idx + 1, k - 1, 2) + prices[idx])
-            elif f == 1:
-                res = max(res, dfs(idx + 1, k, 0) + prices[idx])
-            elif f == 2:
-                res = max(res, dfs(idx + 1, k, 0) - prices[idx])
-            # print(f'> idx = {idx}, k = {k}, f = {f}, res = {res}')
-            return res
-        res = dfs(0, k, 0)
-        dfs.cache_clear()
-        return res
+    def minDeletionSize(self, strs: List[str]) -> int:
+        return sum(
+            any(strs[i1][j] > strs[i2][j] for i1, i2 in pairwise(range(len(strs))))
+            for j in range(len(strs[0]))
+        )
