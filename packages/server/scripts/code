@@ -1,6 +1,9 @@
 class Solution:
-    def minDeletionSize(self, strs: List[str]) -> int:
-        return sum(
-            any(strs[i1][j] > strs[i2][j] for i1, i2 in pairwise(range(len(strs))))
-            for j in range(len(strs[0]))
-        )
+    def minimumBoxes(self, apple: List[int], capacity: List[int]) -> int:
+        nsum = sum(apple)
+        capacity.sort()
+        res = 0
+        while nsum > 0 and capacity:
+            nsum -= capacity.pop()
+            res += 1
+        return res
