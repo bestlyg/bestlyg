@@ -1,9 +1,8 @@
 class Solution:
-    def minimumBoxes(self, apple: List[int], capacity: List[int]) -> int:
-        nsum = sum(apple)
-        capacity.sort()
+    def maximumHappinessSum(self, happiness: List[int], k: int) -> int:
         res = 0
-        while nsum > 0 and capacity:
-            nsum -= capacity.pop()
-            res += 1
+        happiness.sort(reverse = True)
+        n = len(happiness)
+        for i in range(k):
+            res += max(happiness[i] - i, 0)
         return res

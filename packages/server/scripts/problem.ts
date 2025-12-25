@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3074. 重新分装苹果',
-    url: 'https://leetcode.cn/problems/apple-redistribution-into-boxes',
+    name: '3075. 幸福值最大化的选择方案',
+    url: 'https://leetcode.cn/problems/maximize-happiness-of-selected-children',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你选择一些箱子来将这 n 个包裹中的苹果重新分装到箱子中，返回你需要选择的箱子的 最小 数量。`,
+    desc: `在每一轮选择一个孩子时，所有 尚未 被选中的孩子的 幸福值 将减少 1 。注意，幸福值 不能 变成负数，且只有在它是正数的情况下才会减少。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 0,
-            memory: 17.27,
-            desc: '遍历',
+            time: 163,
+            memory: 40.01,
+            desc: '排序后从大忘小遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
