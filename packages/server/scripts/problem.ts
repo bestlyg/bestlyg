@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3075. 幸福值最大化的选择方案',
-    url: 'https://leetcode.cn/problems/maximize-happiness-of-selected-children',
+    name: '2483. 商店的最少代价',
+    url: 'https://leetcode.cn/problems/minimum-penalty-for-a-shop',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `在每一轮选择一个孩子时，所有 尚未 被选中的孩子的 幸福值 将减少 1 。注意，幸福值 不能 变成负数，且只有在它是正数的情况下才会减少。`,
+    desc: `请你返回在确保代价 最小 的前提下，商店的 最早 关门时间。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 163,
-            memory: 40.01,
-            desc: '排序后从大忘小遍历',
+            time: 131,
+            memory: 17.52,
+            desc: '逐个遍历，统计左右两边的YN的数量',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
