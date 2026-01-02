@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: !true,
-    name: '2483. 商店的最少代价',
-    url: 'https://leetcode.cn/problems/minimum-penalty-for-a-shop',
+    exist: true,
+    name: '961. 在长度 2N 的数组中找出重复 N 次的元素',
+    url: 'https://leetcode.cn/problems/n-repeated-element-in-size-2n-array',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你返回在确保代价 最小 的前提下，商店的 最早 关门时间。`,
+    desc: `找出并返回重复了 n 次的那个元素。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 131,
-            memory: 17.52,
-            desc: '逐个遍历，统计左右两边的YN的数量',
+            time: 15,
+            memory: 18.25,
+            desc: '计数',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
