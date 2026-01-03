@@ -1,3 +1,23 @@
 class Solution:
-    def repeatedNTimes(self, nums: List[int]) -> int:
-        return [num for num, cnt in Counter(nums).items() if cnt == len(nums) // 2][0]
+    def pyramidTransition(self, bottom: str, allowed: List[str]) -> bool:
+        map = defaultdict(list)
+        for v in allowed:
+            map[v[:2]].append(v[2])
+        def get_next(arr: List[List[str]], idx: int) -> List[str]:
+            if len(arr) == idx:
+                return ['']
+            res = []
+            for c in arr[idx]:
+                for next in get_next(arr, idx + 1):
+                    res.append(c + next)
+            return res
+        @cache
+        def dfs(bottom: str) -> bool:
+            if len(bottom) == 1: return True
+            res = False
+            arr = []
+            for l, r in pairwise(bottom):
+                if l + r not in map: return False
+                arr.append(map[l + r])
+            return any(dfs(next) for next in get_next(arr, 0))
+        return dfs(bottom)

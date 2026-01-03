@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: true,
-    name: '961. 在长度 2N 的数组中找出重复 N 次的元素',
-    url: 'https://leetcode.cn/problems/n-repeated-element-in-size-2n-array',
+    name: '756. 金字塔转换矩阵',
+    url: 'https://leetcode.cn/problems/pyramid-transition-matrix',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `找出并返回重复了 n 次的那个元素。`,
+    desc: `在给定 bottom 和 allowed 的情况下，如果你能一直构建到金字塔顶部，使金字塔中的 每个三角形图案 都是在 allowed 中的，则返回 true ，否则返回 false 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 15,
-            memory: 18.25,
-            desc: '计数',
+            time: 243,
+            memory: 20.12,
+            desc: 'dfs',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
