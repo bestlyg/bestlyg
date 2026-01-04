@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: true,
-    name: '756. 金字塔转换矩阵',
-    url: 'https://leetcode.cn/problems/pyramid-transition-matrix',
+    exist: !true,
+    name: '1390. 四因数',
+    url: 'https://leetcode.cn/problems/four-divisors',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `在给定 bottom 和 allowed 的情况下，如果你能一直构建到金字塔顶部，使金字塔中的 每个三角形图案 都是在 allowed 中的，则返回 true ，否则返回 false 。`,
+    desc: `给你一个整数数组 nums，请你返回该数组中恰有四个因数的这些整数的各因数之和。如果数组中不存在满足题意的整数，则返回 0 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 243,
-            memory: 20.12,
-            desc: 'dfs',
+            time: 831,
+            memory: 18.44,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
