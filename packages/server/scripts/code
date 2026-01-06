@@ -1,18 +1,21 @@
 class Solution:
-    def sumFourDivisors(self, nums: List[int]) -> int:
-        res = 0
-        for num in nums:
-            item = num + 1
-            cnt = 2
-            v = 2
-            while v ** 2 < num:
-                if num % v == 0:
-                    cnt += 2
-                    item += v + num // v
-                v += 1
-            if v ** 2 == num:
-                cnt += 1
-                item += v
-            if cnt == 4:
-                res += item
-        return res
+    def maxLevelSum(self, root: Optional[TreeNode]) -> int:
+        if not root: return 0
+        q = deque([root])
+        res = root.val
+        res_index = 1
+        size = 1
+        h = 1
+        while q:
+            node = q.popleft()
+            if node.left: q.append(node.left)
+            if node.right: q.append(node.right)
+            size -= 1
+            if size == 0:
+                h += 1
+                nsum = sum(v.val for v in q)
+                if q and nsum > res:
+                    res = nsum
+                    res_index = h
+                size = len(q)
+        return res_index
