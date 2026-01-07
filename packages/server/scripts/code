@@ -1,21 +1,22 @@
 class Solution:
-    def maxLevelSum(self, root: Optional[TreeNode]) -> int:
-        if not root: return 0
-        q = deque([root])
-        res = root.val
-        res_index = 1
-        size = 1
-        h = 1
-        while q:
-            node = q.popleft()
-            if node.left: q.append(node.left)
-            if node.right: q.append(node.right)
-            size -= 1
-            if size == 0:
-                h += 1
-                nsum = sum(v.val for v in q)
-                if q and nsum > res:
-                    res = nsum
-                    res_index = h
-                size = len(q)
-        return res_index
+    def maxProduct(self, root: Optional[TreeNode]) -> int:
+        if not root: return 1
+        nodes = {}
+        def dfs(node: Optional[TreeNode]) -> int:
+            if not node: return 0
+            lval = dfs(node.left)
+            rval = dfs(node.right)
+            nodes[node] = [lval, rval]
+            return lval + rval + node.val
+        val = dfs(root)
+        res = 0
+        def dfs2(node: Optional[TreeNode]) -> int:
+            nonlocal res
+            if not node: return 1
+            res = max(res,
+                nodes[node][0] * (val - nodes[node][0]), 
+                (val - nodes[node][1]) * nodes[node][1] )
+            dfs2(node.left)
+            dfs2(node.right)
+        dfs2(root)
+        return res % (10 ** 9 + 7)

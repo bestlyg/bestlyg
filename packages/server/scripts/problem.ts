@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: !true,
-    name: '1161. 最大层内元素和',
-    url: 'https://leetcode.cn/problems/maximum-level-sum-of-a-binary-tree',
+    exist: true,
+    name: '1339. 分裂二叉树的最大乘积',
+    url: 'https://leetcode.cn/problems/maximum-product-of-splitted-binary-tree',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回总和 最大 的那一层的层号 x。如果有多层的总和一样大，返回其中 最小 的层号 x。`,
+    desc: `给你一棵二叉树，它的根为 root 。请你删除 1 条边，使二叉树分裂成两棵子树，且它们子树和的乘积尽可能大。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 28,
-            memory: 22.54,
-            desc: '层序遍历',
+            time: 162,
+            memory: 66.80,
+            desc: 'dfs',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
