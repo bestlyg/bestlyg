@@ -1,22 +1,31 @@
 class Solution:
-    def maxProduct(self, root: Optional[TreeNode]) -> int:
-        if not root: return 1
+    def subtreeWithAllDeepest(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        res = None
+        max_level = 0
+        max_level_nodes = set()
         nodes = {}
-        def dfs(node: Optional[TreeNode]) -> int:
-            if not node: return 0
-            lval = dfs(node.left)
-            rval = dfs(node.right)
-            nodes[node] = [lval, rval]
-            return lval + rval + node.val
-        val = dfs(root)
-        res = 0
-        def dfs2(node: Optional[TreeNode]) -> int:
+        childrens = {}
+        def dfs(node: Optional[TreeNode], level: int) -> Set[TreeNode]:
+            nonlocal max_level
+            if not node: return set()
+            if level > max_level:
+                max_level_nodes.clear()
+                max_level = level
+            if level == max_level:
+                max_level_nodes.add(node)
+            lset = dfs(node.left, level + 1)
+            rset = dfs(node.right, level + 1)
+            nodes[node] = level
+            childrens[node] = lset | rset
+            childrens[node].add(node)
+            return childrens[node]
+        dfs(root, 0)
+        def dfs2(node: Optional[TreeNode]):
             nonlocal res
-            if not node: return 1
-            res = max(res,
-                nodes[node][0] * (val - nodes[node][0]), 
-                (val - nodes[node][1]) * nodes[node][1] )
+            if not node: return
+            if not max_level_nodes.issubset(childrens[node]): return
+            res = node
             dfs2(node.left)
             dfs2(node.right)
         dfs2(root)
-        return res % (10 ** 9 + 7)
+        return res

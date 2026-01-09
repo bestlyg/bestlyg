@@ -15,17 +15,17 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: true,
-    name: '1339. 分裂二叉树的最大乘积',
-    url: 'https://leetcode.cn/problems/maximum-product-of-splitted-binary-tree',
+    name: '865. 具有所有最深节点的最小子树',
+    url: 'https://leetcode.cn/problems/smallest-subtree-with-all-the-deepest-nodes',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一棵二叉树，它的根为 root 。请你删除 1 条边，使二叉树分裂成两棵子树，且它们子树和的乘积尽可能大。`,
+    desc: `返回包含原始树中所有 最深节点 的 最小子树 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 162,
-            memory: 66.80,
+            time: 4,
+            memory: 21.35,
             desc: 'dfs',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
