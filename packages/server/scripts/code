@@ -1,31 +1,16 @@
 class Solution:
-    def subtreeWithAllDeepest(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        res = None
-        max_level = 0
-        max_level_nodes = set()
-        nodes = {}
-        childrens = {}
-        def dfs(node: Optional[TreeNode], level: int) -> Set[TreeNode]:
-            nonlocal max_level
-            if not node: return set()
-            if level > max_level:
-                max_level_nodes.clear()
-                max_level = level
-            if level == max_level:
-                max_level_nodes.add(node)
-            lset = dfs(node.left, level + 1)
-            rset = dfs(node.right, level + 1)
-            nodes[node] = level
-            childrens[node] = lset | rset
-            childrens[node].add(node)
-            return childrens[node]
-        dfs(root, 0)
-        def dfs2(node: Optional[TreeNode]):
-            nonlocal res
-            if not node: return
-            if not max_level_nodes.issubset(childrens[node]): return
-            res = node
-            dfs2(node.left)
-            dfs2(node.right)
-        dfs2(root)
-        return res
+    def minimumDeleteSum(self, s1: str, s2: str) -> int:
+        n1 = len(s1) 
+        n2 = len(s2)
+        @cache
+        def dfs(i1: int, i2: int) -> int:
+            if i1 == n1 and i2 == n2: return 0
+            if i1 == n1:              return sum(ord(c) for c in s2[i2:])
+            if i2 == n2:              return sum(ord(c) for c in s1[i1:])
+            if s1[i1] == s2[i2]:      return dfs(i1 + 1, i2 + 1)
+            return min(
+                dfs(i1 + 1, i2)     + ord(s1[i1]),
+                dfs(i1, i2 + 1)     + ord(s2[i2]),
+                dfs(i1 + 1, i2 + 1) + ord(s2[i2]) + ord(s1[i1]),
+            )
+        return dfs(0, 0)

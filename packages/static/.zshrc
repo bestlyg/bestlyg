@@ -45,3 +45,13 @@ export PATH="$HOME/go/bin:$PATH"
 alias proxy-start="export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890"
 alias proxy-end="export https_proxy= http_proxy= all_proxy="
 alias ioa='sudo ifconfig en0 down && sudo ifconfig en1 down && sudo ifconfig en2 down && sudo ifconfig en0 up && sudo ifconfig en1 up && sudo ifconfig en2 up'
+gsync() {
+    git fetch origin $1:$1
+}
+
+# 覆盖原有的mac内置的c系列工具
+alias gcc='gcc-15'
+alias g++='g++-15'
+alias cc='gcc-15'
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
