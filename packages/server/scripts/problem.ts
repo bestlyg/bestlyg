@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '712. 两个字符串的最小ASCII删除和',
-    url: 'https://leetcode.cn/problems/minimum-ascii-delete-sum-for-two-strings',
+    name: '1266. 访问所有点的最小时间',
+    url: 'https://leetcode.cn/problems/minimum-time-visiting-all-points',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给定两个字符串s1 和 s2，返回 使两个字符串相等所需删除字符的 ASCII 值的最小和 。`,
+    desc: `平面上有 n 个点，点的位置用整数坐标表示 points[i] = [xi, yi] 。请你计算访问所有这些点需要的 最小时间（以秒为单位）。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 1045,
-            memory: 220.66,
-            desc: '计算最长公共子序列',
+            time: 3,
+            memory: 19.07,
+            desc: '遍历每两个点，先按对角线走，再平移',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

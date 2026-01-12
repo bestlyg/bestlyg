@@ -1,16 +1,5 @@
 class Solution:
-    def minimumDeleteSum(self, s1: str, s2: str) -> int:
-        n1 = len(s1) 
-        n2 = len(s2)
-        @cache
-        def dfs(i1: int, i2: int) -> int:
-            if i1 == n1 and i2 == n2: return 0
-            if i1 == n1:              return sum(ord(c) for c in s2[i2:])
-            if i2 == n2:              return sum(ord(c) for c in s1[i1:])
-            if s1[i1] == s2[i2]:      return dfs(i1 + 1, i2 + 1)
-            return min(
-                dfs(i1 + 1, i2)     + ord(s1[i1]),
-                dfs(i1, i2 + 1)     + ord(s2[i2]),
-                dfs(i1 + 1, i2 + 1) + ord(s2[i2]) + ord(s1[i1]),
-            )
-        return dfs(0, 0)
+    def minTimeToVisitAllPoints(self, points: List[List[int]]) -> int:
+        def d(p1: List[int], p2: List[int]) -> int:
+            return max(abs(p1[0] - p2[0]), abs(p1[1] - p2[1]))
+        return sum(d(p1, p2) for p1, p2 in pairwise(points))
