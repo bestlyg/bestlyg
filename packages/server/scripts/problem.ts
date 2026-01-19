@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '1266. 访问所有点的最小时间',
-    url: 'https://leetcode.cn/problems/minimum-time-visiting-all-points',
+    name: '1292. 元素和小于等于阈值的正方形的最大边长',
+    url: 'https://leetcode.cn/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `平面上有 n 个点，点的位置用整数坐标表示 points[i] = [xi, yi] 。请你计算访问所有这些点需要的 最小时间（以秒为单位）。`,
+    desc: `请你返回元素总和小于或等于阈值的正方形区域的最大边长；如果没有这样的正方形区域，则返回 0 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 3,
-            memory: 19.07,
-            desc: '遍历每两个点，先按对角线走，再平移',
+            time: 215,
+            memory: 25.77,
+            desc: '二分查找最大边，前缀和加速',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
