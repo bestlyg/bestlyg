@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '1292. 元素和小于等于阈值的正方形的最大边长',
-    url: 'https://leetcode.cn/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold',
+    name: '3314. 构造最小位运算数组 I',
+    url: 'https://leetcode.cn/problems/construct-the-minimum-bitwise-array-i',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你返回元素总和小于或等于阈值的正方形区域的最大边长；如果没有这样的正方形区域，则返回 0 。`,
+    desc: `给你一个长度为 n 的 质数 数组 nums 。你的任务是返回一个长度为 n 的数组 ans ，对于每个下标 i ，以下 条件 均成立：ans[i] OR (ans[i] + 1) == nums[i]除此以外，你需要 最小化 结果数组里每一个 ans[i] 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2025.11.21',
-            time: 215,
-            memory: 25.77,
-            desc: '二分查找最大边，前缀和加速',
+            time: 127,
+            memory: 19.04,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
