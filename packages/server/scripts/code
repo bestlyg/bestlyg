@@ -1,8 +1,10 @@
 class Solution:
-    def minPairSum(self, nums: List[int]) -> int:
-        n = len(nums)
-        nums.sort()
-        return max(
-            nums[i] + nums[n - i - 1]
-            for i in range(n // 2)
-        )
+    def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:
+        arr.sort()
+        res = []
+        for n1, n2 in pairwise(arr):
+            if res and res[0][1] - res[0][0] > n2 - n1:
+                res.clear()
+            if not res or res[0][1] - res[0][0] == n2 - n1:
+                res.append([n1, n2])
+        return res
