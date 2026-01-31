@@ -1,10 +1,4 @@
 class Solution:
-    def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:
-        arr.sort()
-        res = []
-        for n1, n2 in pairwise(arr):
-            if res and res[0][1] - res[0][0] > n2 - n1:
-                res.clear()
-            if not res or res[0][1] - res[0][0] == n2 - n1:
-                res.append([n1, n2])
-        return res
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        idx = bisect_right(letters, target) 
+        return letters[idx] if idx < len(letters) else letters[0]
