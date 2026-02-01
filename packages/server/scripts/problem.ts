@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: true,
-    name: '744. 寻找比目标字母大的最小字母',
-    url: 'https://leetcode.cn/problems/find-smallest-letter-greater-than-target',
+    exist: !true,
+    name: '3010. 将数组分成最小总代价的子数组 I',
+    url: 'https://leetcode.cn/problems/divide-an-array-into-subarrays-with-minimum-cost-i',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `返回 letters 中大于 target 的最小的字符。如果不存在这样的字符，则返回 letters 的第一个字符。`,
+    desc: `请你返回这些子数组的 最小 代价 总和 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2026.01.27',
-            time: 0,
-            memory:20.68,
-            desc: '二分查找',
+            time: 19,
+            memory:18.91,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
