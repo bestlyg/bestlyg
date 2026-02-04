@@ -15,17 +15,17 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3010. 将数组分成最小总代价的子数组 I',
-    url: 'https://leetcode.cn/problems/divide-an-array-into-subarrays-with-minimum-cost-i',
+    name: '3637. 三段式数组 I',
+    url: 'https://leetcode.cn/problems/trionic-array-i',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你返回这些子数组的 最小 代价 总和 。`,
+    desc: `如果 nums 是三段式数组，返回 true；否则，返回 false。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            // date: '2026.01.27',
-            time: 19,
-            memory:18.91,
+            date: '2026.02.03',
+            time: 148,
+            memory:19.19,
             desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
