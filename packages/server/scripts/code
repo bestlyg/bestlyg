@@ -1,15 +1,7 @@
 class Solution:
-    def isTrionic(self, nums: List[int]) -> bool:
-        n = len(nums) 
-        def compare(start: int, end: int, compare) -> bool:
-            for n1, n2 in pairwise(nums[start:end]):
-                if not compare(n1, n2):
-                    return False
-            return True
-        for i in range(n - 1):
-            for j in range(1, i):
-                if compare(0, j + 1, lambda n1, n2: n1 < n2) and \
-                   compare(j, i + 1, lambda n1, n2: n1 > n2) and \
-                   compare(i, n, lambda n1, n2: n1 < n2):
-                    return True
-        return False
+    def constructTransformedArray(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        return [
+            nums[(i + n + nums[i]) % n] if nums[i] != 0 else nums[i]
+            for i in range(n)
+        ]

@@ -15,17 +15,17 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '3637. 三段式数组 I',
-    url: 'https://leetcode.cn/problems/trionic-array-i',
+    name: '3379. 转换数组',
+    url: 'https://leetcode.cn/problems/transformed-array',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `如果 nums 是三段式数组，返回 true；否则，返回 false。`,
+    desc: `返回新数组 result。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            date: '2026.02.03',
-            time: 148,
-            memory:19.19,
+            date: '2026.02.05',
+            time: 61,
+            memory: 18.91,
             desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
