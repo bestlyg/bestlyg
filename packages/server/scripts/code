@@ -1,7 +1,14 @@
 class Solution:
-    def constructTransformedArray(self, nums: List[int]) -> List[int]:
-        n = len(nums)
-        return [
-            nums[(i + n + nums[i]) % n] if nums[i] != 0 else nums[i]
-            for i in range(n)
-        ]
+    def minimumDeletions(self, s: str) -> int:
+        acnt = sum(c == 'a' for c in s)
+        bcnt = 0
+        res = min(acnt, sum(c == 'b' for c in s))
+        n = len(s)
+        for i in range(n):
+            c = s[i]
+            res = min(res, acnt + bcnt)
+            if c == 'a':
+                acnt -= 1
+            elif c == 'b':
+                bcnt += 1
+        return res
