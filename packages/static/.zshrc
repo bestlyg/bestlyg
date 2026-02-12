@@ -48,6 +48,12 @@ alias ioa='sudo ifconfig en0 down && sudo ifconfig en1 down && sudo ifconfig en2
 gsync() {
     git fetch origin $1:$1
 }
+gck() {
+    git checkout main
+    git checkout -b $1
+    git pull origin main --no-rebase
+    git push -u origin $1
+}
 
 # 覆盖原有的mac内置的c系列工具
 alias gcc='gcc-15'
