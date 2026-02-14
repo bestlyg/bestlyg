@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: true,
-    name: '1653. 使字符串平衡的最少删除次数',
-    url: 'https://leetcode.cn/problems/minimum-deletions-to-make-string-balanced',
+    name: '799. 香槟塔',
+    url: 'https://leetcode.cn/problems/champagne-tower',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你返回使 s 平衡 的 最少 删除次数。`,
+    desc: `现在当倾倒了非负整数杯香槟后，返回第 i 行 j 个玻璃杯所盛放的香槟占玻璃杯容积的比例（ i 和 j 都从0开始）。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            date: '2026.02.07',
-            time: 467,
-            memory: 19.91,
-            desc: '遍历的同时计数，假设当前节点做第一个b时的值',
+            // date: '2026.02.07',
+            time: 93,
+            memory: 19.18,
+            desc: '每层遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
