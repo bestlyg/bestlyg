@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: true,
-    name: '799. 香槟塔',
-    url: 'https://leetcode.cn/problems/champagne-tower',
+    name: '67. 二进制求和',
+    url: 'https://leetcode.cn/problems/add-binary',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `现在当倾倒了非负整数杯香槟后，返回第 i 行 j 个玻璃杯所盛放的香槟占玻璃杯容积的比例（ i 和 j 都从0开始）。`,
+    desc: `给你两个二进制字符串 a 和 b ，以二进制字符串的形式返回它们的和。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2026.02.07',
-            time: 93,
-            memory: 19.18,
-            desc: '每层遍历',
+            time: 0,
+            memory: 19.21,
+            desc: '直接计算',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

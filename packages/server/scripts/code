@@ -1,11 +1,3 @@
 class Solution:
-    def champagneTower(self, poured: int, query_row: int, query_glass: int) -> float:
-        arr = [poured]
-        for _ in range(query_row):
-            next_arr = [0.0] * (len(arr) + 1)
-            for i in range(len(arr)):
-                val = max((arr[i] - 1) / 2, 0)
-                next_arr[i] += val
-                next_arr[i + 1] += val
-            arr = next_arr
-        return min(arr[query_glass], 1.0)
+    def addBinary(self, a: str, b: str) -> str:
+        return bin(int('0b' + a, 2) + int('0b' + b, 2))[2:]
