@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: true,
-    name: '67. 二进制求和',
-    url: 'https://leetcode.cn/problems/add-binary',
+    name: '190. 颠倒二进制位',
+    url: 'https://leetcode.cn/problems/reverse-bits',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你两个二进制字符串 a 和 b ，以二进制字符串的形式返回它们的和。`,
+    desc: ``,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2026.02.07',
-            time: 0,
-            memory: 19.21,
-            desc: '直接计算',
+            time: 59,
+            memory: 18.90,
+            desc: '全排列',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
