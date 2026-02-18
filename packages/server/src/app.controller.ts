@@ -1,6 +1,5 @@
-import { Controller, Post, Body, Res, MessageEvent, Get, Redirect } from '@nestjs/common';
+import { Controller, Post, Body, Res } from '@nestjs/common';
 import { AppService } from './app.service';
-import { interval, Observable } from 'rxjs';
 import { Response } from 'express';
 import { ResponseEntity, sse } from '@bestlyg/common';
 
@@ -41,7 +40,7 @@ export class AppController {
                 }),
             );
             res.flush();
-            if (sleepTime) await new Promise(r => setTimeout(r, sleepTime));
+            if (sleepTime) await new Promise((r) => setTimeout(r, sleepTime));
         }
         res.end();
     }

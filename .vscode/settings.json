@@ -60,10 +60,10 @@
         "**/static/**": true,
         "**/target/**": true
     },
-    "workbench.colorTheme": "Material Theme High Contrast",
-    "workbench.iconTheme": "eq-material-theme-icons",
+    "workbench.colorTheme": "Default Dark Modern",
+    "workbench.iconTheme": "vs-seti",
     "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -74,7 +74,7 @@
     "git.confirmSync": false,
     "terminal.integrated.defaultProfile.osx": "zsh",
     "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "oxc.oxc-vscode"
     },
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -100,7 +100,7 @@
     "editor.unicodeHighlight.invisibleCharacters": false,
     "editor.unicodeHighlight.ambiguousCharacters": false,
     "[javascriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "oxc.oxc-vscode"
     },
     "cSpell.userWords": ["bestlyg", "bundleless", "leetcode", "xidl"],
     "prettier.prettierPath": "./node_modules/prettier",

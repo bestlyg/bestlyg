@@ -19,7 +19,7 @@ export class LeetcodeProblem extends BaseEntity {
     @Column({ type: 'enum', enum: LeetcodeLevelType })
     level: LeetcodeLevelType;
 
-    @OneToMany(() => LeetcodeSolution, solution => solution.problem, { cascade: true })
+    @OneToMany(() => LeetcodeSolution, (solution) => solution.problem, { cascade: true })
     solutions: LeetcodeSolution[];
 }
 
@@ -43,6 +43,6 @@ export class LeetcodeSolution extends BaseEntity {
     @Column({ type: 'text' })
     code: string;
 
-    @ManyToOne(() => LeetcodeProblem, problem => problem.solutions)
+    @ManyToOne(() => LeetcodeProblem, (problem) => problem.solutions)
     problem: LeetcodeProblem;
 }

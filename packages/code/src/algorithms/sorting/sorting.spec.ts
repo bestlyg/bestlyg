@@ -8,7 +8,7 @@ import { quickSort1, quickSort2, quickSort3 } from './quickSort';
 import { radixSort } from './radixSort';
 const RANDOM_BASE = 100;
 const compare = (a, b) => a - b;
-const getList = () => new Array(RANDOM_BASE).fill(0).map(_ => random(0, RANDOM_BASE));
+const getList = () => new Array(RANDOM_BASE).fill(0).map((_) => random(0, RANDOM_BASE));
 const compareRun = (sort: (compare: Comparator<number>, list: number[], ...args: any) => void) => {
     test('common sort', () => {
         const list = getList();
@@ -38,8 +38,8 @@ const numberRun = (sort: (list: number[]) => void) => {
     });
 };
 describe('Sort', () => {
-    [quickSort1, quickSort2, quickSort3, mergeSort, heapSort, bubbleSort].forEach(v =>
+    [quickSort1, quickSort2, quickSort3, mergeSort, heapSort, bubbleSort].forEach((v) =>
         compareRun(v),
     );
-    [countingSort, radixSort].forEach(v => numberRun(v));
+    [countingSort, radixSort].forEach((v) => numberRun(v));
 });

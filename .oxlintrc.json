@@ -1,0 +1,62 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "plugins": ["eslint", "typescript", "react"],
+    "categories": {
+        "correctness": "warn"
+    },
+    "env": {
+        "node": true,
+        "jest": true,
+        "browser": true,
+        "webextensions": true
+    },
+    "globals": {
+        "module": "writable",
+        "exports": "writable",
+        "require": "writable",
+        "window": "writable",
+        "process": "writable",
+        "arguments": "writable",
+        "global": "writable",
+        "globalThis": "writable",
+        "__dirname": "writable",
+        "__filename": "writable",
+        "import": "writable"
+    },
+    "ignorePatterns": [
+        "node_modules",
+        "dist",
+        "scripts",
+        "*.spec.ts",
+        "*.test.ts",
+        "packages/data/encrypt-src"
+    ],
+    "rules": {
+        "no-var": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-require-imports": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/no-unnecessary-type-constraint": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
+        "@typescript-eslint/no-this-alias": "off",
+        "@typescript-eslint/no-empty-object-type": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                "args": "all",
+                "argsIgnorePattern": "^_",
+                "caughtErrors": "all",
+                "caughtErrorsIgnorePattern": "^_",
+                "destructuredArrayIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "ignoreRestSiblings": true
+            }
+        ],
+        "react/prop-types": ["error", { "ignore": ["children"] }],
+        "no-undef": "off",
+        "no-eval": "off",
+        "no-shadow-restricted-names": "off",
+        "exhaustive-deps": "off"
+    }
+}

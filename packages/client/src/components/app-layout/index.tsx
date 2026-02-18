@@ -30,7 +30,7 @@ export default function AppLayout() {
     const setActiveSidebarCategory = useSetAtom(activeSidebarCategoryAtom);
     React.useEffect(() => {
         setActiveSidebarCategory(
-            sidebarCategories.find(v => location.pathname.startsWith(v.path)) ?? null,
+            sidebarCategories.find((v) => location.pathname.startsWith(v.path)) ?? null,
         );
         function findActiveItem(groups: SidebarGroup[]): (SidebarItem | SidebarGroup)[] | null {
             for (const group of groups) {
@@ -44,7 +44,7 @@ export default function AppLayout() {
             }
             return null;
         }
-        sidebarPromise?.then(sidebar => {
+        sidebarPromise?.then((sidebar) => {
             const res = findActiveItem(sidebar?.groups ?? []);
             setActiveSidebarBreadcrumbList(res);
         });

@@ -3,9 +3,9 @@ const fs = require('fs-extra');
 const path = require('path');
 const _ = require('lodash');
 
-const dirs = fs.readdirSync(__dirname).filter(name => name !== path.basename(__filename));
+const dirs = fs.readdirSync(__dirname).filter((name) => name !== path.basename(__filename));
 
-dirs.forEach(dir => {
+dirs.forEach((dir) => {
     test(path.resolve(__dirname, dir));
 });
 function test(dirpath) {

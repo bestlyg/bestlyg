@@ -50,8 +50,8 @@ export class ClientService {
                 }
             }
             data.groups?.sort((g1, g2) => {
-                const meta1 = groupMetaList.find(v => v.data === g1)!;
-                const meta2 = groupMetaList.find(v => v.data === g2)!;
+                const meta1 = groupMetaList.find((v) => v.data === g1)!;
+                const meta2 = groupMetaList.find((v) => v.data === g2)!;
                 return meta1.category.position - meta2.category.position;
             });
             return { data, type: 'group', category };
@@ -80,7 +80,7 @@ export class ClientService {
         const groups: NonNullable<Sidebar['groups']> = [];
         for (const problem of problems) {
             const dirName = leetcode.getDirNameFromProblemName(problem.name);
-            let group = groups.find(v => v.name === dirName);
+            let group = groups.find((v) => v.name === dirName);
             if (!group) groups.push((group = { name: dirName, items: [] }));
             group.items?.push({
                 name: problem.name,

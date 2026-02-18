@@ -24,7 +24,7 @@ export function Reciter({ children }: PropsWithChildren<{}>) {
         <p>
             {status !== 'recite' && <span>{text}</span>}
             {status !== 'init' && (
-                <Textarea value={inputVal} onChange={e => setInputVal(e.target.value)} />
+                <Textarea value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
             )}
             {status === 'inspect' && (
                 <>

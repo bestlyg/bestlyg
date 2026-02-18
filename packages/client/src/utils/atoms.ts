@@ -1,17 +1,17 @@
 import { atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
 import { sidebarCategories } from './constants';
-import { SidebarGroup, SidebarItem  } from '@bestlyg/server/type/index.ts';
+import { SidebarGroup, SidebarItem } from '@bestlyg/server/type/index.ts';
 
 export const activeSidebarCategoryAtom = atom<(typeof sidebarCategories)[number] | null>(null);
 
-export const sidebarPromiseAtom = atom(get => {
+export const sidebarPromiseAtom = atom((get) => {
     const activeSidebarCategory = get(activeSidebarCategoryAtom);
     const sidebarPromise = activeSidebarCategory?.request();
     return { sidebarPromise };
 });
 
-export const sidebarAtom = atom(get => get(sidebarPromiseAtom).sidebarPromise);
+export const sidebarAtom = atom((get) => get(sidebarPromiseAtom).sidebarPromise);
 
 export const activeSidebarItemAtom = atom<SidebarItem | null>(null);
 

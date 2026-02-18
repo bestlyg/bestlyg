@@ -29,7 +29,7 @@ describe('functions', () => {
     test('debounce', () => {
         let v = 0;
         const fn = debounce(100);
-        return new Promise<void>(resolve => {
+        return new Promise<void>((resolve) => {
             fn(() => {
                 v = 1;
                 resolve();
@@ -45,7 +45,7 @@ describe('functions', () => {
     test('throttle', async () => {
         let v = 0;
         const fn = throttle(100);
-        return new Promise<void>(resolve => {
+        return new Promise<void>((resolve) => {
             fn(() => {
                 v = 1;
                 resolve();

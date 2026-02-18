@@ -2,8 +2,25 @@
     "name": "@less-plugins/template",
     "version": "0.0.1",
     "description": "template",
+    "keywords": [
+        "css",
+        "less",
+        "less css",
+        "less functions",
+        "less plugin",
+        "less.js",
+        "plugin",
+        "template"
+    ],
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
+    "license": "MIT",
     "author": "BestLyg",
+    "files": [
+        "lib",
+        "package.json",
+        "index.js",
+        "README.md"
+    ],
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
     "scripts": {
@@ -13,23 +30,6 @@
         "prepublishOnly": "pnpm build",
         "test": "pnpm build && pnpm exec lessc \"./tests/basic.less\""
     },
-    "keywords": [
-        "css",
-        "less",
-        "less.js",
-        "plugin",
-        "less css",
-        "less plugin",
-        "less functions",
-        "template"
-    ],
-    "license": "MIT",
-    "files": [
-        "lib",
-        "package.json",
-        "index.js",
-        "README.md"
-    ],
     "dependencies": {
         "@less-plugins/shared": "workspace:^"
     },

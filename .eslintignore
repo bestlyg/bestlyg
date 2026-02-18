@@ -1,7 +1,0 @@
-node_modules
-dist
-scripts
-*.spec.ts
-*.test.ts
-
-packages/data/encrypt-src

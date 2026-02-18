@@ -13,7 +13,7 @@ export interface ToolOption {
 }
 async function findFilePaths({ globPath, ignorePath }: ToolOption) {
     const files = await glob(globPath, { ignore: ignorePath, cwd: CWD });
-    return files.map(filePath => resolve(CWD, filePath));
+    return files.map((filePath) => resolve(CWD, filePath));
 }
 
 // function formatCodeList(codeList: string[], reverse = false): string[] {
@@ -81,7 +81,7 @@ async function getFormatedCodeList(filePaths: string[]) {
     DEV &&
         console.log(`after codeList = ${codeList.length}, lastCodeList = ${lastCodeList.length} `);
     codeList.push(`====== HALF DIVIDER ======`);
-    return codeList.concat(lastCodeList).map(content => ({ content }));
+    return codeList.concat(lastCodeList).map((content) => ({ content }));
 }
 
 export class Doc {
@@ -112,7 +112,7 @@ export class Doc {
 
 export async function getLinesOfCode(filePaths: string[]) {
     const arr = await Promise.all(
-        filePaths.map(async filePath => {
+        filePaths.map(async (filePath) => {
             const code = await fs.readFile(filePath, 'utf-8');
             const formatedFileData = formatCode(code, path.extname(filePath));
             return formatedFileData.split('\n').length;
@@ -127,11 +127,11 @@ export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
     print.info(`OutputPath: ${option.outputPath}`);
     if (option.globPath.length) {
         print.info(`GlobPath  :`);
-        option.globPath.forEach(p => print.info(' '.repeat(12) + p));
+        option.globPath.forEach((p) => print.info(' '.repeat(12) + p));
     }
     if (option.ignorePath.length) {
         print.info(`IgnorePath:`);
-        option.ignorePath.forEach(p => print.info(' '.repeat(12) + p));
+        option.ignorePath.forEach((p) => print.info(' '.repeat(12) + p));
     }
     print.divider();
     const doc = new Doc();

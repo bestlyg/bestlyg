@@ -15,7 +15,7 @@ export default function App() {
     const { toast } = useToast();
 
     React.useEffect(() => {
-        instance.interceptors.request.use(config => {
+        instance.interceptors.request.use((config) => {
             const token = localStorage.getItem(xTokenName);
             config.headers.Authorization = `Bearer ${token}`;
             return config;

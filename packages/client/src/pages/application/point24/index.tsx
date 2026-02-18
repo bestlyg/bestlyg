@@ -16,7 +16,7 @@ export default function Point24() {
         v3: compute24_v3,
     });
     const [numCount, setNumCount] = React.useState(4);
-    const getRandomNum = () => new Array(numCount).fill(0).map(_ => randomNum(1, 10));
+    const getRandomNum = () => new Array(numCount).fill(0).map((_) => randomNum(1, 10));
     const [version, setVersion] = React.useState('v2');
     const [nums, setNums] = React.useState(getRandomNum());
     const [target, setTarget] = React.useState(24);
@@ -44,7 +44,7 @@ export default function Point24() {
         <div className="flex flex-col gap-4">
             <RadioGroup
                 className="flex"
-                onValueChange={e => {
+                onValueChange={(e) => {
                     setVersion(e);
                 }}
                 value={version}
@@ -63,7 +63,7 @@ export default function Point24() {
                     id="numCount"
                     className="w-[180px]"
                     value={numCount}
-                    onChange={e => {
+                    onChange={(e) => {
                         const num = Number(e.target.value);
                         if (!Number.isNaN(num)) setNumCount(num);
                     }}
@@ -76,7 +76,7 @@ export default function Point24() {
                     id="target"
                     className="w-[180px]"
                     value={target}
-                    onChange={e => {
+                    onChange={(e) => {
                         const num = Number(e.target.value);
                         if (!Number.isNaN(num)) setTarget(num);
                     }}
@@ -87,7 +87,7 @@ export default function Point24() {
                     <Input
                         key={index}
                         value={v}
-                        onChange={e => {
+                        onChange={(e) => {
                             const num = Number(e.target.value);
                             if (!Number.isNaN(num)) {
                                 const newNums = [...nums];

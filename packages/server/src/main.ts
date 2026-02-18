@@ -1,5 +1,5 @@
 import('./bootstrap')
-    .then(mod => mod.bootstrap())
-    .catch(err => {
+    .then((mod) => mod.bootstrap())
+    .catch((err) => {
         console.log('Server Bootstrap Error', err);
     });

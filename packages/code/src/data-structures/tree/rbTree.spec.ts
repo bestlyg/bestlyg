@@ -11,7 +11,7 @@ function run(Cstr: new (compare) => IRBTree<number>) {
             tree = new Cstr((t1, t2) => t1 - t2);
         });
         test('printer', () => {
-            [50, 24, 80].forEach(v => tree.add(v));
+            [50, 24, 80].forEach((v) => tree.add(v));
             tree.print();
         });
         describe('add', () => {
@@ -29,7 +29,7 @@ function run(Cstr: new (compare) => IRBTree<number>) {
                  *       └──── L 11
                  *              └── R 12(R)
                  */
-                [52, 11, 63, 48, 97, 22, 42, 30, 86, 94, 12].forEach(v => {
+                [52, 11, 63, 48, 97, 22, 42, 30, 86, 94, 12].forEach((v) => {
                     tree.add(v);
                 });
             });
@@ -121,7 +121,7 @@ function run(Cstr: new (compare) => IRBTree<number>) {
         describe('remove', () => {
             describe('node is red', () => {
                 beforeEach(() => {
-                    [50, 24, 80, 12, 30].forEach(v => tree.add(v));
+                    [50, 24, 80, 12, 30].forEach((v) => tree.add(v));
                 });
                 test('node is left child', () => {
                     tree.remove(12);
@@ -134,7 +134,7 @@ function run(Cstr: new (compare) => IRBTree<number>) {
             });
             describe('node is black', () => {
                 beforeEach(() => {
-                    [50, 24, 80].forEach(v => tree.add(v));
+                    [50, 24, 80].forEach((v) => tree.add(v));
                 });
                 describe('node is right child', () => {
                     describe('node has 1 child', () => {
@@ -174,7 +174,7 @@ function run(Cstr: new (compare) => IRBTree<number>) {
                         });
                     });
                     test('sibling is red', () => {
-                        [12, 30, 32].forEach(v => tree.add(v));
+                        [12, 30, 32].forEach((v) => tree.add(v));
                         tree.remove(80);
                         expect(tree.levelOrder().join('')).toBe([24, 12, 32, 30, 50].join(''));
                     });
@@ -217,7 +217,7 @@ function run(Cstr: new (compare) => IRBTree<number>) {
                         });
                     });
                     test('sibling is red', () => {
-                        [60, 90, 95].forEach(v => tree.add(v));
+                        [60, 90, 95].forEach((v) => tree.add(v));
                         tree.remove(24);
                         expect(tree.levelOrder().join('')).toBe([80, 50, 90, 60, 95].join(''));
                     });

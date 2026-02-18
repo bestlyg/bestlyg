@@ -1,18 +1,29 @@
 {
-    "extension": {
-        "extends": [
-            "../../package.base.json"
-        ],
-        "vars": {
-            "name": "define-var",
-            "desc": "write custom Less variable in Plugin."
-        }
-    },
     "name": "less-plugin-define-var",
     "version": "1.0.0",
     "description": "write custom Less variable in Plugin.",
+    "keywords": [
+        "css",
+        "define-var",
+        "less",
+        "less css",
+        "less functions",
+        "less plugin",
+        "less.js"
+    ],
     "homepage": "https://github.com/bestlyg/less-plugins/packages/less-plugin-define-var",
+    "license": "MIT",
     "author": "BestLyg",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/bestlyg/less-plugins/packages/less-plugin-define-var.git"
+    },
+    "files": [
+        "lib",
+        "src",
+        "package.json",
+        "README.md"
+    ],
     "main": "lib/index.js",
     "scripts": {
         "clean": "rimraf ./lib ./node_modules",
@@ -21,20 +32,6 @@
         "prepublishOnly": "pnpm build",
         "render": "pnpm exec lessc",
         "extend-package-json": "extend-package-json"
-    },
-    "keywords": [
-        "css",
-        "less",
-        "less.js",
-        "less css",
-        "less plugin",
-        "less functions",
-        "define-var"
-    ],
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/bestlyg/less-plugins/packages/less-plugin-define-var.git"
     },
     "dependencies": {
         "less": "catalog:",
@@ -48,10 +45,13 @@
         "rimraf": "catalog:",
         "typescript": "catalog:"
     },
-    "files": [
-        "lib",
-        "src",
-        "package.json",
-        "README.md"
-    ]
+    "extension": {
+        "extends": [
+            "../../package.base.json"
+        ],
+        "vars": {
+            "name": "define-var",
+            "desc": "write custom Less variable in Plugin."
+        }
+    }
 }

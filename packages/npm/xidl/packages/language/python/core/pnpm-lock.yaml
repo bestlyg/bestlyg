@@ -19,6 +19,8 @@ catalogs:
       specifier: ^3.5.0
       version: 3.6.1
 
+pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
+
 importers:
 
   .:

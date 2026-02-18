@@ -2,8 +2,26 @@
     "name": "@less-plugins/css-logical",
     "version": "0.0.10",
     "description": "replace css properties to logical properties",
+    "keywords": [
+        "css",
+        "less",
+        "less css",
+        "less functions",
+        "less plugin",
+        "less.js",
+        "plugin",
+        "properties",
+        "replace"
+    ],
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
+    "license": "MIT",
     "author": "BestLyg",
+    "files": [
+        "index.js",
+        "lib",
+        "package.json",
+        "README.md"
+    ],
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
     "scripts": {
@@ -13,24 +31,6 @@
         "prepublishOnly": "pnpm build",
         "test": "pnpm build && pnpm exec lessc \"./tests/basic.less\""
     },
-    "keywords": [
-        "css",
-        "less",
-        "less.js",
-        "plugin",
-        "less css",
-        "less plugin",
-        "less functions",
-        "replace",
-        "properties"
-    ],
-    "license": "MIT",
-    "files": [
-        "index.js",
-        "lib",
-        "package.json",
-        "README.md"
-    ],
     "dependencies": {
         "@less-plugins/replace-properties": "workspace:^",
         "@less-plugins/shared": "workspace:^"

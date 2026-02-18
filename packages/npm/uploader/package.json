@@ -1,6 +1,10 @@
 {
     "name": "best-uploader",
     "version": "0.0.1",
+    "keywords": [
+        "uploader"
+    ],
+    "author": "bestlyg",
     "repository": {
         "type": "git",
         "url": "https://github.com/bestlyg/bestlyg.git",
@@ -11,10 +15,6 @@
         "package.json",
         "README.md"
     ],
-    "keywords": [
-        "uploader"
-    ],
-    "author": "bestlyg",
     "type": "module",
     "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
@@ -43,6 +43,11 @@
         "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
         "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch"
     },
+    "dependencies": {
+        "p-queue": "^8.1.0",
+        "ramda": "catalog:",
+        "tapable": "catalog:"
+    },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/common": "workspace:^",
@@ -51,10 +56,5 @@
         "rimraf": "catalog:",
         "typescript": "catalog:",
         "unbuild": "catalog:"
-    },
-    "dependencies": {
-        "p-queue": "^8.1.0",
-        "ramda": "catalog:",
-        "tapable": "catalog:"
     }
 }

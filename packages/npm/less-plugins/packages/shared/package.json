@@ -2,40 +2,40 @@
     "name": "@less-plugins/shared",
     "version": "0.0.8",
     "description": "less plugin shared",
+    "keywords": [
+        "css",
+        "less",
+        "less css",
+        "less functions",
+        "less plugin",
+        "less.js",
+        "package.json",
+        "plugin"
+    ],
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
+    "license": "MIT",
     "author": "BestLyg",
-    "typings": "lib/index.d.ts",
+    "files": [
+        "lib",
+        "package.json",
+        "README.md"
+    ],
     "main": "lib/index.js",
+    "typings": "lib/index.d.ts",
     "scripts": {
         "clean": "rimraf ./lib",
         "build": "tsc -p tsconfig.json",
         "dev": "tsc -p tsconfig.json --watch",
         "prepublishOnly": "pnpm build"
     },
-    "keywords": [
-        "css",
-        "less",
-        "less.js",
-        "plugin",
-        "less css",
-        "less plugin",
-        "less functions",
-        "package.json"
-    ],
-    "license": "MIT",
-    "files": [
-        "lib",
-        "package.json",
-        "README.md"
-    ],
-    "devDependencies": {
-        "@types/lodash.get": "^4.4.9",
-        "@types/yargs": "^17.0.33",
-        "typescript": "catalog:"
-    },
     "dependencies": {
         "lodash.get": "^4.4.2",
         "lodash.merge": "^4.6.2",
         "yargs": "^17.7.2"
+    },
+    "devDependencies": {
+        "@types/lodash.get": "^4.4.9",
+        "@types/yargs": "^17.0.33",
+        "typescript": "catalog:"
     }
 }

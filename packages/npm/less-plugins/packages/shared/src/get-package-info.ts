@@ -33,7 +33,7 @@ export function getPackageJsonField(
     try {
         const pkgJson = getPackageJson(currentDirectory);
         if (!pkgJson) return null;
-        let transformFn: Function = v => v;
+        let transformFn: Function = (v) => v;
         if (typeof transform === 'string') transformFn = eval(transform);
         else if (typeof transform === 'function') transformFn = transform;
         return transformFn(get(pkgJson, key))?.toString() ?? null;

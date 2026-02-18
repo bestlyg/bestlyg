@@ -6,6 +6,6 @@ module.exports = function (options) {
         ...options,
         // mode: 'production',
         // optimization: { minimize: false },
-        externals: [...options.externals,  ...Object.keys(pkgs.dependencies)],
+        externals: [...options.externals, ...Object.keys(pkgs.dependencies)],
     };
 };

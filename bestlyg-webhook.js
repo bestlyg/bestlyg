@@ -5,7 +5,7 @@ const path = require('path');
 const childProcess = require('child_process');
 const http = require('http');
 const createHandler = require('git-webhook-handler');
-const resolve = p => path.resolve(__dirname, p);
+const resolve = (p) => path.resolve(__dirname, p);
 const handler = createHandler([{ path: '/', secret }]);
 function runCmd(cmd, args, callback) {
     const spawn = childProcess.spawn;

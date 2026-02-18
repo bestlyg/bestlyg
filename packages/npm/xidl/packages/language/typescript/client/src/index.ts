@@ -21,7 +21,7 @@ export class XIdl extends XIdlCore {
     constructor(config: XIdlConfig) {
         super(createConfig(config));
         this.bindHooks(createHooks());
-        this.hooks.gen.onGenMethodField.tapPromise(prefix, async code => {
+        this.hooks.gen.onGenMethodField.tapPromise(prefix, async (code) => {
             const content = [
                 `export const request = async (data: Request): Promise<Response | null | undefined> => {`,
                 this.contactIndent({

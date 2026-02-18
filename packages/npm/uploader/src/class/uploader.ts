@@ -37,7 +37,7 @@ export class Uploader {
         this.options = options;
         this.tasks = new PQueue(...options.queueOptions);
         this.transporterManager = options.transporterManager ?? new TransporterManager(Transporter);
-        options.plugins?.forEach(plugin => {
+        options.plugins?.forEach((plugin) => {
             plugin.apply(this);
         });
     }
@@ -77,10 +77,10 @@ export class Uploader {
         return Promise.resolve(new Task(blob));
     }
     async createTasks(blob: Blob[]) {
-        return Promise.all(blob.map(blob => this.createTask(blob)));
+        return Promise.all(blob.map((blob) => this.createTask(blob)));
     }
     async addBlob(...blobs: Blob[]) {
-        const tasks = await Promise.all(blobs.map(blob => this.createTask(blob)));
+        const tasks = await Promise.all(blobs.map((blob) => this.createTask(blob)));
         for (const task of tasks) {
             await this.addTask(task);
         }

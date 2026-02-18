@@ -1,14 +1,14 @@
 {
     "name": "template",
     "version": "0.0.0",
-    "type": "module",
+    "license": "ISC",
     "author": "bestlyg",
     "repository": {
         "type": "git",
         "url": "https://github.com/bestlyg/bestlyg.git",
         "directory": "packages/npm/china-software-copyright-extraction-tool"
     },
-    "license": "ISC",
+    "type": "module",
     "scripts": {
         "fork": "node scripts/fork.mjs"
     },

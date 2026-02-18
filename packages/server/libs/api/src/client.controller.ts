@@ -1,4 +1,4 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ResponseEntity } from '@bestlyg/common';
 import { ClientService } from './client.service';
 import { ApiResponse } from '@nestjs/swagger';

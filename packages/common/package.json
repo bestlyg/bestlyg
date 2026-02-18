@@ -2,6 +2,7 @@
     "name": "@bestlyg/common",
     "version": "0.0.0",
     "description": "",
+    "license": "ISC",
     "author": "bestlyg",
     "type": "module",
     "main": "./dist/index.cjs",
@@ -47,7 +48,22 @@
         "build": "rimraf dist && pnpm build:openapi && unbuild",
         "dev": "unbuild --watch"
     },
-    "license": "ISC",
+    "dependencies": {
+        "axios": "catalog:",
+        "chalk": "catalog:",
+        "crypto-js": "^4.2.0",
+        "dayjs": "catalog:",
+        "eventemitter3": "catalog:",
+        "figlet": "^1.8.1",
+        "fs-extra": "catalog:",
+        "immer": "catalog:",
+        "lodash-es": "catalog:",
+        "metadata-file": "workspace:^",
+        "module-checker": "workspace:^",
+        "nanoid": "^5.1.5",
+        "tapable": "catalog:",
+        "zod": "catalog:"
+    },
     "devDependencies": {
         "@bestlyg/common": "workspace:^",
         "@bestlyg/server": "workspace:^",
@@ -73,21 +89,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-router": "catalog:"
-    },
-    "dependencies": {
-        "axios": "catalog:",
-        "chalk": "catalog:",
-        "crypto-js": "^4.2.0",
-        "dayjs": "catalog:",
-        "eventemitter3": "catalog:",
-        "figlet": "^1.8.1",
-        "fs-extra": "catalog:",
-        "immer": "catalog:",
-        "lodash-es": "catalog:",
-        "metadata-file": "workspace:^",
-        "module-checker": "workspace:^",
-        "nanoid": "^5.1.5",
-        "tapable": "catalog:",
-        "zod": "catalog:"
     }
 }

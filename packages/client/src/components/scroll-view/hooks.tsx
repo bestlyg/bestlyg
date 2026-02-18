@@ -101,7 +101,7 @@ export const useScrollController = ({
     const scrollTo = async (position: number, options?: ScrollToOptions): Promise<void> => {
         if (!isTouchingRef.current) {
             scrollToPosition(getRelativePosition(position), options);
-            return new Promise(resolve => {
+            return new Promise((resolve) => {
                 requestAnimationFrame(() => resolve());
             });
         }

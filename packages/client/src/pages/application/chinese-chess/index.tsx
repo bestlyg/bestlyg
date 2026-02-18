@@ -15,13 +15,13 @@ export default function ChineseChess() {
     function initApp() {
         if (!containerRef.current) return;
         const app = new ChineseChessApplication(containerRef.current);
-        setApp(old => {
+        setApp((old) => {
             old?.unmount();
             return app;
         });
         setTimeout(
             () =>
-                void app.mount().catch(e => {
+                void app.mount().catch((e) => {
                     console.log(e);
                 }),
             0,

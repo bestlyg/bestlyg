@@ -8,10 +8,10 @@ import { fs } from 'zx';
 
 function removeNullKeys(obj) {
     if (_.isArray(obj)) {
-        return obj.filter(v => !_.isNull(v));
+        return obj.filter((v) => !_.isNull(v));
     } else if (_.isObject(obj)) {
         return _.omitBy(
-            _.mapValues(obj, value => removeNullKeys(value)),
+            _.mapValues(obj, (value) => removeNullKeys(value)),
             _.isNull,
         );
     } else {
@@ -47,7 +47,7 @@ export function load<K extends keyof PackageJsonExtend>(
     const json: PackageJsonExtend = cachedJson[path]?.[fieldName] ?? {};
     return _.merge(
         {},
-        ...(json.extends ?? []).map(p => load(resolve(dirname(path), p), key, options)),
+        ...(json.extends ?? []).map((p) => load(resolve(dirname(path), p), key, options)),
         json[key] ?? {},
     );
 }
@@ -61,7 +61,7 @@ export function requireJson<R = any>(path: string, options: RequireJsonOptions =
         const mergedObj = _.merge({}, cachedJson[path], metas);
         mergedObj[fieldName] = cachedJson[path][fieldName];
         return removeNullKeys(
-            _.cloneDeepWith(mergedObj, value => {
+            _.cloneDeepWith(mergedObj, (value) => {
                 if (_.isString(value)) {
                     return _.template(value, { imports: { _, vars } })();
                 }

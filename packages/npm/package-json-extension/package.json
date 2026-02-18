@@ -2,11 +2,29 @@
     "name": "package-json-extension",
     "version": "0.0.5",
     "description": "Extend your package json.",
+    "keywords": [
+        "extend",
+        "extends",
+        "extension",
+        "package",
+        "package-json"
+    ],
     "homepage": "https://github.com/bestlyg/package-json-extension",
+    "license": "MIT",
     "author": "BestLyg",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/bestlyg/package-json-extension.git"
+    },
     "bin": {
         "extend-package-json": "./bin/extend-package-json.js"
     },
+    "files": [
+        "bin",
+        "lib",
+        "package.json",
+        "README.md"
+    ],
     "type": "module",
     "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
@@ -38,17 +56,12 @@
         "extend": "extend-package-json",
         "prepublishOnly": "pnpm build"
     },
-    "keywords": [
-        "package",
-        "package-json",
-        "extend",
-        "extends",
-        "extension"
-    ],
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/bestlyg/package-json-extension.git"
+    "dependencies": {
+        "chalk": "catalog:",
+        "commander": "catalog:",
+        "fs-extra": "^11.3.0",
+        "lodash": "catalog:",
+        "zx": "catalog:"
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
@@ -58,18 +71,5 @@
         "tslib": "^2.8.1",
         "typescript": "catalog:",
         "unbuild": "catalog:"
-    },
-    "dependencies": {
-        "chalk": "catalog:",
-        "commander": "catalog:",
-        "fs-extra": "^11.3.0",
-        "lodash": "catalog:",
-        "zx": "catalog:"
-    },
-    "files": [
-        "bin",
-        "lib",
-        "package.json",
-        "README.md"
-    ]
+    }
 }

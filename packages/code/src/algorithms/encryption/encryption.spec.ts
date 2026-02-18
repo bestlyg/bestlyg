@@ -16,7 +16,7 @@ describe('RSA', () => {
         const max = 10;
         for (let i = 0; i < max; i++) {
             const { e, d, n } = rsa(1000);
-            const [big_e, big_d, big_n] = [e, d, n].map(v => BigInt(v));
+            const [big_e, big_d, big_n] = [e, d, n].map((v) => BigInt(v));
             const m = BigInt(random(50, 150));
             const c = quick_mod(m, big_e, big_n);
             expect(quick_mod(c, big_d, big_n)).toBe(m);

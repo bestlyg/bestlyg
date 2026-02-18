@@ -1,4 +1,4 @@
-import { Sprite, UnresolvedAsset } from "pixi.js";
+import { Sprite, UnresolvedAsset } from 'pixi.js';
 
 export interface Position {
     x: number;

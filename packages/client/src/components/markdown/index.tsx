@@ -38,14 +38,14 @@ const A = React.memo(function AMemo() {
     const [c, setC] = useState(1);
     useEffect(() => {
         const interval = setInterval(() => {
-            setC(c => c + 1);
+            setC((c) => c + 1);
         }, 1000);
         return () => {
             clearInterval(interval);
         };
     }, []);
     return (
-        <Button onClick={() => setC(c => c + 1)}>
+        <Button onClick={() => setC((c) => c + 1)}>
             123 + {c} + {i++}
         </Button>
     );
@@ -157,10 +157,10 @@ export const Markdown = React.memo(function MarkdownMemo({ md = '' }: { md?: str
     );
     useEffect(() => {
         renderMarkdown(md).then(
-            v => {
+            (v) => {
                 setMod(v);
             },
-            err => {
+            (err) => {
                 console.info('===> Render Markdown Error');
                 console.error(err);
             },

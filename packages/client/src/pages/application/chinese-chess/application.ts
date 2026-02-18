@@ -57,7 +57,7 @@ export class ChineseChessApplication {
             hint.x = x + HINT_OFFSET;
             hint.y = y + HINT_OFFSET;
             hint.interactive = true;
-            hint.on('click', e => {
+            hint.on('click', (e) => {
                 e.stopPropagation();
                 this.activePiece!.sprite.x = x;
                 this.activePiece!.sprite.y = y;
@@ -76,7 +76,7 @@ export class ChineseChessApplication {
         };
     }
     getBoard(): ChineseChessBoard {
-        const res = new Array(MAX_ROW).fill(0).map(_ => new Array(MAX_COL).fill(null));
+        const res = new Array(MAX_ROW).fill(0).map((_) => new Array(MAX_COL).fill(null));
         for (const piece of this.pieceMap.values()) {
             if (piece.alive) res[piece.y][piece.x] = piece;
         }
@@ -117,7 +117,7 @@ export class ChineseChessApplication {
     async preload() {
         await Assets.load(
             this.assets.map(
-                v =>
+                (v) =>
                     ({
                         ...v.asset,
                         alias: v.id,
@@ -169,7 +169,7 @@ export class ChineseChessApplication {
                 };
                 this.pieceMap.set(asset.id + i, piece);
 
-                sprite.on('click', e => {
+                sprite.on('click', (e) => {
                     e.stopPropagation();
                     const curActivePiece = this.activePiece;
                     this.delActivePiece();

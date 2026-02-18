@@ -41,7 +41,7 @@ export default function LedgerList() {
                 <Calendar
                     mode="single"
                     selected={param.date}
-                    onSelect={date => {
+                    onSelect={(date) => {
                         setPageParam(new PageParam(1, 5));
                         setParam({ ...param, date });
                     }}
@@ -57,7 +57,7 @@ export default function LedgerList() {
                         dataIndex: 'date',
                         width: 100,
                         title: '日期',
-                        render: data => dayjs(data).format('YYYY-MM-DD'),
+                        render: (data) => dayjs(data).format('YYYY-MM-DD'),
                     },
                     {
                         dataIndex: 'comment',

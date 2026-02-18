@@ -4,7 +4,12 @@ import fs from 'fs-extra';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
-import { createLoggerOptions, loadBestlygConfig, resolve, ZodValidationPipe } from '@bestlyg-server/common';
+import {
+    createLoggerOptions,
+    loadBestlygConfig,
+    resolve,
+    ZodValidationPipe,
+} from '@bestlyg-server/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import compression from 'compression';
 import { WinstonModule } from 'nest-winston';

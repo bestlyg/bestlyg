@@ -41,7 +41,7 @@ export default function Serverless() {
     const { data, refresh } = useRequest(fetchServerless);
     const codes =
         data
-            ?.flatMap(v => v.codes)
+            ?.flatMap((v) => v.codes)
             .sort(
                 (a, b) => new Date(a.createdTime).getTime() - new Date(b.createdTime).getTime(),
             ) ?? [];
@@ -51,7 +51,7 @@ export default function Serverless() {
     return (
         <div className="w-full flex flex-col gap-2">
             <div className="flex gap-2">
-                {codes.map(v => (
+                {codes.map((v) => (
                     <Button
                         key={v.id}
                         variant={v.id === activeCodeId ? 'default' : 'outline'}
@@ -182,7 +182,7 @@ export default function Serverless() {
                 )}
             </div>
             <MonacoEditor
-                defaultValue={codes.find(v => v.id === activeCodeId)?.code ?? ''}
+                defaultValue={codes.find((v) => v.id === activeCodeId)?.code ?? ''}
                 onChange={setCode}
             />
         </div>

@@ -29,7 +29,7 @@ describe('BinarySearchTree', () => {
             expect(
                 tree
                     .inorder()
-                    .map(v => v.dummyVal)
+                    .map((v) => v.dummyVal)
                     .join(''),
             ).toBe('2');
         });

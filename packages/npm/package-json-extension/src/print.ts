@@ -8,7 +8,7 @@ function log(...args) {
 function _print(color, ...args) {
     if (args.length > 1) {
         log(
-            chalk[`bg${color.replace(/^\w/, w => w.toUpperCase())}`](` ${args[0]} `),
+            chalk[`bg${color.replace(/^\w/, (w) => w.toUpperCase())}`](` ${args[0]} `),
             chalk[color](args.slice(1)),
         );
     } else {
@@ -46,6 +46,6 @@ print.divider = divider;
 
 export function error(msg: string, ...errs: any[]): never {
     print.error(msg);
-    errs.forEach(err => console.error(err));
+    errs.forEach((err) => console.error(err));
     process.exit(1);
 }

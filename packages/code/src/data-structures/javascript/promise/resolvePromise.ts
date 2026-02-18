@@ -27,14 +27,14 @@ export function resolvePromise<T>(
             // 先获得x中的then 如果这一步发生异常了，那么就直接把异常原因reject掉
             if (isBestPromise(x)) {
                 x.then(
-                    y => {
+                    (y) => {
                         /* istanbul ignore next */
                         if (!called) {
                             called = true;
                             resolvePromise(promise, y, resolve, reject);
                         }
                     },
-                    error => {
+                    (error) => {
                         /* istanbul ignore next */
                         if (!called) {
                             called = true;

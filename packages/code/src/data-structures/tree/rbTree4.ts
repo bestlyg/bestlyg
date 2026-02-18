@@ -104,7 +104,7 @@ export class RBTree<T> {
             let type = 0;
             node.color = 0;
             if (node.lchild.color === 0) node = this.rotateRight(node);
-            else (node = this.rotateLeft(node)), (type = 1);
+            else ((node = this.rotateLeft(node)), (type = 1));
             node.color = 1;
             if (type === 1) node.lchild = this._removeMaintain(node.lchild);
             else node.rchild = this._removeMaintain(node.rchild);

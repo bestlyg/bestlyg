@@ -21,4 +21,4 @@ const run = (match: (text: string, pattern: string) => number) =>
             expect(match('safasqwasdsgasdfasasgaga', 'asdsgasdf')).toBe(7);
         });
     });
-[bruteForce, kmp, sunday, shiftAnd].forEach(match => run(match));
+[bruteForce, kmp, sunday, shiftAnd].forEach((match) => run(match));

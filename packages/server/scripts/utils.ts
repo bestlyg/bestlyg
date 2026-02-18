@@ -23,9 +23,9 @@ export async function createRequest() {
 }
 export const getDate = (
     s: string | undefined,
-    customDayjs: (v: dayjs.Dayjs) => dayjs.Dayjs = v => v,
+    customDayjs: (v: dayjs.Dayjs) => dayjs.Dayjs = (v) => v,
 ) => customDayjs(dayjs(s)).format('YYYY-MM-DD');
-export const nDaysAgo = (n: number) => getDate(undefined, v => v.subtract(n, 'day'));
+export const nDaysAgo = (n: number) => getDate(undefined, (v) => v.subtract(n, 'day'));
 export const today = nDaysAgo(0);
 export const yesterday = nDaysAgo(1);
 

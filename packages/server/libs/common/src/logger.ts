@@ -25,7 +25,7 @@ export function createLoggerOptions({
         maxFiles: '30d',
         format: winston.format.combine(
             timestamp,
-            winston.format(info => {
+            winston.format((info) => {
                 Object.assign(info, getExternalInfo());
                 return info;
             })(),

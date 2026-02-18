@@ -1,7 +1,13 @@
 {
     "name": "@bestlyg/cli",
     "version": "0.0.0",
+    "keywords": [],
+    "license": "ISC",
     "author": "bestlyg",
+    "bin": {
+        "@bestlyg/cli": "./bin/best.js",
+        "best": "./bin/best.js"
+    },
     "type": "module",
     "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
@@ -45,12 +51,6 @@
         "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
         "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch"
     },
-    "bin": {
-        "@bestlyg/cli": "./bin/best.js",
-        "best": "./bin/best.js"
-    },
-    "keywords": [],
-    "license": "ISC",
     "dependencies": {
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/common": "workspace:^",

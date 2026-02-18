@@ -1,23 +1,15 @@
-import { Inject, Injectable, Logger, OnApplicationBootstrap, RequestMethod } from '@nestjs/common';
+import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
-    getRequestMethod,
     MailService,
     NamedRequestMethod,
     NamedRequestMethodMapper,
     resolve,
 } from '@bestlyg-server/common';
 import fs from 'fs-extra';
-import { Configuration, packageInfo, currentPackageInfo } from '@bestlyg/common/server';
-import {
-    MetadataScanner,
-    ModuleRef,
-    ModulesContainer,
-    NestApplication,
-    Reflector,
-} from '@nestjs/core';
+import { Configuration } from '@bestlyg/common/server';
+import { MetadataScanner, ModuleRef, ModulesContainer, Reflector } from '@nestjs/core';
 import { PathsExplorer } from '@nestjs/core/router/paths-explorer';
-import { RoutesResolver } from '@nestjs/core/router/routes-resolver';
 
 @Injectable()
 export class AppService implements OnApplicationBootstrap {
@@ -52,7 +44,7 @@ export class AppService implements OnApplicationBootstrap {
                     routeMap[route.methodName] = {
                         requestMethod: NamedRequestMethodMapper[route.requestMethod],
                         methodName: route.methodName,
-                        path:  route.path[0],
+                        path: route.path[0],
                     };
                 }
                 if (Object.values(routeMap).length) {
@@ -92,7 +84,7 @@ export class AppService implements OnApplicationBootstrap {
     <h1>PROCESS.ENV</h1>
     ${bestEnv
         .map(([k, v]) => `${k.padEnd(10)} : ${v}`)
-        .map(item => `<div>${item}</div>`)
+        .map((item) => `<div>${item}</div>`)
         .join('\n')}
     `.trim(),
             );

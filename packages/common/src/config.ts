@@ -66,7 +66,7 @@ export class RadioConfig<T extends string = ''> extends AbstractConfig<T> {
     }
     parse(v: string): T {
         const val = v as T;
-        if (this.config.options.every(v => v.value !== val)) return this.defaultValue;
+        if (this.config.options.every((v) => v.value !== val)) return this.defaultValue;
         return val;
     }
     stringify(v: T): string {

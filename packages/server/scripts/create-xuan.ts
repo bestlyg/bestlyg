@@ -7,6 +7,6 @@ async function main() {
     console.log(JSON.stringify(res, null, 4));
 }
 
-main().catch(err => {
+main().catch((err) => {
     console.error(err);
 });

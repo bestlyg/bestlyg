@@ -66,21 +66,21 @@ export default function Sse() {
     useEffect(() => {
         if (!eventSource) return;
         setMd('');
-        eventSource.on('onMessage', msg => {
+        eventSource.on('onMessage', (msg) => {
             console.log('onMessage', msg);
             if (msg.data) {
                 const data = ResponseEntity.from<string>(JSON.parse(msg.data));
                 console.log(data);
                 if (data.getCode() === 0) {
                     const str = data.getData() ?? '';
-                    setMd(old => old + str);
+                    setMd((old) => old + str);
                 }
             }
         });
-        eventSource.on('onError', err => {
+        eventSource.on('onError', (err) => {
             console.log('onError', err);
         });
-        eventSource.on('onStatusChange', status => {
+        eventSource.on('onStatusChange', (status) => {
             if (status === 'close') {
             }
         });
@@ -94,7 +94,7 @@ export default function Sse() {
                 headers,
                 body: JSON.stringify({ data: inputVal, sleepTime: 50 }),
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log('SSE ERR', err);
             })
             .finally(() => {
@@ -111,7 +111,7 @@ export default function Sse() {
         <div className="w-full flex flex-col gap-2">
             <Textarea
                 value={inputVal}
-                onChange={e => setInputVal(e.target.value)}
+                onChange={(e) => setInputVal(e.target.value)}
                 className="h-[400px]"
             />
             <Button

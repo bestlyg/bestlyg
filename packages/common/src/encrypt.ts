@@ -42,7 +42,6 @@ export function encrypt(text: string | CryptoJS.lib.WordArray, aesKey: string, a
     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
 }
 
-
 /**
  * 解密用户ID
  *

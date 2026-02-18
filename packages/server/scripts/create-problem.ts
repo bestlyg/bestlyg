@@ -7,7 +7,14 @@ import '@bestlyg/cli/globals';
 import axios from 'axios';
 import { problem as problemFromCreate } from './problem';
 import { getDirNameFromProblemName, getTitleSlugFromURL, DATE_FORMAT_SOLUTION } from '../external';
-import { getProblem, createRequest, createSolution, createProblem, updateProblem, getProblemWithSlug } from './utils';
+import {
+    getProblem,
+    createRequest,
+    createSolution,
+    createProblem,
+    updateProblem,
+    getProblemWithSlug,
+} from './utils';
 
 function descFormat(str: string) {
     return str.endsWith('。') ? str : str + '。';
@@ -31,9 +38,9 @@ async function main() {
         '',
     );
     problem.level = problemResult.difficulty;
-    problem.tags = problemResult.topicTags.map(v => v.translatedName);
+    problem.tags = problemResult.topicTags.map((v) => v.translatedName);
 
-    problem.solutions.forEach(s => {
+    problem.solutions.forEach((s) => {
         s.date = best.dayjs(s.date).format(DATE_FORMAT_SOLUTION);
     });
 
@@ -83,6 +90,6 @@ async function main() {
     }
 }
 
-main().catch(err => {
+main().catch((err) => {
     console.log(err);
 });

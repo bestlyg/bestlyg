@@ -2,8 +2,25 @@
     "name": "@less-plugins/playground",
     "version": "0.0.13",
     "description": "playground",
+    "keywords": [
+        "css",
+        "css logical",
+        "less",
+        "less css",
+        "less functions",
+        "less plugin",
+        "less.js",
+        "plugin"
+    ],
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
+    "license": "MIT",
     "author": "BestLyg",
+    "files": [
+        "index.js",
+        "lib",
+        "package.json",
+        "README.md"
+    ],
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
     "scripts": {
@@ -13,23 +30,6 @@
         "prepublishOnly": "pnpm build",
         "test": "pnpm nx build @less-plugins/playground && pnpm exec lessc \"./tests/basic.less\""
     },
-    "keywords": [
-        "css",
-        "less",
-        "less.js",
-        "plugin",
-        "less css",
-        "less plugin",
-        "less functions",
-        "css logical"
-    ],
-    "license": "MIT",
-    "files": [
-        "index.js",
-        "lib",
-        "package.json",
-        "README.md"
-    ],
     "dependencies": {
         "@less-plugins/css-logical": "workspace:^",
         "@less-plugins/get-current-package-name": "workspace:^",

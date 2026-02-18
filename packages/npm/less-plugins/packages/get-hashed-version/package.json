@@ -2,8 +2,26 @@
     "name": "@less-plugins/get-hashed-version",
     "version": "0.0.10",
     "description": "get a hashed version from closest package.json",
+    "keywords": [
+        "css",
+        "hash",
+        "less",
+        "less css",
+        "less functions",
+        "less plugin",
+        "less.js",
+        "plugin",
+        "version"
+    ],
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
+    "license": "MIT",
     "author": "BestLyg",
+    "files": [
+        "index.js",
+        "lib",
+        "package.json",
+        "README.md"
+    ],
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
     "scripts": {
@@ -12,32 +30,6 @@
         "dev": "tsc -p tsconfig.json --watch",
         "prepublishOnly": "pnpm build",
         "test": "pnpm build && pnpm exec lessc \"./tests/basic.less\""
-    },
-    "keywords": [
-        "css",
-        "less",
-        "less.js",
-        "plugin",
-        "less css",
-        "less plugin",
-        "less functions",
-        "hash",
-        "version"
-    ],
-    "license": "MIT",
-    "files": [
-        "index.js",
-        "lib",
-        "package.json",
-        "README.md"
-    ],
-    "peerDependencies": {
-        "@emotion/hash": "catalog:"
-    },
-    "peerDependenciesMeta": {
-        "@emotion/hash": {
-            "optional": true
-        }
     },
     "dependencies": {
         "@emotion/hash": "catalog:",
@@ -48,5 +40,13 @@
         "less": "catalog:",
         "rimraf": "catalog:",
         "typescript": "catalog:"
+    },
+    "peerDependencies": {
+        "@emotion/hash": "catalog:"
+    },
+    "peerDependenciesMeta": {
+        "@emotion/hash": {
+            "optional": true
+        }
     }
 }

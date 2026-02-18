@@ -11,7 +11,7 @@ function run(Cstr: new (compare) => Set<number>) {
             set = new Cstr((k1, k2) => k1 - k2);
         });
         test('size', () => {
-            [1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 7, 7, 7].forEach(v => {
+            [1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 7, 7, 7].forEach((v) => {
                 set.add(v);
             });
             expect(set.size).toBe(7);
@@ -22,14 +22,14 @@ function run(Cstr: new (compare) => Set<number>) {
             expect(set.empty).toBeTruthy();
         });
         test('contains', () => {
-            [1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 7, 7, 7].forEach(v => {
+            [1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 7, 7, 7].forEach((v) => {
                 set.add(v);
             });
             expect(set.contains(7)).toBeTruthy();
             expect(set.contains(8)).toBeFalsy();
         });
         test('remove', () => {
-            [1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 7, 7, 7].forEach(v => {
+            [1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 7, 7, 7].forEach((v) => {
                 set.add(v);
             });
             new Array(7)

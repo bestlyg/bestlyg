@@ -13,7 +13,7 @@ export default defineConfig({
             format: 'esm',
             autoExtension: true,
             outDir: 'dist/esm',
-            esbuildOptions: options => {
+            esbuildOptions: (options) => {
                 options.outExtension = { '.js': '.js' };
                 return options;
             },
@@ -28,7 +28,7 @@ export default defineConfig({
             format: 'cjs',
             autoExtension: true,
             outDir: 'dist/lib',
-            esbuildOptions: options => {
+            esbuildOptions: (options) => {
                 options.outExtension = { '.js': '.cjs' };
                 return options;
             },

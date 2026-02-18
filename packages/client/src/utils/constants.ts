@@ -74,7 +74,7 @@ async function requestDocSidebars(): Promise<Sidebar> {
         serializer: 'json',
         data: null,
     });
-    return res
+    return res;
 }
 
 async function requestLeetcodeSidebars(): Promise<Sidebar> {
@@ -84,7 +84,7 @@ async function requestLeetcodeSidebars(): Promise<Sidebar> {
         serializer: 'json',
         data: null,
     });
-    return res
+    return res;
 }
 
 export const sidebarCategories: {

@@ -52,7 +52,7 @@ function nsum(list: number[], target: number) {
     // }
     console.log('===RES===');
     for (const data of (map.get(target) ?? []).filter(
-        data => !(data.map.has(0) && data.map.get(0)! === 0),
+        (data) => !(data.map.has(0) && data.map.get(0)! === 0),
     )) {
         console.log(`${target} === ${data.log()}`);
     }

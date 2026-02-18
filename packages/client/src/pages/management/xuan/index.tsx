@@ -59,8 +59,8 @@ export function XuanChart({ promise }: { promise: ReturnType<typeof fetchXuan> }
                 type: 'category',
                 data: data
                     .sort((v1, v2) => dayjs(v2.date).unix() - dayjs(v1.date).unix())
-                    .filter(v => v.weight)
-                    .map(v => dayjs(v.date).format('YYYY-MM-DD'))
+                    .filter((v) => v.weight)
+                    .map((v) => dayjs(v.date).format('YYYY-MM-DD'))
                     .reverse(),
                 name: '日期',
                 min: 'dataMin',
@@ -105,8 +105,8 @@ export function XuanChart({ promise }: { promise: ReturnType<typeof fetchXuan> }
                 {
                     data: data
                         .sort((v1, v2) => dayjs(v2.date).unix() - dayjs(v1.date).unix())
-                        .filter(v => v.weight)
-                        .map(v => v.weight! / 100)
+                        .filter((v) => v.weight)
+                        .map((v) => v.weight! / 100)
                         .reverse(),
                     type: 'line',
                 },
@@ -152,8 +152,8 @@ function XuanSummary({ promise }: { promise: ReturnType<typeof fetchXuan> }) {
         <div className="flex flex-col gap-2">
             {list
                 .filter(({ date }) => map[date.format(F)]?.weight)
-                .map(({ date, label }) => (
-                    <Card className="w-full">
+                .map(({ date, label }, i) => (
+                    <Card className="w-full" key={i}>
                         <CardHeader>
                             <CardTitle>{label}</CardTitle>
                             <CardDescription>

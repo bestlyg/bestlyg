@@ -50,7 +50,7 @@ export class EventSource extends EventEmitter<SSEHooks> {
     async fetch(...args: Parameters<typeof fetch>) {
         this.setStatus('open');
         try {
-            args[1] = produce(args[1], draft => {
+            args[1] = produce(args[1], (draft) => {
                 draft ??= {};
                 draft.signal ??= this.ac.signal;
                 draft.headers ??= {};
@@ -66,9 +66,9 @@ export class EventSource extends EventEmitter<SSEHooks> {
                 response.body!,
                 getLines(
                     getMessages(
-                        id => this.emit('onId', id),
-                        retry => this.emit('onRetry', retry),
-                        msg => this.emit('onMessage', msg),
+                        (id) => this.emit('onId', id),
+                        (retry) => this.emit('onRetry', retry),
+                        (msg) => this.emit('onMessage', msg),
                     ),
                 ),
             );

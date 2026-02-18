@@ -54,7 +54,7 @@ describe('genLoop', () => {
 describe('genSample', () => {
     test('common', () => {
         const g = genSample({ list });
-        _.times(MAX_COUNT, () => assertIteratorYieldResult(g.next()).value).forEach(num =>
+        _.times(MAX_COUNT, () => assertIteratorYieldResult(g.next()).value).forEach((num) =>
             expect(list.includes(num)).toBeTruthy(),
         );
     });
@@ -63,20 +63,20 @@ describe('genSample', () => {
 describe('genUndefined', () => {
     test('common', () => {
         const g = genUndefined(MAX_COUNT);
-        expect(_.times(MAX_COUNT, () => g.next().value).every(v => v === undefined)).toBeTruthy();
+        expect(_.times(MAX_COUNT, () => g.next().value).every((v) => v === undefined)).toBeTruthy();
     });
 });
 
 describe('genSkip', () => {
     test('common', () => {
         const g = genSkip({ g: genList({ list }) });
-        expect(_.times(MAX_COUNT, () => g.next().value).every(v => v !== undefined)).toBeTruthy();
+        expect(_.times(MAX_COUNT, () => g.next().value).every((v) => v !== undefined)).toBeTruthy();
     });
     test('beforeSkipCount', () => {
         const cnt = 3;
         const g = genSkip({ g: genList({ list }), mountSkipCount: cnt });
         const arr = Array.from(g);
-        expect(arr.slice(0, cnt).every(v => v === undefined)).toBeTruthy();
+        expect(arr.slice(0, cnt).every((v) => v === undefined)).toBeTruthy();
         expect(arr.slice(cnt).every((v, i) => v === list[i])).toBeTruthy();
     });
 });

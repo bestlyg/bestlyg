@@ -1,7 +1,7 @@
 {
     "name": "@bestlyg/static",
     "version": "0.0.0",
+    "license": "ISC",
     "author": "bestlyg",
-    "type": "module",
-    "license": "ISC"
+    "type": "module"
 }

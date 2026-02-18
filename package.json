@@ -2,19 +2,14 @@
     "name": "bestlyg",
     "version": "1.0.0",
     "private": true,
-    "config": {
-        "commitizen": {
-            "path": "cz-conventional-changelog"
-        }
-    },
     "scripts": {
         "deploy": "node ./scripts/deploy.mjs",
         "build": "pnpm --filter @bestlyg/cli build && nx build @bestlyg/server",
         "submodule:update": "git submodule update --init --recursive",
         "version:node": "node -v",
         "setup": "rm -rf node_modules && rm -rf ./**/node_modules && pnpm i --force",
-        "lint": "eslint packages --ext .js,.jsx,.ts,.tsx --max-warnings 0",
-        "format": "prettier --write \"**/*.{js,jsx,tsx,ts,md,json}\"",
+        "lint": "oxlint packages --config ./.oxlintrc.json",
+        "format": "oxfmt \"**/*.{js,jsx,tsx,ts,md,json}\" --config ./.oxfmtrc.json",
         "format:affect": "node ./scripts/format-affect.mjs",
         "commit": "git-cz",
         "commit:auto": "git pull origin master && git add -A && pnpm run commit && git push -u origin master && git push -u github master",
@@ -32,21 +27,20 @@
         "@commitlint/cli": "^17.8.1",
         "@commitlint/config-conventional": "^17.8.1",
         "@manypkg/get-packages": "^2.2.2",
-        "@nx/eslint": "20.3.0",
         "@nx/storybook": "20.3.0",
         "@nx/web": "20.3.0",
-        "@typescript-eslint/eslint-plugin": "^8.30.1",
-        "eslint": "9.17.0",
-        "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-prettier": "^5.2.6",
-        "eslint-plugin-react": "^7.37.5",
-        "eslint-plugin-react-hooks": "^4.6.2",
         "git-cz": "^4.9.0",
         "nx": "20.3.0",
-        "prettier": "^3.5.3",
+        "oxfmt": "^0.33.0",
+        "oxlint": "^1.48.0",
         "semver": "catalog:",
         "typescript": "catalog:",
         "zx": "catalog:"
+    },
+    "config": {
+        "commitizen": {
+            "path": "cz-conventional-changelog"
+        }
     },
     "packageManager": "pnpm@10.15.0"
 }

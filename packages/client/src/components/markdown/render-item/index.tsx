@@ -14,11 +14,11 @@ export function RandomItem() {
         let currentList: HTMLElement[] = [];
         const map = new Map<HTMLElement, HTMLElement[]>();
         (Array.from(doc.children) as HTMLElement[])
-            .filter(dom => {
+            .filter((dom) => {
                 const tagName = dom.tagName.toLowerCase();
                 return tagName === 'h2' || tagName === 'h3';
             })
-            .forEach(dom => {
+            .forEach((dom) => {
                 const tagName = dom.tagName.toLowerCase();
                 if (tagName === 'h2') {
                     // currentKey = dom;
@@ -29,7 +29,7 @@ export function RandomItem() {
                 }
             });
         setData(map);
-        setCheckedList(Array.from(map.values()).map(arr => arr.map(dom => dom.innerText)));
+        setCheckedList(Array.from(map.values()).map((arr) => arr.map((dom) => dom.innerText)));
     }, []);
     const [cur, setCur] = useState<any>(null);
     // console.log({ data, checkedList, cur });
@@ -51,7 +51,7 @@ export function RandomItem() {
                         setCur([
                             picked[0],
                             _.sample(
-                                picked[1].filter(dom => {
+                                picked[1].filter((dom) => {
                                     return checkedList[index].includes(dom.innerText);
                                 }),
                             ),
@@ -69,7 +69,7 @@ export function RandomItem() {
                 </Button>
             </div>
             {Array.from(data.entries()).map(([dom, children], index) => {
-                const options = children.map(dom => dom.innerText);
+                const options = children.map((dom) => dom.innerText);
                 return (
                     <div key={index} className="w-full">
                         <Separator className="my-4" />
@@ -77,7 +77,7 @@ export function RandomItem() {
                             <div className="flex items-center space-x-2">
                                 <Checkbox
                                     // id={dom.innerText}
-                                    onCheckedChange={e => {
+                                    onCheckedChange={(e) => {
                                         const newCheckedList = [...checkedList];
                                         newCheckedList[index] = e ? options : [];
                                         setCheckedList(newCheckedList);
@@ -97,16 +97,16 @@ export function RandomItem() {
                                 </label>
                             </div>
 
-                            {options.map(v => {
+                            {options.map((v) => {
                                 return (
                                     <div className="flex items-center space-x-2" key={v}>
                                         <Checkbox
                                             // id={v}
-                                            onCheckedChange={e => {
+                                            onCheckedChange={(e) => {
                                                 const newCheckedList = [...checkedList];
                                                 newCheckedList[index] = newCheckedList[
                                                     index
-                                                ].filter(c => v !== c);
+                                                ].filter((c) => v !== c);
                                                 if (e) newCheckedList[index].push(v);
                                                 setCheckedList(newCheckedList);
                                             }}

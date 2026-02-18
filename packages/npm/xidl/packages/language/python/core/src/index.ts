@@ -28,7 +28,7 @@ export class XIdl extends XIdlCore {
         super(createConfig(config));
         this.bindHooks(createHooks());
         this.hooks.gen.onGenRoot.tapPromise(prefix, async (code, obj) => {
-            const res = await Promise.all(obj.nestedArray.map(obj => this.genObj(obj)));
+            const res = await Promise.all(obj.nestedArray.map((obj) => this.genObj(obj)));
             return code + res.join(this.config.splitChar);
         });
         // this.hooks.gen.onGenType.tapPromise(prefix, async (code, obj) => {
@@ -50,7 +50,7 @@ export class XIdl extends XIdlCore {
                 this.config.output.dirPath,
                 ...this.getNamespaceNameList(obj),
             );
-            const resCode = await Promise.all(obj.nestedArray.map(obj => this.genObj(obj)));
+            const resCode = await Promise.all(obj.nestedArray.map((obj) => this.genObj(obj)));
             await this.output({
                 config: lodash.merge({}, this.config, {
                     output: {
@@ -132,7 +132,7 @@ export class XIdl extends XIdlCore {
         if (type.includes('int') || type.includes('fixed')) {
             return 'int';
         } else if (type === 'float' || type === 'double') {
-            return 'float'
+            return 'float';
         } else if (type === 'bytes') {
             return 'string';
         } else {

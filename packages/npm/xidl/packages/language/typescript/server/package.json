@@ -4,6 +4,9 @@
     "keywords": [
         "idl"
     ],
+    "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
+    "license": "MIT",
+    "author": "bestlyg@foxmail.com",
     "type": "module",
     "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
@@ -27,15 +30,6 @@
             }
         }
     },
-    "author": "bestlyg@foxmail.com",
-    "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
-    "license": "MIT",
-    "devDependencies": {
-        "@types/node": "catalog:",
-        "rimraf": "catalog:",
-        "typescript": "catalog:",
-        "unbuild": "catalog:"
-    },
     "scripts": {
         "prepublishOnly": "pnpm build",
         "build": "rimraf dist && unbuild --config ./node_modules/@xidl/shared/build.config.ts",
@@ -45,5 +39,11 @@
         "@xidl/core": "workspace:^",
         "@xidl/shared": "workspace:^",
         "@xidl/typescript-core": "workspace:^"
+    },
+    "devDependencies": {
+        "@types/node": "catalog:",
+        "rimraf": "catalog:",
+        "typescript": "catalog:",
+        "unbuild": "catalog:"
     }
 }

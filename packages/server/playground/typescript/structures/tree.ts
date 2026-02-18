@@ -30,12 +30,12 @@ export class TreeNode {
         const arr: (number | null)[] = data
             .substring(1, data.length - 1)
             .split(',')
-            .map(v => (v === 'null' ? null : Number(v)));
+            .map((v) => (v === 'null' ? null : Number(v)));
         return this.factory(arr);
     }
     static serialize(node: TreeNode | null): string {
         const queue = [node];
-        const hasNum = () => queue.some(v => v !== null);
+        const hasNum = () => queue.some((v) => v !== null);
         let str = '';
         while (hasNum()) {
             const node = queue.shift() as TreeNode | null;
@@ -103,7 +103,7 @@ export class TreeNode {
      */
     static print(node: TreeNode): void {
         let s = '';
-        TreeNode.levelOrder(node, node => {
+        TreeNode.levelOrder(node, (node) => {
             s += node.val + ' ';
             return false;
         });

@@ -28,13 +28,13 @@ export class XIdl extends XIdlCore {
         super(createConfig(config));
         this.bindHooks(createHooks());
         this.hooks.gen.onGenRoot.tapPromise(prefix, async (code, obj) => {
-            const res = await Promise.all(obj.nestedArray.map(obj => this.genObj(obj)));
+            const res = await Promise.all(obj.nestedArray.map((obj) => this.genObj(obj)));
             return code + res.join(this.config.splitChar);
         });
         this.hooks.gen.onGenType.tapPromise(prefix, async (code, obj) => {
             const info = await this.extractInfoFromType(obj);
             const fieldItems = await Promise.all(
-                obj.fieldsArray.map(field => this.genField(field, info.required)),
+                obj.fieldsArray.map((field) => this.genField(field, info.required)),
             );
             return (
                 code +
@@ -50,7 +50,7 @@ export class XIdl extends XIdlCore {
                 this.config.output.dirPath,
                 ...this.getNamespaceNameList(obj),
             );
-            const resCode = await Promise.all(obj.nestedArray.map(obj => this.genObj(obj)));
+            const resCode = await Promise.all(obj.nestedArray.map((obj) => this.genObj(obj)));
             await this.output({
                 config: lodash.merge({}, this.config, {
                     output: {
@@ -84,7 +84,7 @@ export class XIdl extends XIdlCore {
         });
         this.hooks.gen.onGenService.tapPromise(prefix, async (code, obj) => {
             const methodStr = (
-                await Promise.all(obj.methodsArray.map(method => this.genObj(method)))
+                await Promise.all(obj.methodsArray.map((method) => this.genObj(method)))
             ).join(this.config.splitChar);
             return (
                 code +
@@ -111,7 +111,7 @@ export class XIdl extends XIdlCore {
                     `export type Response = ${obj.responseType};`,
                     ...options.map(([k, v]) => `export const ${k} = ${v};`),
                     await this.hooks.gen.onGenMethodField.promise('', obj),
-                ].map(content => this.contactIndent({ content })),
+                ].map((content) => this.contactIndent({ content })),
                 '}',
             ].join(this.config.splitChar);
             return (

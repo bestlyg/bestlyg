@@ -1,19 +1,11 @@
 {
     "name": "module-checker",
-    "type": "module",
+    "version": "0.0.1",
+    "license": "MIT",
     "author": "bestlyg",
     "repository": {
         "type": "git",
         "url": "https://github.com/bestlyg/bestlyg.git"
-    },
-    "license": "MIT",
-    "exports": {
-        ".": {
-            "types": "./index.d.ts",
-            "import": "./index.mjs",
-            "require": "./index.cjs",
-            "default": "./index.mjs"
-        }
     },
     "files": [
         "package.json",
@@ -21,5 +13,13 @@
         "index.mjs",
         "index.d.ts"
     ],
-    "version": "0.0.1"
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./index.d.ts",
+            "import": "./index.mjs",
+            "require": "./index.cjs",
+            "default": "./index.mjs"
+        }
+    }
 }

@@ -52,7 +52,7 @@ export function SidebarCategorySwitcher() {
                         <DropdownMenuLabel className="text-xs text-muted-foreground">
                             Menu
                         </DropdownMenuLabel>
-                        {sidebarCategories.map(item => (
+                        {sidebarCategories.map((item) => (
                             <Link to={item.path as string} key={item.name}>
                                 <DropdownMenuItem
                                     onClick={() => {

@@ -31,7 +31,7 @@ export const getAssetRecord: (
     | 'bz'
     | 'hint',
     ChineseChessAsset
-> = styleType => ({
+> = (styleType) => ({
     board: {
         id: `${ID_PREFIX}-${styleType}-board`,
         asset: {

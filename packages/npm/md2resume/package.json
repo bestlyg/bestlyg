@@ -2,6 +2,9 @@
     "name": "md2resume",
     "version": "0.0.1",
     "author": "bestlyg",
+    "files": [
+        "packages.json"
+    ],
     "type": "module",
     "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
@@ -44,8 +47,5 @@
         "rimraf": "catalog:",
         "typescript": "catalog:",
         "unbuild": "catalog:"
-    },
-    "files": [
-        "packages.json"
-    ]
+    }
 }

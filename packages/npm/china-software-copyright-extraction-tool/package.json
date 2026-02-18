@@ -2,6 +2,22 @@
     "name": "cscet",
     "version": "0.0.9",
     "description": "china software copyright extraction tool",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bestlyg/bestlyg.git",
+        "directory": "packages/npm/china-software-copyright-extraction-tool"
+    },
+    "bin": {
+        "cscet": "./bin/china-software-copyright-extraction-tool.js"
+    },
+    "files": [
+        "bin",
+        "dist",
+        "package.json",
+        "README.md",
+        "template.docx"
+    ],
     "type": "module",
     "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
@@ -25,24 +41,6 @@
             }
         }
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/bestlyg/bestlyg.git",
-        "directory": "packages/npm/china-software-copyright-extraction-tool"
-    },
-    "bin": {
-        "cscet": "./bin/china-software-copyright-extraction-tool.js"
-    },
-    "license": "ISC",
-    "dependencies": {
-        "chalk": "catalog:",
-        "commander": "catalog:",
-        "docxtemplater": "^3.61.1",
-        "pizzip": "^3.1.8",
-        "ramda": "catalog:",
-        "xml": "^1.0.1",
-        "zx": "catalog:"
-    },
     "scripts": {
         "run:publish": "pnpm publish --registry https://registry.npmjs.org --access=public --no-git-checks",
         "run:test": "pnpm run:prod --output-path \"C:/bestlyg/信韵.docx\"  --glob-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/**/*.(cs)\" --ignore-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/obj/Debug\" --glob-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/Admin/inRhyme/**/*.js\"",
@@ -51,6 +49,15 @@
         "prepublishOnly": "pnpm build",
         "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
         "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch"
+    },
+    "dependencies": {
+        "chalk": "catalog:",
+        "commander": "catalog:",
+        "docxtemplater": "^3.61.1",
+        "pizzip": "^3.1.8",
+        "ramda": "catalog:",
+        "xml": "^1.0.1",
+        "zx": "catalog:"
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
@@ -61,12 +68,5 @@
         "rimraf": "catalog:",
         "typescript": "catalog:",
         "unbuild": "catalog:"
-    },
-    "files": [
-        "bin",
-        "dist",
-        "package.json",
-        "README.md",
-        "template.docx"
-    ]
+    }
 }

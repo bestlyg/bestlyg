@@ -18,7 +18,7 @@ const codeA = 'a'.codePointAt(0)!;
  */
 function getJump(pattern: string, next: number[]): number[][] {
     const n = pattern.length;
-    const ans: number[][] = new Array(n).fill(0).map(_ => new Array(COUNT).fill(-1));
+    const ans: number[][] = new Array(n).fill(0).map((_) => new Array(COUNT).fill(-1));
     ans[-1] = new Array(COUNT).fill(-1);
     ans[-1][pattern.codePointAt(0)! - codeA] = 0;
     for (let i = 0; i < n; i++) {

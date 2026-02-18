@@ -1,5 +1,5 @@
 import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
-import { zodSchemaSymbol , isZodModel} from '@bestlyg/common';
+import { isZodModel } from '@bestlyg/common';
 
 @Injectable()
 export class ZodValidationPipe implements PipeTransform {
@@ -8,6 +8,6 @@ export class ZodValidationPipe implements PipeTransform {
         if (isZodModel(cstr)) {
             return new cstr(value) as any;
         }
-        return value
+        return value;
     }
 }

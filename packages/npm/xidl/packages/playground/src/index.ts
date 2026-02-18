@@ -55,6 +55,6 @@ async function main() {
     await xIdlPyCore.output();
 }
 
-main().catch(err => {
+main().catch((err) => {
     console.log(err);
 });

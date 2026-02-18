@@ -3,7 +3,7 @@ import { Transporter } from '@/class/index';
 export class FormDataTransporter extends Transporter {
     constructor() {
         super();
-        this.hooks.beforeSend.tap(FormDataTransporter.name, config => {
+        this.hooks.beforeSend.tap(FormDataTransporter.name, (config) => {
             const formData = new FormData();
             const data = (config.data ?? []) as {
                 name: string;

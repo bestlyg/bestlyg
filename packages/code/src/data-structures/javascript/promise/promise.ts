@@ -28,7 +28,7 @@ export class BestPromise<T> {
      * @param val 成功值
      */
     static resolve<V>(val: V) {
-        return new BestPromise<V>(resolve => {
+        return new BestPromise<V>((resolve) => {
             resolve(val);
         });
     }
@@ -49,8 +49,8 @@ export class BestPromise<T> {
         return new BestPromise((resolve, reject) => {
             for (const promise of promises) {
                 promise.then(
-                    value => resolve(value),
-                    reason => reject(reason),
+                    (value) => resolve(value),
+                    (reason) => reject(reason),
                 );
             }
         });
@@ -72,8 +72,8 @@ export class BestPromise<T> {
             for (let i = 0; i < len; i++) {
                 const promise = promises[i];
                 promise.then(
-                    value => resolve(value),
-                    reason => onReject(reason, i),
+                    (value) => resolve(value),
+                    (reason) => onReject(reason, i),
                 );
             }
         });
@@ -95,8 +95,8 @@ export class BestPromise<T> {
             for (let i = 0; i < len; i++) {
                 const promise = promises[i];
                 promise.then(
-                    value => onResolve(value, i),
-                    reason => reject(reason),
+                    (value) => onResolve(value, i),
+                    (reason) => reject(reason),
                 );
             }
         });
@@ -111,7 +111,7 @@ export class BestPromise<T> {
         const len = promises.length;
         let count = 0;
         const statusList: (BestPromiseFulfilledResult<any> | BestPromiseRejectedResult)[] = [];
-        return new BestPromise(resolve => {
+        return new BestPromise((resolve) => {
             const on = (
                 status: BestPromiseFulfilledResult<any> | BestPromiseRejectedResult,
                 index: number,
@@ -122,8 +122,8 @@ export class BestPromise<T> {
             for (let i = 0; i < len; i++) {
                 const promise = promises[i];
                 promise.then(
-                    value => on({ status: 'fulfilled', value }, i),
-                    reason => on({ status: 'rejected', reason }, i),
+                    (value) => on({ status: 'fulfilled', value }, i),
+                    (reason) => on({ status: 'rejected', reason }, i),
                 );
             }
         });
@@ -136,8 +136,8 @@ export class BestPromise<T> {
         if (this.state === PromiseState.PENDING) {
             this.state = PromiseState.FULFILLED;
             this.value = value;
-            this.onFulfilled.forEach(fn => fn());
-            this.onFinally.forEach(fn => fn());
+            this.onFulfilled.forEach((fn) => fn());
+            this.onFinally.forEach((fn) => fn());
         }
     }
     /**
@@ -148,8 +148,8 @@ export class BestPromise<T> {
         if (this.state === PromiseState.PENDING) {
             this.state = PromiseState.REJECTED;
             this.reason = reason;
-            this.onRejected.forEach(fn => fn());
-            this.onFinally.forEach(fn => fn());
+            this.onRejected.forEach((fn) => fn());
+            this.onFinally.forEach((fn) => fn());
         }
     }
     /**

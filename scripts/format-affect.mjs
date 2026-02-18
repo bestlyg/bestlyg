@@ -10,4 +10,6 @@ const diffRealPath = diffPath.stdout
     .map(v => resolve(decodeURIComponent(v)));
 
 console.log(diffRealPath);
-await $`pnpm prettier --write ${diffRealPath}`;
+if (diffRealPath.length) {
+    await $`pnpm oxfmt ${diffRealPath}`;
+}

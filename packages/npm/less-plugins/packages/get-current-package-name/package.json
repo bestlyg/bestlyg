@@ -2,8 +2,25 @@
     "name": "@less-plugins/get-current-package-name",
     "version": "0.0.9",
     "description": "get-current-package-name",
+    "keywords": [
+        "css",
+        "get-current-package-name",
+        "less",
+        "less css",
+        "less functions",
+        "less plugin",
+        "less.js",
+        "plugin"
+    ],
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
+    "license": "MIT",
     "author": "BestLyg",
+    "files": [
+        "lib",
+        "package.json",
+        "README.md",
+        "index.js"
+    ],
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
     "scripts": {
@@ -13,23 +30,6 @@
         "prepublishOnly": "pnpm build",
         "test": "pnpm build && pnpm exec lessc \"./tests/basic.less\""
     },
-    "keywords": [
-        "css",
-        "less",
-        "less.js",
-        "plugin",
-        "less css",
-        "less plugin",
-        "less functions",
-        "get-current-package-name"
-    ],
-    "license": "MIT",
-    "files": [
-        "lib",
-        "package.json",
-        "README.md",
-        "index.js"
-    ],
     "dependencies": {
         "@less-plugins/shared": "workspace:^"
     },

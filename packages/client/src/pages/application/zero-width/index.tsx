@@ -35,7 +35,7 @@ export default function ZeroWidthUI() {
                 className="h-[500px]"
                 id="zw-encode"
                 value={encodeText}
-                onChange={e => setEncodeText(e.target.value)}
+                onChange={(e) => setEncodeText(e.target.value)}
             />
         </div>
     );
@@ -46,7 +46,7 @@ export default function ZeroWidthUI() {
                 className="h-[500px]"
                 id="zw-decode"
                 value={decodeText}
-                onChange={e => setDecodeText(e.target.value)}
+                onChange={(e) => setDecodeText(e.target.value)}
             />
         </div>
     );

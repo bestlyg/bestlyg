@@ -32,7 +32,7 @@ export function cachedDynamicImportComponent(
     let CachedComponent: React.ComponentType | null = null;
     // 封装一次load函数，获取到实际的组件用于缓存
     function dynamicImport() {
-        return load().then(mod => {
+        return load().then((mod) => {
             CachedComponent = mod.default;
             return mod;
         });

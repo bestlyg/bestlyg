@@ -1,26 +1,26 @@
 function check(s: string) {
     for (let i = 0; i < s.length / 2; i++) {
-        if (s[i] !== s[s.length - 1 - i]) return false
+        if (s[i] !== s[s.length - 1 - i]) return false;
     }
-    return true
+    return true;
 }
-function kMirror(k: number, n: number): number[] {
-    const arr: number[] = []
+function kMirror(k: number): number[] {
+    const arr: number[] = [];
     for (let num = 1; arr.length < 30; num++) {
         if (check(num.toString()) && check(num.toString(k))) {
-            arr.push(num)
+            arr.push(num);
         }
     }
     return arr;
-};
-
-const arr:any[] = []
-for (let k = 2; k <= 9; k++) {
-    const res = kMirror(k, 10)
-    arr.push(res)
-    console.log(res)
 }
-console.log(JSON.stringify(arr))
+
+const arr: any[] = [];
+for (let k = 2; k <= 9; k++) {
+    const res = kMirror(k);
+    arr.push(res);
+    console.log(res);
+}
+console.log(JSON.stringify(arr));
 /**
  [
           1,         3,        5,         7,

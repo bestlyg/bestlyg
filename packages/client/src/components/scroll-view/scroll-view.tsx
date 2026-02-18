@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 import { useScrollController, useResize, useScrollbarVisible } from './hooks';
 import clsx from 'clsx';
 import { Resizing } from './resizing';
-import styles from './scroll-view.module.less'
+import styles from './scroll-view.module.less';
 
 export interface ScrollViewProps {
     style?: React.CSSProperties;
@@ -69,7 +69,7 @@ export const ScrollView = React.forwardRef<ScrollController, ScrollViewProps>((p
     const isNearBottomRef = React.useRef(false);
 
     const { onScroll: handleScrollbarVisibility } = useScrollbarVisible({
-        onVisibleChange: visible => {
+        onVisibleChange: (visible) => {
             const dom = scrollController.containerRef.current;
             if (!dom) return;
             if (visible) {
@@ -159,7 +159,7 @@ export const ScrollView = React.forwardRef<ScrollController, ScrollViewProps>((p
         }
         return (
             <Resizing onResize={handleResize}>
-                {resizeRef => (
+                {(resizeRef) => (
                     <div
                         ref={resizeRef}
                         className={clsx(

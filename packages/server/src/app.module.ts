@@ -1,4 +1,3 @@
-import { Module } from '@nestjs/common';
 import { ClsModule } from 'nestjs-cls';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
@@ -7,9 +6,7 @@ import { AppService } from './app.service';
 import { BestlygConfig, MailService, resolve } from '@bestlyg-server/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { getConfiguration, ConfigurationSchema } from '@bestlyg/common/server';
 import { TasksService } from './services/tasks.service';
-import dotenv from 'dotenv';
 import { AuthModule } from '@bestlyg-server/auth';
 import { JwtModule } from '@nestjs/jwt';
 import { ServerlessModule } from '@bestlyg-server/serverless';

@@ -33,7 +33,7 @@ export function* genSample<T>(config: Parameters<typeof genList<T>>[0] = {}) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
     yield* genLoop({
-        pick: list => list[random(0, list.length - 1)],
+        pick: (list) => list[random(0, list.length - 1)],
         ...config,
     });
 }

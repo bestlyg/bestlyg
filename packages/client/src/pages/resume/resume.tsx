@@ -89,7 +89,7 @@ export default function Resume() {
             renderToMultiPage({
                 container: resumeRef.current,
                 html,
-                getPageHeight: count =>
+                getPageHeight: (count) =>
                     count === 1 ? size.height - paddingA4 : size.height - 2 * paddingA4,
             });
         }
@@ -120,7 +120,7 @@ export default function Resume() {
                             <Space>
                                 <Radio.Group
                                     options={resumePageTypeOptions}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         const type = e.target.value as ResumePageType;
                                         setResumePageType(type);
                                     }}
@@ -168,7 +168,7 @@ export default function Resume() {
                 <Input.TextArea
                     rows={10}
                     value={resumeSource}
-                    onChange={e => {
+                    onChange={(e) => {
                         onResumeSourceChange(e.target.value);
                     }}
                 />

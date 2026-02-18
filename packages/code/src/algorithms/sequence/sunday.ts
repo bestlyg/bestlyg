@@ -6,7 +6,7 @@
 function getMap(pattern: string): (c: string) => number {
     const map: Record<string, number> = {};
     for (let i = 0; pattern[i]; i++) map[pattern[i]] = i;
-    return c => map[c] ?? -1;
+    return (c) => map[c] ?? -1;
 }
 export function sunday(text: string, pattern: string): number {
     const map = getMap(pattern);

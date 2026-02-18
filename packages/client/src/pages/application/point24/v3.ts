@@ -3,7 +3,7 @@ import { Compute24, EPSILON, operation } from './utils';
 
 export const compute24: Compute24 = (nums, ops, target): string[] => {
     const cache: Record<string, string[][]> = {};
-    return next(nums).map(v => `[${v.join(' -> ')}]`);
+    return next(nums).map((v) => `[${v.join(' -> ')}]`);
     function next(nums: Parameters<Compute24>['0']): string[][] {
         nums.sort((a, b) => a - b);
         const formatStr = nums.join(',');
@@ -23,8 +23,8 @@ export const compute24: Compute24 = (nums, ops, target): string[] => {
                     nextNums.push(num);
                     res.push(
                         ...next(nextNums)
-                            .filter(v => v.length)
-                            .map(v => [`${nums[i]} ${op} ${nums[j]}`, ...v]),
+                            .filter((v) => v.length)
+                            .map((v) => [`${nums[i]} ${op} ${nums[j]}`, ...v]),
                     );
                 }
             }

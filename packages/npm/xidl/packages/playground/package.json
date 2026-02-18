@@ -4,6 +4,9 @@
     "keywords": [
         "idl"
     ],
+    "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
+    "license": "MIT",
+    "author": "bestlyg@foxmail.com",
     "type": "module",
     "main": "./dist/lib/index.cjs",
     "types": "./dist/types/index.d.ts",
@@ -28,25 +31,22 @@
         },
         "./package.json": "./package.json"
     },
-    "author": "bestlyg@foxmail.com",
-    "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
-    "license": "MIT",
-    "devDependencies": {
-        "@types/node": "catalog:",
-        "@xidl/core": "workspace:^",
-        "@xidl/shared": "workspace:^",
-        "@xidl/typescript-client": "workspace:^",
-        "@xidl/typescript-core": "workspace:^",
-        "@xidl/typescript-server": "workspace:^",
-        "@xidl/python-core": "workspace:^",
-        "tsx": "^4.19.3",
-        "typescript": "catalog:"
-    },
     "scripts": {
         "start": "tsx src/index.ts",
         "build": "echo 'playground build'"
     },
     "dependencies": {
         "axios": "catalog:"
+    },
+    "devDependencies": {
+        "@types/node": "catalog:",
+        "@xidl/core": "workspace:^",
+        "@xidl/python-core": "workspace:^",
+        "@xidl/shared": "workspace:^",
+        "@xidl/typescript-client": "workspace:^",
+        "@xidl/typescript-core": "workspace:^",
+        "@xidl/typescript-server": "workspace:^",
+        "tsx": "^4.19.3",
+        "typescript": "catalog:"
     }
 }

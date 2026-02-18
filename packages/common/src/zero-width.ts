@@ -48,7 +48,7 @@ export function decode(zeroWidthText: string) {
             currentChunk = '';
         }
     }
-    binaryChunks.forEach(chunk => {
+    binaryChunks.forEach((chunk) => {
         const charCode = parseInt(chunk, 2);
         text += String.fromCodePoint(charCode);
     });

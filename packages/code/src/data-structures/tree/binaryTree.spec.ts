@@ -47,7 +47,7 @@ describe('BinaryTree', () => {
     test('print', () => {
         expect(tree.print()).toBe('');
         tree = new AVLTree<number>((t1, t2) => t1 - t2);
-        [4, 31, 69, 7, 16, 2, 9, 90, 17].forEach(v => tree.add(v));
+        [4, 31, 69, 7, 16, 2, 9, 90, 17].forEach((v) => tree.add(v));
         const replace = (str: string) => str.replace(/\n/g, '');
         expect(replace(tree.print())).toBe(
             replace(`

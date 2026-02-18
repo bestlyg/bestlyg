@@ -4,6 +4,14 @@
     "keywords": [
         "generator"
     ],
+    "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
+    "license": "MIT",
+    "author": "bestlyg@foxmail.com",
+    "files": [
+        "package.json",
+        "README.md",
+        "dist"
+    ],
     "type": "module",
     "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
@@ -27,9 +35,12 @@
             }
         }
     },
-    "author": "bestlyg@foxmail.com",
-    "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
-    "license": "MIT",
+    "scripts": {
+        "prepublishOnly": "pnpm build",
+        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
+        "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch",
+        "test": "vitest"
+    },
     "devDependencies": {
         "@bestlyg/common": "workspace:^",
         "@types/lodash": "catalog:",
@@ -40,16 +51,5 @@
         "typescript": "catalog:",
         "unbuild": "catalog:",
         "vitest": "^2.1.9"
-    },
-    "scripts": {
-        "prepublishOnly": "pnpm build",
-        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
-        "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch",
-        "test": "vitest"
-    },
-    "files": [
-        "package.json",
-        "README.md",
-        "dist"
-    ]
+    }
 }

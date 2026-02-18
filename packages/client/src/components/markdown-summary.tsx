@@ -26,7 +26,7 @@ export function getMarkdownSummaryInfoList() {
                 dom: child,
                 items: [],
             };
-            const prevIdx = stack.findLastIndex(v => v.dom.tagName.toLowerCase() === tagName);
+            const prevIdx = stack.findLastIndex((v) => v.dom.tagName.toLowerCase() === tagName);
             if (prevIdx >= 0) stack.length = prevIdx;
             stack.at(-1)?.items.push(item);
             stack.push(item);
@@ -45,7 +45,7 @@ function MarkdownSummaryItem({ info, level }: { info: MarkdownSummaryInfo; level
             >
                 <a
                     className="cursor-pointer inline-block no-underline transition-colors hover:text-foreground text-muted-foreground"
-                    onClick={e => {
+                    onClick={(e) => {
                         e.preventDefault();
                         const dom = document.getElementById(info.title);
                         if (!dom) return;

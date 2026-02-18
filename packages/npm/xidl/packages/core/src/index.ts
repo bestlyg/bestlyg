@@ -153,7 +153,7 @@ export abstract class XIdl {
     }: { count?: number; content?: string; lineSplitChar?: string } = {}) {
         return content
             .split(lineSplitChar)
-            .map(v => `${this.config.indent.repeat(count)}${v}`)
+            .map((v) => `${this.config.indent.repeat(count)}${v}`)
             .join(lineSplitChar);
     }
 

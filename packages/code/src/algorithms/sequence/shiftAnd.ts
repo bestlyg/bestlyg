@@ -10,7 +10,7 @@ function getNext(pattern: string): (c: string) => number {
         if (next[pattern[i]] === undefined) next[pattern[i]] = 0;
         next[pattern[i]] |= 1 << i;
     }
-    return c => next[c] ?? 0;
+    return (c) => next[c] ?? 0;
 }
 export function shiftAnd(text: string, pattern: string): number {
     const next = getNext(pattern);

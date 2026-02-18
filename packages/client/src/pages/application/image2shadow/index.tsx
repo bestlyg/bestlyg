@@ -41,7 +41,7 @@ export default function Image2Shadow() {
                 });
                 resolve();
             };
-            image.onerror = e => {
+            image.onerror = (e) => {
                 console.log('image load error', e);
                 toast({
                     variant: 'destructive',
@@ -92,7 +92,7 @@ export default function Image2Shadow() {
             <div className="flex w-full max-w-sm items-center gap-3">
                 <Input
                     type="file"
-                    onChange={e => {
+                    onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (file) {
                             setFile(file);
@@ -107,7 +107,7 @@ export default function Image2Shadow() {
                         id="BlurPx"
                         className="w-[180px]"
                         value={options.blurPx}
-                        onChange={e => {
+                        onChange={(e) => {
                             console.log(e);
                             const num = Number(e.target.value);
                             if (!Number.isNaN(num)) {

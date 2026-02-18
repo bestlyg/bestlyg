@@ -102,7 +102,7 @@ function NavSidebarGroup({ data }: { data: SidebarGroup }) {
                                 </CollapsibleTrigger>
                                 <CollapsibleContent>
                                     <SidebarMenuSub>
-                                        {item.items?.map(subItem => {
+                                        {item.items?.map((subItem) => {
                                             return (
                                                 <SidebarMenuSubItem key={subItem.name}>
                                                     <SidebarMenuSubButton
@@ -138,7 +138,7 @@ function NavSidebarGroup({ data }: { data: SidebarGroup }) {
 function Nav({ promise: sidebarPromise }: { promise: Promise<TSidebar | null | undefined> }) {
     const sidebar = React.use(sidebarPromise);
     return sidebar?.groups
-        ?.filter(v => v.groups?.length || v.items?.length)
+        ?.filter((v) => v.groups?.length || v.items?.length)
         .map((v, i) => <NavSidebarGroup key={i} data={v} />);
 }
 

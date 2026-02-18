@@ -67,7 +67,7 @@ export function renderToMultiPage({
     let pageCount = 1;
     tryInsertNodes(root.body.childNodes);
     function tryInsertNodes(nodes: NodeListOf<ChildNode>) {
-        nodes.forEach(node => tryInsertNode(node));
+        nodes.forEach((node) => tryInsertNode(node));
     }
     function tryInsertNode(node: ChildNode) {
         const clonedNode = node.cloneNode();
@@ -109,7 +109,7 @@ export async function downloadPDFSinglePage(container?: HTMLElement) {
 }
 
 export function saveAsImage(canvas: HTMLCanvasElement) {
-    canvas.toBlob(blob => {
+    canvas.toBlob((blob) => {
         if (!blob) return;
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);

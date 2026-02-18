@@ -1,12 +1,19 @@
 {
     "name": "metadata-file",
-    "type": "module",
+    "version": "0.0.0",
+    "license": "MIT",
     "author": "bestlyg",
     "repository": {
         "type": "git",
         "url": "https://github.com/bestlyg/bestlyg.git"
     },
-    "license": "MIT",
+    "files": [
+        "package.json",
+        "index.cjs",
+        "index.mjs",
+        "index.d.ts"
+    ],
+    "type": "module",
     "exports": {
         ".": {
             "types": "./index.d.ts",
@@ -15,13 +22,6 @@
             "default": "./index.mjs"
         }
     },
-    "files": [
-        "package.json",
-        "index.cjs",
-        "index.mjs",
-        "index.d.ts"
-    ],
-    "version": "0.0.0",
     "dependencies": {
         "module-checker": "workspace:^"
     }

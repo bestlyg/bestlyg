@@ -12,7 +12,7 @@ export interface ResizingProps {
         current: typeof defaultSize;
         previous: typeof defaultSize | null;
         target: Element;
-        targetStandBy: HTMLDivElement | null
+        targetStandBy: HTMLDivElement | null;
     }) => void;
 }
 
@@ -30,8 +30,8 @@ export const Resizing: React.FC<ResizingProps> = ({ children, onResize }) => {
     React.useLayoutEffect(() => {
         if (!window.ResizeObserver) return;
 
-        const observer = new ResizeObserver(entries => {
-            const entry = entries.find(e => e.target === currentRef.current);
+        const observer = new ResizeObserver((entries) => {
+            const entry = entries.find((e) => e.target === currentRef.current);
             if (!entry) return;
 
             const target = entry.target as HTMLElement;

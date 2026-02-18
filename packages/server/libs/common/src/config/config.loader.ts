@@ -5,7 +5,7 @@ import { resolve } from '../resolve';
 
 export async function loadBestlygConfig(): Promise<BestlygConfig> {
     const loadConfig: typeof loadConfigC12 = await eval('import("c12")').then(
-        res => res.loadConfig,
+        (res) => res.loadConfig,
     );
     const { config } = await loadConfig<BestlygConfig>({
         name: 'bestlyg', // 会查找 bestlyg.config.ts / bestlyg.config.dev.ts 等

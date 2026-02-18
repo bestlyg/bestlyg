@@ -12,7 +12,6 @@ export type BaseModelKey<T> = Exclude<
     }[keyof T]
 >;
 
-
 export class BaseModel<
     EventTypes extends EventEmitter.ValidEventTypes = string | symbol,
     Context extends any = any,

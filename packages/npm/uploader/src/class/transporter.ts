@@ -37,11 +37,11 @@ export class Transporter {
     promise = Promise.withResolvers<XMLHttpRequest>();
     constructor() {
         const xhr = this.xhr;
-        xhr.upload.onprogress = async e => this.hooks.onProgress.promise(e);
-        xhr.onerror = async e => this.hooks.onError.promise(e);
-        xhr.ontimeout = async e => this.hooks.onTimeout.promise(e);
-        xhr.onabort = async e => this.hooks.onAbort.promise(e);
-        xhr.onreadystatechange = async e => {
+        xhr.upload.onprogress = async (e) => this.hooks.onProgress.promise(e);
+        xhr.onerror = async (e) => this.hooks.onError.promise(e);
+        xhr.ontimeout = async (e) => this.hooks.onTimeout.promise(e);
+        xhr.onabort = async (e) => this.hooks.onAbort.promise(e);
+        xhr.onreadystatechange = async (e) => {
             await this.hooks.onReadyStateChange.promise(e);
             if (xhr.readyState === 4) {
                 if (xhr.status >= 200 && xhr.status < 300) {
