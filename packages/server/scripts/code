@@ -1,3 +1,12 @@
 class Solution:
-    def hasAlternatingBits(self, n: int) -> bool:
-        return all(c1 != c2 for c1, c2 in pairwise(bin(n)))
+    def countBinarySubstrings(self, s: str) -> int:
+        arr = []
+        i = 0
+        n = len(s)
+        while i < n:
+            start = i
+            while i + 1 < n and s[i + 1] == s[start]:
+                i += 1
+            arr.append(i - start + 1)
+            i += 1
+        return sum(min(v1, v2) for v1, v2 in pairwise(arr))
