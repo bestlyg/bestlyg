@@ -1,12 +1,13 @@
+def is_prime(num: int) -> bool:
+    if num < 2: return False
+    v = 2
+    while v ** 2 <= num:
+        if num % v == 0: return False
+        v += 1
+    return True
 class Solution:
-    def countBinarySubstrings(self, s: str) -> int:
-        arr = []
-        i = 0
-        n = len(s)
-        while i < n:
-            start = i
-            while i + 1 < n and s[i + 1] == s[start]:
-                i += 1
-            arr.append(i - start + 1)
-            i += 1
-        return sum(min(v1, v2) for v1, v2 in pairwise(arr))
+    def countPrimeSetBits(self, left: int, right: int) -> int:
+        return sum(
+            is_prime(bin(num).count('1'))
+            for num in range(left, right + 1)
+        )
