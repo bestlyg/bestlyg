@@ -1,13 +1,6 @@
-def is_prime(num: int) -> bool:
-    if num < 2: return False
-    v = 2
-    while v ** 2 <= num:
-        if num % v == 0: return False
-        v += 1
-    return True
 class Solution:
-    def countPrimeSetBits(self, left: int, right: int) -> int:
-        return sum(
-            is_prime(bin(num).count('1'))
-            for num in range(left, right + 1)
-        )
+    def sumRootToLeaf(self, root: Optional[TreeNode], val: int = 0) -> int:
+        if not root: return 0
+        val = (val << 1) | root.val
+        if not root.left and not root.right: return val
+        return self.sumRootToLeaf(root.left, val) + self.sumRootToLeaf(root.right, val)
