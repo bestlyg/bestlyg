@@ -1,6 +1,3 @@
 class Solution:
-    def sumRootToLeaf(self, root: Optional[TreeNode], val: int = 0) -> int:
-        if not root: return 0
-        val = (val << 1) | root.val
-        if not root.left and not root.right: return val
-        return self.sumRootToLeaf(root.left, val) + self.sumRootToLeaf(root.right, val)
+    def sortByBits(self, arr: List[int]) -> List[int]:
+        return sorted(arr, key = lambda num: (bin(num).count('1'), num))
