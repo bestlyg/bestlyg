@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: true,
-    name: '1356. 根据数字二进制下 1 的数目排序',
-    url: 'https://leetcode.cn/problems/sort-integers-by-the-number-of-1-bits',
+    exist: !true,
+    name: '1689. 十-二进制数的最少数目',
+    url: 'https://leetcode.cn/problems/partitioning-into-minimum-number-of-deci-binary-numbers',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个整数数组 arr 。请你将数组中的元素按照其二进制表示中数字 1 的数目升序排序。如果存在多个数字二进制中 1 的数目相同，则必须将它们按照数值大小升序排列。请你返回排序后的数组。`,
+    desc: `给你一个表示十进制整数的字符串 n ，返回和为 n 的 十-二进制数 的最少数目。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2026.02.07',
-            time: 4,
-            memory: 19.20,
-            desc: '排序',
+            time: 89,
+            memory: 19.75,
+            desc: '贪心，取str中最大的数字',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
