@@ -1,3 +1,14 @@
 class Solution:
-    def minPartitions(self, n: str) -> int:
-        return max(int(c) for c in n)
+    def get_len(self, n: int) -> int:
+        if n == 1: return 1
+        return self.get_len(n - 1) * 2 + 1
+    def findKthBit(self, n: int, k: int, rev = False) -> str:
+        if n == 1: return '1' if rev else '0'
+        nlen = self.get_len(n)
+        prev_nlen = self.get_len(n - 1)
+        if k <= prev_nlen:
+            return self.findKthBit(n - 1, k, rev)
+        elif k == prev_nlen + 1:
+            return '0' if rev else '1'
+        else:
+            return self.findKthBit(n - 1, prev_nlen - (k - prev_nlen - 1) + 1, not rev)
