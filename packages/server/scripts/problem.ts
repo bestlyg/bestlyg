@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: !true,
-    name: '1545. 找出第 N 个二进制字符串中的第 K 位',
-    url: 'https://leetcode.cn/problems/find-kth-bit-in-nth-binary-string',
+    exist:! true,
+    name: '1582. 二进制矩阵中的特殊位置',
+    url: 'https://leetcode.cn/problems/special-positions-in-a-binary-matrix',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你返回  Sn 的 第 k 位字符 ，题目数据保证 k 一定在 Sn 长度范围以内。`,
+    desc: `给定一个 m x n 的二进制矩阵 mat，返回矩阵 mat 中特殊位置的数量。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            // date: '2026.02.07',
-            time: 3,
-            memory: 19.03,
-            desc: 'dfs判断k在左边还是右边还是中间',
+            date: '2026.03.05',
+            time: 115,
+            memory: 19.58,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
