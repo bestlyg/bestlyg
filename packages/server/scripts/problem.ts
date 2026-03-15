@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist:! true,
-    name: '1784. 检查二进制字符串字段',
-    url: 'https://leetcode.cn/problems/check-if-binary-string-has-at-most-one-segment-of-ones',
+    name: '1415. 长度为 n 的开心字符串中字典序第 k 小的字符串',
+    url: 'https://leetcode.cn/problems/the-k-th-lexicographical-string-of-all-happy-strings-of-length-n',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个二进制字符串 s ，该字符串 不含前导零 。如果 s 包含 零个或一个由连续的 '1' 组成的字段 ，返回 true​​​ 。否则，返回 false 。`,
+    desc: `请你返回排序后的第 k 个开心字符串，如果长度为 n 的开心字符串少于 k 个，那么请你返回 空字符串 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2026.03.05',
             time: 3,
             memory: 19.00,
-            desc: '遍历',
+            desc: 'dfs,数量是3*2*2...是个可明确的数量，可以批量计算',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
