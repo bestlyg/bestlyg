@@ -1,14 +1,13 @@
 class Solution:
-    def largestSubmatrix(self, matrix: List[List[int]]) -> int:
-        n = len(matrix)
-        m = len(matrix[0])
-        h = [0] * m
+    def numberOfSubmatrices(self, grid: List[List[str]]) -> int:
+        n = len(grid)
+        m = len(grid[0])
+        sums = [[[0, 0] for _ in range(m + 1)] for _ in range(n + 1)]
         res = 0
         for i in range(n):
             for j in range(m):
-                if matrix[i][j] == 0: h[j] = 0
-                else: h[j] += 1
-            hh = sorted(h)
-            for j in range(m):
-                res = max(res, hh[j] * (m - j))
+                sums[i + 1][j + 1][0] = sums[i + 1][j][0] + sums[i][j + 1][0] - sums[i][j][0] + int(grid[i][j] == 'X')
+                sums[i + 1][j + 1][1] = sums[i + 1][j][1] + sums[i][j + 1][1] - sums[i][j][1] + int(grid[i][j] == 'Y')
+                if sums[i + 1][j + 1][0] and sums[i + 1][j + 1][0] == sums[i + 1][j + 1][1]:
+                    res += 1
         return res

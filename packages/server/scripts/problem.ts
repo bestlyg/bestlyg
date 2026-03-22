@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist:! true,
-    name: '1727. 重新排列后的最大子矩阵',
-    url:'https://leetcode.cn/problems/largest-submatrix-with-rearrangements',
+    name: '3212. 统计 X 和 Y 频数相等的子矩阵数量',
+    url:'https://leetcode.cn/problems/count-submatrices-with-equal-frequency-of-x-and-y',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你返回最优方案下将 matrix 重新排列后，全是 1 的最大子矩阵面积。`,
+    desc: `给你一个二维字符矩阵 grid，其中 grid[i][j] 可能是 'X'、'Y' 或 '.'，返回满足以下条件的子矩阵数量。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            // date: '2026.03.05',
-            time: 123,
-            memory: 33.29,
-            desc: '遍历每行，记录从当前值往上的最大连续的1',
+            date: '2026.03.19',
+            time: 1722,
+            memory: 222.96,
+            desc: '二维前缀和',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
