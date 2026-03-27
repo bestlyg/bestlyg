@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist:! true,
-    name: '3212. 统计 X 和 Y 频数相等的子矩阵数量',
-    url:'https://leetcode.cn/problems/count-submatrices-with-equal-frequency-of-x-and-y',
+    name: '2946. 循环移位后的矩阵相似检查',
+    url:'https://leetcode.cn/problems/matrix-similarity-after-cyclic-shifts',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个二维字符矩阵 grid，其中 grid[i][j] 可能是 'X'、'Y' 或 '.'，返回满足以下条件的子矩阵数量。`,
+    desc: `给你一个下标从 0 开始且大小为 m x n 的整数矩阵 mat 和一个整数 k 。请你将矩阵中的 奇数 行循环 右 移 k 次，偶数 行循环 左 移 k 次。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            date: '2026.03.19',
-            time: 1722,
-            memory: 222.96,
-            desc: '二维前缀和',
+            // date: '2026.03.19',
+            time: 3,
+            memory: 19.09,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

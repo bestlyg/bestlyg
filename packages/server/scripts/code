@@ -1,13 +1,14 @@
 class Solution:
-    def numberOfSubmatrices(self, grid: List[List[str]]) -> int:
-        n = len(grid)
-        m = len(grid[0])
-        sums = [[[0, 0] for _ in range(m + 1)] for _ in range(n + 1)]
-        res = 0
+    def areSimilar(self, mat: List[List[int]], k: int) -> bool:
+        n = len(mat)
+        m = len(mat[0])
         for i in range(n):
-            for j in range(m):
-                sums[i + 1][j + 1][0] = sums[i + 1][j][0] + sums[i][j + 1][0] - sums[i][j][0] + int(grid[i][j] == 'X')
-                sums[i + 1][j + 1][1] = sums[i + 1][j][1] + sums[i][j + 1][1] - sums[i][j][1] + int(grid[i][j] == 'Y')
-                if sums[i + 1][j + 1][0] and sums[i + 1][j + 1][0] == sums[i + 1][j + 1][1]:
-                    res += 1
-        return res
+            if i % 2 == 0:
+                for j in range(m):
+                    if mat[i][j] != mat[i][(j + m - k) % m]:
+                        return False
+            else:
+                for j in range(m):
+                    if mat[i][j] != mat[i][(j + k) % m]:
+                        return False
+        return True
