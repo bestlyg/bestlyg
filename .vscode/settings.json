@@ -60,7 +60,7 @@
         "**/static/**": true,
         "**/target/**": true
     },
-    "workbench.colorTheme": "Default Dark Modern",
+    "workbench.colorTheme": "Dark Modern",
     "workbench.iconTheme": "vs-seti",
     "[typescriptreact]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"

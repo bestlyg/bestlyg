@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas-pro';
 import { jsPDF } from 'jspdf';
 
 export const RESUME_NAME_PDF = 'resume.pdf';

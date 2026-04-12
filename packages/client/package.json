@@ -61,6 +61,7 @@
         "github-markdown-css": "^5.8.1",
         "highlight.js": "^11.11.1",
         "html2canvas": "^1.4.1",
+        "html2canvas-pro": "^2.0.2",
         "immer": "catalog:",
         "input-otp": "^1.4.2",
         "jotai": "catalog:",
