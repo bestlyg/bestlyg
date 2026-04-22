@@ -1,14 +1,10 @@
 class Solution:
-    def areSimilar(self, mat: List[List[int]], k: int) -> bool:
-        n = len(mat)
-        m = len(mat[0])
-        for i in range(n):
-            if i % 2 == 0:
-                for j in range(m):
-                    if mat[i][j] != mat[i][(j + m - k) % m]:
-                        return False
-            else:
-                for j in range(m):
-                    if mat[i][j] != mat[i][(j + k) % m]:
-                        return False
-        return True
+    def twoEditWords(self, queries: List[str], dictionary: List[str]) -> List[str]:
+        n = len(queries[0])
+        res = []
+        for q in queries:
+            for d in dictionary:
+                if sum(q[i] != d[i] for i in range(n)) <= 2:
+                    res.append(q)
+                    break
+        return res

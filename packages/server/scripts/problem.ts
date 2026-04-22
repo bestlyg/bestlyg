@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist:! true,
-    name: '2946. 循环移位后的矩阵相似检查',
-    url:'https://leetcode.cn/problems/matrix-similarity-after-cyclic-shifts',
+    name: '2452. 距离字典两次编辑以内的单词',
+    url:'https://leetcode.cn/problems/words-within-two-edits-of-dictionary',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个下标从 0 开始且大小为 m x n 的整数矩阵 mat 和一个整数 k 。请你将矩阵中的 奇数 行循环 右 移 k 次，偶数 行循环 左 移 k 次。`,
+    desc: `请你返回 queries 中的单词列表，这些单词距离 dictionary 中的单词 编辑次数 不超过 两次 。单词返回的顺序需要与 queries 中原本顺序相同。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2026.03.19',
-            time: 3,
-            memory: 19.09,
-            desc: '遍历',
+            time: 131,
+            memory: 18.96,
+            desc: '暴力枚举',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
