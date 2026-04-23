@@ -1,10 +1,18 @@
 class Solution:
-    def twoEditWords(self, queries: List[str], dictionary: List[str]) -> List[str]:
-        n = len(queries[0])
-        res = []
-        for q in queries:
-            for d in dictionary:
-                if sum(q[i] != d[i] for i in range(n)) <= 2:
-                    res.append(q)
-                    break
-        return res
+    def distance(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        mmap = defaultdict(list)
+        for i in range(n):
+            mmap[nums[i]].append(i)
+        arr = [0] * n
+        for num, ll in mmap.items():
+            nl = len(ll)
+            if nl == 1: continue
+            r = sum(ll)
+            l = 0
+            for i in range(nl):
+                v = ll[i]
+                arr[v] = v * i - l + r - v * (nl - i)
+                l += v
+                r -= v
+        return arr
