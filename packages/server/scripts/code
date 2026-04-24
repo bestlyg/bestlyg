@@ -1,18 +1,4 @@
 class Solution:
-    def distance(self, nums: List[int]) -> List[int]:
-        n = len(nums)
-        mmap = defaultdict(list)
-        for i in range(n):
-            mmap[nums[i]].append(i)
-        arr = [0] * n
-        for num, ll in mmap.items():
-            nl = len(ll)
-            if nl == 1: continue
-            r = sum(ll)
-            l = 0
-            for i in range(nl):
-                v = ll[i]
-                arr[v] = v * i - l + r - v * (nl - i)
-                l += v
-                r -= v
-        return arr
+    def furthestDistanceFromOrigin(self, moves: str) -> int:
+        counter = Counter(moves)
+        return abs(counter['L'] - counter['R']) + counter['_']
