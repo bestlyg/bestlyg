@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: !true,
-    name: '2833. 距离原点最远的点',
-    url:'https://leetcode.cn/problems/furthest-point-from-origin',
+    exist: true,
+    name: '796. 旋转字符串',
+    url:'https://leetcode.cn/problems/rotate-string',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `移动 n 次之后，请你找出可以到达的距离原点 最远 的点，并返回 从原点到这一点的距离 。`,
+    desc: `给定两个字符串, s 和 goal。如果在若干次旋转操作之后，s 能变成 goal ，那么返回 true 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2026.03.19',
-            time: 3,
-            memory: 18.96,
-            desc: '记录所有相同的下标的数组，遍历下标的时候记录左右的sum数量',
+            time: 0,
+            memory: 19.14,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],

@@ -1,4 +1,3 @@
 class Solution:
-    def furthestDistanceFromOrigin(self, moves: str) -> int:
-        counter = Counter(moves)
-        return abs(counter['L'] - counter['R']) + counter['_']
+    def rotateString(self, s: str, goal: str) -> bool:
+        return any(s[i:] + s[:i] == goal for i in range(len(s)))
