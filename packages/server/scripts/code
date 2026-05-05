@@ -1,3 +1,24 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
-    def rotateString(self, s: str, goal: str) -> bool:
-        return any(s[i:] + s[:i] == goal for i in range(len(s)))
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head: return head
+        n = 0
+        p = head
+        last = head
+        while p:
+            n += 1
+            last = p
+            p = p.next
+        k %= n
+        if k == 0: return head
+        p = head
+        for _ in range(n - k - 1):
+            p = p.next
+        new_head = p.next
+        p.next = None
+        last.next = head
+        return new_head
