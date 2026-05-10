@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: true,
-    name: '61. 旋转链表',
-    url:'https://leetcode.cn/problems/rotate-list',
+    exist: !true,
+    name: '2770. 达到末尾下标所需的最大跳跃次数',
+    url:'https://leetcode.cn/problems/maximum-number-of-jumps-to-reach-the-last-index',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个链表的头节点 head ，旋转链表，将链表每个节点向右移动 k 个位置。`,
+    desc: `给你一个下标从 0 开始、由 n 个整数组成的数组 nums 和一个整数 target 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2026.03.19',
-            time: 3,
-            memory: 19.04,
-            desc: '记录新头节点进行重新组装',
+            time: 503,
+            memory: 23.79,
+            desc: 'dfs',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
