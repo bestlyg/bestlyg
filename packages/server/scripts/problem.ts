@@ -14,19 +14,19 @@ import path from 'path';
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: !true,
-    name: '2770. 达到末尾下标所需的最大跳跃次数',
-    url:'https://leetcode.cn/problems/maximum-number-of-jumps-to-reach-the-last-index',
+    exist: true,
+    name: '153. 寻找旋转排序数组中的最小值',
+    url: 'https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `给你一个下标从 0 开始、由 n 个整数组成的数组 nums 和一个整数 target 。`,
+    desc: `给你一个元素值 互不相同 的数组 nums ，它原来是一个升序排列的数组，并按上述情形进行了多次旋转。请你找出并返回数组中的 最小元素 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2026.03.19',
-            time: 503,
-            memory: 23.79,
-            desc: 'dfs',
+            time: 0,
+            memory: 19.20,
+            desc: '遍历',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
