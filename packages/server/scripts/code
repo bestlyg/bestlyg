@@ -1,9 +1,24 @@
 class Solution:
-    def isGood(self, nums: List[int]) -> bool:
-        if len(nums) == 1: return False
-        nums.sort()
-        if len(nums) - 1 != nums[-1]: return False
-        if nums[-1] != nums[-2]: return False
-        for n1, n2 in pairwise(nums[:-1]):
-            if n1 + 1 != n2: return False
-        return True
+    def minJumps(self, arr: List[int]) -> int:
+        n = len(arr)
+        next_map = defaultdict(set)
+        for i in range(n): next_map[arr[i]].add(i)
+        q = deque([0])
+        used = set([0])
+        step = 0
+        size = 1
+        while q:
+            cur = q.popleft()
+            if cur == n - 1: return step
+            next_map[arr[cur]].remove(cur)
+            next_list = next_map[arr[cur]]
+            if cur - 1 not in next_map[arr[cur]]: next_list += [cur - 1]
+            if cur + 1 not in next_map[arr[cur]]: next_list += [cur + 1]
+            for next_idx in next_list:
+                if 0 <= next_idx < n and next_idx not in used:
+                    used.add(next_idx)
+                    q.append(next_idx)
+            size -= 1
+            if size == 0:
+                step += 1
+                size = len(q)
