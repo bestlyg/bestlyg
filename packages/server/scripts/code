@@ -1,24 +1,9 @@
 class Solution:
-    def minJumps(self, arr: List[int]) -> int:
-        n = len(arr)
-        next_map = defaultdict(set)
-        for i in range(n): next_map[arr[i]].add(i)
-        q = deque([0])
-        used = set([0])
-        step = 0
-        size = 1
-        while q:
-            cur = q.popleft()
-            if cur == n - 1: return step
-            next_map[arr[cur]].remove(cur)
-            next_list = next_map[arr[cur]]
-            if cur - 1 not in next_map[arr[cur]]: next_list += [cur - 1]
-            if cur + 1 not in next_map[arr[cur]]: next_list += [cur + 1]
-            for next_idx in next_list:
-                if 0 <= next_idx < n and next_idx not in used:
-                    used.add(next_idx)
-                    q.append(next_idx)
-            size -= 1
-            if size == 0:
-                step += 1
-                size = len(q)
+    def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
+        anum = bnum = 0
+        res = []
+        for i in range(len(A)):
+            anum |= 1 << A[i]
+            bnum |= 1 << B[i]
+            res.append(str(bin(anum & bnum)).count('1'))
+        return res
