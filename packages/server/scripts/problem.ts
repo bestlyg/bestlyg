@@ -15,18 +15,18 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: LeetcodeProblem & { exist: boolean } = {
     exist: !true,
-    name: '2657. 找到两个数组的前缀公共数组',
-    url: 'https://leetcode.cn/problems/find-the-prefix-common-array-of-two-arrays',
+    name: '3043. 最长公共前缀的长度',
+    url: 'https://leetcode.cn/problems/find-the-length-of-the-longest-common-prefix',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `请你返回 A 和 B 的 前缀公共数组 。`,
+    desc: `返回所有数对之中最长公共前缀的长度。如果它们之间不存在公共前缀，则返回 0 。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
             // date: '2026.05.18',
-            time: 7,
-            memory: 19.2,
-            desc: '二进制存储',
+            time: 387,
+            memory: 35.92,
+            desc: '前缀树存储',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
