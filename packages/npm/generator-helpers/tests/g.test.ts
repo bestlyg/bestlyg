@@ -7,7 +7,7 @@ import {
     assertIteratorYieldResult,
     genUndefined,
     genSkip,
-} from 'generator-helpers';
+} from '../src';
 
 const MAX_COUNT = 100;
 const list = _.times(MAX_COUNT).map(() => _.random(1, MAX_COUNT ** 2));

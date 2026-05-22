@@ -45,11 +45,11 @@
         "@bestlyg/core-shared": "workspace:^",
         "@types/lodash": "catalog:",
         "@types/node": "catalog:",
-        "generator-helpers": "workspace:^",
         "lodash": "catalog:",
         "rimraf": "catalog:",
         "typescript": "catalog:",
         "unbuild": "catalog:",
+        "vite": "catalog:",
         "vitest": "catalog:"
     }
 }

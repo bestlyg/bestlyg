@@ -77,9 +77,6 @@ importers:
       '@types/tapable':
         specifier: 'catalog:'
         version: 2.3.0
-      '@xidl/shared':
-        specifier: workspace:^
-        version: 'link:'
       rimraf:
         specifier: 'catalog:'
         version: 6.1.3

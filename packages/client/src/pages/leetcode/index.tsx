@@ -9,7 +9,7 @@ import { summaryNodeAtom } from '@/components/app-layout';
 import { MarkdownSummary } from '@/components/markdown-summary';
 import { useParams } from 'react-router';
 import { request } from '@/utils';
-import { LeetcodeProblem, LeetcodeSolution } from '@bestlyg/server/type/index.ts';
+import type { LeetcodeProblem, LeetcodeSolution } from '@bestlyg/client-shared';
 
 const quote = '`';
 

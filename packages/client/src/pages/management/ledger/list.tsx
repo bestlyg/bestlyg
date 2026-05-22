@@ -5,7 +5,7 @@ import { PageParam, PageData } from '@bestlyg/client-shared';
 import { Table } from 'antd';
 import { useRequest } from 'ahooks';
 import { request } from '@/utils';
-import { Ledger } from '@bestlyg/server/type/index.ts';
+import type { Ledger } from '@bestlyg/client-shared';
 
 async function fetchLedgers({
     pageParam,

@@ -13,7 +13,7 @@ import {
     getQuarterOnQuarter,
     getHalfYearOnHalfYear,
 } from '@bestlyg/client-shared';
-import type { Xuan as XuanDB } from '@bestlyg/server/type/index.ts';
+import type { Xuan as XuanDB } from '@bestlyg/client-shared';
 import { request } from '@/utils';
 
 function XuansSkeleton() {

@@ -96,7 +96,6 @@
         "zod": "catalog:"
     },
     "devDependencies": {
-        "@bestlyg/server": "workspace:^",
         "@bestlyg/server-shared": "workspace:^",
         "@tailwindcss/postcss": "catalog:",
         "@tailwindcss/vite": "catalog:",

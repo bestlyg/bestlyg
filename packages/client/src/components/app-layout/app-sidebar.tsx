@@ -30,7 +30,7 @@ import {
     activeSidebarCategoryAtom,
     sidebarPromiseAtom,
 } from '@/utils';
-import { Sidebar as TSidebar, SidebarGroup } from '@bestlyg/server/type/index.ts';
+import type { Sidebar as TSidebar, SidebarGroup } from '@bestlyg/client-shared';
 import { Suspense } from '@/components/suspense';
 import { AppSidebarFooter } from './app-sidebar-footer';
 
