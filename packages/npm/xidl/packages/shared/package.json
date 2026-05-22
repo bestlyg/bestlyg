@@ -39,7 +39,7 @@
         "change-case": "catalog:",
         "fs-extra": "catalog:",
         "lodash-es": "catalog:",
-        "protobufjs": "7.4.0",
+        "protobufjs": "catalog:",
         "tapable": "catalog:"
     },
     "devDependencies": {

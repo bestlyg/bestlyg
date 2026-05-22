@@ -27,7 +27,7 @@ export function getLessTreeNodeConstructor(less, node) {
 }
 
 export function getFunctionArgs(func: Function): string[] {
-    const args = func.toString().match(/function\s.*?\(([^)]*)\)/)[1];
+    const args = func.toString().match(/function\s.*?\(([^)]*)\)/)?.[1] ?? '';
     return args
         .split(',')
         .map((arg) => arg.replace(/\/\*.*\*\//, '').trim())

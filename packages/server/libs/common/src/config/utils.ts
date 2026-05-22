@@ -1,6 +1,4 @@
-import { Configuration } from '@bestlyg/common/server';
-// import type { DefineConfig } from 'c12';
+import type { Configuration } from '@bestlyg/server-shared';
 
 export type BestlygConfig = Configuration;
-export const defineConfig = (v) => v;
-// function createDefineConfig<T extends UserInputConfig = UserInputConfig, MT extends ConfigLayerMeta = ConfigLayerMeta>(): DefineConfig<T, MT>;
+export const defineConfig = (config: BestlygConfig) => config;

@@ -30,8 +30,7 @@
         "test": "pnpm build && pnpm exec lessc \"./tests/basic.less\""
     },
     "dependencies": {
-        "@less-plugins/shared": "workspace:^",
-        "lodash.get": "^4.4.2"
+        "@less-plugins/shared": "workspace:^"
     },
     "devDependencies": {
         "@types/less": "catalog:",

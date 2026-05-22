@@ -53,7 +53,6 @@
                 "ignoreRestSiblings": true
             }
         ],
-        "react/prop-types": ["error", { "ignore": ["children"] }],
         "no-undef": "off",
         "no-eval": "off",
         "no-shadow-restricted-names": "off",

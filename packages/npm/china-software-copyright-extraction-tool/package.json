@@ -47,21 +47,21 @@
         "run:dev": "cross-env CSCET_DEV=1 node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
         "run:prod": "node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
         "prepublishOnly": "pnpm build",
-        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
-        "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch"
+        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts",
+        "dev": "unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts --watch"
     },
     "dependencies": {
         "chalk": "catalog:",
         "commander": "catalog:",
-        "docxtemplater": "^3.61.1",
-        "pizzip": "^3.1.8",
+        "docxtemplater": "catalog:",
+        "pizzip": "catalog:",
         "ramda": "catalog:",
-        "xml": "^1.0.1",
+        "xml": "catalog:",
         "zx": "catalog:"
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@bestlyg/common": "workspace:^",
+        "@bestlyg/core-shared": "workspace:^",
         "@types/node": "catalog:",
         "@types/ramda": "catalog:",
         "cross-env": "catalog:",

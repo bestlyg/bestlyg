@@ -1,4 +1,4 @@
-import { ResponseEntity } from '@bestlyg/common';
+import { ResponseEntity } from '@bestlyg/client-shared';
 import axios from 'axios';
 import * as tapable from 'tapable';
 

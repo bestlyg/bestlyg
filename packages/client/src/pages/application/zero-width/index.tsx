@@ -1,5 +1,5 @@
 import React from 'react';
-import { zeroWidth } from '@bestlyg/common';
+import { zeroWidth } from '@bestlyg/client-shared';
 import { Textarea } from '@/shadcn/ui/textarea';
 import { Button } from '@/shadcn/ui/button';
 import { ArrowLeftRightIcon, CirclePlayIcon } from 'lucide-react';

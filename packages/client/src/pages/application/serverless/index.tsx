@@ -1,6 +1,5 @@
 import { useRequest } from 'ahooks';
-import { Prisma } from '@bestlyg/common/prisma-client';
-// import { serverManifest } from '@bestlyg/common';
+// import { serverManifest } from '@bestlyg/client-shared';
 import React from 'react';
 import 'highlight.js/styles/github.css';
 import _ from 'lodash';
@@ -19,12 +18,17 @@ import {
     AlertDialogTrigger,
 } from '@/shadcn/ui/alert-dialog';
 import { MonacoEditor } from '@/components/monaco-editor';
-import { apiMap } from '@bestlyg/common';
+import { apiMap } from '@bestlyg/client-shared';
 import { request } from '@/utils';
 
-export type ServerlessData = Prisma.ServerlessGetPayload<{
-    include: { codes: true };
-}>;
+export type ServerlessData = {
+    codes: Array<{
+        id: string;
+        name: string;
+        code: string;
+        createdTime: string | Date;
+    }>;
+};
 
 async function fetchServerless() {
     const data = await request<any, ServerlessData[] | null>({

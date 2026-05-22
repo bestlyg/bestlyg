@@ -7,14 +7,14 @@ settings:
 catalogs:
   default:
     '@types/less':
-      specifier: ^3.0.7
-      version: 3.0.7
+      specifier: ^3.0.8
+      version: 3.0.8
     '@types/node':
-      specifier: ^20.17.10
-      version: 20.17.10
+      specifier: ^22.19.19
+      version: 22.19.19
     typescript:
-      specifier: ^5.8.3
-      version: 5.8.3
+      specifier: ^6.0.3
+      version: 6.0.3
 
 pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
 
@@ -24,38 +24,38 @@ importers:
     devDependencies:
       '@types/less':
         specifier: 'catalog:'
-        version: 3.0.7
+        version: 3.0.8
       '@types/node':
         specifier: 'catalog:'
-        version: 20.17.10
+        version: 22.19.19
       typescript:
         specifier: 'catalog:'
-        version: 5.8.3
+        version: 6.0.3
 
 packages:
 
-  '@types/less@3.0.7':
-    resolution: {integrity: sha512-+SD1DrM8EwJsilPFSR1IMMGWOTg5sO1waewoJ1k3BHCvU07zQThy8t2wTfxvHz//R0uK3koAUl9WbWwal0H+YA==}
+  '@types/less@3.0.8':
+    resolution: {integrity: sha512-Gjm4+H9noDJgu5EdT3rUw5MhPBag46fiOy27BefvWkNL8mlZnKnCaVVVTLKj6RYXed9b62CPKnPav9govyQDzA==}
 
-  '@types/node@20.17.10':
-    resolution: {integrity: sha512-/jrvh5h6NXhEauFFexRin69nA0uHJ5gwk4iDivp/DeoEua3uwCUto6PC86IpRITBOs4+6i2I56K5x5b6WYGXHA==}
+  '@types/node@22.19.19':
+    resolution: {integrity: sha512-dyh/xO2Fh5bYrfWaaqGrRQQGkNdmYw6AmaAUvYeUMNTWQtvb796ikLdmTchRmOlOiIJ1TDXfWgVx1QkUlQ6Hew==}
 
-  typescript@5.8.3:
-    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
+  typescript@6.0.3:
+    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@6.19.8:
-    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+  undici-types@6.21.0:
+    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
 snapshots:
 
-  '@types/less@3.0.7': {}
+  '@types/less@3.0.8': {}
 
-  '@types/node@20.17.10':
+  '@types/node@22.19.19':
     dependencies:
-      undici-types: 6.19.8
+      undici-types: 6.21.0
 
-  typescript@5.8.3: {}
+  typescript@6.0.3: {}
 
-  undici-types@6.19.8: {}
+  undici-types@6.21.0: {}

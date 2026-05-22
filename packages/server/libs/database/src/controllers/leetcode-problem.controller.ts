@@ -3,7 +3,7 @@ import { BaseController, BaseOptions } from './base.controller';
 import { LeetcodeProblem } from '../entities';
 import { LeetcodeProblemService } from '../services';
 import { leetcode } from '@bestlyg-server/common';
-import { ResponseEntity } from '@bestlyg/common';
+import { ResponseEntity } from '@bestlyg/server-shared';
 
 @Controller('/database/leetcode-problem')
 export class LeetcodeProblemController extends BaseController<LeetcodeProblem> {
@@ -16,26 +16,26 @@ export class LeetcodeProblemController extends BaseController<LeetcodeProblem> {
 
     protected async _findPageAndCount(opts: BaseOptions) {
         return super._findPageAndCount(opts, {
-            relations: ['solutions'],
+            relations: { solutions: true },
         });
     }
 
     protected async _findList(opts: BaseOptions) {
         return super._findList(opts, {
-            relations: ['solutions'],
+            relations: { solutions: true },
         });
     }
 
     protected async _findOne(opts: BaseOptions) {
         return super._findOne(opts, {
-            relations: ['solutions'],
+            relations: { solutions: true },
         });
     }
 
     protected async _find(opts: BaseOptions) {
         const { name } = opts.query;
         return super._find(opts, {
-            relations: ['solutions'],
+            relations: { solutions: true },
             where: { name },
         });
     }

@@ -12,7 +12,7 @@ import {
     getDayOnDay,
     getQuarterOnQuarter,
     getHalfYearOnHalfYear,
-} from '@bestlyg/common';
+} from '@bestlyg/client-shared';
 import type { Xuan as XuanDB } from '@bestlyg/server/type/index.ts';
 import { request } from '@/utils';
 

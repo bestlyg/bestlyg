@@ -11,7 +11,7 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { EntityService } from '@bestlyg-server/database';
-import { PageParam, ResponseEntity } from '@bestlyg/common';
+import { PageParam, ResponseEntity } from '@bestlyg/server-shared';
 import { BaseEntity } from '../entities/base.entity';
 import { AuthGuard } from '@bestlyg-server/auth';
 

@@ -76,7 +76,7 @@ export class ClientService {
     }
 
     async getLeetcodeSidebars(): Promise<Sidebar> {
-        const problems = await this.leetcodeService.find({ relations: ['solutions'] });
+        const problems = await this.leetcodeService.find({ relations: { solutions: true } });
         const groups: NonNullable<Sidebar['groups']> = [];
         for (const problem of problems) {
             const dirName = leetcode.getDirNameFromProblemName(problem.name);

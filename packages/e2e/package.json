@@ -1,0 +1,43 @@
+{
+    "name": "@bestlyg/e2e",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "bin": {
+        "bestlyg-e2e": "./dist/cli.mjs"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "lint": "tsc --noEmit",
+        "lint:ci": "pnpm lint",
+        "prepublishOnly": "pnpm build",
+        "build": "rimraf dist && unbuild --config ./build.config.ts",
+        "e2e": "tsx src/cli.ts",
+        "e2e:run": "tsx src/cli.ts run",
+        "e2e:list": "tsx src/cli.ts list",
+        "install:browsers": "playwright install chromium"
+    },
+    "dependencies": {
+        "@playwright/test": "catalog:",
+        "c12": "catalog:",
+        "chalk": "catalog:",
+        "commander": "catalog:",
+        "consola": "catalog:",
+        "defu": "catalog:",
+        "ora": "catalog:",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@types/node": "catalog:",
+        "rimraf": "catalog:",
+        "tsx": "catalog:",
+        "typescript": "catalog:",
+        "unbuild": "catalog:"
+    }
+}

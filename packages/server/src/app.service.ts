@@ -7,7 +7,7 @@ import {
     resolve,
 } from '@bestlyg-server/common';
 import fs from 'fs-extra';
-import { Configuration } from '@bestlyg/common/server';
+import { Configuration } from '@bestlyg/server-shared';
 import { MetadataScanner, ModuleRef, ModulesContainer, Reflector } from '@nestjs/core';
 import { PathsExplorer } from '@nestjs/core/router/paths-explorer';
 

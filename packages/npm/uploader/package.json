@@ -40,17 +40,17 @@
     },
     "scripts": {
         "prepublishOnly": "pnpm build",
-        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
-        "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch"
+        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts",
+        "dev": "unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts --watch"
     },
     "dependencies": {
-        "p-queue": "^8.1.0",
+        "p-queue": "catalog:",
         "ramda": "catalog:",
         "tapable": "catalog:"
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@bestlyg/common": "workspace:^",
+        "@bestlyg/core-shared": "workspace:^",
         "@types/node": "catalog:",
         "@types/ramda": "catalog:",
         "rimraf": "catalog:",

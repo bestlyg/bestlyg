@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ResponseEntity } from '@bestlyg/common';
+import { ResponseEntity } from '@bestlyg/server-shared';
 
 @Controller('/auth')
 export class AuthController {

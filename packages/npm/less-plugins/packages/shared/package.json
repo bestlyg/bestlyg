@@ -29,13 +29,11 @@
         "prepublishOnly": "pnpm build"
     },
     "dependencies": {
-        "lodash.get": "^4.4.2",
-        "lodash.merge": "^4.6.2",
-        "yargs": "^17.7.2"
+        "lodash.merge": "catalog:",
+        "yargs": "catalog:"
     },
     "devDependencies": {
-        "@types/lodash.get": "^4.4.9",
-        "@types/yargs": "^17.0.33",
+        "@types/yargs": "catalog:",
         "typescript": "catalog:"
     }
 }

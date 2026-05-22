@@ -4,7 +4,7 @@ export default class LessPluginsGetLibraryInfo {
     install(less, _pluginManager, functions) {
         addFunctions(functions, [
             {
-                getPackageJsonField: function (rootPath, key, transform) {
+                getPackageJsonField: function (this: any, rootPath, key, transform) {
                     return new less.tree.Keyword(
                         getPackageJsonField(
                             rootPath?.value || this.currentFileInfo.currentDirectory,

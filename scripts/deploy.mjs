@@ -15,7 +15,7 @@ const run = async cmd => {
 const homePath = process.env.HOME;
 
 const dbName = 'best_data';
-const envDistPath = resolve(config.ssh.projectPath, 'packages', 'common', envFileName);
+const envDistPath = resolve(config.ssh.projectPath, 'packages', 'shared', 'server-shared', envFileName);
 const sqlDistPath = `/root/${dbName}.sql`;
 const dumpPath = resolve('dist', dbName + '.sql');
 
@@ -27,7 +27,7 @@ await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} $
 await run('pnpm --filter @bestlyg/client run deploy');
 await run(`scp -r ${dumpPath} ${config.ssh.username}@${config.ssh.ip}:${sqlDistPath}`);
 await run(
-    `scp -r ${resolve('node_modules', '@bestlyg', 'common', envFileName)} ${config.ssh.username}@${config.ssh.ip}:${envDistPath}`,
+    `scp -r ${resolve('node_modules', '@bestlyg', 'server-shared', envFileName)} ${config.ssh.username}@${config.ssh.ip}:${envDistPath}`,
 );
 
 const serverName = `bestlyg-server`;
@@ -45,7 +45,9 @@ const commands = [
     `pnpm --filter @xidl/typescript-core run build`,
     `pnpm --filter @xidl/typescript-client run build`,
     `pnpm --filter @xidl/typescript-server run build`,
-    `pnpm --filter @bestlyg/common run build`,
+    `pnpm --filter @bestlyg/core-shared run build`,
+    `pnpm --filter @bestlyg/client-shared run build`,
+    `pnpm --filter @bestlyg/server-shared run build`,
     `pnpm --filter @bestlyg/cli run build`,
     `pnpm --filter @bestlyg/leetcode run build`,
     `pnpm --filter @bestlyg/server run build`,

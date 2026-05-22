@@ -1,7 +1,10 @@
-import get from 'lodash.get';
 import { findClosestFile } from './find-closest-file';
 import { FILE_NAME_PACKAGE_JSON } from './constants';
 import path from 'path';
+
+function getByDottedPath(source: Record<string, any>, key: string) {
+    return key.split('.').reduce((value, segment) => value?.[segment], source);
+}
 
 export function getPackageJsonPath(currentDirectory: string) {
     try {
@@ -15,7 +18,7 @@ export function getPackageJsonPath(currentDirectory: string) {
     }
 }
 
-export function getPackageJson(currentDirectory: string): Record<string, any> {
+export function getPackageJson(currentDirectory: string): Record<string, any> | null {
     try {
         const pkgPath = getPackageJsonPath(currentDirectory);
         if (!pkgPath) return null;
@@ -36,7 +39,7 @@ export function getPackageJsonField(
         let transformFn: Function = (v) => v;
         if (typeof transform === 'string') transformFn = eval(transform);
         else if (typeof transform === 'function') transformFn = transform;
-        return transformFn(get(pkgJson, key))?.toString() ?? null;
+        return transformFn(getByDottedPath(pkgJson, key))?.toString() ?? null;
     } catch (_err) {
         return null;
     }

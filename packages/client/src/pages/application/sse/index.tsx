@@ -3,7 +3,7 @@ import { Button } from '@/shadcn/ui/button';
 import { Textarea } from '@/shadcn/ui/textarea';
 import { useBoolean } from 'ahooks';
 import { useEffect, useState } from 'react';
-import { apiMap, sse, ResponseEntity } from '@bestlyg/common';
+import { apiMap, sse, ResponseEntity } from '@bestlyg/client-shared';
 import { xTokenName } from '@/utils';
 
 const defaultInput = `

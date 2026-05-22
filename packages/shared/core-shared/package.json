@@ -1,0 +1,61 @@
+{
+    "name": "@bestlyg/core-shared",
+    "version": "0.0.0",
+    "description": "",
+    "license": "ISC",
+    "author": "bestlyg",
+    "type": "module",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "typesVersions": {
+        "*": {
+            ".": ["./dist/index.d.ts"]
+        }
+    },
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            }
+        },
+        "./*": {
+            "import": "./*",
+            "require": "./*",
+            "default": "./*"
+        }
+    },
+    "scripts": {
+        "build:idl": "node scripts/idl.mjs",
+        "build": "unbuild --config ./build.config.ts",
+        "dev": "unbuild --config ./build.config.ts --watch"
+    },
+    "dependencies": {
+        "crypto-js": "catalog:",
+        "dayjs": "catalog:",
+        "eventemitter3": "catalog:",
+        "immer": "catalog:",
+        "nanoid": "catalog:",
+        "rxjs": "catalog:",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@types/crypto-js": "catalog:",
+        "@types/express": "catalog:",
+        "@types/node": "catalog:",
+        "@xidl/typescript-client": "workspace:^",
+        "@xidl/typescript-server": "workspace:^",
+        "express": "catalog:",
+        "rimraf": "catalog:",
+        "typedoc": "catalog:",
+        "typedoc-plugin-markdown": "catalog:",
+        "typescript": "catalog:",
+        "unbuild": "catalog:"
+    }
+}

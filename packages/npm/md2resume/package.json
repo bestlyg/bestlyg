@@ -29,8 +29,8 @@
         }
     },
     "scripts": {
-        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
-        "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch"
+        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts",
+        "dev": "unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts --watch"
     },
     "dependencies": {
         "@ant-design/icons-svg": "catalog:",
@@ -41,7 +41,8 @@
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@bestlyg/common": "workspace:^",
+        "@bestlyg/core-shared": "workspace:^",
+        "@bestlyg/server-shared": "workspace:^",
         "@types/lodash": "catalog:",
         "@types/node": "catalog:",
         "rimraf": "catalog:",

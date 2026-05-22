@@ -3,13 +3,12 @@ import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import viteCompression from 'vite-plugin-compression';
-import { getResolveFunction } from '@bestlyg/common/server';
 import dotenv from 'dotenv';
 import tailwindcss from '@tailwindcss/vite';
 
-const resolve = getResolveFunction(__dirname);
+const resolve = (...p: string[]) => path.resolve(__dirname, ...p);
 
-dotenv.config({ path: resolve('node_modules', '@bestlyg', 'common', '.env'), override: true });
+dotenv.config({ path: resolve('node_modules', '@bestlyg', 'server-shared', '.env'), override: true });
 
 // https://vite.dev/config/
 

@@ -1,0 +1,51 @@
+{
+    "name": "@bestlyg/client-shared",
+    "version": "0.0.0",
+    "description": "",
+    "license": "ISC",
+    "author": "bestlyg",
+    "type": "module",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "typesVersions": {
+        "*": {
+            ".": ["./dist/index.d.ts"]
+        }
+    },
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            }
+        },
+        "./*": {
+            "import": "./*",
+            "require": "./*",
+            "default": "./*"
+        }
+    },
+    "scripts": {
+        "build:openapi": "node scripts/openapi.mjs",
+        "build": "pnpm build:openapi && unbuild --config ./build.config.ts",
+        "dev": "unbuild --config ./build.config.ts --watch"
+    },
+    "dependencies": {
+        "@bestlyg/core-shared": "workspace:^",
+        "axios": "catalog:",
+        "tapable": "catalog:"
+    },
+    "devDependencies": {
+        "@types/node": "catalog:",
+        "change-case": "catalog:",
+        "rimraf": "catalog:",
+        "typescript": "catalog:",
+        "unbuild": "catalog:"
+    }
+}

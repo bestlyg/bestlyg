@@ -19,7 +19,7 @@ import {
     downloadPDFMultiPage,
     a4SizeInPixels,
 } from './utils';
-import { apiMap } from '@bestlyg/common';
+import { apiMap } from '@bestlyg/client-shared';
 import { request } from '@/utils';
 
 export interface ResumeProps {

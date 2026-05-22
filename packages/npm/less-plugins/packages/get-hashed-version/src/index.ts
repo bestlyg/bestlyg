@@ -6,7 +6,7 @@ export default class LessPluginsGetHashedVersion {
     printUsage() {}
     install(_less, _pluginMenager, functions) {
         addFunctions(functions, [
-            function getHashedVersion(rootPath) {
+            function getHashedVersion(this: any, rootPath) {
                 return getPackageJsonField(
                     rootPath?.value || this.currentFileInfo.currentDirectory,
                     'version',

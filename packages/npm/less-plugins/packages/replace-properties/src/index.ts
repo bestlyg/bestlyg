@@ -32,18 +32,18 @@ export class ReplacePropertiesVisitor {
                 // );
                 if (!regKey.test(node.name)) continue;
                 if (!value) {
-                    node.name = node.name.replace(regKey, replaceKey);
+                    node.name = node.name.replace(regKey, String(replaceKey));
                 } else {
                     const regValue = toReg(value);
                     if (typeof node.value.value === 'string' && regValue.test(node.value.value)) {
-                        node.name = node.name.replace(regKey, replaceKey);
-                        node.value.value = node.value.value.replace(regValue, replaceValue);
+                        node.name = node.name.replace(regKey, String(replaceKey));
+                        node.value.value = node.value.value.replace(regValue, String(replaceValue));
                     }
                 }
             } else {
                 const regValue = toReg(value);
                 if (typeof node.value.value === 'string' && regValue.test(node.value.value)) {
-                    node.value.value = node.value.value.replace(regValue, replaceValue);
+                    node.value.value = node.value.value.replace(regValue, String(replaceValue));
                 }
             }
         }

@@ -5,6 +5,7 @@
         "module": "ESNext",
         "allowJs": true,
         "baseUrl": ".",
+        "ignoreDeprecations": "6.0",
         "skipLibCheck": true,
         "lib": ["ESNext", "DOM"],
         "moduleResolution": "node",

@@ -405,8 +405,6 @@ const ignoreDir = [
 ignoreDir.push(...ignoreDir.map((item) => `@m4b-design/${item}`));
 const depGraphName = 'dep-graph.json';
 
-await $`pnpm nx dep-graph --file=${depGraphName} --output=json`;
-
 const depGraph = await fs.readJSON(path.resolve(__dirname, '..', depGraphName));
 
 const nodes = {};

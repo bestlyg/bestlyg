@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
-import { ResponseEntity, sse } from '@bestlyg/common';
+import { ResponseEntity, sse } from '@bestlyg/server-shared';
 
 @Controller()
 export class AppController {

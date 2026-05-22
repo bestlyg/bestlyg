@@ -31,18 +31,18 @@ export class RtlPreVisitor {
         return this.visitor.visit(root);
     }
     visitRuleset(node) {
-        let appendRuleset = null;
+        let appendRuleset: any = null;
         for (let index = 0; index < node.rules.length; index++) {
             const rule = node.rules[index];
             const shorthandsValue = pickShorthandsValue(rule);
-            const cloneNode = (suffix: string, index: number) =>
-                new LESS_PLUGINS.less.tree.Declaration(
-                    rule.name + '-' + suffix,
-                    typeof shorthandsValue[index] === 'string'
-                        ? shorthandsValue[index]
-                        : cloneLessTreeNode(LESS_PLUGINS.less, shorthandsValue[index]),
-                );
             if (REG_Node.test(rule.name) && shorthandsValue) {
+                const cloneNode = (suffix: string, index: number) =>
+                    new LESS_PLUGINS.less.tree.Declaration(
+                        rule.name + '-' + suffix,
+                        typeof shorthandsValue[index] === 'string'
+                            ? shorthandsValue[index]
+                            : cloneLessTreeNode(LESS_PLUGINS.less, shorthandsValue[index]),
+                    );
                 if (this.lessPlugin.options.selector || this.lessPlugin.options.enableSelector) {
                     if (!appendRuleset) {
                         appendRuleset = new LESS_PLUGINS.less.tree.Ruleset(
@@ -83,7 +83,7 @@ export class RtlPreVisitor {
 }
 
 export default class LessPluginsRtl {
-    options: Record<string, any>;
+    options: Record<string, any> = {};
     constructor() {}
     setOptions(options = '') {
         this.options = parseOptions(options);

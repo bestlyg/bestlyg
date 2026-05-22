@@ -1,5 +1,5 @@
 import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
-import { isZodModel } from '@bestlyg/common';
+import { isZodModel } from '@bestlyg/server-shared';
 
 @Injectable()
 export class ZodValidationPipe implements PipeTransform {

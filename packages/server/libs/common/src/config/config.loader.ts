@@ -1,24 +1,30 @@
-import { ConfigurationSchema } from '@bestlyg/common/server';
+import { ConfigurationSchema } from '@bestlyg/server-shared';
+import { Logger } from '@nestjs/common';
+import { loadConfig as loadConfigC12 } from 'c12';
+import { z } from 'zod';
 import type { BestlygConfig } from './utils';
-import type { loadConfig as loadConfigC12 } from 'c12';
 import { resolve } from '../resolve';
 
+const logger = new Logger('BestlygConfig');
+
 export async function loadBestlygConfig(): Promise<BestlygConfig> {
-    const loadConfig: typeof loadConfigC12 = await eval('import("c12")').then(
-        (res) => res.loadConfig,
-    );
-    const { config } = await loadConfig<BestlygConfig>({
-        name: 'bestlyg', // 会查找 bestlyg.config.ts / bestlyg.config.dev.ts 等
-        cwd: resolve(),
-        dotenv: true, // 自动加载 .env / .env.development
+    // c12 根据 BESTLYG_CONFIG_NAME / NODE_ENV 在 config 目录选择配置文件；
+    // 环境变量已由 @bestlyg/cli 初始化，这里关闭 c12 自己的 dotenv。
+    const { config } = await loadConfigC12<BestlygConfig>({
+        name: process.env.BESTLYG_CONFIG_NAME ?? 'bestlyg',
+        cwd: process.env.BESTLYG_CONFIG_DIR ?? resolve('..', '..', 'config'),
+        dotenv: false,
         envName: process.env.NODE_ENV,
     });
 
-    if (!config) {
-        throw new Error('Bestlyg config not found!');
+    const { error, data } = await ConfigurationSchema.safeParseAsync(config);
+
+    if (error) {
+        const str = z.prettifyError(error);
+        logger.error(`配置文件出现错误:${str}`);
+        console.log(error);
+        throw new Error('Config catch error');
     }
 
-    console.log('===> config', config);
-
-    return ConfigurationSchema.parseAsync(config);
+    return data;
 }

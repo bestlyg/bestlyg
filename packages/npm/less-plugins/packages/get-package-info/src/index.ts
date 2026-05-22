@@ -11,7 +11,7 @@ export default class LessPluginsGetPackageInfo {
     install(less, _pluginManager, functions) {
         addFunctions(functions, [
             {
-                getPackageJsonField: function (rootPath, key, transform) {
+                getPackageJsonField: function (this: any, rootPath, key, transform) {
                     return new less.tree.Keyword(
                         getPackageJsonField(
                             rootPath?.value ?? this.currentFileInfo.currentDirectory,
@@ -20,14 +20,14 @@ export default class LessPluginsGetPackageInfo {
                         ) ?? '',
                     );
                 },
-                getCurrentPackageName: function (rootPath) {
+                getCurrentPackageName: function (this: any, rootPath) {
                     return new less.tree.Keyword(
                         getCurrentPackageName(
                             rootPath?.value ?? this.currentFileInfo.currentDirectory,
                         ) ?? '',
                     );
                 },
-                getCurrentPackageScope: function (rootPath) {
+                getCurrentPackageScope: function (this: any, rootPath) {
                     return new less.tree.Keyword(
                         getCurrentPackageScope(
                             rootPath?.value ?? this.currentFileInfo.currentDirectory,

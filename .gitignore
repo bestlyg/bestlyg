@@ -15,13 +15,9 @@ target
 *.o
 databases
 .cargo
-.nx
-.nx/cache
-.nx/workspace-data
-
-storybook-static
 .env
 .env.*
 venv
 __pycache__
 databases
+.claude/worktrees

@@ -1,0 +1,63 @@
+{
+    "name": "@bestlyg/xidl",
+    "version": "0.0.0",
+    "description": "Bestlyg IDL generator.",
+    "keywords": [
+        "idl"
+    ],
+    "license": "ISC",
+    "author": "bestlyg",
+    "type": "module",
+    "bin": {
+        "xidl": "./dist/cli.mjs"
+    },
+    "main": "./dist/index.mjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist",
+        "protoc"
+    ],
+    "exports": {
+        "./plugins": {
+            "types": "./dist/plugins/index.d.ts",
+            "import": "./dist/plugins/index.mjs",
+            "default": "./dist/plugins/index.mjs"
+        },
+        "./package.json": "./package.json",
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "default": "./dist/index.mjs"
+        }
+    },
+    "scripts": {
+        "lint": "tsc --noEmit",
+        "lint:ci": "pnpm lint",
+        "prepublishOnly": "pnpm build",
+        "build": "rimraf dist && unbuild --config ./build.config.ts",
+        "dev": "unbuild --config ./build.config.ts --watch"
+    },
+    "dependencies": {
+        "c12": "catalog:",
+        "commander": "catalog:",
+        "consola": "catalog:",
+        "defu": "catalog:",
+        "figlet": "catalog:",
+        "fs-extra": "catalog:",
+        "handlebars": "catalog:",
+        "lodash": "catalog:",
+        "mustache": "catalog:",
+        "protobufjs": "catalog:",
+        "tapable": "catalog:"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "catalog:",
+        "@types/lodash": "catalog:",
+        "@types/mustache": "catalog:",
+        "@types/node": "catalog:",
+        "rimraf": "catalog:",
+        "typescript": "catalog:",
+        "unbuild": "catalog:"
+    }
+}

@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     lodash:
-      specifier: ^4.17.21
-      version: 4.17.21
+      specifier: ^4.18.1
+      version: 4.18.1
 
 pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
 
@@ -21,13 +21,13 @@ importers:
         version: link:../../cli
       lodash:
         specifier: 'catalog:'
-        version: 4.17.21
+        version: 4.18.1
 
 packages:
 
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+  lodash@4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
 snapshots:
 
-  lodash@4.17.21: {}
+  lodash@4.18.1: {}

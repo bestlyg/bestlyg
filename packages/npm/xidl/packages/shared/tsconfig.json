@@ -3,6 +3,7 @@
     "compilerOptions": {
         "rootDir": "src",
         "baseUrl": ".",
+        "ignoreDeprecations": "6.0",
         "typeRoots": ["./node_modules/@types"],
         "paths": {
             "@/*": ["src/*"]

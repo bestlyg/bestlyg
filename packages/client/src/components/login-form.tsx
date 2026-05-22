@@ -10,7 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useToast } from '@/shadcn/hooks/use-toast';
 import { request, userInfoAtom, xTokenName } from '@/utils';
 import { useSetAtom } from 'jotai';
-import { encrypt, apiMap } from '@bestlyg/common';
+import { encrypt, apiMap } from '@bestlyg/client-shared';
 import { configuration } from '@/utils/configuration';
 import { Navigate } from 'react-router';
 

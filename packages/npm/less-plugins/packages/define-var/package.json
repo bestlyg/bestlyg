@@ -35,13 +35,13 @@
     },
     "dependencies": {
         "less": "catalog:",
-        "yargs": "^17.7.2"
+        "yargs": "catalog:"
     },
     "devDependencies": {
         "@types/less": "catalog:",
         "@types/node": "catalog:",
-        "@types/yargs": "^17.0.33",
-        "package-json-extension": "^0.0.5",
+        "@types/yargs": "catalog:",
+        "package-json-extension": "workspace:^",
         "rimraf": "catalog:",
         "typescript": "catalog:"
     },

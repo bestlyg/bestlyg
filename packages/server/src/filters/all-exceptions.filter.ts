@@ -1,6 +1,6 @@
 import { Catch, ArgumentsHost, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
-import { ResponseEntity } from '@bestlyg/common';
+import { ResponseEntity } from '@bestlyg/server-shared';
 import { Request } from 'express';
 
 @Catch()

@@ -1,11 +1,11 @@
 import '@bestlyg/cli/globals';
 import { execSync } from 'child_process';
 
-import { getConfiguration, ServerConfigurationSchema } from '@bestlyg/common';
+import { getConfiguration, ConfigurationSchema as ServerConfigurationSchema } from '@bestlyg/server-shared';
 
 const resolve = best.utils.getResolveFunction(import.meta, 1);
 best.dotenv.config({
-    path: resolve('node_modules', '@bestlyg', 'common', '.env'),
+    path: resolve('node_modules', '@bestlyg', 'server-shared', '.env'),
 });
 const config = ServerConfigurationSchema.parse(getConfiguration(process.env));
 

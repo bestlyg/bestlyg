@@ -50,8 +50,8 @@
     },
     "scripts": {
         "clean": "rimraf ./lib ./node_modules",
-        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
-        "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch",
+        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts",
+        "dev": "unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts --watch",
         "test": "node ./tests",
         "extend": "extend-package-json",
         "prepublishOnly": "pnpm build"
@@ -59,16 +59,16 @@
     "dependencies": {
         "chalk": "catalog:",
         "commander": "catalog:",
-        "fs-extra": "^11.3.0",
+        "fs-extra": "catalog:",
         "lodash": "catalog:",
         "zx": "catalog:"
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@bestlyg/common": "workspace:^",
+        "@bestlyg/core-shared": "workspace:^",
         "@types/node": "catalog:",
         "rimraf": "catalog:",
-        "tslib": "^2.8.1",
+        "tslib": "catalog:",
         "typescript": "catalog:",
         "unbuild": "catalog:"
     }

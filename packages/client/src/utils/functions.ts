@@ -1,4 +1,4 @@
-import { SidebarGroup, SidebarItem } from '@bestlyg/common';
+import { SidebarGroup, SidebarItem } from '@bestlyg/client-shared';
 import React from 'react';
 
 export function findFirstSidebarItem(groups?: SidebarGroup[]): SidebarItem | null {

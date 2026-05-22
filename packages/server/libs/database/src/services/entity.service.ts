@@ -1,4 +1,4 @@
-import { PageData, PageParam } from '@bestlyg/common';
+import { PageData, PageParam } from '@bestlyg/server-shared';
 import { EntityTarget, Repository } from 'typeorm';
 import { BaseEntity } from '../entities/base.entity';
 

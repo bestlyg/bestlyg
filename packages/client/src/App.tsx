@@ -5,7 +5,7 @@ import { ConfigProvider } from 'antd';
 import { useToast } from '@/shadcn/hooks/use-toast';
 import { instance, xTokenName, hooks as fetchHooks } from '@/utils';
 import { Toaster } from '@/shadcn/ui/toaster';
-import { ResponseEntity } from '@bestlyg/common';
+import { ResponseEntity } from '@bestlyg/client-shared';
 // import '@/shadcn/styles/globals.css';
 import '@ant-design/v5-patch-for-react-19';
 import '@/styles/globals.less';

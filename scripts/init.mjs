@@ -27,7 +27,7 @@ run(
     `scp root@106.54.220.193:/root/best_data.sql ${resolve('databases', 'bestlyg-data', `best_data.sql`)}`,
 );
 run(
-    `scp root@106.54.220.193:/root/bestlyg/packages/common/.env ${resolve('packages', 'common', '.env')}`,
+    `scp root@106.54.220.193:/root/bestlyg/packages/shared/server-shared/.env ${resolve('packages', 'shared', 'server-shared', '.env')}`,
 );
 const dumpSql = `psql -U root -d best_data -h localhost -p 5432 < /bestlyg-data/best_data.sql`;
 run(dumpSql);

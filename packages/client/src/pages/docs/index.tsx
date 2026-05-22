@@ -7,7 +7,7 @@ import { useParams } from 'react-router';
 import { useSetAtom } from 'jotai';
 import { summaryNodeAtom } from '@/components/app-layout';
 import { MarkdownSummary } from '@/components/markdown-summary';
-import { apiMap } from '@bestlyg/common';
+import { apiMap } from '@bestlyg/client-shared';
 import { request } from '@/utils';
 
 async function fetchReadableStaticFile(p?: string | null): Promise<string | null> {

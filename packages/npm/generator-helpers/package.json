@@ -37,12 +37,12 @@
     },
     "scripts": {
         "prepublishOnly": "pnpm build",
-        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
-        "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch",
+        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts",
+        "dev": "unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts --watch",
         "test": "vitest"
     },
     "devDependencies": {
-        "@bestlyg/common": "workspace:^",
+        "@bestlyg/core-shared": "workspace:^",
         "@types/lodash": "catalog:",
         "@types/node": "catalog:",
         "generator-helpers": "workspace:^",
@@ -50,6 +50,6 @@
         "rimraf": "catalog:",
         "typescript": "catalog:",
         "unbuild": "catalog:",
-        "vitest": "^2.1.9"
+        "vitest": "catalog:"
     }
 }

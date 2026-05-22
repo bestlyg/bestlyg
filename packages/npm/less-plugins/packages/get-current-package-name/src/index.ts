@@ -6,7 +6,7 @@ export default class LessPluginsGetCurrentPackageName {
     install(less, _pluginMenager, functions) {
         addFunctions(functions, [
             {
-                getCurrentPackageName: function (rootPath, _key, _transform) {
+                getCurrentPackageName: function (this: any, rootPath, _key, _transform) {
                     return new less.tree.Keyword(
                         getCurrentPackageName(
                             rootPath?.value ?? this.currentFileInfo.currentDirectory,

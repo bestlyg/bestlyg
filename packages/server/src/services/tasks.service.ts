@@ -4,7 +4,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { execSync } from 'child_process';
 import { ConfigService } from '@nestjs/config';
-import { Configuration } from '@bestlyg/common/server';
+import { Configuration } from '@bestlyg/server-shared';
 
 @Injectable()
 export class TasksService {

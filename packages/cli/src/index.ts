@@ -1,17 +1,22 @@
-import { getConfiguration, ConfigurationSchema, getResolveFunction } from '@bestlyg/common/server';
+import { getConfiguration, ConfigurationSchema, getResolveFunction } from '@bestlyg/server-shared';
 import { getDirname } from 'metadata-file';
-import * as common from '@bestlyg/common/server';
+import * as common from '@bestlyg/server-shared';
 import * as vendor from './vendor';
 
 const resolve = getResolveFunction(getDirname(), 1);
 
 vendor.dotenv.config({
-    path: resolve('node_modules', '@bestlyg', 'common', '.env'),
+    path: resolve('node_modules', '@bestlyg', 'server-shared', '.env'),
 });
 
 const config = ConfigurationSchema.parse(getConfiguration());
 
-export const best = { common, config, ...vendor };
+export type Best = {
+    common: typeof common;
+    config: typeof config;
+} & typeof vendor;
+
+export const best: Best = { common, config, ...vendor };
 
 export const _best = best;
 

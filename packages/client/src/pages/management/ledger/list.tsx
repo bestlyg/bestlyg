@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { Calendar } from '@/shadcn/ui/calendar';
-import { PageParam, PageData } from '@bestlyg/common';
+import { PageParam, PageData } from '@bestlyg/client-shared';
 import { Table } from 'antd';
 import { useRequest } from 'ahooks';
 import { request } from '@/utils';

@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { ResponseEntity } from '@bestlyg/common';
+import { ResponseEntity } from '@bestlyg/server-shared';
 import { ClientService } from './client.service';
 import { ApiResponse } from '@nestjs/swagger';
 import { Sidebar } from './api.dto';
