@@ -1,9 +1,12 @@
 import dayjs from 'dayjs';
 
+/** Logger 支持的日志级别。 */
 export type LoggerLevel = 'info' | 'warn' | 'success' | 'error';
 
+/** ANSI 颜色片段。 */
 export type Color = { open: string; close: string };
 
+/** 默认终端颜色配置。 */
 export const loggerColorMap: Record<LoggerLevel, { bg: Color; text: Color }> = {
     info: {
         bg: { open: '\x1B[100m', close: '\x1B[49m' },
@@ -34,6 +37,8 @@ export const loggerColorMap: Record<LoggerLevel, { bg: Color; text: Color }> = {
         },
     },
 };
+
+/** 带前缀、时间戳和颜色的轻量命令行 logger。 */
 export class Logger {
     enableColor: boolean;
     enableTime: boolean;
@@ -57,26 +62,32 @@ export class Logger {
         this.enableTime = enableTime;
     }
 
+    /** 直接转发到 console.log，不额外格式化。 */
     log(...args: any[]) {
         console.log(...args);
     }
 
+    /** 输出 info 级别日志。 */
     info(...args: any[]) {
         return this.print('info', this.prefix, ...args);
     }
 
+    /** 输出 warn 级别日志。 */
     warn(...args: any[]) {
         return this.print('warn', this.prefix, ...args);
     }
 
+    /** 输出 success 级别日志。 */
     success(...args: any[]) {
         return this.print('success', this.prefix, ...args);
     }
 
+    /** 输出 error 级别日志。 */
     error(...args: any[]) {
         return this.print('error', this.prefix, ...args);
     }
 
+    /** 按指定级别格式化并输出日志。 */
     print(level: LoggerLevel, ...args: any[]) {
         const { bg, text: textColor } = this.colorMap[level];
         const printItems: string[] = [];
@@ -100,6 +111,7 @@ export class Logger {
         this.log(printItems.join(' '));
     }
 
+    /** 以对齐的 key/value 列表输出对象内容，跳过 undefined 值。 */
     list(info: Record<string, any>) {
         const entries = Object.entries(info).filter(([, v]) => v !== undefined);
         const padEndLength = Math.max(...entries.map(([k]) => k.length)) + 1;
@@ -107,8 +119,9 @@ export class Logger {
             this.info(`${k.padEnd(padEndLength)}: ${v}`);
         }
     }
+
     /**
-     * Print divider
+     * 输出一条终端分隔线。
      */
     divider(level: LoggerLevel = 'info', char = '-') {
         this.print(
@@ -118,6 +131,7 @@ export class Logger {
         );
     }
 
+    /** 输出错误消息，并对 Error 实例额外打印 stack。 */
     errorWithStack(msg: string, ...errors: any[]) {
         this.error(msg);
         for (const err of errors) {
@@ -130,4 +144,5 @@ export class Logger {
     }
 }
 
+/** 默认 logger 实例。 */
 export const logger = new Logger();

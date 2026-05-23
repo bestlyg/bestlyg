@@ -1,5 +1,6 @@
 import { PrefixTrieNode } from './prefix-trie'
 
+/** 按字符消费文本流，并在匹配到前缀树规则时触发替换逻辑。 */
 export class TextStream {
   current = ''
   trie: PrefixTrieNode
@@ -17,6 +18,7 @@ export class TextStream {
     this.onTrigger = cfg.onTrigger ?? ((v) => v.current)
   }
 
+  /** 输入一段增量文本，返回本次可以安全输出的文本。 */
   inputStream({ inputStream }: { inputStream: string }): {
     outputStream: string
   } {
@@ -42,12 +44,14 @@ export class TextStream {
     return { outputStream }
   }
 
+  /** 输出并清空尚未匹配完成的缓存文本。 */
   dump() {
     const current = this.current
     this.current = ''
     return current
   }
 
+  /** 加载 MultiAgentDocSource 标签识别规则，用于流式处理文档来源占位符。 */
   static loadDocSourcePolicy(textStream: TextStream) {
     const DOC_NODES = [
       ...`<MultiAgentDocSource index="`.split(''),

@@ -28,6 +28,12 @@ function parseTemplate(template: string): FormatOptions {
 
 export const IS_VALID_STRING2NUMBER_REGEXP = /^[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?$/
 
+/**
+ * 按模板格式化数字，支持前后缀、小数位、千分位、百分比和中文量级。
+ * @param number 待格式化的数字或数字字符串
+ * @param template 格式模板，例如 `,.2f元`、`.1f%`
+ * @param skipChineseTransform 是否跳过“万/亿”等中文量级转换
+ */
 export function formatNumber(
   number: number | string,
   template: string | undefined,
@@ -61,10 +67,13 @@ export function formatNumber(
 }
 
 /**
- * @param num number 类型的数值
+ * 将数字格式化为带中文量级的字符串。
+ * @param originNum number 类型的数值
  * @param decimals 保留小数位数
  * @param suffix 单位后缀
- * @param useSignificantDigits decimals存在时，保留decimals位有效数字
+ * @param useSignificantDigits decimals 存在时，保留 decimals 位有效数字
+ * @param useThousandSeparator 是否使用千分位分隔符
+ * @param skipChineseTransform 是否跳过中文量级转换
  * @returns 带有单位的数值 万 千万 亿
  */
 export function formatNumberWithChineseUnit({
@@ -124,6 +133,7 @@ export function formatNumberWithChineseUnit({
   return format(num) + newSuffix
 }
 
+/** 将数字或可转数字的值格式化为最多两位小数的千分位字符串。 */
 export const formatThousands = (value: unknown) => {
   if (value == null || value === '') return '-'
 
@@ -185,6 +195,7 @@ function roundToSignificantDigits(value: number, decimalPlaces: number): string 
   })
 }
 
+/** 判断数字格式模板是否符合当前 formatter 支持的语法。 */
 export function isValidFormatTemplate(formatTemplate: string): boolean {
   if (formatTemplate === '%') {
     return false

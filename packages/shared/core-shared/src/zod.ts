@@ -2,11 +2,13 @@ import { z } from 'zod';
 
 export const zodSchemaSymbol = Symbol('zod-schema');
 
+/** 判断对象是否是 createZodBaseModel 创建的模型构造器。 */
 export function isZodModel(o: unknown): o is ZodBaseModel {
     if (!o) return false;
     return (o as any)[zodSchemaSymbol];
 }
 
+/** 带 Zod schema 元信息的模型构造器。 */
 export interface ZodBaseModel<T extends z.ZodObject<any> = z.ZodObject<any>> {
     new (raw?: any): z.infer<T> & {
         __raw__: any;
@@ -24,6 +26,7 @@ export interface ZodBaseModel<T extends z.ZodObject<any> = z.ZodObject<any>> {
 
 interface ZodBaseModelConfig {}
 
+/** 基于 ZodObject 创建带运行时校验和 schema 元信息的轻量模型构造器。 */
 export function createZodBaseModel<T extends z.ZodObject<any> = z.ZodObject<any>>(
     schema: T,
     config: ZodBaseModelConfig = {},

@@ -1,3 +1,4 @@
+/** 常见 JS 原生错误类型枚举。 */
 export enum ErrorEnum {
     /**
      * 与 eval() 有关
@@ -37,6 +38,8 @@ const errorMap: Record<ErrorEnum, typeof Error> = {
     [ErrorEnum.uri]: URIError,
     [ErrorEnum.common]: Error,
 };
+
+/** 直接抛出任意值，适合在表达式链中中断流程。 */
 export function throwValue(val: unknown): never {
     throw val;
 }
@@ -48,6 +51,8 @@ export function throwValue(val: unknown): never {
 export const throwError = (msg: string, type: ErrorEnum = ErrorEnum.common): never => {
     throwValue(new errorMap[type](msg));
 };
+
+/** 捕获同步函数错误，可选地交给 errorFn 处理。 */
 export function catchError<T>(
     fn: (...vals: any) => T,
     errorFn?: (reason: Error) => void,

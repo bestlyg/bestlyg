@@ -1,21 +1,32 @@
+/** 轻量计时器，用于记录阶段耗时和累计耗时。 */
 export class TimeRecorder {
   start = Date.now()
   date = Date.now()
+
+  /** 记录从上次调用到现在的间隔毫秒数，并刷新阶段起点。 */
   record() {
     const now = Date.now()
     const d = now - this.date
     this.date = now
     return d
   }
+
+  /** 获取从实例创建到现在的累计耗时。 */
   accumulativeTotal() {
     return Date.now() - this.start
   }
+
+  /** 获取累计耗时的人类可读字符串。 */
   toAccumulativeTotalString() {
     return this.format(this.accumulativeTotal())
   }
+
+  /** 获取阶段耗时的人类可读字符串，并刷新阶段起点。 */
   toString() {
     return this.format(this.record())
   }
+
+  /** 将毫秒数格式化为人类可读字符串。 */
   format(d: number) {
     return secondsToReadableTime(d)
   }

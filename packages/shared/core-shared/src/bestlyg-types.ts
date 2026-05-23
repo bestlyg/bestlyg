@@ -1,26 +1,32 @@
+/** API JSON 中日期字段在前后端之间允许保留 Date 或序列化后的字符串。 */
 export type DateValue = Date | string;
 
+/** 左侧导航中的叶子菜单项。 */
 export interface SidebarItem {
     name: string;
     link: string;
 }
 
+/** 左侧导航分组，允许递归嵌套子分组。 */
 export interface SidebarGroup {
     name: string;
     items?: SidebarItem[];
     groups?: SidebarGroup[];
 }
 
+/** 左侧导航接口返回的根结构。 */
 export interface Sidebar {
     groups?: SidebarGroup[];
 }
 
+/** 服务端实体暴露给前端时共享的基础字段。 */
 export interface EntityBase {
     id: string;
     createdTime: DateValue;
     updatedTime: DateValue;
 }
 
+/** 账本消费/收入类型。 */
 export enum LedgerType {
     Generally = 'Generally',
     Drinks = 'Drinks',
@@ -46,11 +52,13 @@ export enum LedgerType {
     TravelWallet = 'TravelWallet',
 }
 
+/** 账本来源人。 */
 export enum LedgerFrom {
     Lyg = 'Lyg',
     Yzx = 'Yzx',
 }
 
+/** LeetCode 题解使用的语言类型。 */
 export enum LeetcodeScriptType {
     javascript = 'javascript',
     typescript = 'typescript',
@@ -64,12 +72,14 @@ export enum LeetcodeScriptType {
     sql = 'sql',
 }
 
+/** LeetCode 题目难度。 */
 export enum LeetcodeLevelType {
     Easy = 'Easy',
     Medium = 'Medium',
     Hard = 'Hard',
 }
 
+/** 前端消费的账本记录 DTO。 */
 export type Ledger = Partial<
     EntityBase & {
         date: DateValue;
@@ -82,6 +92,7 @@ export type Ledger = Partial<
     }
 >;
 
+/** 前端消费的体重/运动记录 DTO。 */
 export type Xuan = Partial<
     EntityBase & {
         date: DateValue;
@@ -90,6 +101,7 @@ export type Xuan = Partial<
     }
 >;
 
+/** 前端消费的 LeetCode 题解 DTO。 */
 export type LeetcodeSolution = Partial<
     EntityBase & {
         script: LeetcodeScriptType;
@@ -103,6 +115,7 @@ export type LeetcodeSolution = Partial<
     problem: { id: string };
 };
 
+/** 前端消费的 LeetCode 题目 DTO，包含题解列表。 */
 export type LeetcodeProblem = Partial<
     EntityBase & {
         name: string;

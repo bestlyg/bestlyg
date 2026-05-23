@@ -2,6 +2,7 @@ const TRUNCATE_TITLE_MAX_LENGTH = 180
 
 const TRUNCATE_TITLE_ELLIPSIS = '…'
 
+/** 截断数据库短标题字段，避免超长标题入库失败。 */
 export function truncateTitle(title: string): string {
   const chars = Array.from(title)
   if (chars.length <= TRUNCATE_TITLE_MAX_LENGTH) {

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+/** 服务端运行配置 schema，负责校验环境变量整理后的配置结构。 */
 export const ConfigurationSchema = z
     .object({
         mode: z.enum(['production', 'development']).default('development'),
@@ -49,6 +50,7 @@ export const ConfigurationSchema = z
     .required();
 export type Configuration = z.infer<typeof ConfigurationSchema>;
 
+/** 从 process.env 中收集 BESTLYG 服务端配置，返回待 schema 校验的原始对象。 */
 export function getConfiguration() {
     return {
         mode: process.env.NODE_ENV,

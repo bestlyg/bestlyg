@@ -11,7 +11,7 @@ export const LeftToRightMark = '\u200E';
 // 零宽度间隔符
 export const InvisibleSeparator = '\u2060';
 
-// 将文本编码为零宽字符
+/** 将普通文本编码为零宽字符序列，可嵌入到不可见水印场景。 */
 export function encode(text: string) {
     let zeroWidthText = '';
     for (let i = 0; i < text.length; i++) {
@@ -32,7 +32,7 @@ export function encode(text: string) {
     return zeroWidthText;
 }
 
-// 将零宽字符解码为文本
+/** 将 encode 生成的零宽字符序列还原为普通文本。 */
 export function decode(zeroWidthText: string) {
     let text = '';
     const binaryChunks = [];

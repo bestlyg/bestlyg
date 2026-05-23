@@ -47,6 +47,7 @@ export const sseDefaultRequestHeaders: HeadersInit = {
 export const defaultResponseHeaders = sseDefaultResponseHeaders
 export const defaultRequestHeaders = sseDefaultRequestHeaders
 
+/** 将 SSE 消息对象序列化为 text/event-stream 格式的文本块。 */
 export function sseStringify(message: EventSourceMessage) {
   const str = Object.entries(message)
     .map(([k, v]) => `${k}${SPLIT_TAG}${v}`)
@@ -56,27 +57,38 @@ export function sseStringify(message: EventSourceMessage) {
 
 export const stringify = sseStringify
 
+/** 基于 fetch 的轻量 SSE 客户端，支持事件监听、Observable 包装和主动中断。 */
 export class EventSource extends EventEmitter<SSEHooks> {
   ac = new AbortController()
   status: 'ready' | 'open' | 'reading' | 'close' = 'ready'
   constructor() {
     super()
   }
+
+  /** 获取当前连接状态。 */
   getStatus() {
     return this.status
   }
+
+  /** 设置当前连接状态，并触发 onStatusChange hook。 */
   setStatus(v: EventSource['status']) {
     this.status = v
     this.emit('onStatusChange', v)
     return this
   }
+
+  /** 设置实例字段并返回当前实例，便于链式配置。 */
   set<K extends keyof this, V extends this[K]>(key: K, val: V) {
     this[key] = val
     return this
   }
+
+  /** 读取实例字段。 */
   get<K extends keyof this>(key: K) {
     return this[key]
   }
+
+  /** 发起 SSE 请求并把流式消息转发为 EventEmitter 事件。 */
   async fetch(...args: Parameters<typeof fetch>) {
     this.setStatus('open')
     try {
@@ -113,6 +125,7 @@ export class EventSource extends EventEmitter<SSEHooks> {
     }
   }
 
+  /** 将 SSE 请求封装成 RxJS Observable。 */
   fetchObserver(...args: Parameters<typeof this.fetch>) {
     return new Observable<EventSourceMessage>((subscriber) => {
       // subscriber.next(attr);
@@ -135,6 +148,7 @@ export class EventSource extends EventEmitter<SSEHooks> {
     })
   }
 
+  /** 主动关闭连接并中断底层 fetch。 */
   abort() {
     this.setStatus('close')
     this.emit('onClose')

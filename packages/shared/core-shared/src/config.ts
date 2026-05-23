@@ -1,14 +1,17 @@
 export const TYPE_SEPARATOR = '@';
 export const CONFIG_KEY_SEPARATOR = ':';
 
+/** 配置项异步校验器，允许按当前配置项和上下文配置值做自定义校验。 */
 export type ConfigValidator = (option: {
     instance: AbstractConfig<any>;
     value: any;
     metricConfigRecord: Record<string, any>;
 }) => Promise<void>;
 
+/** 默认校验器，不做额外校验。 */
 export const DEFAULT_VALIDATOR: ConfigValidator = () => Promise.resolve();
 
+/** 配置项基类，统一约束展示信息、默认值、解析和序列化能力。 */
 export abstract class AbstractConfig<T = ConfigValueType> {
     constructor(
         public label: string,
@@ -19,11 +22,14 @@ export abstract class AbstractConfig<T = ConfigValueType> {
     abstract parse(v: string): T;
     abstract stringify(v: T): string;
     abstract type: string;
+
+    /** 合并多个来源的配置值；默认取第一个值，缺省时回落到默认值。 */
     merge(...list: T[]): T {
         return list?.[0] ?? this.defaultValue;
     }
 }
 
+/** 布尔配置项，字符串 true/false 会被解析为布尔值。 */
 export class BooleanConfig extends AbstractConfig<boolean> {
     static assert(v: AbstractConfig<boolean>): v is BooleanConfig {
         return v.type === 'boolean';
@@ -42,6 +48,7 @@ export class BooleanConfig extends AbstractConfig<boolean> {
     }
 }
 
+/** 字符串配置项，原样解析和序列化。 */
 export class StringConfig extends AbstractConfig<string> {
     static assert(v: AbstractConfig<string>): v is StringConfig {
         return v.type === 'string';
@@ -55,6 +62,7 @@ export class StringConfig extends AbstractConfig<string> {
     }
 }
 
+/** 单选配置项，只接受 options 中声明过的值。 */
 export class RadioConfig<T extends string = ''> extends AbstractConfig<T> {
     static assert(v: AbstractConfig<string>): v is RadioConfig<any> {
         return v.type === 'radio';
@@ -100,6 +108,7 @@ export class RadioConfig<T extends string = ''> extends AbstractConfig<T> {
     }
 }
 
+/** 数字配置项，支持记录最小值、最大值和小数位数元信息。 */
 export class NumberConfig extends AbstractConfig<number> {
     static assert(v: AbstractConfig<number>): v is NumberConfig {
         return v.type === 'number';
@@ -150,6 +159,7 @@ export class NumberConfig extends AbstractConfig<number> {
     }
 }
 
+/** 字符串列表配置项，通过 separator 在字符串和数组之间转换。 */
 export class StringListConfig extends AbstractConfig<string[]> {
     static assert(v: AbstractConfig<string[]>): v is StringListConfig {
         return v.type === 'string-list';
@@ -188,6 +198,7 @@ export class StringListConfig extends AbstractConfig<string[]> {
     }
 }
 
+/** 多列字符串列表配置的列描述。 */
 export type MultItem = {
     label: string;
     key: string;
@@ -196,8 +207,10 @@ export type MultItem = {
     placeholder?: string;
 };
 
+/** 多列字符串列表中的一行数据。 */
 export type MultRow = Record<string, string | number>;
 
+/** 多列字符串列表配置项，用 JSON 行和 separator 表达结构化列表。 */
 export class MultipleStringListConfig extends AbstractConfig<MultRow[]> {
     static assert(v: AbstractConfig<any>): v is MultipleStringListConfig {
         return v.type === 'mult-string-list';
@@ -273,6 +286,7 @@ export class MultipleStringListConfig extends AbstractConfig<MultRow[]> {
     }
 }
 
+/** 8 位十六进制 RGBA 颜色配置项，格式为 #RRGGBBAA。 */
 export class HexaColorConfig extends StringConfig {
     static assert(v: AbstractConfig<any>): v is HexaColorConfig {
         return v.type === 'hexa-color';
@@ -305,6 +319,7 @@ export class HexaColorConfig extends StringConfig {
     }
 }
 
+/** CSV 配置项，keys 描述 CSV 列含义。 */
 export class CsvConfig extends StringConfig {
     static assert(v: AbstractConfig<any>): v is CsvConfig {
         return v.type === 'csv';
@@ -337,9 +352,11 @@ export class CsvConfig extends StringConfig {
     type = 'csv';
 }
 
+/** 从配置项实例中提取实际值类型。 */
 export type ExtractConfigType<C extends AbstractConfig<any>> =
     C extends AbstractConfig<infer R> ? R : never;
 
+/** 所有内置配置项支持的值类型。 */
 export type ConfigValueType =
     | ExtractConfigType<StringConfig>
     | ExtractConfigType<BooleanConfig>
@@ -350,6 +367,7 @@ export type ConfigValueType =
     | ExtractConfigType<HexaColorConfig>
     | ExtractConfigType<CsvConfig>;
 
+/** 内置配置项工厂集合，便于动态创建配置实例。 */
 export const commonFactory = {
     StringConfig,
     BooleanConfig,
@@ -363,20 +381,24 @@ export const commonFactory = {
 
 export type ConfigFactory = typeof commonFactory;
 
+/** 将一组配置项定义转换成对应的配置值类型映射。 */
 export type ExtractConfigInfo<O extends Record<string, AbstractConfig<any>>> = {
     [K in keyof O]: ExtractConfigType<O[K]>;
 };
 
 export type ConfigType = 'scene' | 'project' | 'global' | 'metric_system';
 
+/** 构建配置 key 前缀，格式为 type@typeId。 */
 export function buildConfigKeyPrefix(type: string, typeId: string) {
     return `${type}${TYPE_SEPARATOR}${typeId}`;
 }
 
+/** 构建完整配置 key，格式为 type@typeId:configName。 */
 export function buildConfigKey(type: string, typeId: string, configName: string) {
     return `${buildConfigKeyPrefix(type, typeId)}${CONFIG_KEY_SEPARATOR}${configName}`;
 }
 
+/** 从完整配置 key 中提取 configName。 */
 export function extractConfigName(configKey: string) {
     const separatorIndex = configKey.indexOf(CONFIG_KEY_SEPARATOR);
     if (separatorIndex < 0) return '';
