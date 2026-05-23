@@ -17,7 +17,6 @@ import { ZjuerModule } from '@bestlyg-server/zjuer';
 import { DatabaseModule, entities } from '@bestlyg-server/database';
 import { ApiModule } from '@bestlyg-server/api';
 
-// dotenv.config({ path: resolve('node_modules', '@bestlyg', 'server-shared', '.env') });
 // const configuration = ConfigurationSchema.parse(getConfiguration());
 
 export class AppModule {

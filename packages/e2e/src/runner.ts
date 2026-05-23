@@ -2,7 +2,14 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
-import { getProjectConfig, getProjectSpecDir, getScriptConfig, listProjects, listScripts, loadConfig } from './config';
+import {
+    getProjectConfig,
+    getProjectSpecDir,
+    getScriptConfig,
+    listProjects,
+    listScripts,
+    loadConfig,
+} from './config';
 import { PACKAGE_ROOT, PLAYWRIGHT_CONFIG_PATH } from './paths';
 import {
     BESTLYG_E2E_TARGET_ENV_OVERRIDES,
@@ -127,7 +134,10 @@ function isExistingFile(filePath: string) {
 
 function isPathInside(parentPath: string, childPath: string) {
     const relativePath = path.relative(parentPath, childPath);
-    return relativePath.length === 0 || (!relativePath.startsWith('..') && !path.isAbsolute(relativePath));
+    return (
+        relativePath.length === 0 ||
+        (!relativePath.startsWith('..') && !path.isAbsolute(relativePath))
+    );
 }
 
 function getSpecFileCandidates(projectName: string, specFile: string) {
@@ -135,7 +145,12 @@ function getSpecFileCandidates(projectName: string, specFile: string) {
         return [path.normalize(specFile)];
     }
 
-    return [...new Set([path.resolve(PACKAGE_ROOT, specFile), path.resolve(getProjectSpecDir(projectName), specFile)])];
+    return [
+        ...new Set([
+            path.resolve(PACKAGE_ROOT, specFile),
+            path.resolve(getProjectSpecDir(projectName), specFile),
+        ]),
+    ];
 }
 
 function resolveSpecFile(projectName: string, specFile: string, strict: boolean) {
@@ -154,7 +169,9 @@ function resolveSpecFile(projectName: string, specFile: string, strict: boolean)
 
     if (!isPathInside(specDir, absolutePath)) {
         if (strict) {
-            throw new Error(`--spec 必须指向项目 "${projectName}" 的 specs 目录下文件：${specDir}。`);
+            throw new Error(
+                `--spec 必须指向项目 "${projectName}" 的 specs 目录下文件：${specDir}。`,
+            );
         }
 
         return undefined;
@@ -171,7 +188,10 @@ function escapeRegExp(value: string) {
 }
 
 function hasPlaywrightGrepArg(args: string[]) {
-    return args.some((arg) => arg === '--grep' || arg === '-g' || arg.startsWith('--grep=') || arg.startsWith('-g='));
+    return args.some(
+        (arg) =>
+            arg === '--grep' || arg === '-g' || arg.startsWith('--grep=') || arg.startsWith('-g='),
+    );
 }
 
 function createTestGrepArgs(testName: string | undefined, playwrightArgs: string[]) {
@@ -224,7 +244,11 @@ function globToRegExp(pattern: string) {
     return new RegExp(`^${source}$`);
 }
 
-function scriptMatchesSpec(scriptConfig: BestlygE2EScriptConfig, relativeSpecFile: string, explicitScript: boolean) {
+function scriptMatchesSpec(
+    scriptConfig: BestlygE2EScriptConfig,
+    relativeSpecFile: string,
+    explicitScript: boolean,
+) {
     const testMatch = scriptConfig.testMatch;
 
     if (!testMatch) {
@@ -237,7 +261,9 @@ function scriptMatchesSpec(scriptConfig: BestlygE2EScriptConfig, relativeSpecFil
 
 function getDefaultScriptNames(config: LoadedE2EConfig, projectName: string) {
     const scripts = listScripts(config, projectName);
-    const afterScriptNames = new Set(scripts.flatMap(({ config: scriptConfig }) => scriptConfig.afterScripts ?? []));
+    const afterScriptNames = new Set(
+        scripts.flatMap(({ config: scriptConfig }) => scriptConfig.afterScripts ?? []),
+    );
 
     return scripts.map((script) => script.name).filter((name) => !afterScriptNames.has(name));
 }
@@ -401,7 +427,9 @@ async function runPlaywrightTask(
                 if (!taskError) {
                     taskError = error;
                 } else {
-                    console.error(`后置 E2E 脚本 "${task.projectName}/${afterScriptName}" 执行失败：${String(error)}`);
+                    console.error(
+                        `后置 E2E 脚本 "${task.projectName}/${afterScriptName}" 执行失败：${String(error)}`,
+                    );
                 }
             }
         }
@@ -428,7 +456,11 @@ function assertRunConcurrency(value: number, source: string) {
     }
 }
 
-function resolveConfiguredConcurrency(config: LoadedE2EConfig, tasks: E2ERunTask[], explicitConcurrency?: number) {
+function resolveConfiguredConcurrency(
+    config: LoadedE2EConfig,
+    tasks: E2ERunTask[],
+    explicitConcurrency?: number,
+) {
     if (explicitConcurrency !== undefined) {
         assertRunConcurrency(explicitConcurrency, '--concurrency');
         return explicitConcurrency;
@@ -476,15 +508,26 @@ function getRunTasks(
         }
 
         return scriptNames.flatMap((currentScriptName) => {
-            const scriptConfig = getScriptConfig(projectConfig, currentProjectName, currentScriptName);
+            const scriptConfig = getScriptConfig(
+                projectConfig,
+                currentProjectName,
+                currentScriptName,
+            );
 
             if (!specFile) {
                 return [{ projectName: currentProjectName, scriptName: currentScriptName }];
             }
 
-            const resolvedSpecFile = resolveSpecFile(currentProjectName, specFile, Boolean(projectName));
+            const resolvedSpecFile = resolveSpecFile(
+                currentProjectName,
+                specFile,
+                Boolean(projectName),
+            );
 
-            if (!resolvedSpecFile || !scriptMatchesSpec(scriptConfig, resolvedSpecFile.relativePath, Boolean(scriptName))) {
+            if (
+                !resolvedSpecFile ||
+                !scriptMatchesSpec(scriptConfig, resolvedSpecFile.relativePath, Boolean(scriptName))
+            ) {
                 return [];
             }
 
@@ -499,7 +542,9 @@ function getRunTasks(
     });
 
     if (specFile && tasks.length === 0) {
-        throw new Error(`没有找到匹配 --spec "${specFile}" 的 E2E 脚本，请确认 --project、--script 和 spec 路径。`);
+        throw new Error(
+            `没有找到匹配 --spec "${specFile}" 的 E2E 脚本，请确认 --project、--script 和 spec 路径。`,
+        );
     }
 
     return tasks;
@@ -517,7 +562,9 @@ export async function runPlaywright(options: RunPlaywrightOptions) {
         concurrency,
         headless,
     } = options;
-    const targetEnvOverrides = serializeTargetEnvOverrides(parseTargetEnvOverrideArgs(envOverrides));
+    const targetEnvOverrides = serializeTargetEnvOverrides(
+        parseTargetEnvOverrideArgs(envOverrides),
+    );
     const config = await withRunEnv({ targetEnv, targetEnvOverrides }, () => loadConfig());
     const tasks = getRunTasks(config, projectName, scriptName, specFile);
     const runConcurrency = resolveConfiguredConcurrency(config, tasks, concurrency);
@@ -527,7 +574,15 @@ export async function runPlaywright(options: RunPlaywrightOptions) {
     for (const batch of createBatches(tasks, runConcurrency)) {
         const results = await Promise.allSettled(
             batch.map(async (task) => {
-                await runPlaywrightTask(config, task, playwrightArgs, targetEnv, targetEnvOverrides, headless, testName);
+                await runPlaywrightTask(
+                    config,
+                    task,
+                    playwrightArgs,
+                    targetEnv,
+                    targetEnvOverrides,
+                    headless,
+                    testName,
+                );
             }),
         );
 

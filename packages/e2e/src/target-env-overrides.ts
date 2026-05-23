@@ -56,7 +56,10 @@ function mergePlainObjects(base: unknown, overrides: unknown): unknown {
     return merged;
 }
 
-function assertStringLeafObject(value: unknown, pathSegments: string[] = []): asserts value is TargetEnvOverrides {
+function assertStringLeafObject(
+    value: unknown,
+    pathSegments: string[] = [],
+): asserts value is TargetEnvOverrides {
     if (!isPlainRecord(value)) {
         throw new Error(`${BESTLYG_E2E_TARGET_ENV_OVERRIDES} 必须是 JSON 对象。`);
     }
@@ -74,7 +77,9 @@ function assertStringLeafObject(value: unknown, pathSegments: string[] = []): as
         }
 
         const fullPath = [...pathSegments, key].join('.');
-        throw new Error(`${BESTLYG_E2E_TARGET_ENV_OVERRIDES} 中 "${fullPath}" 的值必须是字符串或嵌套对象。`);
+        throw new Error(
+            `${BESTLYG_E2E_TARGET_ENV_OVERRIDES} 中 "${fullPath}" 的值必须是字符串或嵌套对象。`,
+        );
     });
 }
 

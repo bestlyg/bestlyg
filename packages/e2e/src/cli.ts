@@ -104,10 +104,20 @@ async function main() {
         .helpOption('-h, --help', '显示帮助信息。')
         .option('--project <项目>', '项目名称；不传时运行所有已配置项目。')
         .option('--script <脚本>', '脚本名称；不传时运行目标项目下的所有默认脚本。')
-        .option('--spec <spec文件>', '只运行指定 spec 文件；可传相对项目 specs 目录或 e2e 包根目录的路径。')
-        .option('--test <测试名称>', '只运行名称包含该文本的单个测试；内部按 Playwright grep 过滤。')
+        .option(
+            '--spec <spec文件>',
+            '只运行指定 spec 文件；可传相对项目 specs 目录或 e2e 包根目录的路径。',
+        )
+        .option(
+            '--test <测试名称>',
+            '只运行名称包含该文本的单个测试；内部按 Playwright grep 过滤。',
+        )
         .option('--target-env <环境>', '目标环境名称，例如 local 或 production。')
-        .option('--env <键值>', '覆盖目标环境配置，格式 key=value；支持 a.b.c=XXX，可重复传入。', collectOptionValues)
+        .option(
+            '--env <键值>',
+            '覆盖目标环境配置，格式 key=value；支持 a.b.c=XXX，可重复传入。',
+            collectOptionValues,
+        )
         .option('--concurrency <数量>', '同时运行的脚本数量；不传时读取项目配置，未配置则为 1。')
         .option('--head', '打开可见浏览器运行。')
         .option('--headless', '强制使用无头浏览器运行。')

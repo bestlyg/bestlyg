@@ -1,5 +1,8 @@
 import { z, type ZodType } from 'zod';
-import { applyTargetEnvOverrides, loadTargetEnvOverridesFromEnv } from '../../src/target-env-overrides';
+import {
+    applyTargetEnvOverrides,
+    loadTargetEnvOverridesFromEnv,
+} from '../../src/target-env-overrides';
 import type { BestlygE2ETargetEnvironmentConfig } from '../../src/types';
 
 export interface BestlygTargetEnvironmentConfig extends BestlygE2ETargetEnvironmentConfig {
@@ -40,7 +43,9 @@ export function resolveBestlygTargetEnv(name?: string) {
     const baseConfig = BESTLYG_ENVIRONMENTS[targetEnv];
 
     if (!baseConfig) {
-        throw new Error(`未知的 Bestlyg E2E 目标环境 "${targetEnv}"。可用环境：${Object.keys(BESTLYG_ENVIRONMENTS).join(', ')}。`);
+        throw new Error(
+            `未知的 Bestlyg E2E 目标环境 "${targetEnv}"。可用环境：${Object.keys(BESTLYG_ENVIRONMENTS).join(', ')}。`,
+        );
     }
 
     const environmentConfig = applyTargetEnvOverrides(

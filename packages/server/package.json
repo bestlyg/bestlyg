@@ -82,8 +82,8 @@
         "jest": "catalog:",
         "source-map-support": "catalog:",
         "supertest": "catalog:",
-        "ts-loader": "catalog:",
         "ts-jest": "catalog:",
+        "ts-loader": "catalog:",
         "ts-node": "catalog:",
         "tsconfig-paths": "catalog:",
         "tsx": "catalog:",
@@ -108,6 +108,7 @@
             "^@bestlyg-server/static(|/.*)$": "<rootDir>/libs/static/src/$1",
             "^@bestlyg-server/zjuer(|/.*)$": "<rootDir>/libs/zjuer/src/$1"
         },
+        "passWithNoTests": true,
         "rootDir": ".",
         "roots": [
             "<rootDir>/src/",
@@ -117,7 +118,6 @@
         "testRegex": ".*\\.spec\\.ts$",
         "transform": {
             "^.+\\.(t|j)s$": "ts-jest"
-        },
-        "passWithNoTests": true
+        }
     }
 }

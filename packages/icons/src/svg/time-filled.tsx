@@ -1,5 +1,5 @@
 export const timeFilledIcon =
-  `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C17.5229 2 22 6.47715 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47715 6.47715 2 12 2ZM12.0049 5.25C11.5907 5.24996 11.2549 5.58579 11.2549 6L11.2539 12.0039C11.2539 12.2028 11.333 12.3945 11.4736 12.5352L15.7129 16.7744C16.0058 17.0673 16.4815 17.0673 16.7744 16.7744C17.067 16.4816 17.0669 16.0067 16.7744 15.7139L12.7539 11.6934L12.7549 6C12.7549 5.58592 12.4189 5.2502 12.0049 5.25Z" fill="currentColor"/>
 </svg>
-`.trim()
+`.trim();

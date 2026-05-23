@@ -1,5 +1,5 @@
 export const loadingIcon =
-  `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_1270_3094)">
 <path opacity="0.6" d="M12 5.33337V6.66671" stroke="#00051D" stroke-opacity="0.4549" stroke-linecap="round" stroke-linejoin="round"/>
 <path opacity="0.7" d="M15.3327 6.22644L14.666 7.38114" stroke="#00051D" stroke-opacity="0.4549" stroke-linecap="round" stroke-linejoin="round"/>
@@ -20,4 +20,4 @@ export const loadingIcon =
 </clipPath>
 </defs>
 </svg>
-`.trim()
+`.trim();

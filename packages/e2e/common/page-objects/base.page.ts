@@ -1,5 +1,9 @@
 import { expect, type Locator, type Page } from '@playwright/test';
-import { formatE2EActionValue, logE2EAction, type E2EActionValueLogOptions } from '../helpers/action-log';
+import {
+    formatE2EActionValue,
+    logE2EAction,
+    type E2EActionValueLogOptions,
+} from '../helpers/action-log';
 
 export interface E2EFillOptions extends E2EActionValueLogOptions {}
 
@@ -74,14 +78,26 @@ export class BasePage {
         await locator.click();
     }
 
-    async fillDataTid(tid: string, value: string, timeout = 20_000, label?: string, options: E2EFillOptions = {}) {
+    async fillDataTid(
+        tid: string,
+        value: string,
+        timeout = 20_000,
+        label?: string,
+        options: E2EFillOptions = {},
+    ) {
         const locator = await this.expectDataTidVisible(tid, timeout);
         const displayValue = formatE2EActionValue(value, options);
         logE2EAction(`输入：${label ?? `data-tid="${tid}"`}，值="${displayValue}"`);
         await locator.fill(value);
     }
 
-    async fillLocator(locator: Locator, value: string, label: string, timeout = 20_000, options: E2EFillOptions = {}) {
+    async fillLocator(
+        locator: Locator,
+        value: string,
+        label: string,
+        timeout = 20_000,
+        options: E2EFillOptions = {},
+    ) {
         await this.expectLocatorVisible(locator, label, timeout);
         const displayValue = formatE2EActionValue(value, options);
         logE2EAction(`输入：${label}，值="${displayValue}"`);

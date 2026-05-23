@@ -85,10 +85,12 @@ function logE2EEvent(kind: E2ELogKind, message: string, options?: E2ELogRenderOp
     const { symbol, text, oraColor } = renderE2ELog(kind, message, options);
 
     if (process.stdout.isTTY) {
-        ora({ text, color: oraColor, stream: process.stdout, discardStdin: false }).start().stopAndPersist({
-            symbol,
-            text,
-        });
+        ora({ text, color: oraColor, stream: process.stdout, discardStdin: false })
+            .start()
+            .stopAndPersist({
+                symbol,
+                text,
+            });
         return;
     }
 

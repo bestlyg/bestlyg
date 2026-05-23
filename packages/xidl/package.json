@@ -7,17 +7,17 @@
     ],
     "license": "ISC",
     "author": "bestlyg",
-    "type": "module",
     "bin": {
         "xidl": "./dist/cli.mjs"
     },
-    "main": "./dist/index.mjs",
-    "module": "./dist/index.mjs",
-    "types": "./dist/index.d.ts",
     "files": [
         "dist",
         "protoc"
     ],
+    "type": "module",
+    "main": "./dist/index.mjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
     "exports": {
         "./plugins": {
             "types": "./dist/plugins/index.d.ts",

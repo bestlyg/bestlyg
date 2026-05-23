@@ -10,9 +10,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "App"
-                ]
+                "tags": ["App"]
             }
         },
         "/api/database/casbin-rule/list": {
@@ -24,9 +22,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "CasbinRule"
-                ]
+                "tags": ["CasbinRule"]
             }
         },
         "/api/database/casbin-rule/page": {
@@ -38,9 +34,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "CasbinRule"
-                ]
+                "tags": ["CasbinRule"]
             }
         },
         "/api/database/casbin-rule/{id}": {
@@ -52,9 +46,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "CasbinRule"
-                ]
+                "tags": ["CasbinRule"]
             },
             "patch": {
                 "operationId": "CasbinRuleController_update",
@@ -64,9 +56,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "CasbinRule"
-                ]
+                "tags": ["CasbinRule"]
             },
             "delete": {
                 "operationId": "CasbinRuleController_delete",
@@ -76,9 +66,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "CasbinRule"
-                ]
+                "tags": ["CasbinRule"]
             }
         },
         "/api/database/casbin-rule": {
@@ -90,9 +78,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "CasbinRule"
-                ]
+                "tags": ["CasbinRule"]
             },
             "post": {
                 "operationId": "CasbinRuleController_save",
@@ -102,9 +88,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "CasbinRule"
-                ]
+                "tags": ["CasbinRule"]
             },
             "put": {
                 "operationId": "CasbinRuleController_updateBatch",
@@ -114,9 +98,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "CasbinRule"
-                ]
+                "tags": ["CasbinRule"]
             }
         },
         "/api/database/casbin-rule/batch": {
@@ -128,9 +110,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "CasbinRule"
-                ]
+                "tags": ["CasbinRule"]
             },
             "delete": {
                 "operationId": "CasbinRuleController_deleteBatch",
@@ -140,9 +120,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "CasbinRule"
-                ]
+                "tags": ["CasbinRule"]
             }
         },
         "/api/database/ledger/list": {
@@ -154,9 +132,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Ledger"
-                ]
+                "tags": ["Ledger"]
             }
         },
         "/api/database/ledger/page": {
@@ -168,9 +144,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Ledger"
-                ]
+                "tags": ["Ledger"]
             }
         },
         "/api/database/ledger/{id}": {
@@ -182,9 +156,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Ledger"
-                ]
+                "tags": ["Ledger"]
             },
             "patch": {
                 "operationId": "LedgerController_update",
@@ -194,9 +166,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Ledger"
-                ]
+                "tags": ["Ledger"]
             },
             "delete": {
                 "operationId": "LedgerController_delete",
@@ -206,9 +176,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Ledger"
-                ]
+                "tags": ["Ledger"]
             }
         },
         "/api/database/ledger": {
@@ -220,9 +188,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Ledger"
-                ]
+                "tags": ["Ledger"]
             },
             "post": {
                 "operationId": "LedgerController_save",
@@ -232,9 +198,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Ledger"
-                ]
+                "tags": ["Ledger"]
             },
             "put": {
                 "operationId": "LedgerController_updateBatch",
@@ -244,9 +208,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Ledger"
-                ]
+                "tags": ["Ledger"]
             }
         },
         "/api/database/ledger/batch": {
@@ -258,9 +220,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Ledger"
-                ]
+                "tags": ["Ledger"]
             },
             "delete": {
                 "operationId": "LedgerController_deleteBatch",
@@ -270,9 +230,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Ledger"
-                ]
+                "tags": ["Ledger"]
             }
         },
         "/api/database/leetcode-problem/slug/{slug}": {
@@ -293,9 +251,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeProblem"
-                ]
+                "tags": ["LeetcodeProblem"]
             }
         },
         "/api/database/leetcode-problem/list": {
@@ -307,9 +263,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeProblem"
-                ]
+                "tags": ["LeetcodeProblem"]
             }
         },
         "/api/database/leetcode-problem/page": {
@@ -321,9 +275,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeProblem"
-                ]
+                "tags": ["LeetcodeProblem"]
             }
         },
         "/api/database/leetcode-problem/{id}": {
@@ -335,9 +287,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeProblem"
-                ]
+                "tags": ["LeetcodeProblem"]
             },
             "patch": {
                 "operationId": "LeetcodeProblemController_update",
@@ -347,9 +297,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeProblem"
-                ]
+                "tags": ["LeetcodeProblem"]
             },
             "delete": {
                 "operationId": "LeetcodeProblemController_delete",
@@ -359,9 +307,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeProblem"
-                ]
+                "tags": ["LeetcodeProblem"]
             }
         },
         "/api/database/leetcode-problem": {
@@ -373,9 +319,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeProblem"
-                ]
+                "tags": ["LeetcodeProblem"]
             },
             "post": {
                 "operationId": "LeetcodeProblemController_save",
@@ -385,9 +329,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeProblem"
-                ]
+                "tags": ["LeetcodeProblem"]
             },
             "put": {
                 "operationId": "LeetcodeProblemController_updateBatch",
@@ -397,9 +339,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeProblem"
-                ]
+                "tags": ["LeetcodeProblem"]
             }
         },
         "/api/database/leetcode-problem/batch": {
@@ -411,9 +351,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeProblem"
-                ]
+                "tags": ["LeetcodeProblem"]
             },
             "delete": {
                 "operationId": "LeetcodeProblemController_deleteBatch",
@@ -423,9 +361,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeProblem"
-                ]
+                "tags": ["LeetcodeProblem"]
             }
         },
         "/api/database/leetcode-solution/list": {
@@ -437,9 +373,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeSolution"
-                ]
+                "tags": ["LeetcodeSolution"]
             }
         },
         "/api/database/leetcode-solution/page": {
@@ -451,9 +385,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeSolution"
-                ]
+                "tags": ["LeetcodeSolution"]
             }
         },
         "/api/database/leetcode-solution/{id}": {
@@ -465,9 +397,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeSolution"
-                ]
+                "tags": ["LeetcodeSolution"]
             },
             "patch": {
                 "operationId": "LeetcodeSolutionController_update",
@@ -477,9 +407,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeSolution"
-                ]
+                "tags": ["LeetcodeSolution"]
             },
             "delete": {
                 "operationId": "LeetcodeSolutionController_delete",
@@ -489,9 +417,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeSolution"
-                ]
+                "tags": ["LeetcodeSolution"]
             }
         },
         "/api/database/leetcode-solution": {
@@ -503,9 +429,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeSolution"
-                ]
+                "tags": ["LeetcodeSolution"]
             },
             "post": {
                 "operationId": "LeetcodeSolutionController_save",
@@ -515,9 +439,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeSolution"
-                ]
+                "tags": ["LeetcodeSolution"]
             },
             "put": {
                 "operationId": "LeetcodeSolutionController_updateBatch",
@@ -527,9 +449,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeSolution"
-                ]
+                "tags": ["LeetcodeSolution"]
             }
         },
         "/api/database/leetcode-solution/batch": {
@@ -541,9 +461,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeSolution"
-                ]
+                "tags": ["LeetcodeSolution"]
             },
             "delete": {
                 "operationId": "LeetcodeSolutionController_deleteBatch",
@@ -553,9 +471,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "LeetcodeSolution"
-                ]
+                "tags": ["LeetcodeSolution"]
             }
         },
         "/api/database/secrets/list": {
@@ -567,9 +483,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Secrets"
-                ]
+                "tags": ["Secrets"]
             }
         },
         "/api/database/secrets/page": {
@@ -581,9 +495,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Secrets"
-                ]
+                "tags": ["Secrets"]
             }
         },
         "/api/database/secrets/{id}": {
@@ -595,9 +507,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Secrets"
-                ]
+                "tags": ["Secrets"]
             },
             "patch": {
                 "operationId": "SecretsController_update",
@@ -607,9 +517,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Secrets"
-                ]
+                "tags": ["Secrets"]
             },
             "delete": {
                 "operationId": "SecretsController_delete",
@@ -619,9 +527,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Secrets"
-                ]
+                "tags": ["Secrets"]
             }
         },
         "/api/database/secrets": {
@@ -633,9 +539,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Secrets"
-                ]
+                "tags": ["Secrets"]
             },
             "post": {
                 "operationId": "SecretsController_save",
@@ -645,9 +549,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Secrets"
-                ]
+                "tags": ["Secrets"]
             },
             "put": {
                 "operationId": "SecretsController_updateBatch",
@@ -657,9 +559,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Secrets"
-                ]
+                "tags": ["Secrets"]
             }
         },
         "/api/database/secrets/batch": {
@@ -671,9 +571,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Secrets"
-                ]
+                "tags": ["Secrets"]
             },
             "delete": {
                 "operationId": "SecretsController_deleteBatch",
@@ -683,9 +581,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Secrets"
-                ]
+                "tags": ["Secrets"]
             }
         },
         "/api/database/serverless/list": {
@@ -697,9 +593,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             }
         },
         "/api/database/serverless/page": {
@@ -711,9 +605,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             }
         },
         "/api/database/serverless/{id}": {
@@ -725,9 +617,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "patch": {
                 "operationId": "ServerlessController_update",
@@ -737,9 +627,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "delete": {
                 "operationId": "ServerlessController_delete",
@@ -749,9 +637,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             }
         },
         "/api/database/serverless": {
@@ -763,9 +649,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "post": {
                 "operationId": "ServerlessController_save",
@@ -775,9 +659,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "put": {
                 "operationId": "ServerlessController_updateBatch",
@@ -787,9 +669,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             }
         },
         "/api/database/serverless/batch": {
@@ -801,9 +681,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "delete": {
                 "operationId": "ServerlessController_deleteBatch",
@@ -813,9 +691,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             }
         },
         "/api/database/user/list": {
@@ -827,9 +703,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "User"
-                ]
+                "tags": ["User"]
             }
         },
         "/api/database/user/page": {
@@ -841,9 +715,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "User"
-                ]
+                "tags": ["User"]
             }
         },
         "/api/database/user/{id}": {
@@ -855,9 +727,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "User"
-                ]
+                "tags": ["User"]
             },
             "patch": {
                 "operationId": "UserController_update",
@@ -867,9 +737,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "User"
-                ]
+                "tags": ["User"]
             },
             "delete": {
                 "operationId": "UserController_delete",
@@ -879,9 +747,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "User"
-                ]
+                "tags": ["User"]
             }
         },
         "/api/database/user": {
@@ -893,9 +759,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "User"
-                ]
+                "tags": ["User"]
             },
             "post": {
                 "operationId": "UserController_save",
@@ -905,9 +769,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "User"
-                ]
+                "tags": ["User"]
             },
             "put": {
                 "operationId": "UserController_updateBatch",
@@ -917,9 +779,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "User"
-                ]
+                "tags": ["User"]
             }
         },
         "/api/database/user/batch": {
@@ -931,9 +791,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "User"
-                ]
+                "tags": ["User"]
             },
             "delete": {
                 "operationId": "UserController_deleteBatch",
@@ -943,9 +801,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "User"
-                ]
+                "tags": ["User"]
             }
         },
         "/api/database/xuan/list": {
@@ -957,9 +813,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Xuan"
-                ]
+                "tags": ["Xuan"]
             }
         },
         "/api/database/xuan/page": {
@@ -971,9 +825,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Xuan"
-                ]
+                "tags": ["Xuan"]
             }
         },
         "/api/database/xuan/{id}": {
@@ -985,9 +837,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Xuan"
-                ]
+                "tags": ["Xuan"]
             },
             "patch": {
                 "operationId": "XuanController_update",
@@ -997,9 +847,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Xuan"
-                ]
+                "tags": ["Xuan"]
             },
             "delete": {
                 "operationId": "XuanController_delete",
@@ -1009,9 +857,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Xuan"
-                ]
+                "tags": ["Xuan"]
             }
         },
         "/api/database/xuan": {
@@ -1023,9 +869,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Xuan"
-                ]
+                "tags": ["Xuan"]
             },
             "post": {
                 "operationId": "XuanController_save",
@@ -1035,9 +879,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Xuan"
-                ]
+                "tags": ["Xuan"]
             },
             "put": {
                 "operationId": "XuanController_updateBatch",
@@ -1047,9 +889,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Xuan"
-                ]
+                "tags": ["Xuan"]
             }
         },
         "/api/database/xuan/batch": {
@@ -1061,9 +901,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Xuan"
-                ]
+                "tags": ["Xuan"]
             },
             "delete": {
                 "operationId": "XuanController_deleteBatch",
@@ -1073,9 +911,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Xuan"
-                ]
+                "tags": ["Xuan"]
             }
         },
         "/api/auth/login": {
@@ -1087,9 +923,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Auth"
-                ]
+                "tags": ["Auth"]
             }
         },
         "/api/serverless/call": {
@@ -1110,9 +944,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "post": {
                 "operationId": "ServerlessController_call_post",
@@ -1131,9 +963,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "put": {
                 "operationId": "ServerlessController_call_put",
@@ -1152,9 +982,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "delete": {
                 "operationId": "ServerlessController_call_delete",
@@ -1173,9 +1001,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "patch": {
                 "operationId": "ServerlessController_call_patch",
@@ -1194,9 +1020,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "options": {
                 "operationId": "ServerlessController_call_options",
@@ -1215,9 +1039,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "head": {
                 "operationId": "ServerlessController_call_head",
@@ -1236,9 +1058,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             },
             "search": {
                 "operationId": "ServerlessController_call_search",
@@ -1257,9 +1077,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Serverless"
-                ]
+                "tags": ["Serverless"]
             }
         },
         "/static": {
@@ -1288,9 +1106,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Static"
-                ]
+                "tags": ["Static"]
             }
         },
         "/api/client/docs/sidebars": {
@@ -1309,9 +1125,7 @@
                         }
                     }
                 },
-                "tags": [
-                    "Client"
-                ]
+                "tags": ["Client"]
             }
         },
         "/api/client/leetcode/sidebars": {
@@ -1330,9 +1144,7 @@
                         }
                     }
                 },
-                "tags": [
-                    "Client"
-                ]
+                "tags": ["Client"]
             }
         },
         "/zjuer/wiki": {
@@ -1344,9 +1156,7 @@
                         "description": ""
                     }
                 },
-                "tags": [
-                    "Zjuer"
-                ]
+                "tags": ["Zjuer"]
             }
         }
     },

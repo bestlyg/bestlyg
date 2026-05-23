@@ -9,49 +9,55 @@
  * 从 iconfont 中添加 Icon 的方法：https://mk70znjkuv.feishu.cn/wiki/B3UMwNOJ1iFX4mkpVJRcG55inub#X6DqdYtg2ofEgKx505xcnH9Mnoh
  */
 
-import { forwardRef } from 'react'
-import clsx from 'clsx'
+import { forwardRef } from 'react';
+import clsx from 'clsx';
 
 export const SvgIcon = forwardRef(function SvgIconInner(
-  {
-    icon,
-    ...restProps
-  }: { icon: string } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-  ref: React.Ref<HTMLDivElement>,
+    {
+        icon,
+        ...restProps
+    }: { icon: string } & React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLDivElement>,
+        HTMLDivElement
+    >,
+    ref: React.Ref<HTMLDivElement>,
 ) {
-  return (
-    <div
-      {...restProps}
-      className={clsx('flex items-center justify-center', restProps.className)}
-      ref={ref}
-      dangerouslySetInnerHTML={{ __html: icon }}
-    />
-  )
-})
+    return (
+        <div
+            {...restProps}
+            className={clsx('flex items-center justify-center', restProps.className)}
+            ref={ref}
+            dangerouslySetInnerHTML={{ __html: icon }}
+        />
+    );
+});
 
 function hasExplicitIconSize(className?: string) {
-  return className ? /(?:^|\s)(?:size-|w-|h-)/.test(className) : false
+    return className ? /(?:^|\s)(?:size-|w-|h-)/.test(className) : false;
 }
 
 /** 默认跟随 font-size，显式传入 size/w/h 时使用调用方尺寸，另外这里大小会自适应 */
 export const SvgIconContain = forwardRef(function SvgIconInner(
-  { icon, className, ...restProps }: { icon: string; className?: string },
-  ref: React.Ref<HTMLDivElement>,
+    { icon, className, ...restProps }: { icon: string; className?: string },
+    ref: React.Ref<HTMLDivElement>,
 ) {
-  return (
-    <div
-      className={clsx(!hasExplicitIconSize(className) && 'size-[1em]', className)}
-      {...restProps}
-      ref={ref}
-      dangerouslySetInnerHTML={{
-        __html: icon.replace(/<svg([^>]*)>/g, '<svg$1 style="width: 100%; height: 100%; object-fit: contain;">'),
-      }}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-      }}
-    />
-  )
-})
+    return (
+        <div
+            className={clsx(!hasExplicitIconSize(className) && 'size-[1em]', className)}
+            {...restProps}
+            ref={ref}
+            dangerouslySetInnerHTML={{
+                __html: icon.replace(
+                    /<svg([^>]*)>/g,
+                    '<svg$1 style="width: 100%; height: 100%; object-fit: contain;">',
+                ),
+            }}
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+            }}
+        />
+    );
+});

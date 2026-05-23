@@ -1,6 +1,6 @@
 export const userIcon =
-  `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M15 12.75C18.7279 12.75 21.75 15.7721 21.75 19.5V20.5C21.75 20.9142 21.4142 21.25 21 21.25H3C2.58579 21.25 2.25 20.9142 2.25 20.5V19.5C2.25 15.7721 5.27208 12.75 9 12.75H15ZM9 14.25C6.10051 14.25 3.75 16.6005 3.75 19.5V19.75H20.25V19.5C20.25 16.6005 17.8995 14.25 15 14.25H9Z" fill="currentColor"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.25C14.6234 2.25 16.75 4.37665 16.75 7C16.75 9.62336 14.6234 11.75 12 11.75C9.37664 11.75 7.25 9.62336 7.25 7C7.25 4.37665 9.37664 2.25 12 2.25ZM12 3.75C10.2051 3.75 8.75 5.20508 8.75 7C8.75 8.79493 10.2051 10.25 12 10.25C13.7949 10.25 15.25 8.79493 15.25 7C15.25 5.20508 13.7949 3.75 12 3.75Z" fill="currentColor"/>
 </svg>
-`.trim()
+`.trim();

@@ -1,6 +1,12 @@
 import path from 'node:path';
 import type { PlaywrightTestConfig, Project } from '@playwright/test';
-import { getProjectConfig, getProjectSpecDir, getScriptConfig, loadConfig, normalizeScriptProjects } from './config';
+import {
+    getProjectConfig,
+    getProjectSpecDir,
+    getScriptConfig,
+    loadConfig,
+    normalizeScriptProjects,
+} from './config';
 import { PACKAGE_ROOT } from './paths';
 
 function createDefaultBrowserProjects(): Project[] {
@@ -114,7 +120,11 @@ export async function buildPlaywrightConfig(): Promise<PlaywrightTestConfig> {
     const projectConfig = getProjectConfig(config, projectName);
     const scriptConfig = getScriptConfig(projectConfig, projectName, scriptName);
 
-    const mergedConfig = mergePlaywrightConfig(DEFAULT_PLAYWRIGHT_CONFIG, config.playwright, projectConfig.playwright);
+    const mergedConfig = mergePlaywrightConfig(
+        DEFAULT_PLAYWRIGHT_CONFIG,
+        config.playwright,
+        projectConfig.playwright,
+    );
     const selectedBrowserProjects = selectBrowserProjects(
         mergedConfig.projects as Project[] | undefined,
         normalizeScriptProjects(scriptConfig),

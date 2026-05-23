@@ -1,4 +1,4 @@
-const SEMI = `{{#if config.semi}};{{/if}}`
+const SEMI = `{{#if config.semi}};{{/if}}`;
 
 export const TS_ENUM_TEMPLATE = `
 {{~#if comment}}/** {{&comment}} */\n{{/if~}}
@@ -8,11 +8,11 @@ export enum {{name}} {
 {{../indent}}{{key}}{{#if value}} = {{&value}}{{/if}},
 {{/each}}
 }
-`.trim()
+`.trim();
 
 export const TS_NAMESPACE_TEMPLATE = `
 export * as {{name}} from './{{name}}'${SEMI}
-`.trim()
+`.trim();
 
 export const TS_TYPE_TEMPLATE = `
 {{~#if comment}}/** {{&comment}} */\n{{/if~}}
@@ -21,9 +21,9 @@ export interface {{name}}{{#if extends}} extends {{extends}}{{/if}} {
 {{&.}}
 {{/items}}
 }
-`.trim()
+`.trim();
 
 export const TS_FIELD_TEMPLATE = `
 {{~#if comment}}{{indent}}/** {{&comment}} */\n{{/if~}}
 {{indent}}{{name}}{{#optional}}?{{/optional}}: {{&type}}{{#if value}} = {{value}}{{/if}}${SEMI}
-`.trim()
+`.trim();

@@ -8,7 +8,10 @@ import tailwindcss from '@tailwindcss/vite';
 
 const resolve = (...p: string[]) => path.resolve(__dirname, ...p);
 
-dotenv.config({ path: resolve('node_modules', '@bestlyg', 'server-shared', '.env'), override: true });
+dotenv.config({
+    path: resolve('node_modules', '@bestlyg', 'server-shared', '.env'),
+    override: true,
+});
 
 // https://vite.dev/config/
 

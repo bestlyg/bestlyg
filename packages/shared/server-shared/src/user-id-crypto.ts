@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js'
+import CryptoJS from 'crypto-js';
 
 /**
  * 加密用户ID
@@ -8,15 +8,19 @@ import CryptoJS from 'crypto-js'
  * @param aesIV 初始化向量
  * @returns 加密后的Base64字符串
  */
-export function encryptUserId(text: string | CryptoJS.lib.WordArray, aesKey: string, aesIV: string) {
-  const key = CryptoJS.enc.Utf8.parse(aesKey)
-  const iv = CryptoJS.enc.Utf8.parse(aesIV)
-  const encrypted = CryptoJS.AES.encrypt(text, key, {
-    iv,
-    mode: CryptoJS.mode.CBC,
-    padding: CryptoJS.pad.Pkcs7,
-  })
-  return encrypted.ciphertext.toString(CryptoJS.enc.Base64)
+export function encryptUserId(
+    text: string | CryptoJS.lib.WordArray,
+    aesKey: string,
+    aesIV: string,
+) {
+    const key = CryptoJS.enc.Utf8.parse(aesKey);
+    const iv = CryptoJS.enc.Utf8.parse(aesIV);
+    const encrypted = CryptoJS.AES.encrypt(text, key, {
+        iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7,
+    });
+    return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
 }
 
 /**
@@ -27,13 +31,17 @@ export function encryptUserId(text: string | CryptoJS.lib.WordArray, aesKey: str
  * @param aesIV 初始化向量
  * @returns 解密后的用户ID字符串
  */
-export function decryptUserId(base64: string | CryptoJS.lib.CipherParams, aesKey: string, aesIV: string) {
-  const key = CryptoJS.enc.Utf8.parse(aesKey)
-  const iv = CryptoJS.enc.Utf8.parse(aesIV)
-  const encrypted = CryptoJS.AES.decrypt(base64, key, {
-    iv,
-    mode: CryptoJS.mode.CBC,
-    padding: CryptoJS.pad.Pkcs7,
-  })
-  return encrypted.toString(CryptoJS.enc.Utf8)
+export function decryptUserId(
+    base64: string | CryptoJS.lib.CipherParams,
+    aesKey: string,
+    aesIV: string,
+) {
+    const key = CryptoJS.enc.Utf8.parse(aesKey);
+    const iv = CryptoJS.enc.Utf8.parse(aesIV);
+    const encrypted = CryptoJS.AES.decrypt(base64, key, {
+        iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7,
+    });
+    return encrypted.toString(CryptoJS.enc.Utf8);
 }

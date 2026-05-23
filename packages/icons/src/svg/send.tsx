@@ -1,5 +1,5 @@
 export const sendIcon =
-  `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M20.4551 5.79272C20.9712 4.39184 19.6089 3.02953 18.208 3.54565L3.41016 8.99683C1.97193 9.52677 1.86154 11.5193 3.23242 12.2048L8.2334 14.7048L11.4707 11.4695C11.7636 11.1768 12.2384 11.1767 12.5312 11.4695C12.8241 11.7623 12.8239 12.2371 12.5312 12.53L9.29492 15.7664L11.7959 20.7683C12.4815 22.1392 14.474 22.0288 15.0039 20.5906L20.4551 5.79272Z" fill="currentColor" fill-opacity="0.8824"/>
 </svg>
-`.trim()
+`.trim();

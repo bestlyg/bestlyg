@@ -1,5 +1,5 @@
 export const bottomSIcon =
-  `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path d="M18.0264 9.78231C18.3193 9.48941 18.3193 9.01464 18.0264 8.72176C17.7336 8.42893 17.2588 8.42893 16.9659 8.72176L12.0001 13.6876L7.03426 8.72176C6.74136 8.42901 6.26656 8.42891 5.97371 8.72176C5.68092 9.01461 5.68098 9.48942 5.97371 9.78231L11.4698 15.2784C11.7627 15.5713 12.2375 15.5712 12.5304 15.2784L18.0264 9.78231Z" fill="currentColor"/>
 </svg>
-`.trim()
+`.trim();

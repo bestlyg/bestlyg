@@ -1,7 +1,7 @@
 export const moreHorizontalIcon =
-  `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path d="M17 12C17 11.1716 17.6716 10.5 18.5 10.5C19.3284 10.5 20 11.1716 20 12C20 12.8284 19.3284 13.5 18.5 13.5C17.6716 13.5 17 12.8284 17 12Z" fill="currentColor" fill-opacity="0.8824"/>
 <path d="M10.5 12C10.5 11.1716 11.1715 10.5 12 10.5C12.8284 10.5 13.5 11.1716 13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1715 13.5 10.5 12.8284 10.5 12Z" fill="currentColor" fill-opacity="0.8824"/>
 <path d="M5.49998 10.5C4.67155 10.5 3.99998 11.1716 3.99998 12C3.99998 12.8284 4.67155 13.5 5.49998 13.5C6.3284 13.5 6.99998 12.8284 6.99998 12C6.99998 11.1716 6.3284 10.5 5.49998 10.5Z" fill="currentColor" fill-opacity="0.8824"/>
 </svg>
-`.trim()
+`.trim();

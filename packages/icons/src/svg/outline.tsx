@@ -1,5 +1,5 @@
 export const outlineIcon =
-  `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path d="M4 17.5C4.55228 17.5 5 17.9477 5 18.5C5 19.0523 4.55228 19.5 4 19.5C3.44772 19.5 3 19.0523 3 18.5C3 17.9477 3.44772 17.5 4 17.5Z" fill="currentColor"/>
 <path d="M20 17.75C20.4142 17.75 20.75 18.0858 20.75 18.5C20.75 18.9142 20.4142 19.25 20 19.25H7C6.58579 19.25 6.25 18.9142 6.25 18.5C6.25 18.0858 6.58579 17.75 7 17.75H20Z" fill="currentColor"/>
 <path d="M8 11C8.55228 11 9 11.4477 9 12C9 12.5523 8.55228 13 8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11Z" fill="currentColor"/>
@@ -7,4 +7,4 @@ export const outlineIcon =
 <path d="M4 4.5C4.55228 4.5 5 4.94772 5 5.5C5 6.05228 4.55228 6.5 4 6.5C3.44772 6.5 3 6.05228 3 5.5C3 4.94772 3.44772 4.5 4 4.5Z" fill="currentColor"/>
 <path d="M20 4.75C20.4142 4.75 20.75 5.08579 20.75 5.5C20.75 5.91421 20.4142 6.25 20 6.25H7C6.58579 6.25 6.25 5.91421 6.25 5.5C6.25 5.08579 6.58579 4.75 7 4.75H20Z" fill="currentColor"/>
 </svg>
-`.trim()
+`.trim();

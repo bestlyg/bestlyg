@@ -1,2 +1,2 @@
-export * from './plugin'
-export * from './template'
+export * from './plugin';
+export * from './template';

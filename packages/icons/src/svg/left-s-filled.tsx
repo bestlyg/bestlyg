@@ -1,5 +1,5 @@
 export const leftSFilledIcon =
-  `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path d="M13.293 7.29297C13.579 7.00705 14.0092 6.92141 14.3828 7.07617C14.7562 7.23105 15 7.59569 15 8V16C15 16.4043 14.7563 16.769 14.3828 16.9238C14.0092 17.0786 13.579 16.9929 13.293 16.707L9.29297 12.707C8.90244 12.3165 8.90244 11.6835 9.29297 11.293L13.293 7.29297Z" fill="currentColor"/>
 </svg>
-`.trim()
+`.trim();

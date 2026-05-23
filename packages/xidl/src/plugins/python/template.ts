@@ -13,7 +13,7 @@ class {{name}}(StrEnum):
 {{../indent}}"""
 {{/if}}
 {{/items}}
-`.trim()
+`.trim();
 
 export const PY_FIELD_TEMPLATE = `
 {{indent}}{{name}}: {{&type}}{{#if value}} = {{value}}{{/if}}
@@ -22,7 +22,7 @@ export const PY_FIELD_TEMPLATE = `
 {{indent}}{{&comment}}
 {{indent}}"""
 {{/if}}
-`.trim()
+`.trim();
 
 export const PY_TYPE_TEMPLATE = `
 @dataclass
@@ -38,4 +38,4 @@ class {{name}}{{#if extends}}({{extends}}){{/if}}:
 {{^if items.length}}
 {{indent}}pass
 {{/if}}
-`.trim()
+`.trim();

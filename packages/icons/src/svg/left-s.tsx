@@ -1,5 +1,5 @@
 export const leftSIcon =
-  `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path d="M14.2177 18.0264C14.5106 18.3193 14.9854 18.3193 15.2782 18.0264C15.5711 17.7336 15.5711 17.2588 15.2782 16.9659L10.3124 12.0001L15.2782 7.03426C15.571 6.74136 15.5711 6.26656 15.2782 5.97372C14.9854 5.68092 14.5106 5.68098 14.2177 5.97371L8.7216 11.4698C8.42872 11.7627 8.42876 12.2375 8.7216 12.5304L14.2177 18.0264Z" fill="currentColor"/>
 </svg>
-`.trim()
+`.trim();

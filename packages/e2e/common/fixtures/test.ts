@@ -21,7 +21,9 @@ function formatTestTitle(testInfo: TestInfo) {
 }
 
 function formatTestRunKey(testInfo: TestInfo) {
-    return [testInfo.workerIndex, testInfo.retry, testInfo.file, ...testInfo.titlePath].join('\u0000');
+    return [testInfo.workerIndex, testInfo.retry, testInfo.file, ...testInfo.titlePath].join(
+        '\u0000',
+    );
 }
 
 export function withStepLogging<T extends TestWithStep>(testInstance: T): T {

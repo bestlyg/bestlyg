@@ -1,5 +1,5 @@
 export const locationIcon =
-  `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9998 2.06104C4.96289 2.06104 0.983416 10.1329 5.26842 15.7147L8.94822 20.5081C10.9998 23 12.9998 23 15.0513 20.5081L18.7311 15.7147C23.0161 10.1329 19.0366 2.06104 11.9998 2.06104ZM11.9997 13.5439C13.7947 13.5439 15.2497 12.0889 15.2497 10.2939C15.2497 8.49902 13.7947 7.04395 11.9997 7.04395C10.2048 7.04395 8.74973 8.49902 8.74973 10.2939C8.74973 12.0889 10.2048 13.5439 11.9997 13.5439Z" fill="currentColor"/>
 </svg>
-`.trim()
+`.trim();

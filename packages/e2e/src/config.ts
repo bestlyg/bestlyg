@@ -3,7 +3,12 @@ import path from 'node:path';
 import { loadConfig as loadConfigInternal } from 'c12';
 import { createDefu } from 'defu';
 import { PACKAGE_ROOT, PROJECTS_ROOT } from './paths';
-import type { BestlygE2EConfig, BestlygE2EProjectConfig, BestlygE2EScriptConfig, LoadConfigOptions } from './types';
+import type {
+    BestlygE2EConfig,
+    BestlygE2EProjectConfig,
+    BestlygE2EScriptConfig,
+    LoadConfigOptions,
+} from './types';
 
 const mergeConfigValues = createDefu((target, key, value) => {
     if (Array.isArray(target[key]) && Array.isArray(value)) {
@@ -121,13 +126,19 @@ export function getProjectConfig(config: BestlygE2EConfig, projectName: string) 
 
     if (!projectConfig) {
         const availableProjects = listProjects(config);
-        throw new Error(`未知的 E2E 项目 "${projectName}"。可用项目：${availableProjects.join(', ') || '无'}。`);
+        throw new Error(
+            `未知的 E2E 项目 "${projectName}"。可用项目：${availableProjects.join(', ') || '无'}。`,
+        );
     }
 
     return projectConfig;
 }
 
-export function getScriptConfig(projectConfig: BestlygE2EProjectConfig, projectName: string, scriptName: string) {
+export function getScriptConfig(
+    projectConfig: BestlygE2EProjectConfig,
+    projectName: string,
+    scriptName: string,
+) {
     const scriptConfig = projectConfig.scripts[scriptName];
 
     if (!scriptConfig) {

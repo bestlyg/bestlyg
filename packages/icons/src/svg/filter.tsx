@@ -1,5 +1,5 @@
 export const filterIcon =
-  `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path d="M18.9844 3.50586C20.5902 3.62478 21.4218 5.54384 20.3457 6.80078L14.7989 13.2783V21C14.7989 21.3457 14.6207 21.6671 14.3272 21.8496C14.0336 22.032 13.6664 22.0495 13.3565 21.8965L9.75589 20.1191C9.41501 19.9506 9.19942 19.6029 9.19925 19.2227V13.2783L3.65237 6.80078C2.54169 5.50328 3.46392 3.50017 5.17191 3.5H18.8262L18.9844 3.50586Z" fill="currentColor" fill-opacity="0.8824"/>
 </svg>
-`.trim()
+`.trim();
