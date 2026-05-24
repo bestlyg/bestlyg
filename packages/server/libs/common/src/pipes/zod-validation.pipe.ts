@@ -1,4 +1,4 @@
-import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
+import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from '@nestjs/common';
 import { isZodModel } from '@bestlyg/server-shared';
 
 @Injectable()
@@ -6,7 +6,11 @@ export class ZodValidationPipe implements PipeTransform {
     transform(value: any, metadata: ArgumentMetadata) {
         const cstr = metadata?.metatype as any;
         if (isZodModel(cstr)) {
-            return new cstr(value) as any;
+            try {
+                return new cstr(value) as any;
+            } catch (error) {
+                throw new BadRequestException((error as any)?.message ?? 'Validation failed');
+            }
         }
         return value;
     }

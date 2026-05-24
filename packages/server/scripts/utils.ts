@@ -35,24 +35,24 @@ export const today = nDaysAgo(0);
 export const yesterday = nDaysAgo(1);
 
 export async function createXuanData(request: AxiosInstance, dataList: Partial<Xuan>[]) {
-    const res = await request.post('/api/database/xuan', dataList);
+    const res = await request.post('/api/database/xuan/batch', dataList);
     return res.data.data;
 }
 
 export async function createLedger(request: AxiosInstance, dataList: Partial<Ledger>[]) {
-    const res = await request.post('/api/database/ledger', dataList);
+    const res = await request.post('/api/database/ledger/batch', dataList);
     return res.data.data;
 }
 
 export async function getLedgerList(request: AxiosInstance) {
-    const res = await request.get('/api/database/ledger/list');
+    const res = await request.get('/api/database/ledger');
     return res.data.data;
 }
 
 export async function createProblem(request: AxiosInstance, problem: Partial<LeetcodeProblem[]>) {
     console.log('CreateProblem');
     console.log(JSON.stringify(problem, null, 4));
-    const resp = await request.post('/api/database/leetcode-problem', problem);
+    const resp = await request.post('/api/database/leetcode-problem/batch', problem);
     console.log(resp.data);
     return resp.data.data;
 }
@@ -60,9 +60,9 @@ export async function createProblem(request: AxiosInstance, problem: Partial<Lee
 export async function getProblem(request: AxiosInstance, name: string) {
     console.log('getProblem');
 
-    const resp = await request.get('/api/database/leetcode-problem', {
-        params: { name },
-    });
+    const resp = await request.get(
+        '/api/database/leetcode-problem/by-name/' + encodeURIComponent(name),
+    );
 
     return resp.data.data;
 }
@@ -70,7 +70,9 @@ export async function getProblem(request: AxiosInstance, name: string) {
 export async function getProblemWithSlug(request: AxiosInstance, slug: string) {
     console.log('getProblem');
 
-    const resp = await request.post('/api/database/leetcode-problem/slug/' + slug);
+    const resp = await request.get(
+        '/api/database/leetcode-problem/by-slug/' + encodeURIComponent(slug),
+    );
 
     return resp.data.data;
 }
@@ -95,7 +97,7 @@ export async function createSolution(
     console.log('createSolution');
     console.log(JSON.stringify(solution, null, 4));
 
-    const resp = await request.post('/api/database/leetcode-solution', solution);
+    const resp = await request.post('/api/database/leetcode-solution/batch', solution);
 
     return resp.data.data;
 }

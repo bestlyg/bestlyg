@@ -1,10 +1,9 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { Calendar } from '@/shadcn/ui/calendar';
-import { PageParam, PageData, apiMap } from '@bestlyg/client-shared';
+import { ledgerFindPageAndCount, PageData, PageParam } from '@bestlyg/client-shared';
 import { Table } from 'antd';
 import { useRequest } from 'ahooks';
-import { request } from '@/utils';
 import type { Ledger } from '@bestlyg/client-shared';
 
 async function fetchLedgers({
@@ -14,15 +13,10 @@ async function fetchLedgers({
     pageParam: PageParam;
     param: { date?: Date };
 }): Promise<PageData<Ledger> | null> {
-    const data = await request({
-        url: apiMap.LedgerController.findPageAndCount.path,
-        method: 'get',
-        data: {
-            current: pageParam.current,
-            pageSize: pageParam.pageSize,
-            date: param.date ? dayjs(param.date).format('YYYY-MM-DD') : undefined,
-        },
-        serializer: 'json',
+    const data = await ledgerFindPageAndCount({
+        current: pageParam.current,
+        pageSize: pageParam.pageSize,
+        date: param.date ? dayjs(param.date).format('YYYY-MM-DD') : undefined,
     });
     return PageData.from(data);
 }

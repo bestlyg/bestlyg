@@ -7,18 +7,11 @@ import { useParams } from 'react-router';
 import { useSetAtom } from 'jotai';
 import { summaryNodeAtom } from '@/components/app-layout';
 import { MarkdownSummary } from '@/components/markdown-summary';
-import { apiMap } from '@bestlyg/client-shared';
-import { request } from '@/utils';
+import { staticGetStaticFile } from '@bestlyg/client-shared';
 
 async function fetchReadableStaticFile(p?: string | null): Promise<string | null> {
     if (!p) return null;
-    const data = await request({
-        url: apiMap.StaticController.getStaticFile.path,
-        method: apiMap.StaticController.getStaticFile.method,
-        data: { p: `docs/${p}`, r: 'true' },
-        serializer: 'json',
-    });
-    return data;
+    return staticGetStaticFile({ p: `docs/${p}`, r: true });
 }
 
 function Doc({ promise }: { promise: ReturnType<typeof fetchReadableStaticFile> }) {

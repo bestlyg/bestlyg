@@ -3,7 +3,7 @@ import { Button } from '@/shadcn/ui/button';
 import { Textarea } from '@/shadcn/ui/textarea';
 import { useBoolean } from 'ahooks';
 import { useEffect, useState } from 'react';
-import { apiMap, sse, ResponseEntity } from '@bestlyg/client-shared';
+import { appSseFetch, ResponseEntity, sse } from '@bestlyg/client-shared';
 import { xTokenName } from '@/utils';
 
 const defaultInput = `
@@ -88,12 +88,7 @@ export default function Sse() {
         const token = localStorage.getItem(xTokenName);
         if (token) headers.Authorization = `Bearer ${token}`;
         loadingOps.setTrue();
-        eventSource
-            .fetch(apiMap.AppController.sse.path, {
-                method: apiMap.AppController.sse.method,
-                headers,
-                body: JSON.stringify({ data: inputVal, sleepTime: 50 }),
-            })
+        appSseFetch(eventSource, { data: inputVal, sleepTime: 50 }, { headers })
             .catch((err) => {
                 console.log('SSE ERR', err);
             })

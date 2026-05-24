@@ -8,32 +8,22 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shadcn/ui/form';
 import { useToast } from '@/shadcn/hooks/use-toast';
-import { request, userInfoAtom, xTokenName } from '@/utils';
+import { userInfoAtom, xTokenName } from '@/utils';
 import { useSetAtom } from 'jotai';
-import { encrypt, apiMap } from '@bestlyg/client-shared';
+import { authSignIn, encrypt } from '@bestlyg/client-shared';
 import { configuration } from '@/utils/configuration';
 import { Navigate } from 'react-router';
 
 async function login(data: { username: string; password: string }) {
-    const res = await request<
-        any,
-        {
-            username: string;
-            nickname: string;
-            description: string;
-            avatar: string;
-            access_token: string;
-        }
-    >({
-        url: apiMap.AuthController.signIn.path,
-        data: {
-            ...data,
-            password: encrypt(data.password, configuration.aes.key, configuration.aes.iv),
-        },
-        method: apiMap.AuthController.signIn.method,
-        serializer: 'json',
+    const res = await authSignIn({
+        ...data,
+        password: encrypt(data.password, configuration.aes.key, configuration.aes.iv),
     });
-    return res;
+    if (!res) return res;
+    return {
+        ...res,
+        access_token: res.access_token ?? res.accessToken ?? '',
+    };
 }
 
 const formSchema = z.object({

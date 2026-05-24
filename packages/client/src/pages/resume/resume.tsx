@@ -19,8 +19,7 @@ import {
     downloadPDFMultiPage,
     a4SizeInPixels,
 } from './utils';
-import { apiMap } from '@bestlyg/client-shared';
-import { request } from '@/utils';
+import { staticGetStaticFile } from '@bestlyg/client-shared';
 
 export interface ResumeProps {
     resumeSource?: string;
@@ -28,16 +27,7 @@ export interface ResumeProps {
     onResumeSourceChange?: (v: string) => void;
 }
 async function fetchResume() {
-    const res = await request({
-        url: apiMap.StaticController.getStaticFile.path,
-        method: apiMap.StaticController.getStaticFile.method,
-        serializer: 'json',
-        data: {
-            p: `resume.md`,
-            r: 'true',
-        },
-    });
-    return res;
+    return staticGetStaticFile({ p: 'resume.md', r: true });
 }
 
 export default function Resume() {

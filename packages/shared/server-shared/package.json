@@ -41,6 +41,7 @@
         "@bestlyg/core-shared": "workspace:^",
         "crypto-js": "catalog:",
         "dayjs": "catalog:",
+        "exceljs": "catalog:",
         "figlet": "catalog:",
         "fs-extra": "catalog:",
         "metadata-file": "workspace:^",

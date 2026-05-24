@@ -34,8 +34,7 @@
         }
     },
     "scripts": {
-        "build:api-map": "node scripts/api-map.mjs",
-        "build": "pnpm build:api-map && unbuild --config ./build.config.ts",
+        "build": "unbuild --config ./build.config.ts",
         "dev": "unbuild --config ./build.config.ts --watch"
     },
     "dependencies": {

@@ -18,14 +18,20 @@ export const hooks = Object.freeze({
 });
 
 /** 发起统一 API 请求，自动携带 x-token 并解包 ResponseEntity。 */
+export type RequestSerializer = 'json' | 'form';
+export type RequestResponseType = 'json' | 'blob' | 'arraybuffer';
+
 export async function request<Req = any, Res = any>({
     url,
     method,
     data,
+    serializer = 'json',
+    responseType = 'json',
 }: {
     method: string;
     url: string;
-    serializer: string;
+    serializer?: RequestSerializer;
+    responseType?: RequestResponseType;
     data: Req;
 }): Promise<Res | null> {
     try {
@@ -34,13 +40,17 @@ export async function request<Req = any, Res = any>({
         const config: Parameters<typeof instance.request>[0] = {
             url,
             method,
+            responseType,
             headers: {},
         };
         if (!config.headers) config.headers = {};
         if (token) config.headers.Authorization = `Bearer ${token}`;
         if (method === 'get') config.params = data;
-        else config.data = data;
+        else if (serializer === 'form') {
+            config.data = data;
+        } else config.data = data;
         const resp = await instance.request(config);
+        if (responseType !== 'json') return resp.data as Res;
         const entity = ResponseEntity.from<any>(resp.data);
         if (entity.getCode() !== 0) throw entity;
         return entity.getData();

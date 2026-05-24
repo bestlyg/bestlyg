@@ -1,7 +1,10 @@
 import { RandomIcon } from '@/components/random-icon';
 import { routeMap } from '@/routes';
-import { apiMap, type Sidebar } from '@bestlyg/client-shared';
-import { request } from './request';
+import {
+    clientGetDocsSidebars,
+    clientGetLeetcodeSidebars,
+    type Sidebar,
+} from '@bestlyg/client-shared';
 
 declare const __MODE__: 'development' | 'production' | undefined;
 
@@ -68,23 +71,13 @@ async function requestManagementSidebars(): Promise<Sidebar> {
 }
 
 async function requestDocSidebars(): Promise<Sidebar> {
-    const res = await request({
-        method: 'get',
-        url: apiMap.ClientController.getDocsSidebars.path,
-        serializer: 'json',
-        data: null,
-    });
-    return res;
+    const res = await clientGetDocsSidebars();
+    return res ?? {};
 }
 
 async function requestLeetcodeSidebars(): Promise<Sidebar> {
-    const res = await request({
-        method: 'get',
-        url: apiMap.ClientController.getLeetcodeSidebars.path,
-        serializer: 'json',
-        data: null,
-    });
-    return res;
+    const res = await clientGetLeetcodeSidebars();
+    return res ?? {};
 }
 
 export const sidebarCategories: {

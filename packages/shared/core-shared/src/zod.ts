@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-type AnyZodObject = z.ZodObject<any>;
+type AnyZodSchema = z.ZodTypeAny;
 
 // 这些内部字段不能出现在 JSON 或 Object.keys 中，所以用 symbol + non-enumerable 保存。
 const zodRawSymbol = Symbol('zod-model-raw');
@@ -17,7 +17,7 @@ export interface ZodModelConfig {
 }
 
 /** modelCopy 的复制选项。 */
-export type ZodModelCopyOptions<T extends AnyZodObject = AnyZodObject> = {
+export type ZodModelCopyOptions<T extends AnyZodSchema = AnyZodSchema> = {
     /** 覆盖到 dump 数据上的字段，合并后会重新经过 schema 校验。 */
     update?: Partial<z.input<T>> | Partial<z.output<T>> | Record<string, unknown>;
     /** 是否先深拷贝当前 dump 数据，避免新旧模型共享嵌套对象引用。 */
@@ -25,20 +25,20 @@ export type ZodModelCopyOptions<T extends AnyZodObject = AnyZodObject> = {
 };
 
 /** 模型实例类型：包含 schema 推导出的数据字段和 ZodModel 实例方法。 */
-export type ZodModelInstance<T extends AnyZodObject = AnyZodObject> = z.output<T> & ZodModel<T>;
+export type ZodModelInstance<T extends AnyZodSchema = AnyZodSchema> = z.output<T> & ZodModel<T>;
 
 /** safeParse 的返回结构，错误会被统一包成 ZodModelValidationError。 */
-export type ZodModelSafeParseReturn<T extends AnyZodObject = AnyZodObject> =
+export type ZodModelSafeParseReturn<T extends AnyZodSchema = AnyZodSchema> =
     | { success: true; data: ZodModelInstance<T> }
     | { success: false; error: ZodModelValidationError<T> };
 
 /** 带 Zod schema 元信息的模型构造器。 */
-export interface ZodModelConstructor<T extends AnyZodObject = AnyZodObject> {
+export interface ZodModelConstructor<T extends AnyZodSchema = AnyZodSchema> {
     /** 用原始输入创建模型实例，构造时立即执行 schema 校验。 */
     new (raw?: z.input<T>): ZodModelInstance<T>;
     readonly [zodSchemaSymbol]: T;
     readonly modelName: string;
-    /** 返回当前模型绑定的 ZodObject。 */
+    /** 返回当前模型绑定的 Zod schema。 */
     getSchema(): T;
     /** 返回模型配置。 */
     getConfig(): ZodModelConfig;
@@ -60,7 +60,7 @@ export function isZodModel(o: unknown): o is ZodModelConstructor {
     return Boolean((o as any)[zodSchemaSymbol]);
 }
 
-export class ZodModelValidationError<T extends AnyZodObject = AnyZodObject> extends TypeError {
+export class ZodModelValidationError<T extends AnyZodSchema = AnyZodSchema> extends TypeError {
     /** Zod 原始 issue 列表，便于上层格式化字段级错误。 */
     readonly issues: z.ZodIssue[];
     /** 触发校验失败的原始输入。 */
@@ -92,7 +92,7 @@ export class ZodModelValidationError<T extends AnyZodObject = AnyZodObject> exte
  * 推荐写法：
  * class UserModel extends ZodModel.withSchema(UserSchema) {}
  */
-export abstract class ZodModel<T extends AnyZodObject = AnyZodObject> {
+export abstract class ZodModel<T extends AnyZodSchema = AnyZodSchema> {
     constructor(raw?: z.input<T>) {
         const cstr = this.constructor as unknown as ZodModelConstructor<T>;
         const schema = cstr.getSchema();
@@ -103,6 +103,8 @@ export abstract class ZodModel<T extends AnyZodObject = AnyZodObject> {
         }
 
         const plain = result.data as z.output<T>;
+        if (Array.isArray(plain)) return plain as any;
+
         const dumpKeys = getEnumerableStringKeys(plain);
         assertNoReservedKeys(dumpKeys, cstr.getModelName(), 'parsed data');
 
@@ -113,7 +115,7 @@ export abstract class ZodModel<T extends AnyZodObject = AnyZodObject> {
     }
 
     /** 将 schema 绑定到一个可被 class extends 的中间父类上。 */
-    static withSchema<T extends AnyZodObject>(
+    static withSchema<T extends AnyZodSchema>(
         schema: T,
         config: ZodModelConfig = {},
     ): ZodModelConstructor<T> {
@@ -126,7 +128,7 @@ export abstract class ZodModel<T extends AnyZodObject = AnyZodObject> {
     }
 
     /** 获取当前模型类绑定的 Zod schema。 */
-    static getSchema(): AnyZodObject {
+    static getSchema(): AnyZodSchema {
         const schema = (this as any)[zodSchemaSymbol];
         if (!schema) {
             throw new TypeError(`${this.name || 'ZodModel'} does not declare a Zod schema`);
@@ -146,7 +148,7 @@ export abstract class ZodModel<T extends AnyZodObject = AnyZodObject> {
     }
 
     /** 校验原始输入并返回模型实例。 */
-    static modelValidate<T extends AnyZodObject>(
+    static modelValidate<T extends AnyZodSchema>(
         this: ZodModelConstructor<T>,
         raw?: z.input<T>,
     ): ZodModelInstance<T> {
@@ -154,7 +156,7 @@ export abstract class ZodModel<T extends AnyZodObject = AnyZodObject> {
     }
 
     /** modelValidate 的短别名。 */
-    static parse<T extends AnyZodObject>(
+    static parse<T extends AnyZodSchema>(
         this: ZodModelConstructor<T>,
         raw?: z.input<T>,
     ): ZodModelInstance<T> {
@@ -162,7 +164,7 @@ export abstract class ZodModel<T extends AnyZodObject = AnyZodObject> {
     }
 
     /** 不抛异常的校验入口，失败时返回结构化 ZodModelValidationError。 */
-    static safeParse<T extends AnyZodObject>(
+    static safeParse<T extends AnyZodSchema>(
         this: ZodModelConstructor<T>,
         raw?: z.input<T>,
     ): ZodModelSafeParseReturn<T> {
@@ -177,7 +179,7 @@ export abstract class ZodModel<T extends AnyZodObject = AnyZodObject> {
     }
 
     /** 判断 value 是否由当前模型类构造。 */
-    static is<T extends AnyZodObject>(
+    static is<T extends AnyZodSchema>(
         this: ZodModelConstructor<T>,
         value: unknown,
     ): value is ZodModelInstance<T> {
@@ -258,20 +260,20 @@ export abstract class ZodModel<T extends AnyZodObject = AnyZodObject> {
     }
 }
 
-/** 基于 ZodObject 创建可被 class extends 的模型父类。 */
-export function createZodModel<T extends AnyZodObject = AnyZodObject>(
+/** 基于 Zod schema 创建可被 class extends 的模型父类。 */
+export function createZodModel<T extends AnyZodSchema = AnyZodSchema>(
     schema: T,
     config: ZodModelConfig = {},
 ) {
     return createZodModelClass(schema, config);
 }
 
-function createZodModelClass<T extends AnyZodObject>(
+function createZodModelClass<T extends AnyZodSchema>(
     schema: T,
     config: ZodModelConfig,
 ): ZodModelConstructor<T> {
     const normalizedConfig = { ...config };
-    const schemaKeys = Object.keys(schema.shape);
+    const schemaKeys = getSchemaKeys(schema);
     assertNoReservedKeys(schemaKeys, normalizedConfig.name || 'ZodModel', 'schema');
 
     class ZodModelWithSchema extends ZodModel<T> {}
@@ -305,7 +307,14 @@ function defineHiddenValue(target: object, key: PropertyKey, value: unknown) {
     });
 }
 
-/** 获取可 dump 的业务字段名；ZodObject 输出理论上是普通对象，这里仍保留防御。 */
+/** 获取 ZodObject 的字段名；数组等非对象 schema 没有字段需要检查。 */
+function getSchemaKeys(schema: AnyZodSchema) {
+    const shape = (schema as { shape?: unknown }).shape;
+    if (!shape || typeof shape !== 'object') return [];
+    return Object.keys(shape);
+}
+
+/** 获取可 dump 的业务字段名；非对象输出没有字段需要 dump。 */
 function getEnumerableStringKeys(value: unknown) {
     if (!value || typeof value !== 'object') return [];
     return Object.keys(value);

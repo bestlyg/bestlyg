@@ -12,10 +12,9 @@ import {
     getDayOnDay,
     getQuarterOnQuarter,
     getHalfYearOnHalfYear,
-    apiMap,
+    xuanFindList,
 } from '@bestlyg/client-shared';
 import type { Xuan as XuanDB } from '@bestlyg/client-shared';
-import { request } from '@/utils';
 
 function XuansSkeleton() {
     const item = (
@@ -38,13 +37,7 @@ function XuansSkeleton() {
 }
 
 async function fetchXuan(): Promise<XuanDB[] | null> {
-    const data = await request({
-        url: apiMap.XuanController.findList.path,
-        method: 'get',
-        data: {},
-        serializer: 'json',
-    });
-    return data;
+    return xuanFindList();
 }
 
 export function XuanChart({ promise }: { promise: ReturnType<typeof fetchXuan> }) {

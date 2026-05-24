@@ -1,12 +1,9 @@
 import { Module } from '@nestjs/common';
-import * as modules from './modules';
-import * as controllers from './controllers';
-import { leetcode } from '@bestlyg-server/common';
+import { databaseResourceModules } from './modules';
+import './upload-file-exception';
 
 @Module({
-    imports: Object.values(modules),
-    controllers: Object.values(controllers),
-    exports: Object.values(modules),
-    providers: [leetcode.LeetCodeService],
+    imports: databaseResourceModules,
+    exports: databaseResourceModules,
 })
 export class DatabaseModule {}

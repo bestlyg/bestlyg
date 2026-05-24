@@ -9,3 +9,4 @@ export * from './logo';
 export * from './logger';
 export * from './is-server-response';
 export * from './user-id-crypto';
+export * from './upload-file';

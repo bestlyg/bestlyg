@@ -1,8 +1,6 @@
 import { useRequest } from 'ahooks';
-// import { serverManifest } from '@bestlyg/client-shared';
 import React from 'react';
 import 'highlight.js/styles/github.css';
-import _ from 'lodash';
 import { useToast } from '@/shadcn/hooks/use-toast';
 import { Button } from '@/shadcn/ui/button';
 import { Input } from '@/shadcn/ui/input';
@@ -18,37 +16,27 @@ import {
     AlertDialogTrigger,
 } from '@/shadcn/ui/alert-dialog';
 import { MonacoEditor } from '@/components/monaco-editor';
-import { apiMap } from '@bestlyg/client-shared';
-import { request } from '@/utils';
-
-export type ServerlessData = {
-    codes: Array<{
-        id: string;
-        name: string;
-        code: string;
-        createdTime: string | Date;
-    }>;
-};
+import {
+    serverlessCallGet,
+    serverlessDelete,
+    serverlessFindList,
+    serverlessSave,
+    serverlessUpdate,
+    type Serverless as ServerlessCode,
+} from '@bestlyg/client-shared';
 
 async function fetchServerless() {
-    const data = await request<any, ServerlessData[] | null>({
-        url: apiMap.ServerlessController.getServerless.path,
-        method: apiMap.ServerlessController.getServerless.method,
-        data: {},
-        serializer: 'json',
-    });
-    return data;
+    return (await serverlessFindList()) ?? [];
 }
 
 export default function Serverless() {
     const { toast } = useToast();
     const { data, refresh } = useRequest(fetchServerless);
     const codes =
-        data
-            ?.flatMap((v) => v.codes)
-            .sort(
-                (a, b) => new Date(a.createdTime).getTime() - new Date(b.createdTime).getTime(),
-            ) ?? [];
+        data?.sort(
+            (a, b) =>
+                new Date(a.createdTime ?? 0).getTime() - new Date(b.createdTime ?? 0).getTime(),
+        ) ?? [];
     const [activeCodeId, setActiveCodeId] = React.useState('');
     const [code, setCode] = React.useState('');
     const [name, setName] = React.useState('');
@@ -57,12 +45,12 @@ export default function Serverless() {
             <div className="flex gap-2">
                 {codes.map((v) => (
                     <Button
-                        key={v.id}
+                        key={v.id ?? v.name}
                         variant={v.id === activeCodeId ? 'default' : 'outline'}
                         onClick={() => {
-                            setCode(v.code);
-                            setName(v.name);
-                            setActiveCodeId(v.id);
+                            setCode(v.code ?? '');
+                            setName(v.name ?? '');
+                            setActiveCodeId(v.id ?? '');
                         }}
                     >
                         {v.name}
@@ -81,14 +69,9 @@ export default function Serverless() {
                 <Button
                     variant="outline"
                     onClick={async () => {
-                        await request({
-                            serializer: 'json',
-                            url: apiMap.ServerlessCodeController.createServerlessCode.path,
-                            method: apiMap.ServerlessCodeController.createServerlessCode.method,
-                            data: {
-                                name: Date.now().toString(),
-                                code: 'resolve(1)',
-                            },
+                        await serverlessSave({
+                            name: Date.now().toString(),
+                            code: 'resolve(1)',
                         });
                         toast({
                             title: 'Successful',
@@ -104,11 +87,8 @@ export default function Serverless() {
                         <Button
                             variant="outline"
                             onClick={async () => {
-                                const res = await request({
-                                    serializer: 'json',
-                                    url: apiMap.ServerlessController.callGet.path,
-                                    method: apiMap.ServerlessController.callGet.method,
-                                    data: {
+                                const res = await serverlessCallGet({
+                                    query: {
                                         name,
                                     },
                                 });
@@ -123,16 +103,12 @@ export default function Serverless() {
                         <Button
                             variant="outline"
                             onClick={async () => {
-                                await request({
-                                    url: apiMap.ServerlessCodeController.updateServerlessCode.path,
-                                    method: apiMap.ServerlessCodeController.updateServerlessCode
-                                        .method,
-                                    data: {
-                                        id: activeCodeId,
+                                await serverlessUpdate({
+                                    params: { id: activeCodeId },
+                                    body: {
                                         name,
                                         code,
                                     },
-                                    serializer: 'json',
                                 });
                                 toast({
                                     title: 'Successful',
@@ -158,16 +134,7 @@ export default function Serverless() {
                                     <AlertDialogCancel>No</AlertDialogCancel>
                                     <AlertDialogAction
                                         onClick={async () => {
-                                            await request({
-                                                url: apiMap.ServerlessCodeController
-                                                    .deleteServerlessCode.path,
-                                                method: apiMap.ServerlessCodeController
-                                                    .deleteServerlessCode.method,
-                                                data: {
-                                                    id: activeCodeId,
-                                                },
-                                                serializer: 'json',
-                                            });
+                                            await serverlessDelete({ id: activeCodeId });
                                             toast({
                                                 title: 'Successful',
                                                 description: `delete ${name}'s code.`,
@@ -186,7 +153,9 @@ export default function Serverless() {
                 )}
             </div>
             <MonacoEditor
-                defaultValue={codes.find((v) => v.id === activeCodeId)?.code ?? ''}
+                defaultValue={
+                    (codes as ServerlessCode[]).find((v) => v.id === activeCodeId)?.code ?? ''
+                }
                 onChange={setCode}
             />
         </div>
