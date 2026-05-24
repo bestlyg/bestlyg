@@ -39,7 +39,6 @@ const dumpPath = resolve('dist', dbName + '.sql');
 await run(`cp -rf ${resolve(homePath, '.zshrc')} ${resolve('packages', 'static', '.zshrc')}`);
 // db
 await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
-
 await run('pnpm --filter @bestlyg/client run deploy');
 await run(`scp -r ${dumpPath} ${config.ssh.username}@${config.ssh.ip}:${sqlDistPath}`);
 await run(

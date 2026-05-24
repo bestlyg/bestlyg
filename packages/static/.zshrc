@@ -45,6 +45,9 @@ export PATH="$HOME/go/bin:$PATH"
 alias proxy-start="export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890"
 alias proxy-end="export https_proxy= http_proxy= all_proxy="
 alias ioa='sudo ifconfig en0 down && sudo ifconfig en1 down && sudo ifconfig en2 down && sudo ifconfig en0 up && sudo ifconfig en1 up && sudo ifconfig en2 up'
+alias use-node='cd ~/Documents/projects/ask-bi-node/node'
+alias use-mobius='cd ~/Documents/projects/ask-bi-mobius/mobius'
+alias vpn='sudo /Applications/Clash\ Verge.app/Contents/MacOS/clash-verge'
 gsync() {
     git fetch origin $1:$1
 }
@@ -54,6 +57,8 @@ gck() {
     git pull origin main --no-rebase
     git push -u origin $1
 }
+export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+
 
 # 覆盖原有的mac内置的c系列工具
 alias gcc='gcc-15'
@@ -61,3 +66,15 @@ alias g++='g++-15'
 alias cc='gcc-15'
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
+export PATH="/path/to/CommandLineTools:$PATH"
+export PATH=$(brew --prefix llvm@17)/bin:$PATH
+export CC=$(brew --prefix llvm@17)/bin/clang
+export CXX=$(brew --prefix llvm@17)/bin/clang++
+
+
+# bun completions
+[ -s "/Users/bestlyg/.bun/_bun" ] && source "/Users/bestlyg/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
