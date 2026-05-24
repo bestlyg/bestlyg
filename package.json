@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "deploy": "node ./scripts/deploy.mjs",
-        "build": "pnpm --filter @bestlyg/core-shared build && pnpm --filter @bestlyg/client-shared build && pnpm --filter @bestlyg/server-shared build && pnpm --filter @bestlyg/icons build && pnpm --filter @bestlyg/xidl build && pnpm --filter @bestlyg/cli build && pnpm --filter @bestlyg/client build && pnpm --filter @bestlyg/server build",
+        "build": "pnpm -r build",
         "submodule:update": "git submodule update --init --recursive",
         "version:node": "node -v",
         "setup": "rm -rf node_modules && rm -rf ./**/node_modules && pnpm i --force",
