@@ -40,5 +40,4 @@ export * from './config';
 export * from './concat-base-url';
 export * from './default-map';
 export * from './format-param-path';
-export * from './bestlyg-types';
 export * from './dto';

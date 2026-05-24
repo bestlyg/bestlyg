@@ -1,6 +1,6 @@
 type LegacyBlobPrototype = Blob & {
-        webkitSlice?: Blob['slice'];
-        mozSlice?: Blob['slice'];
+    webkitSlice?: Blob['slice'];
+    mozSlice?: Blob['slice'];
 };
 
 type LegacyBlobConstructor = {
@@ -21,9 +21,9 @@ export function supportChunked(): boolean {
         const blobPrototype = BlobCtor.prototype;
         return Boolean(
             FormData &&
-                (typeof blobPrototype.slice === 'function' ||
-                    typeof blobPrototype.webkitSlice === 'function' ||
-                    typeof blobPrototype.mozSlice === 'function'),
+            (typeof blobPrototype.slice === 'function' ||
+                typeof blobPrototype.webkitSlice === 'function' ||
+                typeof blobPrototype.mozSlice === 'function'),
         );
     } catch (_err) {
         return false;
@@ -41,9 +41,9 @@ export function supportCrc32() {
     const blobPrototype = Blob.prototype as LegacyBlobPrototype;
     return Boolean(
         typeof Int32Array !== 'undefined' &&
-            'readAsBinaryString' in window.FileReader.prototype &&
-            (typeof blobPrototype.slice === 'function' ||
-                typeof blobPrototype.webkitSlice === 'function' ||
-                typeof blobPrototype.mozSlice === 'function'),
+        'readAsBinaryString' in window.FileReader.prototype &&
+        (typeof blobPrototype.slice === 'function' ||
+            typeof blobPrototype.webkitSlice === 'function' ||
+            typeof blobPrototype.mozSlice === 'function'),
     );
 }

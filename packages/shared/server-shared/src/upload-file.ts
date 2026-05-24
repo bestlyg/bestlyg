@@ -1,5 +1,5 @@
 import {
-    databaseIdParamsRequest,
+    DatabaseIdParamsRequestDto,
     DatabaseXlsxFileRequestDto,
     DatabaseXlsxImportResponseDto,
     DatabaseXlsxUpdateResponseDto,
@@ -88,7 +88,7 @@ export async function importUpdateXlsx<Entity extends object>(
     const parsedRows = rows.map((row) => {
         const id = validateWithSchema(
             { id: row.data.id },
-            databaseIdParamsRequest,
+            DatabaseIdParamsRequestDto.getSchema(),
             `xlsx row ${row.rowNumber} id`,
         ).id;
         const { id: _, ...data } = row.data;
@@ -116,7 +116,7 @@ export async function importUpdateXlsx<Entity extends object>(
 export async function createXlsxBuffer<Entity extends object>(
     data: Entity[],
     config: DatabaseResourceSchema<Entity, any, any>,
-) {
+): Promise<Buffer> {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet(config.resourceName);
     const columns = config.xlsxColumns.filter((column) => column.exportable !== false);
@@ -144,7 +144,7 @@ export async function exportXlsx<Entity extends object, Options>(
     service: XlsxExportService<Entity, Options>,
     config: DatabaseResourceSchema<Entity, any, any>,
     options: Options,
-) {
+): Promise<Buffer> {
     const data = await service.find(options);
     return createXlsxBuffer(data, config);
 }

@@ -18,11 +18,13 @@ async function fetchLedgers({
     pageParam: PageParam;
     param: { date?: Date };
 }): Promise<PageData<Ledger> | null> {
-    const data = await ledgerFindPageAndCount(new LedgerPageRequestDto({
-        current: pageParam.current,
-        pageSize: pageParam.pageSize,
-        date: param.date ? dayjs(param.date).format('YYYY-MM-DD') : undefined,
-    }));
+    const data = await ledgerFindPageAndCount(
+        new LedgerPageRequestDto({
+            current: pageParam.current,
+            pageSize: pageParam.pageSize,
+            date: param.date ? dayjs(param.date).format('YYYY-MM-DD') : undefined,
+        }),
+    );
     return PageData.from<Ledger>(data as any);
 }
 
@@ -69,8 +71,7 @@ export default function LedgerList() {
                         align: 'right',
                         render: (_, row) => (
                             <div className="text-right">
-                                {(((row.balance ?? 0) / 100) * (row.io ? 1 : -1)).toString() +
-                                    '元'}
+                                {(((row.balance ?? 0) / 100) * (row.io ? 1 : -1)).toString() + '元'}
                             </div>
                         ),
                         width: 100,

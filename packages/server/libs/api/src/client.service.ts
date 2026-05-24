@@ -3,7 +3,13 @@ import { resolve, leetcode } from '@bestlyg-server/common';
 import { LeetcodeProblemService } from '@bestlyg-server/database';
 import fs from 'fs-extra';
 import path from 'path';
-import { Sidebar, SidebarGroup, SidebarItem } from './api.dto';
+import {
+    ClientGetDocsSidebarsResponseDto,
+    ClientGetLeetcodeSidebarsResponseDto,
+    type Sidebar,
+    type SidebarGroup,
+    type SidebarItem,
+} from '@bestlyg/server-shared';
 
 @Injectable()
 export class ClientService {
@@ -71,11 +77,11 @@ export class ClientService {
         return groups;
     }
 
-    async getDocsSidebars(): Promise<Sidebar> {
-        return { groups: await this.getGroups() };
+    async getDocsSidebars(): Promise<ClientGetDocsSidebarsResponseDto> {
+        return new ClientGetDocsSidebarsResponseDto({ groups: await this.getGroups() });
     }
 
-    async getLeetcodeSidebars(): Promise<Sidebar> {
+    async getLeetcodeSidebars(): Promise<ClientGetLeetcodeSidebarsResponseDto> {
         const problems = await this.leetcodeService.find({ relations: { solutions: true } });
         const groups: NonNullable<Sidebar['groups']> = [];
         for (const problem of problems) {
@@ -89,13 +95,13 @@ export class ClientService {
         }
         groups.map(({ items }) => items?.sort((a, b) => leetcode.problemSort(a.name, b.name)));
         groups.sort((a, b) => leetcode.dirSort(a.name, b.name));
-        return {
+        return new ClientGetLeetcodeSidebarsResponseDto({
             groups: [
                 {
                     name: 'LeetCode',
                     groups,
                 },
             ],
-        };
+        });
     }
 }

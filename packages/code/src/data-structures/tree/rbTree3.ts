@@ -20,7 +20,10 @@ export class RBTreeNode3<T> {
         public parent: RBTreeNode3<any> | null = null,
     ) {}
     toString() {
-        return String(this.val as string | number | boolean | bigint | symbol | null | undefined) + (isRed(this) ? '(R)' : '');
+        return (
+            String(this.val as string | number | boolean | bigint | symbol | null | undefined) +
+            (isRed(this) ? '(R)' : '')
+        );
     }
 }
 export class RBTree3<T> implements IRBTree<T> {

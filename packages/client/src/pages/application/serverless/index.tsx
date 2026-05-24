@@ -72,10 +72,12 @@ export default function Serverless() {
                 <Button
                     variant="outline"
                     onClick={async () => {
-                        await serverlessSave(new ServerlessCreateRequestDto({
-                            name: Date.now().toString(),
-                            code: 'resolve(1)',
-                        }));
+                        await serverlessSave(
+                            new ServerlessCreateRequestDto({
+                                name: Date.now().toString(),
+                                code: 'resolve(1)',
+                            }),
+                        );
                         toast({
                             title: 'Successful',
                             description: 'create a new serverless code.',
@@ -138,7 +140,9 @@ export default function Serverless() {
                                     <AlertDialogAction
                                         onClick={async () => {
                                             await serverlessDelete(
-                                                new DatabaseIdParamsRequestDto({ id: activeCodeId }),
+                                                new DatabaseIdParamsRequestDto({
+                                                    id: activeCodeId,
+                                                }),
                                             );
                                             toast({
                                                 title: 'Successful',

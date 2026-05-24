@@ -1,39 +1,62 @@
 import { createZodModel } from '../../zod';
 import { z } from 'zod';
+import { PageData } from '../../page-data';
 import {
-    baseEntityResponse,
-    batchUpdateBodySchema,
-    databaseImportUpdateResponse,
-    databaseWriteResponse,
-    databaseXlsxExportResponse,
-    DatabaseResourceSchema,
-    importCreateResponse,
-    nonEmptyObject,
-    pageResponse,
-    databasePageRequest,
-    requiredStringSchema,
-    withBaseColumns,
+    DatabasePageRequestDto,
+    DatabaseWriteResponseDto,
+    EntityBaseResponseDto,
+    idSchema,
 } from './common.dto';
+import {
+    DatabaseImportUpdateResponseDto,
+    DatabaseResourceSchema,
+    DatabaseXlsxExportResponseDto,
+    DatabaseXlsxImportResponseDto,
+} from './xlsx.dto';
 
-export const casbinRuleCreateRequest = z
-    .object({
-        ptype: requiredStringSchema,
-        p0: requiredStringSchema,
-        p1: requiredStringSchema,
-        p2: requiredStringSchema,
-        p3: requiredStringSchema,
-        p4: requiredStringSchema,
-        p5: requiredStringSchema,
-    })
-    .strict();
-export const casbinRuleUpdateRequest = casbinRuleCreateRequest.partial();
-export const casbinRuleUpdateBodyRequest = nonEmptyObject(casbinRuleUpdateRequest, 'body');
-export const casbinRuleBatchCreateRequest = z.array(casbinRuleCreateRequest).min(1);
-export const casbinRuleBatchUpdateRequest = batchUpdateBodySchema(casbinRuleUpdateRequest);
-export const casbinRulePageRequest = databasePageRequest;
+export class CasbinRulePageRequestDto extends createZodModel(DatabasePageRequestDto.getSchema()) {}
 
-export const casbinRuleResponse = baseEntityResponse
-    .extend({
+export class CasbinRuleCreateRequestDto extends createZodModel(
+    z
+        .object({
+            ptype: z.coerce.string().trim().min(1),
+            p0: z.coerce.string().trim().min(1),
+            p1: z.coerce.string().trim().min(1),
+            p2: z.coerce.string().trim().min(1),
+            p3: z.coerce.string().trim().min(1),
+            p4: z.coerce.string().trim().min(1),
+            p5: z.coerce.string().trim().min(1),
+        })
+        .strict(),
+) {}
+
+export class CasbinRuleUpdateRequestDto extends createZodModel(
+    CasbinRuleCreateRequestDto.getSchema()
+        .partial()
+        .refine(
+            (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+            { message: 'body must contain at least one field' },
+        ),
+) {}
+
+export class CasbinRuleBatchCreateRequestDto extends createZodModel(
+    z.array(CasbinRuleCreateRequestDto.getSchema()).min(1),
+) {}
+
+export class CasbinRuleBatchUpdateRequestDto extends createZodModel(
+    z.object({
+        ids: z.array(idSchema).min(1),
+        data: CasbinRuleCreateRequestDto.getSchema()
+            .partial()
+            .refine(
+                (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+                { message: 'data must contain at least one field' },
+            ),
+    }),
+) {}
+
+export class CasbinRuleResponseDto extends createZodModel(
+    EntityBaseResponseDto.getSchema().extend({
         ptype: z.string(),
         p0: z.string(),
         p1: z.string(),
@@ -41,40 +64,50 @@ export const casbinRuleResponse = baseEntityResponse
         p3: z.string(),
         p4: z.string(),
         p5: z.string(),
-    })
-    .loose();
-export const casbinRuleListResponse = z.array(casbinRuleResponse);
-export const casbinRulePageResponse = pageResponse(casbinRuleResponse);
-export const casbinRuleBatchCreateResponse = z.array(casbinRuleResponse);
-export const casbinRuleImportResponse = importCreateResponse(casbinRuleResponse);
-export const casbinRuleImportUpdateResponse = databaseImportUpdateResponse;
-export const casbinRuleExportResponse = databaseXlsxExportResponse;
-export const casbinRuleWriteResponse = databaseWriteResponse;
+    }),
+) {}
 
-export class CasbinRulePageRequestDto extends createZodModel(casbinRulePageRequest) {}
-export class CasbinRuleCreateRequestDto extends createZodModel(casbinRuleCreateRequest) {}
-export class CasbinRuleUpdateRequestDto extends createZodModel(casbinRuleUpdateBodyRequest) {}
-export class CasbinRuleBatchCreateRequestDto extends createZodModel(casbinRuleBatchCreateRequest) {}
-export class CasbinRuleBatchUpdateRequestDto extends createZodModel(casbinRuleBatchUpdateRequest) {}
+export class CasbinRuleListResponseDto extends createZodModel(
+    z.array(CasbinRuleResponseDto.getSchema()),
+) {}
 
-export class CasbinRuleResponseDto extends createZodModel(casbinRuleResponse) {}
-export class CasbinRuleListResponseDto extends createZodModel(casbinRuleListResponse) {}
-export class CasbinRulePageResponseDto extends createZodModel(casbinRulePageResponse) {}
+export class CasbinRulePageResponseDto extends createZodModel(
+    PageData.schema(CasbinRuleResponseDto.getSchema()),
+) {}
+
 export class CasbinRuleBatchCreateResponseDto extends createZodModel(
-    casbinRuleBatchCreateResponse,
+    z.array(CasbinRuleResponseDto.getSchema()),
 ) {}
-export class CasbinRuleImportResponseDto extends createZodModel(casbinRuleImportResponse) {}
+
+export class CasbinRuleImportResponseDto extends createZodModel(
+    DatabaseXlsxImportResponseDto.getSchema().extend({
+        data: z.array(CasbinRuleResponseDto.getSchema()),
+    }),
+) {}
+
 export class CasbinRuleImportUpdateResponseDto extends createZodModel(
-    casbinRuleImportUpdateResponse,
+    DatabaseImportUpdateResponseDto.getSchema(),
 ) {}
-export class CasbinRuleExportResponseDto extends createZodModel(casbinRuleExportResponse) {}
-export class CasbinRuleWriteResponseDto extends createZodModel(casbinRuleWriteResponse) {}
+
+export class CasbinRuleExportResponseDto extends createZodModel(
+    DatabaseXlsxExportResponseDto.getSchema(),
+) {}
+
+export class CasbinRuleWriteResponseDto extends createZodModel(
+    DatabaseWriteResponseDto.getSchema(),
+) {}
+
+/** 前端消费的 Casbin 规则 DTO。 */
+export type CasbinRule = z.output<ReturnType<typeof CasbinRuleResponseDto.getSchema>>;
 
 export const casbinRuleResourceSchema = {
     resourceName: 'casbin-rule',
-    createSchema: casbinRuleCreateRequest,
-    updateSchema: casbinRuleUpdateRequest,
-    xlsxColumns: withBaseColumns([
+    createSchema: CasbinRuleCreateRequestDto.getSchema(),
+    updateSchema: CasbinRuleCreateRequestDto.getSchema().partial(),
+    xlsxColumns: [
+        { key: 'id', readonly: true, width: 38 },
+        { key: 'createdTime', readonly: true, width: 24 },
+        { key: 'updatedTime', readonly: true, width: 24 },
         { key: 'ptype' },
         { key: 'p0' },
         { key: 'p1' },
@@ -82,5 +115,5 @@ export const casbinRuleResourceSchema = {
         { key: 'p3' },
         { key: 'p4' },
         { key: 'p5' },
-    ]),
+    ],
 } satisfies DatabaseResourceSchema<any, any, any>;

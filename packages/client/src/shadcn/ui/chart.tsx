@@ -169,7 +169,9 @@ function ChartTooltipContent({
                 {payload.map((item, index) => {
                     const key = String(nameKey || item.name || item.dataKey || 'value');
                     const itemConfig = getPayloadConfigFromPayload(config, item, key);
-                    const itemPayload = item.payload as Record<string, string | undefined> | undefined;
+                    const itemPayload = item.payload as
+                        | Record<string, string | undefined>
+                        | undefined;
                     const indicatorColor = color || itemPayload?.fill || item.color;
 
                     return (

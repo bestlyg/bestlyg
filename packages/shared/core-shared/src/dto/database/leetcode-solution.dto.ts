@@ -1,111 +1,133 @@
 import { createZodModel } from '../../zod';
 import { z } from 'zod';
+import { PageData } from '../../page-data';
 import {
-    baseEntityResponse,
-    batchUpdateBodySchema,
-    databaseImportUpdateResponse,
-    databasePageRequest,
-    databaseWriteResponse,
-    databaseXlsxExportResponse,
-    DatabaseResourceSchema,
-    dateSchema,
-    enumSchema,
+    DatabasePageRequestDto,
+    DatabaseWriteResponseDto,
+    dateValueSchema,
+    EntityBaseResponseDto,
     idSchema,
-    importCreateResponse,
-    jsonCell,
-    nonEmptyObject,
-    optionalNumberSchema,
-    pageResponse,
-    requiredStringSchema,
-    withBaseColumns,
 } from './common.dto';
+import {
+    DatabaseImportUpdateResponseDto,
+    DatabaseResourceSchema,
+    DatabaseXlsxExportResponseDto,
+    DatabaseXlsxImportResponseDto,
+} from './xlsx.dto';
 import { leetcodeScriptTypeValues } from './enums';
 
-export const leetcodeSolutionCreateRequest = z
-    .object({
-        script: enumSchema(leetcodeScriptTypeValues),
-        date: dateSchema,
-        time: optionalNumberSchema,
-        memory: optionalNumberSchema,
-        desc: requiredStringSchema,
-        code: requiredStringSchema,
-        problem: z.object({ id: idSchema }).optional(),
-    })
-    .strict();
-export const leetcodeSolutionUpdateRequest = leetcodeSolutionCreateRequest.partial();
-export const leetcodeSolutionUpdateBodyRequest = nonEmptyObject(
-    leetcodeSolutionUpdateRequest,
-    'body',
-);
-export const leetcodeSolutionBatchCreateRequest = z.array(leetcodeSolutionCreateRequest).min(1);
-export const leetcodeSolutionBatchUpdateRequest = batchUpdateBodySchema(
-    leetcodeSolutionUpdateRequest,
-);
-export const leetcodeSolutionPageRequest = databasePageRequest;
+export class LeetcodeSolutionPageRequestDto extends createZodModel(
+    DatabasePageRequestDto.getSchema(),
+) {}
 
-export const leetcodeSolutionResponse = baseEntityResponse
-    .extend({
-        script: enumSchema(leetcodeScriptTypeValues),
-        date: dateSchema,
+export class LeetcodeSolutionCreateRequestDto extends createZodModel(
+    z
+        .object({
+            script: z.enum(leetcodeScriptTypeValues),
+            date: z.coerce.date(),
+            time: z.preprocess(
+                (value) => (value === '' ? undefined : value),
+                z.coerce.number().optional().nullable(),
+            ),
+            memory: z.preprocess(
+                (value) => (value === '' ? undefined : value),
+                z.coerce.number().optional().nullable(),
+            ),
+            desc: z.coerce.string().trim().min(1),
+            code: z.coerce.string().trim().min(1),
+            problem: z.object({ id: idSchema }).optional(),
+        })
+        .strict(),
+) {}
+
+export class LeetcodeSolutionUpdateRequestDto extends createZodModel(
+    LeetcodeSolutionCreateRequestDto.getSchema()
+        .partial()
+        .refine(
+            (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+            { message: 'body must contain at least one field' },
+        ),
+) {}
+
+export class LeetcodeSolutionBatchCreateRequestDto extends createZodModel(
+    z.array(LeetcodeSolutionCreateRequestDto.getSchema()).min(1),
+) {}
+
+export class LeetcodeSolutionBatchUpdateRequestDto extends createZodModel(
+    z.object({
+        ids: z.array(idSchema).min(1),
+        data: LeetcodeSolutionCreateRequestDto.getSchema()
+            .partial()
+            .refine(
+                (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+                { message: 'data must contain at least one field' },
+            ),
+    }),
+) {}
+
+export class LeetcodeSolutionResponseDto extends createZodModel(
+    EntityBaseResponseDto.getSchema().extend({
+        script: z.enum(leetcodeScriptTypeValues),
+        date: dateValueSchema,
         time: z.number().optional().nullable(),
         memory: z.number().optional().nullable(),
         desc: z.string(),
         code: z.string(),
         problem: z.unknown().optional(),
-    })
-    .loose();
-export const leetcodeSolutionListResponse = z.array(leetcodeSolutionResponse);
-export const leetcodeSolutionPageResponse = pageResponse(leetcodeSolutionResponse);
-export const leetcodeSolutionBatchCreateResponse = z.array(leetcodeSolutionResponse);
-export const leetcodeSolutionImportResponse = importCreateResponse(leetcodeSolutionResponse);
-export const leetcodeSolutionImportUpdateResponse = databaseImportUpdateResponse;
-export const leetcodeSolutionExportResponse = databaseXlsxExportResponse;
-export const leetcodeSolutionWriteResponse = databaseWriteResponse;
-
-export class LeetcodeSolutionPageRequestDto extends createZodModel(leetcodeSolutionPageRequest) {}
-export class LeetcodeSolutionCreateRequestDto extends createZodModel(
-    leetcodeSolutionCreateRequest,
-) {}
-export class LeetcodeSolutionUpdateRequestDto extends createZodModel(
-    leetcodeSolutionUpdateBodyRequest,
-) {}
-export class LeetcodeSolutionBatchCreateRequestDto extends createZodModel(
-    leetcodeSolutionBatchCreateRequest,
-) {}
-export class LeetcodeSolutionBatchUpdateRequestDto extends createZodModel(
-    leetcodeSolutionBatchUpdateRequest,
+    }),
 ) {}
 
-export class LeetcodeSolutionResponseDto extends createZodModel(leetcodeSolutionResponse) {}
-export class LeetcodeSolutionListResponseDto extends createZodModel(leetcodeSolutionListResponse) {}
-export class LeetcodeSolutionPageResponseDto extends createZodModel(leetcodeSolutionPageResponse) {}
+export class LeetcodeSolutionListResponseDto extends createZodModel(
+    z.array(LeetcodeSolutionResponseDto.getSchema()),
+) {}
+
+export class LeetcodeSolutionPageResponseDto extends createZodModel(
+    PageData.schema(LeetcodeSolutionResponseDto.getSchema()),
+) {}
+
 export class LeetcodeSolutionBatchCreateResponseDto extends createZodModel(
-    leetcodeSolutionBatchCreateResponse,
+    z.array(LeetcodeSolutionResponseDto.getSchema()),
 ) {}
+
 export class LeetcodeSolutionImportResponseDto extends createZodModel(
-    leetcodeSolutionImportResponse,
+    DatabaseXlsxImportResponseDto.getSchema().extend({
+        data: z.array(LeetcodeSolutionResponseDto.getSchema()),
+    }),
 ) {}
+
 export class LeetcodeSolutionImportUpdateResponseDto extends createZodModel(
-    leetcodeSolutionImportUpdateResponse,
+    DatabaseImportUpdateResponseDto.getSchema(),
 ) {}
+
 export class LeetcodeSolutionExportResponseDto extends createZodModel(
-    leetcodeSolutionExportResponse,
+    DatabaseXlsxExportResponseDto.getSchema(),
 ) {}
+
 export class LeetcodeSolutionWriteResponseDto extends createZodModel(
-    leetcodeSolutionWriteResponse,
+    DatabaseWriteResponseDto.getSchema(),
 ) {}
+
+/** 前端消费的 LeetCode 题解 DTO。 */
+export type LeetcodeSolution = z.output<ReturnType<typeof LeetcodeSolutionResponseDto.getSchema>>;
 
 export const leetcodeSolutionResourceSchema = {
     resourceName: 'leetcode-solution',
-    createSchema: leetcodeSolutionCreateRequest,
-    updateSchema: leetcodeSolutionUpdateRequest,
-    xlsxColumns: withBaseColumns([
+    createSchema: LeetcodeSolutionCreateRequestDto.getSchema(),
+    updateSchema: LeetcodeSolutionCreateRequestDto.getSchema().partial(),
+    xlsxColumns: [
+        { key: 'id', readonly: true, width: 38 },
+        { key: 'createdTime', readonly: true, width: 24 },
+        { key: 'updatedTime', readonly: true, width: 24 },
         { key: 'script' },
         { key: 'date', width: 20 },
         { key: 'time' },
         { key: 'memory' },
         { key: 'desc', width: 48 },
         { key: 'code', width: 60 },
-        { key: 'problem', width: 38, format: jsonCell },
-    ]),
+        {
+            key: 'problem',
+            width: 38,
+            format: (value) => (value == null ? value : JSON.stringify(value)),
+        },
+    ],
 } satisfies DatabaseResourceSchema<any, any, any>;

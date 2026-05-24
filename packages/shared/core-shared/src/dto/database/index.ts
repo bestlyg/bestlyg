@@ -1,4 +1,5 @@
 export * from './common.dto';
+export * from './xlsx.dto';
 export * from './enums';
 export * from './casbin-rule.dto';
 export * from './ledger.dto';

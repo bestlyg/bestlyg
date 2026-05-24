@@ -1,68 +1,104 @@
 import { createZodModel } from '../../zod';
 import { z } from 'zod';
+import { PageData } from '../../page-data';
 import {
-    baseEntityResponse,
-    batchUpdateBodySchema,
-    databaseImportUpdateResponse,
-    databasePageRequest,
-    databaseWriteResponse,
-    databaseXlsxExportResponse,
-    DatabaseResourceSchema,
-    importCreateResponse,
-    nonEmptyObject,
-    pageResponse,
-    requiredStringSchema,
-    withBaseColumns,
+    DatabasePageRequestDto,
+    DatabaseWriteResponseDto,
+    EntityBaseResponseDto,
+    idSchema,
 } from './common.dto';
+import {
+    DatabaseImportUpdateResponseDto,
+    DatabaseResourceSchema,
+    DatabaseXlsxExportResponseDto,
+    DatabaseXlsxImportResponseDto,
+} from './xlsx.dto';
 
-export const serverlessCreateRequest = z
-    .object({
-        name: requiredStringSchema,
-        code: requiredStringSchema,
-    })
-    .strict();
-export const serverlessUpdateRequest = serverlessCreateRequest.partial();
-export const serverlessUpdateBodyRequest = nonEmptyObject(serverlessUpdateRequest, 'body');
-export const serverlessBatchCreateRequest = z.array(serverlessCreateRequest).min(1);
-export const serverlessBatchUpdateRequest = batchUpdateBodySchema(serverlessUpdateRequest);
-export const serverlessPageRequest = databasePageRequest;
+export class ServerlessPageRequestDto extends createZodModel(DatabasePageRequestDto.getSchema()) {}
 
-export const serverlessResponse = baseEntityResponse
-    .extend({
+export class ServerlessCreateRequestDto extends createZodModel(
+    z
+        .object({
+            name: z.coerce.string().trim().min(1),
+            code: z.coerce.string().trim().min(1),
+        })
+        .strict(),
+) {}
+
+export class ServerlessUpdateRequestDto extends createZodModel(
+    ServerlessCreateRequestDto.getSchema()
+        .partial()
+        .refine(
+            (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+            { message: 'body must contain at least one field' },
+        ),
+) {}
+
+export class ServerlessBatchCreateRequestDto extends createZodModel(
+    z.array(ServerlessCreateRequestDto.getSchema()).min(1),
+) {}
+
+export class ServerlessBatchUpdateRequestDto extends createZodModel(
+    z.object({
+        ids: z.array(idSchema).min(1),
+        data: ServerlessCreateRequestDto.getSchema()
+            .partial()
+            .refine(
+                (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+                { message: 'data must contain at least one field' },
+            ),
+    }),
+) {}
+
+export class ServerlessResponseDto extends createZodModel(
+    EntityBaseResponseDto.getSchema().extend({
         name: z.string(),
         code: z.string(),
-    })
-    .loose();
-export const serverlessListResponse = z.array(serverlessResponse);
-export const serverlessPageResponse = pageResponse(serverlessResponse);
-export const serverlessBatchCreateResponse = z.array(serverlessResponse);
-export const serverlessImportResponse = importCreateResponse(serverlessResponse);
-export const serverlessImportUpdateResponse = databaseImportUpdateResponse;
-export const serverlessExportResponse = databaseXlsxExportResponse;
-export const serverlessWriteResponse = databaseWriteResponse;
+    }),
+) {}
 
-export class ServerlessPageRequestDto extends createZodModel(serverlessPageRequest) {}
-export class ServerlessCreateRequestDto extends createZodModel(serverlessCreateRequest) {}
-export class ServerlessUpdateRequestDto extends createZodModel(serverlessUpdateBodyRequest) {}
-export class ServerlessBatchCreateRequestDto extends createZodModel(serverlessBatchCreateRequest) {}
-export class ServerlessBatchUpdateRequestDto extends createZodModel(serverlessBatchUpdateRequest) {}
+export class ServerlessListResponseDto extends createZodModel(
+    z.array(ServerlessResponseDto.getSchema()),
+) {}
 
-export class ServerlessResponseDto extends createZodModel(serverlessResponse) {}
-export class ServerlessListResponseDto extends createZodModel(serverlessListResponse) {}
-export class ServerlessPageResponseDto extends createZodModel(serverlessPageResponse) {}
+export class ServerlessPageResponseDto extends createZodModel(
+    PageData.schema(ServerlessResponseDto.getSchema()),
+) {}
+
 export class ServerlessBatchCreateResponseDto extends createZodModel(
-    serverlessBatchCreateResponse,
+    z.array(ServerlessResponseDto.getSchema()),
 ) {}
-export class ServerlessImportResponseDto extends createZodModel(serverlessImportResponse) {}
+
+export class ServerlessImportResponseDto extends createZodModel(
+    DatabaseXlsxImportResponseDto.getSchema().extend({
+        data: z.array(ServerlessResponseDto.getSchema()),
+    }),
+) {}
+
 export class ServerlessImportUpdateResponseDto extends createZodModel(
-    serverlessImportUpdateResponse,
+    DatabaseImportUpdateResponseDto.getSchema(),
 ) {}
-export class ServerlessExportResponseDto extends createZodModel(serverlessExportResponse) {}
-export class ServerlessWriteResponseDto extends createZodModel(serverlessWriteResponse) {}
+
+export class ServerlessExportResponseDto extends createZodModel(
+    DatabaseXlsxExportResponseDto.getSchema(),
+) {}
+
+export class ServerlessWriteResponseDto extends createZodModel(
+    DatabaseWriteResponseDto.getSchema(),
+) {}
+
+/** 前端消费的 serverless 函数 DTO。 */
+export type Serverless = z.output<ReturnType<typeof ServerlessResponseDto.getSchema>>;
 
 export const serverlessResourceSchema = {
     resourceName: 'serverless',
-    createSchema: serverlessCreateRequest,
-    updateSchema: serverlessUpdateRequest,
-    xlsxColumns: withBaseColumns([{ key: 'name' }, { key: 'code', width: 60 }]),
+    createSchema: ServerlessCreateRequestDto.getSchema(),
+    updateSchema: ServerlessCreateRequestDto.getSchema().partial(),
+    xlsxColumns: [
+        { key: 'id', readonly: true, width: 38 },
+        { key: 'createdTime', readonly: true, width: 24 },
+        { key: 'updatedTime', readonly: true, width: 24 },
+        { key: 'name' },
+        { key: 'code', width: 60 },
+    ],
 } satisfies DatabaseResourceSchema<any, any, any>;

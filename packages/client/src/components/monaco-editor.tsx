@@ -12,7 +12,9 @@ type MonacoJavaScriptDefaults = {
     setCompilerOptions(options: Record<string, unknown>): void;
 };
 
-((monaco.languages as any).typescript.javascriptDefaults as MonacoJavaScriptDefaults).setCompilerOptions({
+(
+    (monaco.languages as any).typescript.javascriptDefaults as MonacoJavaScriptDefaults
+).setCompilerOptions({
     allowNonTsExtensions: true,
     lib: [],
 });

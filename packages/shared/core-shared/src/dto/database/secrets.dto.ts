@@ -1,64 +1,102 @@
 import { createZodModel } from '../../zod';
 import { z } from 'zod';
+import { PageData } from '../../page-data';
 import {
-    baseEntityResponse,
-    batchUpdateBodySchema,
-    databaseImportUpdateResponse,
-    databasePageRequest,
-    databaseWriteResponse,
-    databaseXlsxExportResponse,
-    DatabaseResourceSchema,
-    importCreateResponse,
-    nonEmptyObject,
-    pageResponse,
-    requiredStringSchema,
-    withBaseColumns,
+    DatabasePageRequestDto,
+    DatabaseWriteResponseDto,
+    EntityBaseResponseDto,
+    idSchema,
 } from './common.dto';
+import {
+    DatabaseImportUpdateResponseDto,
+    DatabaseResourceSchema,
+    DatabaseXlsxExportResponseDto,
+    DatabaseXlsxImportResponseDto,
+} from './xlsx.dto';
 
-export const secretsCreateRequest = z
-    .object({
-        name: requiredStringSchema,
-        data: requiredStringSchema,
-    })
-    .strict();
-export const secretsUpdateRequest = secretsCreateRequest.partial();
-export const secretsUpdateBodyRequest = nonEmptyObject(secretsUpdateRequest, 'body');
-export const secretsBatchCreateRequest = z.array(secretsCreateRequest).min(1);
-export const secretsBatchUpdateRequest = batchUpdateBodySchema(secretsUpdateRequest);
-export const secretsPageRequest = databasePageRequest;
+export class SecretsPageRequestDto extends createZodModel(DatabasePageRequestDto.getSchema()) {}
 
-export const secretsResponse = baseEntityResponse
-    .extend({
+export class SecretsCreateRequestDto extends createZodModel(
+    z
+        .object({
+            name: z.coerce.string().trim().min(1),
+            data: z.coerce.string().trim().min(1),
+        })
+        .strict(),
+) {}
+
+export class SecretsUpdateRequestDto extends createZodModel(
+    SecretsCreateRequestDto.getSchema()
+        .partial()
+        .refine(
+            (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+            { message: 'body must contain at least one field' },
+        ),
+) {}
+
+export class SecretsBatchCreateRequestDto extends createZodModel(
+    z.array(SecretsCreateRequestDto.getSchema()).min(1),
+) {}
+
+export class SecretsBatchUpdateRequestDto extends createZodModel(
+    z.object({
+        ids: z.array(idSchema).min(1),
+        data: SecretsCreateRequestDto.getSchema()
+            .partial()
+            .refine(
+                (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+                { message: 'data must contain at least one field' },
+            ),
+    }),
+) {}
+
+export class SecretsResponseDto extends createZodModel(
+    EntityBaseResponseDto.getSchema().extend({
         name: z.string(),
         data: z.string(),
-    })
-    .loose();
-export const secretsListResponse = z.array(secretsResponse);
-export const secretsPageResponse = pageResponse(secretsResponse);
-export const secretsBatchCreateResponse = z.array(secretsResponse);
-export const secretsImportResponse = importCreateResponse(secretsResponse);
-export const secretsImportUpdateResponse = databaseImportUpdateResponse;
-export const secretsExportResponse = databaseXlsxExportResponse;
-export const secretsWriteResponse = databaseWriteResponse;
+    }),
+) {}
 
-export class SecretsPageRequestDto extends createZodModel(secretsPageRequest) {}
-export class SecretsCreateRequestDto extends createZodModel(secretsCreateRequest) {}
-export class SecretsUpdateRequestDto extends createZodModel(secretsUpdateBodyRequest) {}
-export class SecretsBatchCreateRequestDto extends createZodModel(secretsBatchCreateRequest) {}
-export class SecretsBatchUpdateRequestDto extends createZodModel(secretsBatchUpdateRequest) {}
+export class SecretsListResponseDto extends createZodModel(
+    z.array(SecretsResponseDto.getSchema()),
+) {}
 
-export class SecretsResponseDto extends createZodModel(secretsResponse) {}
-export class SecretsListResponseDto extends createZodModel(secretsListResponse) {}
-export class SecretsPageResponseDto extends createZodModel(secretsPageResponse) {}
-export class SecretsBatchCreateResponseDto extends createZodModel(secretsBatchCreateResponse) {}
-export class SecretsImportResponseDto extends createZodModel(secretsImportResponse) {}
-export class SecretsImportUpdateResponseDto extends createZodModel(secretsImportUpdateResponse) {}
-export class SecretsExportResponseDto extends createZodModel(secretsExportResponse) {}
-export class SecretsWriteResponseDto extends createZodModel(secretsWriteResponse) {}
+export class SecretsPageResponseDto extends createZodModel(
+    PageData.schema(SecretsResponseDto.getSchema()),
+) {}
+
+export class SecretsBatchCreateResponseDto extends createZodModel(
+    z.array(SecretsResponseDto.getSchema()),
+) {}
+
+export class SecretsImportResponseDto extends createZodModel(
+    DatabaseXlsxImportResponseDto.getSchema().extend({
+        data: z.array(SecretsResponseDto.getSchema()),
+    }),
+) {}
+
+export class SecretsImportUpdateResponseDto extends createZodModel(
+    DatabaseImportUpdateResponseDto.getSchema(),
+) {}
+
+export class SecretsExportResponseDto extends createZodModel(
+    DatabaseXlsxExportResponseDto.getSchema(),
+) {}
+
+export class SecretsWriteResponseDto extends createZodModel(DatabaseWriteResponseDto.getSchema()) {}
+
+/** 前端消费的密钥 DTO。 */
+export type Secrets = z.output<ReturnType<typeof SecretsResponseDto.getSchema>>;
 
 export const secretsResourceSchema = {
     resourceName: 'secrets',
-    createSchema: secretsCreateRequest,
-    updateSchema: secretsUpdateRequest,
-    xlsxColumns: withBaseColumns([{ key: 'name' }, { key: 'data', width: 48 }]),
+    createSchema: SecretsCreateRequestDto.getSchema(),
+    updateSchema: SecretsCreateRequestDto.getSchema().partial(),
+    xlsxColumns: [
+        { key: 'id', readonly: true, width: 38 },
+        { key: 'createdTime', readonly: true, width: 24 },
+        { key: 'updatedTime', readonly: true, width: 24 },
+        { key: 'name' },
+        { key: 'data', width: 48 },
+    ],
 } satisfies DatabaseResourceSchema<any, any, any>;
