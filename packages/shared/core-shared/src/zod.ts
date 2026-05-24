@@ -60,9 +60,7 @@ export function isZodModel(o: unknown): o is ZodModelConstructor {
     return Boolean((o as any)[zodSchemaSymbol]);
 }
 
-export class ZodModelValidationError<
-    T extends AnyZodObject = AnyZodObject,
-> extends TypeError {
+export class ZodModelValidationError<T extends AnyZodObject = AnyZodObject> extends TypeError {
     /** Zod 原始 issue 列表，便于上层格式化字段级错误。 */
     readonly issues: z.ZodIssue[];
     /** 触发校验失败的原始输入。 */

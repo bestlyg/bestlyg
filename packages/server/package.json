@@ -5,7 +5,6 @@
     "author": "bestlyg",
     "exports": {
         "./package.json": "./package.json",
-        "./openapi.json": "./openapi.json",
         "./*": {
             "import": "./*",
             "require": "./*",
@@ -30,8 +29,8 @@
         "create:xuan": "tsx scripts/create-xuan.ts"
     },
     "dependencies": {
-        "@bestlyg/cli": "workspace:^",
         "@bestlyg/client": "workspace:^",
+        "@bestlyg/core-shared": "workspace:^",
         "@bestlyg/server-shared": "workspace:^",
         "@bestlyg/static": "workspace:^",
         "@nestjs/common": "catalog:",
@@ -41,7 +40,6 @@
         "@nestjs/platform-express": "catalog:",
         "@nestjs/schedule": "catalog:",
         "@nestjs/serve-static": "catalog:",
-        "@nestjs/swagger": "catalog:",
         "@nestjs/typeorm": "catalog:",
         "axios": "catalog:",
         "c12": "catalog:",

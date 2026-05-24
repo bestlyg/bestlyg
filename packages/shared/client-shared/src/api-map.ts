@@ -1,8 +1,31 @@
+export type ApiEndpoint = Readonly<{
+    method: string;
+    path: string;
+}>;
+
+export type ApiPathParams = Record<string, string | number | boolean | null | undefined>;
+
 export const apiMap = {
     AppController: {
         sse: {
             method: 'post',
             path: '/api/sse',
+        },
+    },
+    ClientController: {
+        getDocsSidebars: {
+            method: 'get',
+            path: '/api/client/docs/sidebars',
+        },
+        getLeetcodeSidebars: {
+            method: 'get',
+            path: '/api/client/leetcode/sidebars',
+        },
+    },
+    AuthController: {
+        signIn: {
+            method: 'post',
+            path: '/api/auth/login',
         },
     },
     CasbinRuleController: {
@@ -18,14 +41,6 @@ export const apiMap = {
             method: 'get',
             path: '/api/database/casbin-rule/{id}',
         },
-        update: {
-            method: 'patch',
-            path: '/api/database/casbin-rule/{id}',
-        },
-        delete: {
-            method: 'delete',
-            path: '/api/database/casbin-rule/{id}',
-        },
         find: {
             method: 'get',
             path: '/api/database/casbin-rule',
@@ -34,17 +49,25 @@ export const apiMap = {
             method: 'post',
             path: '/api/database/casbin-rule',
         },
-        updateBatch: {
-            method: 'put',
-            path: '/api/database/casbin-rule',
-        },
         saveBatch: {
             method: 'post',
             path: '/api/database/casbin-rule/batch',
         },
+        update: {
+            method: 'patch',
+            path: '/api/database/casbin-rule/{id}',
+        },
+        updateBatch: {
+            method: 'put',
+            path: '/api/database/casbin-rule',
+        },
         deleteBatch: {
             method: 'delete',
             path: '/api/database/casbin-rule/batch',
+        },
+        delete: {
+            method: 'delete',
+            path: '/api/database/casbin-rule/{id}',
         },
     },
     LedgerController: {
@@ -60,14 +83,6 @@ export const apiMap = {
             method: 'get',
             path: '/api/database/ledger/{id}',
         },
-        update: {
-            method: 'patch',
-            path: '/api/database/ledger/{id}',
-        },
-        delete: {
-            method: 'delete',
-            path: '/api/database/ledger/{id}',
-        },
         find: {
             method: 'get',
             path: '/api/database/ledger',
@@ -76,24 +91,28 @@ export const apiMap = {
             method: 'post',
             path: '/api/database/ledger',
         },
-        updateBatch: {
-            method: 'put',
-            path: '/api/database/ledger',
-        },
         saveBatch: {
             method: 'post',
             path: '/api/database/ledger/batch',
+        },
+        update: {
+            method: 'patch',
+            path: '/api/database/ledger/{id}',
+        },
+        updateBatch: {
+            method: 'put',
+            path: '/api/database/ledger',
         },
         deleteBatch: {
             method: 'delete',
             path: '/api/database/ledger/batch',
         },
+        delete: {
+            method: 'delete',
+            path: '/api/database/ledger/{id}',
+        },
     },
     LeetcodeProblemController: {
-        createWithSlug: {
-            method: 'post',
-            path: '/api/database/leetcode-problem/slug/{slug}',
-        },
         findList: {
             method: 'get',
             path: '/api/database/leetcode-problem/list',
@@ -106,14 +125,6 @@ export const apiMap = {
             method: 'get',
             path: '/api/database/leetcode-problem/{id}',
         },
-        update: {
-            method: 'patch',
-            path: '/api/database/leetcode-problem/{id}',
-        },
-        delete: {
-            method: 'delete',
-            path: '/api/database/leetcode-problem/{id}',
-        },
         find: {
             method: 'get',
             path: '/api/database/leetcode-problem',
@@ -122,17 +133,29 @@ export const apiMap = {
             method: 'post',
             path: '/api/database/leetcode-problem',
         },
-        updateBatch: {
-            method: 'put',
-            path: '/api/database/leetcode-problem',
-        },
         saveBatch: {
             method: 'post',
             path: '/api/database/leetcode-problem/batch',
         },
+        update: {
+            method: 'patch',
+            path: '/api/database/leetcode-problem/{id}',
+        },
+        updateBatch: {
+            method: 'put',
+            path: '/api/database/leetcode-problem',
+        },
         deleteBatch: {
             method: 'delete',
             path: '/api/database/leetcode-problem/batch',
+        },
+        delete: {
+            method: 'delete',
+            path: '/api/database/leetcode-problem/{id}',
+        },
+        createWithSlug: {
+            method: 'post',
+            path: '/api/database/leetcode-problem/slug/{slug}',
         },
     },
     LeetcodeSolutionController: {
@@ -148,14 +171,6 @@ export const apiMap = {
             method: 'get',
             path: '/api/database/leetcode-solution/{id}',
         },
-        update: {
-            method: 'patch',
-            path: '/api/database/leetcode-solution/{id}',
-        },
-        delete: {
-            method: 'delete',
-            path: '/api/database/leetcode-solution/{id}',
-        },
         find: {
             method: 'get',
             path: '/api/database/leetcode-solution',
@@ -164,17 +179,25 @@ export const apiMap = {
             method: 'post',
             path: '/api/database/leetcode-solution',
         },
-        updateBatch: {
-            method: 'put',
-            path: '/api/database/leetcode-solution',
-        },
         saveBatch: {
             method: 'post',
             path: '/api/database/leetcode-solution/batch',
         },
+        update: {
+            method: 'patch',
+            path: '/api/database/leetcode-solution/{id}',
+        },
+        updateBatch: {
+            method: 'put',
+            path: '/api/database/leetcode-solution',
+        },
         deleteBatch: {
             method: 'delete',
             path: '/api/database/leetcode-solution/batch',
+        },
+        delete: {
+            method: 'delete',
+            path: '/api/database/leetcode-solution/{id}',
         },
     },
     SecretsController: {
@@ -190,14 +213,6 @@ export const apiMap = {
             method: 'get',
             path: '/api/database/secrets/{id}',
         },
-        update: {
-            method: 'patch',
-            path: '/api/database/secrets/{id}',
-        },
-        delete: {
-            method: 'delete',
-            path: '/api/database/secrets/{id}',
-        },
         find: {
             method: 'get',
             path: '/api/database/secrets',
@@ -206,17 +221,25 @@ export const apiMap = {
             method: 'post',
             path: '/api/database/secrets',
         },
-        updateBatch: {
-            method: 'put',
-            path: '/api/database/secrets',
-        },
         saveBatch: {
             method: 'post',
             path: '/api/database/secrets/batch',
         },
+        update: {
+            method: 'patch',
+            path: '/api/database/secrets/{id}',
+        },
+        updateBatch: {
+            method: 'put',
+            path: '/api/database/secrets',
+        },
         deleteBatch: {
             method: 'delete',
             path: '/api/database/secrets/batch',
+        },
+        delete: {
+            method: 'delete',
+            path: '/api/database/secrets/{id}',
         },
     },
     ServerlessController: {
@@ -232,14 +255,6 @@ export const apiMap = {
             method: 'get',
             path: '/api/database/serverless/{id}',
         },
-        update: {
-            method: 'patch',
-            path: '/api/database/serverless/{id}',
-        },
-        delete: {
-            method: 'delete',
-            path: '/api/database/serverless/{id}',
-        },
         find: {
             method: 'get',
             path: '/api/database/serverless',
@@ -248,17 +263,25 @@ export const apiMap = {
             method: 'post',
             path: '/api/database/serverless',
         },
-        updateBatch: {
-            method: 'put',
-            path: '/api/database/serverless',
-        },
         saveBatch: {
             method: 'post',
             path: '/api/database/serverless/batch',
         },
+        update: {
+            method: 'patch',
+            path: '/api/database/serverless/{id}',
+        },
+        updateBatch: {
+            method: 'put',
+            path: '/api/database/serverless',
+        },
         deleteBatch: {
             method: 'delete',
             path: '/api/database/serverless/batch',
+        },
+        delete: {
+            method: 'delete',
+            path: '/api/database/serverless/{id}',
         },
         callGet: {
             method: 'get',
@@ -306,14 +329,6 @@ export const apiMap = {
             method: 'get',
             path: '/api/database/user/{id}',
         },
-        update: {
-            method: 'patch',
-            path: '/api/database/user/{id}',
-        },
-        delete: {
-            method: 'delete',
-            path: '/api/database/user/{id}',
-        },
         find: {
             method: 'get',
             path: '/api/database/user',
@@ -322,17 +337,25 @@ export const apiMap = {
             method: 'post',
             path: '/api/database/user',
         },
-        updateBatch: {
-            method: 'put',
-            path: '/api/database/user',
-        },
         saveBatch: {
             method: 'post',
             path: '/api/database/user/batch',
         },
+        update: {
+            method: 'patch',
+            path: '/api/database/user/{id}',
+        },
+        updateBatch: {
+            method: 'put',
+            path: '/api/database/user',
+        },
         deleteBatch: {
             method: 'delete',
             path: '/api/database/user/batch',
+        },
+        delete: {
+            method: 'delete',
+            path: '/api/database/user/{id}',
         },
     },
     XuanController: {
@@ -348,14 +371,6 @@ export const apiMap = {
             method: 'get',
             path: '/api/database/xuan/{id}',
         },
-        update: {
-            method: 'patch',
-            path: '/api/database/xuan/{id}',
-        },
-        delete: {
-            method: 'delete',
-            path: '/api/database/xuan/{id}',
-        },
         find: {
             method: 'get',
             path: '/api/database/xuan',
@@ -364,39 +379,31 @@ export const apiMap = {
             method: 'post',
             path: '/api/database/xuan',
         },
-        updateBatch: {
-            method: 'put',
-            path: '/api/database/xuan',
-        },
         saveBatch: {
             method: 'post',
             path: '/api/database/xuan/batch',
+        },
+        update: {
+            method: 'patch',
+            path: '/api/database/xuan/{id}',
+        },
+        updateBatch: {
+            method: 'put',
+            path: '/api/database/xuan',
         },
         deleteBatch: {
             method: 'delete',
             path: '/api/database/xuan/batch',
         },
-    },
-    AuthController: {
-        signIn: {
-            method: 'post',
-            path: '/api/auth/login',
+        delete: {
+            method: 'delete',
+            path: '/api/database/xuan/{id}',
         },
     },
     StaticController: {
         getStaticFile: {
             method: 'get',
             path: '/static',
-        },
-    },
-    ClientController: {
-        getDocsSidebars: {
-            method: 'get',
-            path: '/api/client/docs/sidebars',
-        },
-        getLeetcodeSidebars: {
-            method: 'get',
-            path: '/api/client/leetcode/sidebars',
         },
     },
     ZjuerController: {
@@ -406,3 +413,14 @@ export const apiMap = {
         },
     },
 } as const;
+
+export type ApiMap = typeof apiMap;
+
+export function resolveApiPath(endpoint: ApiEndpoint, params: ApiPathParams = {}) {
+    return endpoint.path.replace(/\{([^}]+)\}/g, (_matched, key: string) => {
+        if (!Object.prototype.hasOwnProperty.call(params, key) || params[key] == null) {
+            throw new Error(`Missing api path param: ${key}`);
+        }
+        return encodeURIComponent(String(params[key]));
+    });
+}

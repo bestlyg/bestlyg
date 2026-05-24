@@ -1,6 +1,6 @@
 import { RandomIcon } from '@/components/random-icon';
 import { routeMap } from '@/routes';
-import type { Sidebar } from '@bestlyg/client-shared';
+import { apiMap, type Sidebar } from '@bestlyg/client-shared';
 import { request } from './request';
 
 declare const __MODE__: 'development' | 'production' | undefined;
@@ -70,7 +70,7 @@ async function requestManagementSidebars(): Promise<Sidebar> {
 async function requestDocSidebars(): Promise<Sidebar> {
     const res = await request({
         method: 'get',
-        url: '/api/client/docs/sidebars',
+        url: apiMap.ClientController.getDocsSidebars.path,
         serializer: 'json',
         data: null,
     });
@@ -80,7 +80,7 @@ async function requestDocSidebars(): Promise<Sidebar> {
 async function requestLeetcodeSidebars(): Promise<Sidebar> {
     const res = await request({
         method: 'get',
-        url: '/api/client/leetcode/sidebars',
+        url: apiMap.ClientController.getLeetcodeSidebars.path,
         serializer: 'json',
         data: null,
     });

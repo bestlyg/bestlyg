@@ -1,8 +1,9 @@
-import '@bestlyg/cli/globals';
+import figlet from 'figlet';
+import { echo } from 'zx';
 
-const logo = await best.figlet('bestlyg'.toUpperCase(), {
+const logo = await figlet('bestlyg'.toUpperCase(), {
     font: 'Doh',
     whitespaceBreak: true,
 });
 
-echo`${logo}`;
+echo(logo);

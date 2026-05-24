@@ -1,3 +1,3 @@
-import best from '@bestlyg/cli';
+import { getDirname, getResolveFunction } from '@bestlyg/server-shared';
 
-export const resolve = best.common.getResolveFunction(best.common.getDirname(), 1);
+export const resolve = getResolveFunction(getDirname(), 1);

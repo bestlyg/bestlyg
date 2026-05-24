@@ -1,9 +1,14 @@
-import '@bestlyg/cli/globals';
+import path from 'node:path';
+import dotenv from 'dotenv';
 import dayjs from 'dayjs';
 import axios, { AxiosInstance } from 'axios';
-import { Ledger, LeetcodeProblem, Xuan, LeetcodeSolution } from '../external';
+import { CWD, ConfigurationSchema, getConfiguration } from '@bestlyg/server-shared';
+import type { Ledger, LeetcodeProblem, Xuan, LeetcodeSolution } from '@bestlyg/core-shared';
 
-const { config } = best;
+dotenv.config({ path: path.resolve('node_modules', '@bestlyg', 'server-shared', '.env') });
+dotenv.config({ path: path.resolve(CWD, '.env') });
+
+const config = ConfigurationSchema.parse(getConfiguration());
 
 export async function login(request: AxiosInstance, username: string, password: string) {
     const resp = await request.post('/api/auth/login', {

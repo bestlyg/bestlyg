@@ -34,8 +34,8 @@
         }
     },
     "scripts": {
-        "build:openapi": "node scripts/openapi.mjs",
-        "build": "pnpm build:openapi && unbuild --config ./build.config.ts",
+        "build:api-map": "node scripts/api-map.mjs",
+        "build": "pnpm build:api-map && unbuild --config ./build.config.ts",
         "dev": "unbuild --config ./build.config.ts --watch"
     },
     "dependencies": {
@@ -45,7 +45,6 @@
     },
     "devDependencies": {
         "@types/node": "catalog:",
-        "change-case": "catalog:",
         "rimraf": "catalog:",
         "typescript": "catalog:",
         "unbuild": "catalog:"

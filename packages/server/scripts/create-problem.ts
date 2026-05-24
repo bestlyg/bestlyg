@@ -3,10 +3,9 @@
  * @typedef {import("../dist/types").LeetCodeReadmeDataItem} LeetCodeReadmeDataItem
  */
 
-import '@bestlyg/cli/globals';
-import axios from 'axios';
+import dayjs from 'dayjs';
 import { problem as problemFromCreate } from './problem';
-import { getDirNameFromProblemName, getTitleSlugFromURL, DATE_FORMAT_SOLUTION } from '../external';
+import { getTitleSlugFromURL, DATE_FORMAT_SOLUTION } from '../libs/common/src/services/leetcode';
 import {
     getProblem,
     createRequest,
@@ -26,8 +25,6 @@ async function main() {
     let problem = problemFromCreate;
 
     problem.name = problem.name!.replace(/ /g, '');
-    const dirName = getDirNameFromProblemName(problem.name);
-    // const filePath = resolve(PATH_DATA, dirName, problem.name + '.json');
 
     const titleSlug = getTitleSlugFromURL(problem.url!);
     const problemResult = await getProblemWithSlug(request, titleSlug);
@@ -41,7 +38,7 @@ async function main() {
     problem.tags = problemResult.topicTags.map((v) => v.translatedName);
 
     problem.solutions.forEach((s) => {
-        s.date = best.dayjs(s.date).format(DATE_FORMAT_SOLUTION);
+        s.date = dayjs(s.date).format(DATE_FORMAT_SOLUTION);
     });
 
     if (problem.exist) {

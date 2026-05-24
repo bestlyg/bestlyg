@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { Calendar } from '@/shadcn/ui/calendar';
-import { PageParam, PageData } from '@bestlyg/client-shared';
+import { PageParam, PageData, apiMap } from '@bestlyg/client-shared';
 import { Table } from 'antd';
 import { useRequest } from 'ahooks';
 import { request } from '@/utils';
@@ -15,7 +15,7 @@ async function fetchLedgers({
     param: { date?: Date };
 }): Promise<PageData<Ledger> | null> {
     const data = await request({
-        url: '/api/database/ledger/page',
+        url: apiMap.LedgerController.findPageAndCount.path,
         method: 'get',
         data: {
             current: pageParam.current,

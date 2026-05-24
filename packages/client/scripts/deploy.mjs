@@ -1,14 +1,25 @@
-import '@bestlyg/cli/globals';
 import { execSync } from 'child_process';
+import AdmZip from 'adm-zip';
+import dotenv from 'dotenv';
+import {
+    CWD,
+    ConfigurationSchema,
+    getConfiguration,
+    getResolveFunction,
+} from '@bestlyg/server-shared';
+import { $ } from 'zx';
 
-const resolve = best.common.getResolveFunction(best.common.CWD);
-const { config } = best;
+const resolve = getResolveFunction(CWD);
+dotenv.config({ path: resolve('node_modules', '@bestlyg', 'server-shared', '.env') });
+dotenv.config({ path: resolve('.env') });
+
+const config = ConfigurationSchema.parse(getConfiguration());
 const fileName = 'client.dist.zip';
 const dirPath = resolve('dist');
 
 execSync(`pnpm run build`, { stdio: 'inherit', cwd: resolve() });
 
-const zip = new best.AdmZip();
+const zip = new AdmZip();
 zip.addLocalFolder(dirPath);
 
 await zip.writeZipPromise(resolve(dirPath, fileName));

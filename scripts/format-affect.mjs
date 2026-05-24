@@ -1,13 +1,14 @@
-import '@bestlyg/cli/globals';
+import { getDirname, getResolveFunction } from '@bestlyg/server-shared';
+import { $ } from 'zx';
 
-const CWD = best.utils.CWD;
-const resolve = best.utils.getResolveFunction(import.meta, 1);
+const resolve = getResolveFunction(getDirname(), 1);
 
 const diffPath = await $`git diff HEAD --name-only`;
 const diffRealPath = diffPath.stdout
     .trim()
     .split('\n')
-    .map(v => resolve(decodeURIComponent(v)));
+    .filter(Boolean)
+    .map((v) => resolve(decodeURIComponent(v)));
 
 console.log(diffRealPath);
 if (diffRealPath.length) {

@@ -40,13 +40,14 @@
         "tapable": "catalog:"
     },
     "devDependencies": {
-        "@bestlyg/cli": "workspace:^",
         "@bestlyg/core-shared": "workspace:^",
         "@bestlyg/server-shared": "workspace:^",
         "@types/lodash": "catalog:",
         "@types/node": "catalog:",
+        "dotenv": "catalog:",
         "rimraf": "catalog:",
         "typescript": "catalog:",
-        "unbuild": "catalog:"
+        "unbuild": "catalog:",
+        "zx": "catalog:"
     }
 }

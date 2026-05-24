@@ -1,4 +1,4 @@
-import '@bestlyg/cli/globals';
+import { Logger } from '@bestlyg/server-shared';
 
-const logger = new best.common.Logger('');
-logger.info('===>1')
+const logger = new Logger({ prefix: '' });
+logger.info('===>1');

@@ -9,6 +9,9 @@ catalogs:
     lodash:
       specifier: ^4.18.1
       version: 4.18.1
+    zx:
+      specifier: ^8.8.5
+      version: 8.8.5
 
 pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
 
@@ -16,18 +19,28 @@ importers:
 
   .:
     devDependencies:
-      '@bestlyg/cli':
+      '@bestlyg/server-shared':
         specifier: workspace:^
-        version: link:../../cli
+        version: link:../../shared/server-shared
       lodash:
         specifier: 'catalog:'
         version: 4.18.1
+      zx:
+        specifier: 'catalog:'
+        version: 8.8.5
 
 packages:
 
   lodash@4.18.1:
     resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
+  zx@8.8.5:
+    resolution: {integrity: sha512-SNgDF5L0gfN7FwVOdEFguY3orU5AkfFZm9B5YSHog/UDHv+lvmd82ZAsOenOkQixigwH2+yyH198AwNdKhj+RA==}
+    engines: {node: '>= 12.17.0'}
+    hasBin: true
+
 snapshots:
 
   lodash@4.18.1: {}
+
+  zx@8.8.5: {}

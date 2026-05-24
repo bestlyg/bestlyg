@@ -1,6 +1,6 @@
-require('@bestlyg/cli/globals');
+const { getDirname, getResolveFunction } = require('@bestlyg/server-shared');
 
-const resolve = best.common.getResolveFunction(best.common.getDirname());
+const resolve = getResolveFunction(getDirname());
 
 module.exports = {
     apps: [

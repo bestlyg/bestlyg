@@ -1,4 +1,4 @@
-import { createRequest, createXuanData, nDaysAgo } from './utils';
+import { createRequest, createXuanData } from './utils';
 import { data } from '../temp/xuan';
 
 async function main() {

@@ -13,7 +13,8 @@
         "fork": "node scripts/fork.mjs"
     },
     "devDependencies": {
-        "@bestlyg/cli": "workspace:^",
-        "lodash": "catalog:"
+        "@bestlyg/server-shared": "workspace:^",
+        "lodash": "catalog:",
+        "zx": "catalog:"
     }
 }

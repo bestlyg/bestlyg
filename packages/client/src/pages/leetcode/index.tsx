@@ -9,7 +9,12 @@ import { summaryNodeAtom } from '@/components/app-layout';
 import { MarkdownSummary } from '@/components/markdown-summary';
 import { useParams } from 'react-router';
 import { request } from '@/utils';
-import type { LeetcodeProblem, LeetcodeSolution } from '@bestlyg/client-shared';
+import {
+    apiMap,
+    resolveApiPath,
+    type LeetcodeProblem,
+    type LeetcodeSolution,
+} from '@bestlyg/client-shared';
 
 const quote = '`';
 
@@ -49,7 +54,9 @@ ${solutions.map(solutionToTemplate).join('\n\n')}
 async function fetchLeetcodeProblem(name?: string): Promise<LeetcodeProblem | null> {
     if (!name) return null;
     const data = await request({
-        url: '/api/database/leetcode-problem/556827c1-a719-48bb-a867-60a895c72bec',
+        url: resolveApiPath(apiMap.LeetcodeProblemController.findOne, {
+            id: '556827c1-a719-48bb-a867-60a895c72bec',
+        }),
         method: 'get',
         data: { name },
         serializer: 'json',

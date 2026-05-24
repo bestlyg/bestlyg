@@ -1,13 +1,6 @@
-import '@bestlyg/cli/globals';
 import fs from 'fs-extra';
-import {
-    Ledger,
-    LeetcodeProblem,
-    Xuan,
-    LeetcodeSolution,
-    LeetcodeLevelType,
-    LeetcodeScriptType,
-} from '../external';
+import type { LeetcodeProblem } from '@bestlyg/core-shared';
+import { LeetcodeLevelType, LeetcodeScriptType } from '@bestlyg/core-shared';
 import path from 'path';
 // import { PATH_CODE } from '@bestlyg/leetcode';
 

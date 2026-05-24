@@ -1,24 +1,23 @@
-import '@bestlyg/cli/globals';
 import _ from 'lodash';
+import {
+    FILE_NAME_PACKAGE_JSON,
+    currentPackageInfo,
+    getDirname,
+    getResolveFunction,
+    Logger,
+} from '@bestlyg/server-shared';
+import { $, argv, cd, fs, within } from 'zx';
 
-const resolve = best.utils.getResolveFunction(import.meta, 1);
+const resolve = getResolveFunction(getDirname(), 1);
 const { name } = argv;
-const {
-    utils: { print, FILE_NAME_PACKAGE_JSON },
-} = best;
+const logger = new Logger({ prefix: 'TEMPLATE' });
 
-print.info(`Name: ${name}`);
+logger.info(`Name: ${name}`);
 
 const npmWorkspacePath = resolve('..');
 const pkgPath = resolve(npmWorkspacePath, name);
 
-const pkgData = _.pick(best.utils.currentPackageInfo, [
-    'version',
-    'type',
-    'author',
-    'repository',
-    'license',
-]);
+const pkgData = _.pick(currentPackageInfo, ['version', 'type', 'author', 'repository', 'license']);
 
 Object.assign(pkgData, { name });
 

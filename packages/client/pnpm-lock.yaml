@@ -129,6 +129,9 @@ catalogs:
     '@vitejs/plugin-react':
       specifier: ^6.0.2
       version: 6.0.2
+    adm-zip:
+      specifier: ^0.5.17
+      version: 0.5.17
     ahooks:
       specifier: ^3.9.7
       version: 3.9.7
@@ -306,6 +309,9 @@ catalogs:
     zod:
       specifier: ^4.4.3
       version: 4.4.3
+    zx:
+      specifier: ^8.8.5
+      version: 8.8.5
 
 pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
 
@@ -587,6 +593,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: 'catalog:'
         version: 6.0.2(vite@8.0.14(@types/node@22.19.19)(jiti@2.7.0)(less@4.6.4)(tsx@4.19.3)(yaml@2.7.0))
+      adm-zip:
+        specifier: 'catalog:'
+        version: 0.5.17
       autoprefixer:
         specifier: 'catalog:'
         version: 10.5.0(postcss@8.5.15)
@@ -623,6 +632,9 @@ importers:
       vite-plugin-compression:
         specifier: 'catalog:'
         version: 0.5.1(vite@8.0.14(@types/node@22.19.19)(jiti@2.7.0)(less@4.6.4)(tsx@4.19.3)(yaml@2.7.0))
+      zx:
+        specifier: 'catalog:'
+        version: 8.8.5
 
 packages:
 
@@ -2606,6 +2618,10 @@ packages:
     resolution: {integrity: sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+
+  adm-zip@0.5.17:
+    resolution: {integrity: sha512-+Ut8d9LLqwEvHHJl1+PIHqoyDxFgVN847JTVM3Izi3xHDWPE4UtzzXysMZQs64DMcrJfBeS/uoEP4AD3HQHnQQ==}
+    engines: {node: '>=12.0'}
 
   agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
@@ -5114,6 +5130,11 @@ packages:
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
+  zx@8.8.5:
+    resolution: {integrity: sha512-SNgDF5L0gfN7FwVOdEFguY3orU5AkfFZm9B5YSHog/UDHv+lvmd82ZAsOenOkQixigwH2+yyH198AwNdKhj+RA==}
+    engines: {node: '>= 12.17.0'}
+    hasBin: true
+
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
@@ -7100,6 +7121,8 @@ snapshots:
       acorn: 8.14.0
 
   acorn@8.14.0: {}
+
+  adm-zip@0.5.17: {}
 
   agent-base@6.0.2:
     dependencies:
@@ -10103,3 +10126,5 @@ snapshots:
       tslib: 2.3.0
 
   zwitch@2.0.4: {}
+
+  zx@8.8.5: {}

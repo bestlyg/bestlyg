@@ -1,4 +1,3 @@
-// import './swagger';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
@@ -30,23 +29,5 @@ export async function bootstrap() {
     app.useGlobalInterceptors(new LoggingInterceptor());
     app.useGlobalPipes(new ZodValidationPipe());
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
-
-    // const mode = configService.getOrThrow<Configuration['mode']>('mode');
-
-    // const documentConfig = new DocumentBuilder()
-    //     .setTitle('Best Swagger')
-    //     .setDescription('The best API description')
-    //     .setVersion('1.0')
-    //     .build();
-    // const document = SwaggerModule.createDocument(app, documentConfig);
-    // SwaggerModule.setup('swagger', app, document, {
-    //     jsonDocumentUrl: 'swagger/json',
-    //     yamlDocumentUrl: 'swagger/yaml',
-    //     explorer: true,
-    //     useGlobalPrefix: true,
-    //     customSiteTitle: 'BestLyg Sever Swagger',
-    // });
-    // await fs.writeFile(resolve('openapi.json'), JSON.stringify(document, null, 4));
-
     await app.listen(bestlygConfig.server.port);
 }

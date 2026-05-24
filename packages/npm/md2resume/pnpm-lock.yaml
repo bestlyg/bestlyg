@@ -15,6 +15,9 @@ catalogs:
     '@types/node':
       specifier: ^22.19.19
       version: 22.19.19
+    dotenv:
+      specifier: ^17.4.2
+      version: 17.4.2
     lodash:
       specifier: ^4.18.1
       version: 4.18.1
@@ -36,6 +39,9 @@ catalogs:
     unbuild:
       specifier: ^3.6.1
       version: 3.6.1
+    zx:
+      specifier: ^8.8.5
+      version: 8.8.5
 
 pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
 
@@ -59,9 +65,6 @@ importers:
         specifier: 'catalog:'
         version: 2.3.3
     devDependencies:
-      '@bestlyg/cli':
-        specifier: workspace:^
-        version: link:../../cli
       '@bestlyg/core-shared':
         specifier: workspace:^
         version: link:../../shared/core-shared
@@ -74,6 +77,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 22.19.19
+      dotenv:
+        specifier: 'catalog:'
+        version: 17.4.2
       rimraf:
         specifier: 'catalog:'
         version: 6.1.3
@@ -83,6 +89,9 @@ importers:
       unbuild:
         specifier: 'catalog:'
         version: 3.6.1(typescript@6.0.3)
+      zx:
+        specifier: 'catalog:'
+        version: 8.8.5
 
 packages:
 
@@ -626,6 +635,10 @@ packages:
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
 
+  dotenv@17.4.2:
+    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
+    engines: {node: '>=12'}
+
   electron-to-chromium@1.5.361:
     resolution: {integrity: sha512-Q6Hts7N9FnJc5LeGRINFvLhCI9xZmNtTDe5ZbcVezQz7cU4a8Aua3GH1b8J2XY8Al9PF+OCwYqhgsOOheMdvkA==}
 
@@ -1126,6 +1139,11 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  zx@8.8.5:
+    resolution: {integrity: sha512-SNgDF5L0gfN7FwVOdEFguY3orU5AkfFZm9B5YSHog/UDHv+lvmd82ZAsOenOkQixigwH2+yyH198AwNdKhj+RA==}
+    engines: {node: '>= 12.17.0'}
+    hasBin: true
+
 snapshots:
 
   '@ant-design/icons-svg@4.4.2': {}
@@ -1534,6 +1552,8 @@ snapshots:
       dom-serializer: 2.0.0
       domelementtype: 2.3.0
       domhandler: 5.0.3
+
+  dotenv@17.4.2: {}
 
   electron-to-chromium@1.5.361: {}
 
@@ -2063,3 +2083,5 @@ snapshots:
       picocolors: 1.1.1
 
   util-deprecate@1.0.2: {}
+
+  zx@8.8.5: {}

@@ -58,6 +58,32 @@ export enum LedgerFrom {
     Yzx = 'Yzx',
 }
 
+/** 账本类型的展示文案映射。 */
+export const ledgerTypeRecord: Record<LedgerType, { label: string; type: LedgerType }> = {
+    Generally: { label: '一般', type: LedgerType.Generally },
+    Drinks: { label: '酒水饮料', type: LedgerType.Drinks },
+    Food: { label: '餐饮', type: LedgerType.Food },
+    Transportation: { label: '交通', type: LedgerType.Transportation },
+    RedEnvelope: { label: '红包', type: LedgerType.RedEnvelope },
+    Taobao: { label: '淘宝', type: LedgerType.Taobao },
+    Rent: { label: '房租', type: LedgerType.Rent },
+    PhoneBill: { label: '话费', type: LedgerType.PhoneBill },
+    DailyNecessities: { label: '生活用品', type: LedgerType.DailyNecessities },
+    Drug: { label: '药品', type: LedgerType.Drug },
+    BuyGroceries: { label: '买菜', type: LedgerType.BuyGroceries },
+    Movie: { label: '电影', type: LedgerType.Movie },
+    Snack: { label: '零食', type: LedgerType.Snack },
+    Fruit: { label: '水果', type: LedgerType.Fruit },
+    ClothesShoesBags: { label: '衣服鞋包', type: LedgerType.ClothesShoesBags },
+    SkinMakeup: { label: '护肤彩妆', type: LedgerType.SkinMakeup },
+    Salary: { label: '工资', type: LedgerType.Salary },
+    FamilyWallet: { label: '小家花钱包', type: LedgerType.FamilyWallet },
+    BreakfastWallet: { label: '早餐月月包', type: LedgerType.BreakfastWallet },
+    LunchWallet: { label: '中饭菜钱包', type: LedgerType.LunchWallet },
+    DinnerWallet: { label: '晚餐小荷包', type: LedgerType.DinnerWallet },
+    TravelWallet: { label: '一起环游世界', type: LedgerType.TravelWallet },
+};
+
 /** LeetCode 题解使用的语言类型。 */
 export enum LeetcodeScriptType {
     javascript = 'javascript',
@@ -79,6 +105,19 @@ export enum LeetcodeLevelType {
     Hard = 'Hard',
 }
 
+/** 前端消费的 Casbin 规则 DTO。 */
+export type CasbinRule = Partial<
+    EntityBase & {
+        ptype: string;
+        p0: string;
+        p1: string;
+        p2: string;
+        p3: string;
+        p4: string;
+        p5: string;
+    }
+>;
+
 /** 前端消费的账本记录 DTO。 */
 export type Ledger = Partial<
     EntityBase & {
@@ -89,6 +128,33 @@ export type Ledger = Partial<
         from?: LedgerFrom;
         bank?: string;
         type: LedgerType;
+    }
+>;
+
+/** 前端消费的密钥 DTO。 */
+export type Secrets = Partial<
+    EntityBase & {
+        name: string;
+        data: string;
+    }
+>;
+
+/** 前端消费的 serverless 函数 DTO。 */
+export type Serverless = Partial<
+    EntityBase & {
+        name: string;
+        code: string;
+    }
+>;
+
+/** 前端消费的用户 DTO。 */
+export type User = Partial<
+    EntityBase & {
+        name: string;
+        pwd: string;
+        avatar: string;
+        description: string;
+        nickname: string;
     }
 >;
 

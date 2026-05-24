@@ -1,13 +1,23 @@
-import '@bestlyg/cli/globals';
 import { execSync } from 'child_process';
+import dotenv from 'dotenv';
+import {
+    ConfigurationSchema,
+    getConfiguration,
+    getDirname,
+    getResolveFunction,
+    Logger,
+} from '@bestlyg/server-shared';
 
-const logger = new best.common.Logger('DEPLOY');
+const logger = new Logger({ prefix: 'DEPLOY' });
 const envFileName = '.env';
-const resolve = best.common.getResolveFunction(best.common.getDirname(), 1);
+const resolve = getResolveFunction(getDirname(), 1);
 
-const { config } = best;
+dotenv.config({ path: resolve('node_modules', '@bestlyg', 'server-shared', envFileName) });
+dotenv.config({ path: resolve(envFileName) });
 
-const run = async cmd => {
+const config = ConfigurationSchema.parse(getConfiguration());
+
+const run = async (cmd) => {
     logger.info(cmd);
     execSync(cmd, { stdio: 'inherit' });
     // await $`${cmd}`.stdio('inherit', 'inherit', 'inherit');
@@ -15,7 +25,13 @@ const run = async cmd => {
 const homePath = process.env.HOME;
 
 const dbName = 'best_data';
-const envDistPath = resolve(config.ssh.projectPath, 'packages', 'shared', 'server-shared', envFileName);
+const envDistPath = resolve(
+    config.ssh.projectPath,
+    'packages',
+    'shared',
+    'server-shared',
+    envFileName,
+);
 const sqlDistPath = `/root/${dbName}.sql`;
 const dumpPath = resolve('dist', dbName + '.sql');
 
