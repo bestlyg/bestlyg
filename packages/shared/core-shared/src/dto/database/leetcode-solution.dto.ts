@@ -53,7 +53,7 @@ export const leetcodeSolutionResponse = baseEntityResponse
         code: z.string(),
         problem: z.unknown().optional(),
     })
-    .passthrough();
+    .loose();
 export const leetcodeSolutionListResponse = z.array(leetcodeSolutionResponse);
 export const leetcodeSolutionPageResponse = pageResponse(leetcodeSolutionResponse);
 export const leetcodeSolutionBatchCreateResponse = z.array(leetcodeSolutionResponse);

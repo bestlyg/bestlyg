@@ -9,18 +9,15 @@ export interface BestlygTargetEnvironmentConfig extends BestlygE2ETargetEnvironm
     apiURL?: string;
 }
 
-const bestlygTargetEnvironmentSchema = z
-    .object({
-        url: z.string().url(),
-        apiURL: z.string().url().optional(),
-        runner: z
-            .object({
-                concurrency: z.number().int().positive().optional(),
-            })
-            .passthrough()
-            .optional(),
-    })
-    .passthrough() as ZodType<BestlygTargetEnvironmentConfig>;
+const bestlygTargetEnvironmentSchema = z.looseObject({
+    url: z.url(),
+    apiURL: z.url().optional(),
+    runner: z
+        .looseObject({
+            concurrency: z.number().int().positive().optional(),
+        })
+        .optional(),
+}) as ZodType<BestlygTargetEnvironmentConfig>;
 
 export const BESTLYG_ENVIRONMENTS: Record<string, BestlygTargetEnvironmentConfig> = {
     local: {

@@ -32,7 +32,7 @@ export const serverlessResponse = baseEntityResponse
         name: z.string(),
         code: z.string(),
     })
-    .passthrough();
+    .loose();
 export const serverlessListResponse = z.array(serverlessResponse);
 export const serverlessPageResponse = pageResponse(serverlessResponse);
 export const serverlessBatchCreateResponse = z.array(serverlessResponse);

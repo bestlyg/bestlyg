@@ -42,7 +42,7 @@ export const casbinRuleResponse = baseEntityResponse
         p4: z.string(),
         p5: z.string(),
     })
-    .passthrough();
+    .loose();
 export const casbinRuleListResponse = z.array(casbinRuleResponse);
 export const casbinRulePageResponse = pageResponse(casbinRuleResponse);
 export const casbinRuleBatchCreateResponse = z.array(casbinRuleResponse);

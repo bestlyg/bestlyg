@@ -1,14 +1,10 @@
-import { ClsModule } from 'nestjs-cls';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BestlygConfig, MailService, resolve } from '@bestlyg-server/common';
-import { ScheduleModule } from '@nestjs/schedule';
+import { BestlygConfig, GlobalModule, resolve } from '@bestlyg-server/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TasksService } from './services/tasks.service';
 import { AuthModule } from '@bestlyg-server/auth';
-import { JwtModule } from '@nestjs/jwt';
 import { ServerlessModule } from '@bestlyg-server/serverless';
 // import { DataModule } from '@bestlyg-server/data';
 import { StaticModule } from '@bestlyg-server/static';
@@ -16,6 +12,7 @@ import { StaticModule } from '@bestlyg-server/static';
 import { ZjuerModule } from '@bestlyg-server/zjuer';
 import { DatabaseModule, entities } from '@bestlyg-server/database';
 import { ApiModule } from '@bestlyg-server/api';
+import { SystemModule } from './modules';
 
 // const configuration = ConfigurationSchema.parse(getConfiguration());
 
@@ -24,21 +21,14 @@ export class AppModule {
         return {
             module: AppModule,
             imports: [
-                ScheduleModule.forRoot(),
-                // ConfigModule.forRoot({
-                //     // envFilePath: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
-                //     ignoreEnvFile: true,
-                //     isGlobal: true,
-                //     load: [() => ConfigurationSchema.parse(getConfiguration())],
-                // }),
-                ConfigModule.forRoot({ ignoreEnvFile: true, isGlobal: true, load: [() => config] }),
+                GlobalModule.forRoot({ config }),
                 TypeOrmModule.forRoot({
                     type: 'postgres',
                     retryAttempts: 3,
                     retryDelay: 3000,
                     entities: Object.values(entities),
                     url: config.server.database.url,
-                    synchronize: true,
+                    synchronize: config.server.database.synchronize,
                     logging: true,
                 }),
                 ServeStaticModule.forRoot({
@@ -48,20 +38,7 @@ export class AppModule {
                 ServeStaticModule.forRoot({
                     rootPath: resolve('node_modules', '@bestlyg', 'client', 'dist'),
                 }),
-                JwtModule.register({
-                    global: true,
-                    secret: config.jwt.secret,
-                    signOptions: { expiresIn: '100 days' },
-                }),
-                ClsModule.forRoot({
-                    global: true,
-                    middleware: {
-                        mount: true,
-                        setup: (cls, req) => {
-                            cls.set('info', req.headers['x-info']);
-                        },
-                    },
-                }),
+                SystemModule.forRoot({ config }),
                 DatabaseModule,
                 AuthModule,
                 ServerlessModule,
@@ -70,7 +47,7 @@ export class AppModule {
                 ZjuerModule,
             ],
             controllers: [AppController],
-            providers: [AppService, TasksService, MailService],
+            providers: [AppService, TasksService],
         };
     }
 }

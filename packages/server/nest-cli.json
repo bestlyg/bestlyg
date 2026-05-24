@@ -44,6 +44,15 @@
                 "tsConfigPath": "libs/database/tsconfig.lib.json"
             }
         },
+        "dev": {
+            "type": "library",
+            "root": "libs/dev",
+            "entryFile": "index",
+            "sourceRoot": "libs/dev/src",
+            "compilerOptions": {
+                "tsConfigPath": "libs/dev/tsconfig.lib.json"
+            }
+        },
         "serverless": {
             "type": "library",
             "root": "libs/serverless",

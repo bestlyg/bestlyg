@@ -38,7 +38,7 @@ export const userResponse = baseEntityResponse
         description: z.string(),
         nickname: z.string(),
     })
-    .passthrough();
+    .loose();
 export const userListResponse = z.array(userResponse);
 export const userPageResponse = pageResponse(userResponse);
 export const userBatchCreateResponse = z.array(userResponse);

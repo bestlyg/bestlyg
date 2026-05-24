@@ -56,7 +56,7 @@ export const leetcodeProblemResponse = baseEntityResponse
         level: enumSchema(leetcodeLevelTypeValues),
         solutions: z.array(leetcodeSolutionResponse).optional(),
     })
-    .passthrough();
+    .loose();
 export const leetcodeProblemListResponse = z.array(leetcodeProblemResponse);
 export const leetcodeProblemPageResponse = pageResponse(leetcodeProblemResponse);
 export const leetcodeProblemBatchCreateResponse = z.array(leetcodeProblemResponse);
@@ -64,7 +64,7 @@ export const leetcodeProblemImportResponse = importCreateResponse(leetcodeProble
 export const leetcodeProblemImportUpdateResponse = databaseImportUpdateResponse;
 export const leetcodeProblemExportResponse = databaseXlsxExportResponse;
 export const leetcodeProblemWriteResponse = databaseWriteResponse;
-export const leetcodeProblemBySlugResponse = z.object({}).passthrough();
+export const leetcodeProblemBySlugResponse = z.looseObject({});
 
 export class LeetcodeProblemPageRequestDto extends createZodModel(leetcodeProblemPageRequest) {}
 export class LeetcodeProblemCreateRequestDto extends createZodModel(leetcodeProblemCreateRequest) {}

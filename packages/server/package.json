@@ -104,6 +104,7 @@
             "^@bestlyg-server/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
             "^@bestlyg-server/common(|/.*)$": "<rootDir>/libs/common/src/$1",
             "^@bestlyg-server/database(|/.*)$": "<rootDir>/libs/database/src/$1",
+            "^@bestlyg-server/dev(|/.*)$": "<rootDir>/libs/dev/src/$1",
             "^@bestlyg-server/serverless(|/.*)$": "<rootDir>/libs/serverless/src/$1",
             "^@bestlyg-server/static(|/.*)$": "<rootDir>/libs/static/src/$1",
             "^@bestlyg-server/zjuer(|/.*)$": "<rootDir>/libs/zjuer/src/$1",

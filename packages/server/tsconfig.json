@@ -38,6 +38,8 @@
             "@bestlyg-server/common/*": ["libs/common/src/*"],
             "@bestlyg-server/database": ["libs/database/src"],
             "@bestlyg-server/database/*": ["libs/database/src/*"],
+            "@bestlyg-server/dev": ["libs/dev/src"],
+            "@bestlyg-server/dev/*": ["libs/dev/src/*"],
             "@bestlyg-server/serverless": ["libs/serverless/src"],
             "@bestlyg-server/serverless/*": ["libs/serverless/src/*"],
             "@bestlyg-server/static": ["libs/static/src"],

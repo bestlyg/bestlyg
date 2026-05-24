@@ -55,7 +55,7 @@ export const ledgerResponse = baseEntityResponse
         bank: z.string().optional().nullable(),
         type: enumSchema(ledgerTypeValues),
     })
-    .passthrough();
+    .loose();
 export const ledgerListResponse = z.array(ledgerResponse);
 export const ledgerPageResponse = pageResponse(ledgerResponse);
 export const ledgerBatchCreateResponse = z.array(ledgerResponse);

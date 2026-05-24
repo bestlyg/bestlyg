@@ -5,3 +5,5 @@ export * from './functions';
 export * from './pipes';
 export * from './config';
 export * from './logger';
+export * from './storage';
+export * from './modules';

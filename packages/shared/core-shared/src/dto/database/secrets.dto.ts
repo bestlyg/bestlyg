@@ -32,7 +32,7 @@ export const secretsResponse = baseEntityResponse
         name: z.string(),
         data: z.string(),
     })
-    .passthrough();
+    .loose();
 export const secretsListResponse = z.array(secretsResponse);
 export const secretsPageResponse = pageResponse(secretsResponse);
 export const secretsBatchCreateResponse = z.array(secretsResponse);

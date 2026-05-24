@@ -35,7 +35,7 @@ export const xuanResponse = baseEntityResponse
         weight: z.number().int().optional().nullable(),
         dance_times: z.number().int().optional().nullable(),
     })
-    .passthrough();
+    .loose();
 export const xuanListResponse = z.array(xuanResponse);
 export const xuanPageResponse = pageResponse(xuanResponse);
 export const xuanBatchCreateResponse = z.array(xuanResponse);

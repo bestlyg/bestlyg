@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-type AnyZodSchema = z.ZodTypeAny;
+type AnyZodSchema = z.ZodType;
 
 // 这些内部字段不能出现在 JSON 或 Object.keys 中，所以用 symbol + non-enumerable 保存。
 const zodRawSymbol = Symbol('zod-model-raw');

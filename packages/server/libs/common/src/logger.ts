@@ -3,17 +3,16 @@ import DailyRotateFile from 'winston-daily-rotate-file';
 import winston from 'winston';
 import 'winston-daily-rotate-file';
 import { resolve } from './resolve';
-// import { LOG_PATH, ROOT_PATH } from './constants';
+import { getCurrentContext } from './storage';
 
 export function createLoggerOptions({
     logPath = resolve('logs'),
 }: { logPath?: string } = {}): winston.LoggerOptions {
     function getExternalInfo() {
-        // const ctx = getCurrentContext();
+        const ctx = getCurrentContext();
         return {
-            // traceId: ctx?.traceId,
-            // username: ctx?.username,
-            // domain: ctx?.domain,
+            traceId: ctx?.traceId,
+            username: ctx?.username,
         };
     }
     const timestamp = winston.format.timestamp();

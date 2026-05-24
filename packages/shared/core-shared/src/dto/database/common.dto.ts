@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const maxXlsxSize = 10 * 1024 * 1024;
 export const xlsxMime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
-export const idSchema = z.string().uuid();
+export const idSchema = z.uuid();
 export const requiredStringSchema = z.preprocess(
     (value) => String(value ?? '').trim(),
     z.string().min(1),
@@ -17,7 +17,7 @@ export const dateSchema = z.coerce.date();
 export const intSchema = z.coerce.number().int();
 export const optionalNumberSchema = z.preprocess(
     (value) => (value === '' ? undefined : value),
-    z.coerce.number().finite().optional().nullable(),
+    z.coerce.number().optional().nullable(),
 );
 export const optionalIntSchema = z.preprocess(
     (value) => (value === '' ? undefined : value),
@@ -67,7 +67,7 @@ export const databaseXlsxFileRequest = databaseXlsxFileMetaRequest
             { message: 'file buffer is required' },
         ),
     })
-    .passthrough();
+    .loose();
 export const databaseXlsxImportResponse = z.object({
     count: z.number().int().nonnegative(),
     data: z.array(z.unknown()),
@@ -90,7 +90,7 @@ export const databaseWriteResponse = z
     .object({
         affected: z.number().int().nonnegative().optional().nullable(),
     })
-    .passthrough();
+    .loose();
 export const databaseImportUpdateResponse = databaseXlsxUpdateResponse;
 export const baseEntityResponse = z
     .object({
@@ -98,7 +98,7 @@ export const baseEntityResponse = z
         createdTime: dateSchema.optional(),
         updatedTime: dateSchema.optional(),
     })
-    .passthrough();
+    .loose();
 
 export interface DatabaseBaseEntity {
     id?: string;
@@ -155,7 +155,7 @@ export function optionalEnumSchema<T extends EnumSource>(value: T) {
     );
 }
 
-export function jsonSchema<T extends z.ZodTypeAny>(schema: T) {
+export function jsonSchema<T extends z.ZodType>(schema: T) {
     return z.preprocess((value) => {
         if (typeof value !== 'string') return value;
         const trimmed = value.trim();
@@ -180,28 +180,28 @@ export function withBaseColumns<Entity extends object = DatabaseBaseEntity>(
     ];
 }
 
-export function nonEmptyObject<T extends z.ZodTypeAny>(schema: T, label: string) {
+export function nonEmptyObject<T extends z.ZodType>(schema: T, label: string) {
     return schema.refine(
         (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
         { message: `${label} must contain at least one field` },
     );
 }
 
-export function batchUpdateBodySchema<T extends z.ZodTypeAny>(updateSchema: T) {
+export function batchUpdateBodySchema<T extends z.ZodType>(updateSchema: T) {
     return z.object({
         ids: z.array(idSchema).min(1),
         data: nonEmptyObject(updateSchema, 'data'),
     });
 }
 
-export function pageResponse<T extends z.ZodTypeAny>(itemResponse: T) {
+export function pageResponse<T extends z.ZodType>(itemResponse: T) {
     return z.object({
         list: z.array(itemResponse),
         total: z.number().int().nonnegative(),
     });
 }
 
-export function importCreateResponse<T extends z.ZodTypeAny>(itemResponse: T) {
+export function importCreateResponse<T extends z.ZodType>(itemResponse: T) {
     return databaseXlsxImportResponse.extend({
         data: z.array(itemResponse),
     });

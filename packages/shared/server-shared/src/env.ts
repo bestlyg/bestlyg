@@ -1,5 +1,25 @@
 import { z } from 'zod';
 
+const envBoolean = z.preprocess((value) => {
+    if (typeof value === 'string') {
+        const normalized = value.trim().toLowerCase();
+        if (['1', 'true', 'yes', 'on'].includes(normalized)) return true;
+        if (['0', 'false', 'no', 'off', ''].includes(normalized)) return false;
+    }
+    if (typeof value === 'number') return value !== 0;
+    return value;
+}, z.boolean());
+
+const stringList = z.preprocess((value) => {
+    if (typeof value === 'string') {
+        return value
+            .split(',')
+            .map((item) => item.trim())
+            .filter(Boolean);
+    }
+    return value;
+}, z.array(z.string()).default([]));
+
 /** 服务端运行配置 schema，负责校验环境变量整理后的配置结构。 */
 export const ConfigurationSchema = z
     .object({
@@ -7,9 +27,24 @@ export const ConfigurationSchema = z
         server: z
             .object({
                 port: z.coerce.number().readonly(),
-                database: z.object({ url: z.string().readonly() }),
+                timeout: z.coerce
+                    .number()
+                    .positive()
+                    .default(10 * 60 * 1000),
+                modules: stringList,
+                devMode: envBoolean.default(false),
+                database: z.object({
+                    url: z.string().readonly(),
+                    synchronize: envBoolean.default(false),
+                }),
             })
             .required(),
+        dev: z
+            .object({
+                enabled: envBoolean.default(false),
+                secret: z.string().default(''),
+            })
+            .default({}),
         ssh: z
             .object({
                 username: z.string().readonly(),
@@ -60,9 +95,17 @@ export function getConfiguration() {
         },
         server: {
             port: process.env.BESTLYG_SERVER_PORT,
+            timeout: process.env.BESTLYG_SERVER_TIMEOUT,
+            modules: process.env.BESTLYG_SERVER_MODULES,
+            devMode: process.env.BESTLYG_SERVER_DEV_MODE,
             database: {
                 url: process.env.BESTLYG_DATABASE_URL,
+                synchronize: process.env.BESTLYG_DATABASE_SYNCHRONIZE,
             },
+        },
+        dev: {
+            enabled: process.env.BESTLYG_DEV_ENABLED,
+            secret: process.env.BESTLYG_DEV_SECRET,
         },
         mail: {
             host: process.env.BESTLYG_SERVER_MAIL_HOST,
