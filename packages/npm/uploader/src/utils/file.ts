@@ -5,9 +5,11 @@ import { DIRECT_UPLOAD_LIMIT } from './constant';
  * @returns
  */
 export function fileSlice(file: Blob, start: number, end: number) {
-    const slice: (typeof Blob)['prototype']['slice'] =
-        file.slice || (file as any).webkitSlice || (file as any).mozSlice;
-    return slice.call(file, start, end);
+    if (typeof file.slice === 'function') return file.slice(start, end);
+    const legacyFile = file as Blob & { webkitSlice?: Blob['slice']; mozSlice?: Blob['slice'] };
+    if (typeof legacyFile.webkitSlice === 'function') return legacyFile.webkitSlice(start, end);
+    if (typeof legacyFile.mozSlice === 'function') return legacyFile.mozSlice(start, end);
+    throw new Error('Blob slice is not supported');
 }
 
 /**
@@ -38,11 +40,12 @@ export function getFileSliceLength(
     const { size } = file;
     const byted = 1024 * 1024;
     if (getSliceFunc && typeof getSliceFunc === 'function') {
+        const sliceLength = getSliceFunc(size);
         // 当分片大小小于2m时，按2m分片处理
-        if (getSliceFunc(size) < DIRECT_UPLOAD_LIMIT) {
+        if (sliceLength !== undefined && sliceLength < DIRECT_UPLOAD_LIMIT) {
             return DIRECT_UPLOAD_LIMIT;
         }
-        return getSliceFunc(size) || size;
+        return sliceLength || size;
     }
     if (size > 200 * byted) {
         return 10 * byted;

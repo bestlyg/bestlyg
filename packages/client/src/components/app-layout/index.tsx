@@ -44,7 +44,7 @@ export default function AppLayout() {
             }
             return null;
         }
-        sidebarPromise?.then((sidebar) => {
+        void sidebarPromise?.then((sidebar) => {
             const res = findActiveItem(sidebar?.groups ?? []);
             setActiveSidebarBreadcrumbList(res);
         });

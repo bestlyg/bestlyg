@@ -1,7 +1,12 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { Calendar } from '@/shadcn/ui/calendar';
-import { ledgerFindPageAndCount, PageData, PageParam } from '@bestlyg/client-shared';
+import {
+    LedgerPageRequestDto,
+    ledgerFindPageAndCount,
+    PageData,
+    PageParam,
+} from '@bestlyg/client-shared';
 import { Table } from 'antd';
 import { useRequest } from 'ahooks';
 import type { Ledger } from '@bestlyg/client-shared';
@@ -13,12 +18,12 @@ async function fetchLedgers({
     pageParam: PageParam;
     param: { date?: Date };
 }): Promise<PageData<Ledger> | null> {
-    const data = await ledgerFindPageAndCount({
+    const data = await ledgerFindPageAndCount(new LedgerPageRequestDto({
         current: pageParam.current,
         pageSize: pageParam.pageSize,
         date: param.date ? dayjs(param.date).format('YYYY-MM-DD') : undefined,
-    });
-    return PageData.from(data);
+    }));
+    return PageData.from<Ledger>(data as any);
 }
 
 export default function LedgerList() {
@@ -64,7 +69,8 @@ export default function LedgerList() {
                         align: 'right',
                         render: (_, row) => (
                             <div className="text-right">
-                                {(row.balance / 100) * (row.io ? 1 : -1) + '元'}
+                                {(((row.balance ?? 0) / 100) * (row.io ? 1 : -1)).toString() +
+                                    '元'}
                             </div>
                         ),
                         width: 100,

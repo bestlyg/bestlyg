@@ -141,7 +141,7 @@ export class NumberConfig extends AbstractConfig<number> {
         minOrValidator: number | undefined | ConfigValidator,
         maxOrMin: number | undefined,
         decimalsOrMax: number | undefined,
-        decimals?: number | undefined,
+        decimals?: number,
     ) {
         const hasValidator = typeof minOrValidator === 'function';
         super(label, desc, defaultValue, hasValidator ? minOrValidator : DEFAULT_VALIDATOR);
@@ -357,15 +357,7 @@ export type ExtractConfigType<C extends AbstractConfig<any>> =
     C extends AbstractConfig<infer R> ? R : never;
 
 /** 所有内置配置项支持的值类型。 */
-export type ConfigValueType =
-    | ExtractConfigType<StringConfig>
-    | ExtractConfigType<BooleanConfig>
-    | ExtractConfigType<NumberConfig>
-    | ExtractConfigType<StringListConfig>
-    | ExtractConfigType<RadioConfig>
-    | ExtractConfigType<MultipleStringListConfig>
-    | ExtractConfigType<HexaColorConfig>
-    | ExtractConfigType<CsvConfig>;
+export type ConfigValueType = string | boolean | number | string[] | MultRow[];
 
 /** 内置配置项工厂集合，便于动态创建配置实例。 */
 export const commonFactory = {

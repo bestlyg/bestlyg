@@ -9,8 +9,6 @@
         "verbatimModuleSyntax": false,
         "declaration": true,
         "skipLibCheck": true,
-        "moduleResolution": "Node",
-        "downlevelIteration": true,
         "esModuleInterop": true,
         "target": "ES2015",
         "types": ["node"]

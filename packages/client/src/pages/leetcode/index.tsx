@@ -16,7 +16,7 @@ import {
 
 const quote = '`';
 
-function solutionToTemplate(solution: LeetcodeSolution, idx: number) {
+function solutionToTemplate(solution: Omit<LeetcodeSolution, 'problem'>, idx: number) {
     const { script, date, time, memory, code, desc } = solution;
     return `
 ## 题解 ${idx + 1} - ${script}
@@ -42,16 +42,16 @@ function problemToTemplate(problem: NonNullable<Awaited<ReturnType<typeof fetchL
 
 > 链接：[${name}](${url})  
 > 难度：${level}  
-> 标签：${tags.join('、')}  
+> 标签：${tags?.join('、') ?? ''}
 > 简介：{${quote}${desc}${quote}}  
 
-${solutions.map(solutionToTemplate).join('\n\n')}
+${solutions?.map(solutionToTemplate).join('\n\n') ?? ''}
 `.trim();
 }
 
 async function fetchLeetcodeProblem(name?: string): Promise<LeetcodeProblem | null> {
     if (!name) return null;
-    return leetcodeProblemFindByName({ name });
+    return leetcodeProblemFindByName({ name } as any) as Promise<LeetcodeProblem | null>;
 }
 
 function LeetCodeProblem({

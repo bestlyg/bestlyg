@@ -17,7 +17,7 @@ export type AppSseApiRequest = {
     sleepTime: number;
 };
 export type AppSseApiResponse = unknown;
-export async function appSse(input: AppSseApiRequest): Promise<AppSseApiResponse | null> {
+export async function appSse(input: AppSseApiRequest): Promise<AppSseApiResponse> {
     return callApi<AppSseApiResponse>({
         endpoint: appControllerApiMap.sse,
         body: input,

@@ -1,2 +1,2 @@
 export * from './types';
-export * from './key';
+export { buildConfigKey, buildConfigKeyPrefix, extractConfigName } from './key';

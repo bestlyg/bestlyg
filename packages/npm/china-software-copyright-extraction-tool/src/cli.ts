@@ -4,7 +4,7 @@ import { print } from './utils/print';
 import { ToolOption, chinaSoftwareCopyrightExtractionTool } from './core';
 import { resolve } from './utils/functions';
 
-const contact = (v, cur) => cur.concat([v]);
+const contact = (v: string, cur: string[]) => cur.concat([v]);
 
 async function main() {
     const program = new Command();

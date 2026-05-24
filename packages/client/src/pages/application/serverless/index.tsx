@@ -22,6 +22,9 @@ import {
     serverlessFindList,
     serverlessSave,
     serverlessUpdate,
+    DatabaseIdParamsRequestDto,
+    ServerlessCreateRequestDto,
+    ServerlessUpdateRequestDto,
     type Serverless as ServerlessCode,
 } from '@bestlyg/client-shared';
 
@@ -69,10 +72,10 @@ export default function Serverless() {
                 <Button
                     variant="outline"
                     onClick={async () => {
-                        await serverlessSave({
+                        await serverlessSave(new ServerlessCreateRequestDto({
                             name: Date.now().toString(),
                             code: 'resolve(1)',
-                        });
+                        }));
                         toast({
                             title: 'Successful',
                             description: 'create a new serverless code.',
@@ -104,11 +107,11 @@ export default function Serverless() {
                             variant="outline"
                             onClick={async () => {
                                 await serverlessUpdate({
-                                    params: { id: activeCodeId },
-                                    body: {
+                                    params: new DatabaseIdParamsRequestDto({ id: activeCodeId }),
+                                    body: new ServerlessUpdateRequestDto({
                                         name,
                                         code,
-                                    },
+                                    }),
                                 });
                                 toast({
                                     title: 'Successful',
@@ -134,7 +137,9 @@ export default function Serverless() {
                                     <AlertDialogCancel>No</AlertDialogCancel>
                                     <AlertDialogAction
                                         onClick={async () => {
-                                            await serverlessDelete({ id: activeCodeId });
+                                            await serverlessDelete(
+                                                new DatabaseIdParamsRequestDto({ id: activeCodeId }),
+                                            );
                                             toast({
                                                 title: 'Successful',
                                                 description: `delete ${name}'s code.`,

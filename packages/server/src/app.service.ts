@@ -23,7 +23,7 @@ export class AppService implements OnApplicationBootstrap {
             this.logger.log(`${k}: ${v}`);
         }
         if (mode === 'production') {
-            this.mailService.sendMail(
+            void this.mailService.sendMail(
                 ['1057966749@qq.com'],
                 `服务启动通知`,
                 `

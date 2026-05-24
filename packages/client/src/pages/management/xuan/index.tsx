@@ -37,7 +37,7 @@ function XuansSkeleton() {
 }
 
 async function fetchXuan(): Promise<XuanDB[] | null> {
-    return xuanFindList();
+    return xuanFindList() as Promise<XuanDB[] | null>;
 }
 
 export function XuanChart({ promise }: { promise: ReturnType<typeof fetchXuan> }) {

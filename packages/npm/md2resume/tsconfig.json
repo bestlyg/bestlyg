@@ -1,9 +1,9 @@
 {
-    "extends": "./node_modules/@bestlyg/cli/tsconfig.json",
+    "extends": "./node_modules/@bestlyg/core-shared/tsconfig.json",
     "compilerOptions": {
-        "baseUrl": ".",
         "ignoreDeprecations": "6.0",
         "rootDir": "src",
+        "strict": false,
         "lib": ["ESNext", "DOM"]
     },
     "include": ["src/**/*.ts"]

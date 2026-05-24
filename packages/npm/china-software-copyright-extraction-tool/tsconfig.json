@@ -4,11 +4,9 @@
         "target": "ESNext",
         "module": "CommonJS",
         "allowJs": true,
-        "baseUrl": ".",
         "ignoreDeprecations": "6.0",
         "skipLibCheck": true,
         "lib": ["ESNext"],
-        "moduleResolution": "node",
         "esModuleInterop": true,
         "types": ["node"]
     },

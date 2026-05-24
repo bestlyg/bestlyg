@@ -38,7 +38,7 @@ export function* genSample<T>(config: Parameters<typeof genList<T>>[0] = {}) {
     });
 }
 
-export function* genValue<T = undefined>({ value, count }: { value?: T; count?: number } = {}) {
+export function* genValue<T = undefined>({ value, count = 0 }: { value?: T; count?: number } = {}) {
     for (let i = 0; i < count; i++) {
         yield value;
     }

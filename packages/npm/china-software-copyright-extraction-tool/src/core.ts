@@ -86,7 +86,7 @@ async function getFormatedCodeList(filePaths: string[]) {
 
 export class Doc {
     inited = false;
-    doc: docxtemplater<PizZip>;
+    doc!: docxtemplater<PizZip>;
     constructor() {}
     setData(data: any) {
         this.doc.setData(data);
@@ -98,7 +98,7 @@ export class Doc {
         this.doc = doc;
         this.inited = true;
     }
-    async output(outputPath) {
+    async output(outputPath: string) {
         // 生成新的文档
         this.doc.render();
         // 将文档输出为新的docx文件

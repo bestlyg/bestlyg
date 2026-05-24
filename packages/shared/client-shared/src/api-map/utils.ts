@@ -17,12 +17,20 @@ export function resolveApiPath(endpoint: ApiEndpoint, params: ApiPathParams = {}
     });
 }
 
-export function appendApiQuery(url: string, query: ApiQueryParams = undefined) {
+function stringifyApiValue(value: unknown) {
+    if (typeof value === 'string') return value;
+    if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') {
+        return String(value);
+    }
+    return JSON.stringify(value);
+}
+
+export function appendApiQuery(url: string, query?: ApiQueryParams) {
     if (!query) return url;
     const searchParams = new URLSearchParams();
     for (const [key, value] of Object.entries(query)) {
         if (value === undefined || value === null) continue;
-        searchParams.set(key, String(value));
+        searchParams.set(key, stringifyApiValue(value));
     }
     const queryString = searchParams.toString();
     if (!queryString) return url;

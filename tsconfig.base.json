@@ -1,8 +1,6 @@
 {
     "compilerOptions": {
         "ignoreDeprecations": "6.0",
-        "rootDir": ".",
-        "outDir": "dist",
         "sourceMap": true,
         "target": "ESNext",
         "module": "ESNext",
@@ -20,8 +18,6 @@
         "jsx": "react",
         "jsxFactory": "React.createElement",
         "jsxFragmentFactory": "React.Fragment",
-        "lib": ["ESNext", "DOM"],
-        "types": ["jest", "node"]
-    },
-    "files": []
+        "lib": ["ESNext", "DOM"]
+    }
 }

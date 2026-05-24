@@ -50,7 +50,7 @@ export class TreeMap<K, V> implements Map<K, V> {
             this.root = node = new TreeMapNode<K, V>(key, val);
         } else {
             let parent = this.root;
-            let pos = 'left';
+            let pos: 'left' | 'right' = 'left';
             while (parent !== null) {
                 const compare = this.compare(parent.key, key);
                 if (compare > 0) {

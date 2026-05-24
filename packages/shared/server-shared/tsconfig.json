@@ -6,7 +6,6 @@
         "target": "ESNext",
         "module": "ESNext",
         "allowJs": true,
-        "baseUrl": ".",
         "ignoreDeprecations": "6.0",
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
@@ -16,7 +15,7 @@
         "types": ["node"],
         "typeRoots": ["./node_modules/@types"],
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["./src/*"]
         }
     },
     "include": ["src/**/*.ts"],

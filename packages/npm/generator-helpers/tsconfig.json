@@ -6,15 +6,14 @@
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
         "lib": ["ESNext"],
-        "moduleResolution": "node",
+        "moduleResolution": "Bundler",
         "esModuleInterop": true,
         "types": ["node"],
         "rootDir": "src",
-        "baseUrl": ".",
         "ignoreDeprecations": "6.0",
         "typeRoots": ["./node_modules/@types"],
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["./src/*"]
         }
     },
     "include": ["src/**/*.ts"],

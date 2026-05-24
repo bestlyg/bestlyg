@@ -1,11 +1,30 @@
+type LegacyBlobPrototype = Blob & {
+        webkitSlice?: Blob['slice'];
+        mozSlice?: Blob['slice'];
+};
+
+type LegacyBlobConstructor = {
+    prototype: LegacyBlobPrototype;
+    new (blobParts?: BlobPart[], options?: BlobPropertyBag): Blob;
+};
+
 /**
  * 支持chunked方式上传
  */
 export function supportChunked(): boolean {
-    const Blob = window.Blob || (window as any).WebKitBlob;
+    const BlobCtor = (window.Blob ||
+        (window as typeof window & { WebKitBlob?: LegacyBlobConstructor }).WebKitBlob) as
+        | LegacyBlobConstructor
+        | undefined;
+    if (!BlobCtor) return false;
     try {
-        const blobpro = Blob.prototype;
-        return !!(FormData && (blobpro.slice || blobpro.webkitSlice || blobpro.mozSlice));
+        const blobPrototype = BlobCtor.prototype;
+        return Boolean(
+            FormData &&
+                (typeof blobPrototype.slice === 'function' ||
+                    typeof blobPrototype.webkitSlice === 'function' ||
+                    typeof blobPrototype.mozSlice === 'function'),
+        );
     } catch (_err) {
         return false;
     }
@@ -15,15 +34,16 @@ export function supportChunked(): boolean {
  * 支持xhr上传的方式
  */
 export function supportXhr(): boolean {
-    return !!(!!window.FormData || (window.ProgressEvent && window.FileReader));
+    return Boolean(window.FormData || (window.ProgressEvent && window.FileReader));
 }
 
 export function supportCrc32() {
-    const supportBinaryString = window.FileReader && window.FileReader.prototype.readAsBinaryString;
-    const blobPrototype = Blob.prototype as Record<string, any>;
-    return (
+    const blobPrototype = Blob.prototype as LegacyBlobPrototype;
+    return Boolean(
         typeof Int32Array !== 'undefined' &&
-        supportBinaryString &&
-        (blobPrototype.slice || blobPrototype.webkitSlice || blobPrototype.mozSlice)
+            'readAsBinaryString' in window.FileReader.prototype &&
+            (typeof blobPrototype.slice === 'function' ||
+                typeof blobPrototype.webkitSlice === 'function' ||
+                typeof blobPrototype.mozSlice === 'function'),
     );
 }

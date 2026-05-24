@@ -20,7 +20,7 @@ export class RBTreeNode3<T> {
         public parent: RBTreeNode3<any> | null = null,
     ) {}
     toString() {
-        return this.val + (isRed(this) ? '(R)' : '');
+        return String(this.val as string | number | boolean | bigint | symbol | null | undefined) + (isRed(this) ? '(R)' : '');
     }
 }
 export class RBTree3<T> implements IRBTree<T> {
@@ -46,7 +46,7 @@ export class RBTree3<T> implements IRBTree<T> {
             this.root = node = new RBTreeNode3<T>(key);
         } else {
             let parent = this.root;
-            let pos = 'left';
+            let pos: 'left' | 'right' = 'left';
             while (parent !== null) {
                 const compare = this.compare(parent.val, key);
                 if (compare > 0) {

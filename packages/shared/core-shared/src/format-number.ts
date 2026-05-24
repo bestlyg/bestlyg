@@ -173,7 +173,13 @@ export const formatThousands = (value: unknown) => {
     }
 
     const num = Number(value);
-    if (!Number.isFinite(num)) return String(value);
+    if (!Number.isFinite(num)) {
+        if (typeof value === 'string') return value;
+        if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') {
+            return String(value);
+        }
+        return JSON.stringify(value) ?? '';
+    }
 
     return formatNumberValue(num);
 };

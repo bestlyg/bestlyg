@@ -56,6 +56,6 @@ export function catchError<T>(
     try {
         return fn.apply(fn, args);
     } catch (e) {
-        errorFn(e);
+        errorFn(e instanceof Error ? e : new Error(String(e)));
     }
 }

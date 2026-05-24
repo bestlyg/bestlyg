@@ -21,7 +21,9 @@ export class BestPromise<T> {
     constructor(fn: (resolve: (value: T) => void, reject: (reason: any) => void) => void) {
         this.resolve = this.resolve.bind(this);
         this.reject = this.reject.bind(this);
-        catchError(() => fn(this.resolve, this.reject), this.reject);
+        const resolve = (value: T) => this.resolve(value);
+        const reject = (reason: any) => this.reject(reason);
+        catchError(() => fn(resolve, reject), reject);
     }
     /**
      * 返回成功状态

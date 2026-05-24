@@ -1,3 +1,10 @@
 {
-    "name": "@bestlyg/code"
+    "name": "@bestlyg/code",
+    "dependencies": {
+        "lodash": "catalog:"
+    },
+    "devDependencies": {
+        "@types/lodash": "catalog:",
+        "@types/node": "catalog:"
+    }
 }

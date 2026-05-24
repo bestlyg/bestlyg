@@ -31,7 +31,7 @@ export default function ChineseChess() {
         };
     }
     React.useEffect(initApp, []);
-    React.useEffect(() => void setSummaryNode(<ChineseChessSummary />), []);
+    React.useEffect(() => setSummaryNode(<ChineseChessSummary />), []);
     return (
         <div className="flex flex-col gap-2">
             <div className="flex gap-2">

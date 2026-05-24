@@ -6,7 +6,14 @@ export const xlsxMime = 'application/vnd.openxmlformats-officedocument.spreadshe
 
 export const idSchema = z.uuid();
 export const requiredStringSchema = z.preprocess(
-    (value) => String(value ?? '').trim(),
+    (value) => {
+        if (value == null) return '';
+        if (typeof value === 'string') return value.trim();
+        if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') {
+            return String(value).trim();
+        }
+        return JSON.stringify(value)?.trim() ?? '';
+    },
     z.string().min(1),
 );
 export const optionalStringSchema = z.preprocess(

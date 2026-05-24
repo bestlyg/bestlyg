@@ -9,7 +9,7 @@ const zjuerControllerApiMap = {
 
 export type ZjuerToWikiApiRequest = void;
 export type ZjuerToWikiApiResponse = unknown;
-export async function zjuerToWiki(): Promise<ZjuerToWikiApiResponse | null> {
+export async function zjuerToWiki(): Promise<ZjuerToWikiApiResponse> {
     return callApi<ZjuerToWikiApiResponse>({
         endpoint: zjuerControllerApiMap.toWiki,
     });

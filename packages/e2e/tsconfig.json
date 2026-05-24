@@ -12,9 +12,8 @@
         "isolatedModules": true,
         "types": ["node"],
         "lib": ["ESNext", "DOM"],
-        "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["./src/*"]
         }
     },
     "include": ["*.ts", "src/**/*.ts", "common/**/*.ts", "projects/**/*.ts"],

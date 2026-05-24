@@ -24,7 +24,7 @@ export const useResize = ({
             prevHeight &&
             !(scrollBottom >= SCROLL_TOLERANCE + (currentHeight - prevHeight))
         ) {
-            controller.scrollToBottom();
+            void controller.scrollToBottom();
         }
     };
 
@@ -160,8 +160,8 @@ export const useScrollController = ({
             getScrollBottom,
             refreshAnchor: () => {
                 scrollStatusRef.current === ScrollPosition.TOP
-                    ? scrollToTop()
-                    : scrollStatusRef.current === ScrollPosition.BOTTOM && scrollToBottom();
+                    ? void scrollToTop()
+                    : scrollStatusRef.current === ScrollPosition.BOTTOM && void scrollToBottom();
             },
             isNearBottom: (threshold: number) => getScrollBottom() <= threshold,
             getContainerHeight: () => getContainer().offsetHeight,

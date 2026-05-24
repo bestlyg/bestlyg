@@ -77,7 +77,7 @@ export class BinaryTreeNode<T> {
         return predecessor;
     }
     toString(): string {
-        return `${this.val}`;
+        return String(this.val as string | number | boolean | bigint | symbol | null | undefined);
     }
 }
 export abstract class BinaryTree<T> {

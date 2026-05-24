@@ -32,7 +32,7 @@ export default function Image2Shadow() {
         const url = URL.createObjectURL(file);
         const image = new Image();
         image.src = url;
-        new Promise<void>((resolve, reject) => {
+        void new Promise<void>((resolve, reject) => {
             image.onload = () => {
                 console.log('image load success', image, image.width, image.height);
                 toast({
@@ -46,7 +46,10 @@ export default function Image2Shadow() {
                 toast({
                     variant: 'destructive',
                     title: 'Image load error',
-                    description: `image load error, ${e.toString()}`,
+                    description:
+                        e instanceof ErrorEvent && e.message
+                            ? `image load error, ${e.message}`
+                            : 'image load error',
                 });
                 reject();
             };

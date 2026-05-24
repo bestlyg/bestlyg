@@ -35,7 +35,7 @@ export class Uploader {
     options: UploaderOptions;
     constructor(options: UploaderOptions) {
         this.options = options;
-        this.tasks = new PQueue(...options.queueOptions);
+        this.tasks = new PQueue(...(options.queueOptions ?? []));
         this.transporterManager = options.transporterManager ?? new TransporterManager(Transporter);
         options.plugins?.forEach((plugin) => {
             plugin.apply(this);
@@ -55,7 +55,7 @@ export class Uploader {
     }
     async addTask(task: Task, options?: AddTaskOption) {
         task = await this.hooks.beforeAddTask.promise(task, options);
-        this.tasks.add(() => task.run(), options);
+        void this.tasks.add(() => task.run(), options);
         await this.hooks.afterAddTask.promise(task, options);
     }
     async runTask() {

@@ -7,7 +7,7 @@
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
         "lib": ["ESNext"],
-        "moduleResolution": "node",
+        "moduleResolution": "Bundler",
         "esModuleInterop": true,
         "types": ["node"]
     }

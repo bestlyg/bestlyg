@@ -144,7 +144,7 @@ export class EventSource extends EventEmitter<SSEHooks> {
                 subscriber.complete();
             });
 
-            this.fetch(...args);
+            void this.fetch(...args);
         });
     }
 

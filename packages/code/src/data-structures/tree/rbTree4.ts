@@ -25,7 +25,9 @@ export class RBTree<T> {
     print(node = this.root, init = true) {
         if (node == NIL) return;
         if (init) console.log('===[RBTree Print]===');
-        console.log(`${node.key}, (${node.lchild.key}, ${node.rchild.key})`);
+        console.log(
+            `${String(node.key as string | number | boolean | bigint | symbol | null | undefined)}, (${String(node.lchild.key as string | number | boolean | bigint | symbol | null | undefined)}, ${String(node.rchild.key as string | number | boolean | bigint | symbol | null | undefined)})`,
+        );
         this.print(node.lchild, false);
         this.print(node.rchild, false);
     }

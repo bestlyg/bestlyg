@@ -43,6 +43,7 @@
     },
     "devDependencies": {
         "@bestlyg/core-shared": "workspace:^",
+        "@modern-js/module-tools": "catalog:",
         "@types/lodash": "catalog:",
         "@types/node": "catalog:",
         "lodash": "catalog:",

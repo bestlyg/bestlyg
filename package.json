@@ -36,6 +36,7 @@
         "git-cz": "catalog:",
         "oxfmt": "catalog:",
         "oxlint": "catalog:",
+        "oxlint-tsgolint": "catalog:",
         "semver": "catalog:",
         "typescript": "catalog:",
         "zx": "catalog:"

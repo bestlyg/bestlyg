@@ -48,7 +48,7 @@ export function crc32(buf: ArrayBuffer, previous: number): number {
     let crc = ~~previous ^ -1;
     const { length } = u8buf;
     for (let n = 0; n < length; n++) {
-        crc = crcTable[(crc ^ buf[n]) & 0xff] ^ (crc >>> 8);
+        crc = crcTable[(crc ^ u8buf[n]) & 0xff] ^ (crc >>> 8);
     }
     return (crc ^ -1) >>> 0;
 }

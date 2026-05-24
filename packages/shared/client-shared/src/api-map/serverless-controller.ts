@@ -239,7 +239,7 @@ export type ServerlessCallGetApiRequest = {
 export type ServerlessCallGetApiResponse = unknown;
 export async function serverlessCallGet(
     input?: ServerlessCallGetApiRequest,
-): Promise<ServerlessCallGetApiResponse | null> {
+): Promise<ServerlessCallGetApiResponse> {
     return callApi<ServerlessCallGetApiResponse>({
         endpoint: serverlessControllerApiMap.callGet,
         query: input?.query,
@@ -254,7 +254,7 @@ export type ServerlessCallPostApiRequest = {
 export type ServerlessCallPostApiResponse = unknown;
 export async function serverlessCallPost(
     input?: ServerlessCallPostApiRequest,
-): Promise<ServerlessCallPostApiResponse | null> {
+): Promise<ServerlessCallPostApiResponse> {
     return callApi<ServerlessCallPostApiResponse>({
         endpoint: serverlessControllerApiMap.callPost,
         query: input?.query,
@@ -269,7 +269,7 @@ export type ServerlessCallPutApiRequest = {
 export type ServerlessCallPutApiResponse = unknown;
 export async function serverlessCallPut(
     input?: ServerlessCallPutApiRequest,
-): Promise<ServerlessCallPutApiResponse | null> {
+): Promise<ServerlessCallPutApiResponse> {
     return callApi<ServerlessCallPutApiResponse>({
         endpoint: serverlessControllerApiMap.callPut,
         query: input?.query,
@@ -284,7 +284,7 @@ export type ServerlessCallDeleteApiRequest = {
 export type ServerlessCallDeleteApiResponse = unknown;
 export async function serverlessCallDelete(
     input?: ServerlessCallDeleteApiRequest,
-): Promise<ServerlessCallDeleteApiResponse | null> {
+): Promise<ServerlessCallDeleteApiResponse> {
     return callApi<ServerlessCallDeleteApiResponse>({
         endpoint: serverlessControllerApiMap.callDelete,
         query: input?.query,
@@ -299,7 +299,7 @@ export type ServerlessCallPatchApiRequest = {
 export type ServerlessCallPatchApiResponse = unknown;
 export async function serverlessCallPatch(
     input?: ServerlessCallPatchApiRequest,
-): Promise<ServerlessCallPatchApiResponse | null> {
+): Promise<ServerlessCallPatchApiResponse> {
     return callApi<ServerlessCallPatchApiResponse>({
         endpoint: serverlessControllerApiMap.callPatch,
         query: input?.query,
@@ -314,7 +314,7 @@ export type ServerlessCallOptionsApiRequest = {
 export type ServerlessCallOptionsApiResponse = unknown;
 export async function serverlessCallOptions(
     input?: ServerlessCallOptionsApiRequest,
-): Promise<ServerlessCallOptionsApiResponse | null> {
+): Promise<ServerlessCallOptionsApiResponse> {
     return callApi<ServerlessCallOptionsApiResponse>({
         endpoint: serverlessControllerApiMap.callOptions,
         query: input?.query,
@@ -329,7 +329,7 @@ export type ServerlessCallHeadApiRequest = {
 export type ServerlessCallHeadApiResponse = unknown;
 export async function serverlessCallHead(
     input?: ServerlessCallHeadApiRequest,
-): Promise<ServerlessCallHeadApiResponse | null> {
+): Promise<ServerlessCallHeadApiResponse> {
     return callApi<ServerlessCallHeadApiResponse>({
         endpoint: serverlessControllerApiMap.callHead,
         query: input?.query,
@@ -344,7 +344,7 @@ export type ServerlessCallSearchApiRequest = {
 export type ServerlessCallSearchApiResponse = unknown;
 export async function serverlessCallSearch(
     input?: ServerlessCallSearchApiRequest,
-): Promise<ServerlessCallSearchApiResponse | null> {
+): Promise<ServerlessCallSearchApiResponse> {
     return callApi<ServerlessCallSearchApiResponse>({
         endpoint: serverlessControllerApiMap.callSearch,
         query: input?.query,

@@ -4,6 +4,10 @@
     "categories": {
         "correctness": "warn"
     },
+    "options": {
+        "typeAware": true,
+        "typeCheck": true
+    },
     "env": {
         "node": true,
         "jest": true,

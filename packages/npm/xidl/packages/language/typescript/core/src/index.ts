@@ -124,9 +124,10 @@ export class XIdl extends XIdlCore {
         });
 
         this.hooks.output.onOutput.tapPromise(prefix, async (code, config) => {
-            const outputDir = path.resolve(CWD, config.config.output.dirPath);
+            const outputConfig = config ?? { config: this.config };
+            const outputDir = path.resolve(CWD, outputConfig.config.output.dirPath);
             await fs.ensureDir(outputDir);
-            await fs.writeFile(path.resolve(outputDir, config.config.output.fileName), code);
+            await fs.writeFile(path.resolve(outputDir, outputConfig.config.output.fileName), code);
         });
     }
 
@@ -185,7 +186,7 @@ export class XIdl extends XIdlCore {
     async extractInfoFromType(field: pb.Type) {
         const data = {
             extends: '',
-            required: [],
+            required: [] as string[],
         };
         const EXTENDS_KEY = '(extend)';
         if (field.options?.[EXTENDS_KEY]) {

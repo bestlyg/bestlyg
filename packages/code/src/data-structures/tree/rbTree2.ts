@@ -43,7 +43,7 @@ export class RBTreeNode2<T> {
         return this;
     }
     toString() {
-        return `${this.val}【${this.isRed ? 'R' : 'B'}】`;
+        return `${String(this.val as string | number | boolean | bigint | symbol | null | undefined)}【${this.isRed ? 'R' : 'B'}】`;
     }
 }
 export class RBTree2<T> implements IRBTree<T> {

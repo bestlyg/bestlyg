@@ -16,14 +16,14 @@ export interface XIdlConfig {
 }
 
 export function createConfig(config: XIdlConfig): InstanceType<typeof XIdl>['config'] {
-    config = {
+    const resolved = {
         splitChar: '\n\n',
         indentCount: 4,
         indentUnit: ' ',
         ...config,
-    };
-    config.indent ??= config.indentUnit.repeat(config.indentCount);
-    return config as InstanceType<typeof XIdl>['config'];
+    } as Required<XIdlConfig>;
+    resolved.indent ??= resolved.indentUnit.repeat(resolved.indentCount);
+    return resolved as InstanceType<typeof XIdl>['config'];
 }
 
 export function createHooks() {
@@ -132,7 +132,7 @@ export abstract class XIdl {
         let cur = obj;
         while (!(cur instanceof pb.Root)) {
             res.unshift(cur.name);
-            cur = cur.parent;
+            cur = cur.parent as pb.Namespace;
         }
         return res;
     }

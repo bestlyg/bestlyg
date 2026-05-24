@@ -1,11 +1,12 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-        "baseUrl": ".",
         "ignoreDeprecations": "6.0",
+        "types": ["node"],
+        "typeRoots": ["./node_modules/@types"],
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["./src/*"]
         }
     },
-    "include": ["src/*"]
+    "include": ["./src/**/*.ts"]
 }

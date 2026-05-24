@@ -7,14 +7,13 @@
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
         "lib": ["ESNext"],
-        "moduleResolution": "node",
+        "moduleResolution": "Bundler",
         "esModuleInterop": true,
         "types": ["node"],
         "rootDir": ".",
-        "baseUrl": ".",
         "typeRoots": ["./node_modules/@types"],
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["./src/*"]
         }
     },
     "exclude": ["dist", "output", "xidl.config.ts"]

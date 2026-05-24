@@ -64,7 +64,7 @@ export class ChineseChessApplication {
                 this.activePiece!.x = item.x;
                 this.activePiece!.y = item.y;
                 this.delActivePiece();
-                this.sound.click.play();
+                void this.sound.click.play();
             });
             this.hintContainer.addChild(hint);
         }
@@ -94,7 +94,7 @@ export class ChineseChessApplication {
         this.activePiece = piece;
         const hints = piece.asset.piece!.getHints(piece, this.getBoard());
         this.updateHints(hints);
-        this.sound.select.play();
+        void this.sound.select.play();
     }
     async mount() {
         if (this.destroyed) return;
@@ -190,7 +190,7 @@ export class ChineseChessApplication {
                                 curActivePiece.sprite.y = piece.sprite.y;
                                 piece.alive = false;
                                 piece.sprite.removeFromParent();
-                                this.sound.click.play();
+                                void this.sound.click.play();
                             }
                         } else {
                             this.setActivePiece(piece);

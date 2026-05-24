@@ -178,7 +178,7 @@ async function readXlsxRows<Entity extends object>(
     const seen = new Set<string>();
 
     headerRow.eachCell((cell, columnIndex) => {
-        const header = String(normalizeCellValue(cell.value) ?? '').trim();
+        const header = normalizeCellValue(cell.value)?.toString().trim() ?? '';
         if (!header) return;
         const column = columns.get(header);
         if (!column) throw createBadRequestException(`Unknown XLSX header: ${header}`);

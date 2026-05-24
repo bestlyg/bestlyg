@@ -44,7 +44,7 @@ export const ConfigurationSchema = z
                 enabled: envBoolean.default(false),
                 secret: z.string().default(''),
             })
-            .default({}),
+            .default({ enabled: false, secret: '' }),
         ssh: z
             .object({
                 username: z.string().readonly(),

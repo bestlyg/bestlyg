@@ -64,7 +64,7 @@ export default function Resume() {
             // setHTML(`<li>aaa<code>bbb</code></li>`);
             setHTML(html);
         }
-        run();
+        void run();
         setSize(a4SizeInPixels());
     }, [resumeSource]);
     const renderToPage = debounce(() => {
@@ -121,7 +121,7 @@ export default function Resume() {
                                     loading={downloadPDF}
                                     onClick={() => {
                                         setDownloadPDF(true);
-                                        Promise.resolve()
+                                        void Promise.resolve()
                                             .then(() =>
                                                 resumePageType === ResumePageType.SinglePage
                                                     ? downloadPDFSinglePage(resumeRef.current)

@@ -4,14 +4,13 @@
         "target": "ESNext",
         "module": "ESNext",
         "allowJs": true,
-        "baseUrl": ".",
         "ignoreDeprecations": "6.0",
         "skipLibCheck": true,
         "lib": ["ESNext", "DOM"],
-        "moduleResolution": "node",
+        "moduleResolution": "Bundler",
         "esModuleInterop": true,
         "types": ["node"],
-        "paths": { "@/*": ["src/*"] }
+        "paths": { "@/*": ["./src/*"] }
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules", "dist"]

@@ -241,7 +241,7 @@ export abstract class ZodModel<T extends AnyZodSchema = AnyZodSchema> {
     /** String(model) 时调用，输出面向调试的模型字符串。 */
     toString() {
         const name = this.getModelName();
-        const entries = Object.entries(this.modelDump()).map(
+        const entries = Object.entries(this.modelDump() as Record<string, unknown>).map(
             ([key, value]) => `${formatDebugKey(key)}: ${formatDebugValue(value)}`,
         );
 
@@ -397,5 +397,5 @@ function formatDebugValue(value: unknown): string {
         // Fall through to String for circular or custom values.
     }
 
-    return String(value);
+    return Object.prototype.toString.call(value);
 }

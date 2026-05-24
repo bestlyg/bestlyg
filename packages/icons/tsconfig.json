@@ -43,8 +43,7 @@
         "moduleDetection": "force",
         "skipLibCheck": true,
         "outDir": "dist",
-        "rootDir": "src",
-        "baseUrl": "src"
+        "rootDir": "src"
     },
     "include": ["src"]
 }

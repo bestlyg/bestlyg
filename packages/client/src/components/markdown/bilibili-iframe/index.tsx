@@ -43,13 +43,19 @@ const defaultProps: BiliBiliIFrameProps = {
 export function BiliBiliIFrame(props: BiliBiliIFrameProps) {
     const { iframeProps = {}, ...restProps } = props;
     const query = { ...defaultProps, ...restProps };
+    const stringifyQueryValue = (value: unknown) => {
+        if (typeof value === 'string') return value;
+        if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') {
+            return String(value);
+        }
+        return JSON.stringify(value) ?? '';
+    };
     const qs = Object.entries(query)
         .filter(([, v]) => v !== undefined)
-        .map(([k, v]) => {
-            if (typeof v === 'boolean') v = Number(v);
-            return [k, v];
+        .map(([key, value]) => {
+            const normalizedValue = typeof value === 'boolean' ? Number(value) : value;
+            return `${key}=${encodeURIComponent(stringifyQueryValue(normalizedValue))}`;
         })
-        .map(([k, v]) => `${k}=${v}`)
         .join('&');
     const src = `//player.bilibili.com/player.html?${qs}`;
     return (

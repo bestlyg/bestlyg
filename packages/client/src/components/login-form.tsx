@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shadcn/ui/form';
 import { useToast } from '@/shadcn/hooks/use-toast';
-import { userInfoAtom, xTokenName } from '@/utils';
+import { userInfoAtom, xTokenName, type UserInfo } from '@/utils';
 import { useSetAtom } from 'jotai';
 import { authSignIn, encrypt } from '@bestlyg/client-shared';
 import { configuration } from '@/utils/configuration';
@@ -46,7 +46,11 @@ export function LoginForm() {
         if (res) {
             const token = res.access_token;
             localStorage.setItem(xTokenName, token);
-            setUserInfo(res);
+            setUserInfo({
+                nickname: res.nickname ?? res.username,
+                description: res.description ?? '',
+                avatar: res.avatar ?? '',
+            } satisfies UserInfo);
             toast({
                 title: 'Successful',
                 description: '登录成功',

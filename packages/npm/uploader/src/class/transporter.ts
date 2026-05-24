@@ -55,7 +55,7 @@ export class Transporter {
         };
     }
     async send(config: TransporterSendConfig) {
-        config = await this.hooks.beforeSend.promise(config)[1];
+        config = await this.hooks.beforeSend.promise(config);
         this.xhr.timeout = config.timeout ?? 0;
         this.xhr.open(config.method ?? 'post', config.url, true);
         Object.entries(config.headers ?? {})

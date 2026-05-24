@@ -8,7 +8,11 @@ import 'monaco-editor/esm/vs/editor/editor.all.js';
 import { useControllableValue } from 'ahooks';
 import React from 'react';
 
-monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+type MonacoJavaScriptDefaults = {
+    setCompilerOptions(options: Record<string, unknown>): void;
+};
+
+((monaco.languages as any).typescript.javascriptDefaults as MonacoJavaScriptDefaults).setCompilerOptions({
     allowNonTsExtensions: true,
     lib: [],
 });

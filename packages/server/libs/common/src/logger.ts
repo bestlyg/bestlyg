@@ -8,6 +8,14 @@ import { getCurrentContext } from './storage';
 export function createLoggerOptions({
     logPath = resolve('logs'),
 }: { logPath?: string } = {}): winston.LoggerOptions {
+    const formatLogValue = (value: unknown) => {
+        if (typeof value === 'string') return value;
+        if (value === undefined || value === null) return '';
+        if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') {
+            return String(value);
+        }
+        return JSON.stringify(value);
+    };
     function getExternalInfo() {
         const ctx = getCurrentContext();
         return {
@@ -42,10 +50,10 @@ export function createLoggerOptions({
                     winston.format.printf(({ level, message, timestamp, context }) => {
                         return [
                             chalk.cyan(`BEST`),
-                            chalk.gray(`${timestamp}`),
+                            chalk.gray(formatLogValue(timestamp)),
                             `${level}`,
-                            context ? chalk.yellow(`[${context}]`) : '',
-                            chalk.white(message),
+                            context ? chalk.yellow(`[${formatLogValue(context)}]`) : '',
+                            chalk.white(formatLogValue(message)),
                         ]
                             .filter(Boolean)
                             .join(' ');
