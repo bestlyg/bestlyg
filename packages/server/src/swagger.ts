@@ -44,8 +44,10 @@ function patchNestJsSwagger(
             }
             if (isZodModel(type)) {
                 // schemas[type.name] = createSchema(type.getSchema()).schema as any;
-                schemas[type.name] = z.toJSONSchema(type.getSchema()) as any;
-                return type.name;
+                const zodModel = type as any;
+                const modelName = zodModel.getModelName?.() ?? zodModel.name;
+                schemas[modelName] = z.toJSONSchema(zodModel.getSchema()) as any;
+                return modelName;
             }
             return defaultExplore.call(this, type, schemas, schemaRefsStack);
         };
