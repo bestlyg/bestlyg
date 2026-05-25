@@ -16,6 +16,7 @@ import {
 } from './xlsx.dto';
 import { ledgerFromValues, ledgerTypeValues } from './enums';
 
+/** 账本列表查询请求 DTO。 */
 export class LedgerQueryRequestDto extends createZodModel(
     z
         .object({
@@ -24,12 +25,15 @@ export class LedgerQueryRequestDto extends createZodModel(
         .strip(),
 ) {}
 
+/** 账本分页查询请求 DTO。 */
 export class LedgerPageRequestDto extends createZodModel(
     LedgerQueryRequestDto.getSchema().extend(PageParam.fields).strip(),
 ) {}
 
+/** 账本 XLSX 导出查询请求 DTO。 */
 export class LedgerExportRequestDto extends createZodModel(LedgerQueryRequestDto.getSchema()) {}
 
+/** 创建账本记录请求 DTO。 */
 export class LedgerCreateRequestDto extends createZodModel(
     z
         .object({
@@ -44,19 +48,22 @@ export class LedgerCreateRequestDto extends createZodModel(
         .strict(),
 ) {}
 
+/** 更新账本记录请求 DTO，至少需要提交一个可更新字段。 */
 export class LedgerUpdateRequestDto extends createZodModel(
     LedgerCreateRequestDto.getSchema()
         .partial()
         .refine(
             (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-            { message: 'body must contain at least one field' },
+            { message: '请求体至少需要包含一个字段' },
         ),
 ) {}
 
+/** 批量创建账本记录请求 DTO。 */
 export class LedgerBatchCreateRequestDto extends createZodModel(
     z.array(LedgerCreateRequestDto.getSchema()).min(1),
 ) {}
 
+/** 批量更新账本记录请求 DTO。 */
 export class LedgerBatchUpdateRequestDto extends createZodModel(
     z.object({
         ids: z.array(idSchema).min(1),
@@ -64,11 +71,12 @@ export class LedgerBatchUpdateRequestDto extends createZodModel(
             .partial()
             .refine(
                 (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-                { message: 'data must contain at least one field' },
+                { message: '批量更新数据至少需要包含一个字段' },
             ),
     }),
 ) {}
 
+/** 账本记录响应 DTO。 */
 export class LedgerResponseDto extends createZodModel(
     EntityBaseResponseDto.getSchema().extend({
         date: dateValueSchema,
@@ -81,35 +89,43 @@ export class LedgerResponseDto extends createZodModel(
     }),
 ) {}
 
+/** 账本记录列表响应 DTO。 */
 export class LedgerListResponseDto extends createZodModel(z.array(LedgerResponseDto.getSchema())) {}
 
+/** 账本记录分页响应 DTO。 */
 export class LedgerPageResponseDto extends createZodModel(
     PageData.schema(LedgerResponseDto.getSchema()),
 ) {}
 
+/** 批量创建账本记录响应 DTO。 */
 export class LedgerBatchCreateResponseDto extends createZodModel(
     z.array(LedgerResponseDto.getSchema()),
 ) {}
 
+/** 账本 XLSX 新增导入响应 DTO。 */
 export class LedgerImportResponseDto extends createZodModel(
     DatabaseXlsxImportResponseDto.getSchema().extend({
         data: z.array(LedgerResponseDto.getSchema()),
     }),
 ) {}
 
+/** 账本 XLSX 更新导入响应 DTO。 */
 export class LedgerImportUpdateResponseDto extends createZodModel(
     DatabaseImportUpdateResponseDto.getSchema(),
 ) {}
 
+/** 账本 XLSX 导出响应 DTO。 */
 export class LedgerExportResponseDto extends createZodModel(
     DatabaseXlsxExportResponseDto.getSchema(),
 ) {}
 
+/** 账本写操作响应 DTO。 */
 export class LedgerWriteResponseDto extends createZodModel(DatabaseWriteResponseDto.getSchema()) {}
 
 /** 前端消费的账本记录 DTO。 */
 export type Ledger = z.output<ReturnType<typeof LedgerResponseDto.getSchema>>;
 
+/** 账本资源的 XLSX 导入导出配置。 */
 export const ledgerResourceSchema = {
     resourceName: 'ledger',
     createSchema: LedgerCreateRequestDto.getSchema(),

@@ -9,7 +9,7 @@ export class ZodValidationPipe implements PipeTransform {
             try {
                 return new cstr(value) as any;
             } catch (error) {
-                throw new BadRequestException((error as any)?.message ?? 'Validation failed');
+                throw new BadRequestException((error as any)?.message ?? '参数校验失败');
             }
         }
         return value;

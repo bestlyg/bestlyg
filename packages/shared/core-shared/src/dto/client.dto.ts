@@ -33,7 +33,14 @@ const sidebarSchema: z.ZodType<Sidebar> = z.object({
     groups: z.array(sidebarGroupSchema).optional(),
 });
 
+/** 获取文档侧边栏请求 DTO。 */
 export class ClientGetDocsSidebarsRequestDto extends createZodModel(z.object({}).strip()) {}
+
+/** 获取文档侧边栏响应 DTO。 */
 export class ClientGetDocsSidebarsResponseDto extends createZodModel(sidebarSchema) {}
+
+/** 获取 LeetCode 侧边栏请求 DTO。 */
 export class ClientGetLeetcodeSidebarsRequestDto extends createZodModel(z.object({}).strip()) {}
+
+/** 获取 LeetCode 侧边栏响应 DTO。 */
 export class ClientGetLeetcodeSidebarsResponseDto extends createZodModel(sidebarSchema) {}

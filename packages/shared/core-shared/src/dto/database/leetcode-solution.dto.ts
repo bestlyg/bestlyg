@@ -16,10 +16,12 @@ import {
 } from './xlsx.dto';
 import { leetcodeScriptTypeValues } from './enums';
 
+/** LeetCode 题解分页查询请求 DTO。 */
 export class LeetcodeSolutionPageRequestDto extends createZodModel(
     DatabasePageRequestDto.getSchema(),
 ) {}
 
+/** 创建 LeetCode 题解请求 DTO。 */
 export class LeetcodeSolutionCreateRequestDto extends createZodModel(
     z
         .object({
@@ -40,19 +42,22 @@ export class LeetcodeSolutionCreateRequestDto extends createZodModel(
         .strict(),
 ) {}
 
+/** 更新 LeetCode 题解请求 DTO，至少需要提交一个可更新字段。 */
 export class LeetcodeSolutionUpdateRequestDto extends createZodModel(
     LeetcodeSolutionCreateRequestDto.getSchema()
         .partial()
         .refine(
             (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-            { message: 'body must contain at least one field' },
+            { message: '请求体至少需要包含一个字段' },
         ),
 ) {}
 
+/** 批量创建 LeetCode 题解请求 DTO。 */
 export class LeetcodeSolutionBatchCreateRequestDto extends createZodModel(
     z.array(LeetcodeSolutionCreateRequestDto.getSchema()).min(1),
 ) {}
 
+/** 批量更新 LeetCode 题解请求 DTO。 */
 export class LeetcodeSolutionBatchUpdateRequestDto extends createZodModel(
     z.object({
         ids: z.array(idSchema).min(1),
@@ -60,11 +65,12 @@ export class LeetcodeSolutionBatchUpdateRequestDto extends createZodModel(
             .partial()
             .refine(
                 (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-                { message: 'data must contain at least one field' },
+                { message: '批量更新数据至少需要包含一个字段' },
             ),
     }),
 ) {}
 
+/** LeetCode 题解响应 DTO。 */
 export class LeetcodeSolutionResponseDto extends createZodModel(
     EntityBaseResponseDto.getSchema().extend({
         script: z.enum(leetcodeScriptTypeValues),
@@ -77,32 +83,39 @@ export class LeetcodeSolutionResponseDto extends createZodModel(
     }),
 ) {}
 
+/** LeetCode 题解列表响应 DTO。 */
 export class LeetcodeSolutionListResponseDto extends createZodModel(
     z.array(LeetcodeSolutionResponseDto.getSchema()),
 ) {}
 
+/** LeetCode 题解分页响应 DTO。 */
 export class LeetcodeSolutionPageResponseDto extends createZodModel(
     PageData.schema(LeetcodeSolutionResponseDto.getSchema()),
 ) {}
 
+/** 批量创建 LeetCode 题解响应 DTO。 */
 export class LeetcodeSolutionBatchCreateResponseDto extends createZodModel(
     z.array(LeetcodeSolutionResponseDto.getSchema()),
 ) {}
 
+/** LeetCode 题解 XLSX 新增导入响应 DTO。 */
 export class LeetcodeSolutionImportResponseDto extends createZodModel(
     DatabaseXlsxImportResponseDto.getSchema().extend({
         data: z.array(LeetcodeSolutionResponseDto.getSchema()),
     }),
 ) {}
 
+/** LeetCode 题解 XLSX 更新导入响应 DTO。 */
 export class LeetcodeSolutionImportUpdateResponseDto extends createZodModel(
     DatabaseImportUpdateResponseDto.getSchema(),
 ) {}
 
+/** LeetCode 题解 XLSX 导出响应 DTO。 */
 export class LeetcodeSolutionExportResponseDto extends createZodModel(
     DatabaseXlsxExportResponseDto.getSchema(),
 ) {}
 
+/** LeetCode 题解写操作响应 DTO。 */
 export class LeetcodeSolutionWriteResponseDto extends createZodModel(
     DatabaseWriteResponseDto.getSchema(),
 ) {}
@@ -110,6 +123,7 @@ export class LeetcodeSolutionWriteResponseDto extends createZodModel(
 /** 前端消费的 LeetCode 题解 DTO。 */
 export type LeetcodeSolution = z.output<ReturnType<typeof LeetcodeSolutionResponseDto.getSchema>>;
 
+/** LeetCode 题解资源的 XLSX 导入导出配置。 */
 export const leetcodeSolutionResourceSchema = {
     resourceName: 'leetcode-solution',
     createSchema: LeetcodeSolutionCreateRequestDto.getSchema(),

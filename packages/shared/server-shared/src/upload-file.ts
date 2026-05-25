@@ -51,11 +51,11 @@ export function setUploadFileBadRequestFactory(factory: UploadFileBadRequestFact
 }
 
 export function validateXlsxFile(file: DatabaseXlsxFileRequest | undefined) {
-    if (!file) throw createBadRequestException('file is required');
+    if (!file) throw createBadRequestException('请上传 XLSX 文件');
     try {
         return new DatabaseXlsxFileRequestDto(file);
     } catch (error) {
-        throw createBadRequestException((error as any)?.message ?? 'file validation failed');
+        throw createBadRequestException((error as any)?.message ?? '文件校验失败');
     }
 }
 
@@ -69,7 +69,7 @@ export async function importXlsx<Entity extends object>(
     const data = validateWithSchema(
         rows.map((row) => row.data),
         z.array(config.createSchema).min(1),
-        'xlsx rows',
+        'XLSX 数据行',
     );
     const saved = (await service.save(data as any)) as Entity[];
     return new DatabaseXlsxImportResponseDto({
@@ -89,16 +89,16 @@ export async function importUpdateXlsx<Entity extends object>(
         const id = validateWithSchema(
             { id: row.data.id },
             DatabaseIdParamsRequestDto.getSchema(),
-            `xlsx row ${row.rowNumber} id`,
+            `XLSX 第 ${row.rowNumber} 行 id`,
         ).id;
         const { id: _, ...data } = row.data;
         const updateData = validateWithSchema(
             data,
             config.updateSchema,
-            `xlsx row ${row.rowNumber}`,
+            `XLSX 第 ${row.rowNumber} 行`,
         );
         if (!Object.keys(updateData).length) {
-            throw createBadRequestException(`XLSX row ${row.rowNumber} has no update data`);
+            throw createBadRequestException(`XLSX 第 ${row.rowNumber} 行没有可更新的数据`);
         }
         return { id, data: updateData };
     });
@@ -170,7 +170,7 @@ async function readXlsxRows<Entity extends object>(
     const workbook = new ExcelJS.Workbook();
     await workbook.xlsx.load(file.buffer as any);
     const worksheet = workbook.worksheets[0];
-    if (!worksheet) throw createBadRequestException('XLSX file must contain at least one sheet');
+    if (!worksheet) throw createBadRequestException('XLSX 文件至少需要包含一个工作表');
 
     const columns = getColumnMap(config.xlsxColumns, mode);
     const headerRow = worksheet.getRow(1);
@@ -181,14 +181,14 @@ async function readXlsxRows<Entity extends object>(
         const header = normalizeCellValue(cell.value)?.toString().trim() ?? '';
         if (!header) return;
         const column = columns.get(header);
-        if (!column) throw createBadRequestException(`Unknown XLSX header: ${header}`);
+        if (!column) throw createBadRequestException(`未识别的 XLSX 表头：${header}`);
         if (seen.has(column.key))
-            throw createBadRequestException(`Duplicate XLSX header: ${header}`);
+            throw createBadRequestException(`XLSX 表头重复：${header}`);
         seen.add(column.key);
         headers.push({ key: column.key, columnIndex, column });
     });
 
-    if (!headers.length) throw createBadRequestException('XLSX header row is required');
+    if (!headers.length) throw createBadRequestException('XLSX 文件必须包含表头行');
 
     const rows: Array<{ rowNumber: number; data: Record<string, unknown> }> = [];
     for (let rowNumber = 2; rowNumber <= worksheet.rowCount; rowNumber++) {
@@ -203,12 +203,12 @@ async function readXlsxRows<Entity extends object>(
 
         if (!Object.keys(data).length) continue;
         if (mode === 'update' && !data.id) {
-            throw createBadRequestException(`XLSX row ${rowNumber} is missing id`);
+            throw createBadRequestException(`XLSX 第 ${rowNumber} 行缺少 id`);
         }
         rows.push({ rowNumber, data });
     }
 
-    if (!rows.length) throw createBadRequestException('XLSX file has no data rows');
+    if (!rows.length) throw createBadRequestException('XLSX 文件没有数据行');
     return rows;
 }
 
@@ -252,7 +252,7 @@ function isEmptyCell(value: unknown) {
 function validateWithSchema<T>(value: unknown, schema: z.ZodType<T>, label: string): T {
     const result = schema.safeParse(value);
     if (result.success) return result.data;
-    throw createBadRequestException(`${label} validation failed\n${z.prettifyError(result.error)}`);
+    throw createBadRequestException(`${label} 校验失败\n${z.prettifyError(result.error)}`);
 }
 
 function createBadRequestException(message: string) {

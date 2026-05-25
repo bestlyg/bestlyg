@@ -14,8 +14,10 @@ import {
     DatabaseXlsxImportResponseDto,
 } from './xlsx.dto';
 
+/** Serverless 函数分页查询请求 DTO。 */
 export class ServerlessPageRequestDto extends createZodModel(DatabasePageRequestDto.getSchema()) {}
 
+/** 创建 Serverless 函数请求 DTO。 */
 export class ServerlessCreateRequestDto extends createZodModel(
     z
         .object({
@@ -25,19 +27,22 @@ export class ServerlessCreateRequestDto extends createZodModel(
         .strict(),
 ) {}
 
+/** 更新 Serverless 函数请求 DTO，至少需要提交一个可更新字段。 */
 export class ServerlessUpdateRequestDto extends createZodModel(
     ServerlessCreateRequestDto.getSchema()
         .partial()
         .refine(
             (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-            { message: 'body must contain at least one field' },
+            { message: '请求体至少需要包含一个字段' },
         ),
 ) {}
 
+/** 批量创建 Serverless 函数请求 DTO。 */
 export class ServerlessBatchCreateRequestDto extends createZodModel(
     z.array(ServerlessCreateRequestDto.getSchema()).min(1),
 ) {}
 
+/** 批量更新 Serverless 函数请求 DTO。 */
 export class ServerlessBatchUpdateRequestDto extends createZodModel(
     z.object({
         ids: z.array(idSchema).min(1),
@@ -45,11 +50,12 @@ export class ServerlessBatchUpdateRequestDto extends createZodModel(
             .partial()
             .refine(
                 (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-                { message: 'data must contain at least one field' },
+                { message: '批量更新数据至少需要包含一个字段' },
             ),
     }),
 ) {}
 
+/** Serverless 函数响应 DTO。 */
 export class ServerlessResponseDto extends createZodModel(
     EntityBaseResponseDto.getSchema().extend({
         name: z.string(),
@@ -57,32 +63,39 @@ export class ServerlessResponseDto extends createZodModel(
     }),
 ) {}
 
+/** Serverless 函数列表响应 DTO。 */
 export class ServerlessListResponseDto extends createZodModel(
     z.array(ServerlessResponseDto.getSchema()),
 ) {}
 
+/** Serverless 函数分页响应 DTO。 */
 export class ServerlessPageResponseDto extends createZodModel(
     PageData.schema(ServerlessResponseDto.getSchema()),
 ) {}
 
+/** 批量创建 Serverless 函数响应 DTO。 */
 export class ServerlessBatchCreateResponseDto extends createZodModel(
     z.array(ServerlessResponseDto.getSchema()),
 ) {}
 
+/** Serverless 函数 XLSX 新增导入响应 DTO。 */
 export class ServerlessImportResponseDto extends createZodModel(
     DatabaseXlsxImportResponseDto.getSchema().extend({
         data: z.array(ServerlessResponseDto.getSchema()),
     }),
 ) {}
 
+/** Serverless 函数 XLSX 更新导入响应 DTO。 */
 export class ServerlessImportUpdateResponseDto extends createZodModel(
     DatabaseImportUpdateResponseDto.getSchema(),
 ) {}
 
+/** Serverless 函数 XLSX 导出响应 DTO。 */
 export class ServerlessExportResponseDto extends createZodModel(
     DatabaseXlsxExportResponseDto.getSchema(),
 ) {}
 
+/** Serverless 函数写操作响应 DTO。 */
 export class ServerlessWriteResponseDto extends createZodModel(
     DatabaseWriteResponseDto.getSchema(),
 ) {}
@@ -90,6 +103,7 @@ export class ServerlessWriteResponseDto extends createZodModel(
 /** 前端消费的 serverless 函数 DTO。 */
 export type Serverless = z.output<ReturnType<typeof ServerlessResponseDto.getSchema>>;
 
+/** Serverless 函数资源的 XLSX 导入导出配置。 */
 export const serverlessResourceSchema = {
     resourceName: 'serverless',
     createSchema: ServerlessCreateRequestDto.getSchema(),

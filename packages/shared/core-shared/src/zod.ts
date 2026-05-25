@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+z.config(z.locales.zhCN());
+
 type AnyZodSchema = z.ZodType;
 
 // 这些内部字段不能出现在 JSON 或 Object.keys 中，所以用 symbol + non-enumerable 保存。
@@ -73,7 +75,7 @@ export class ZodModelValidationError<T extends AnyZodSchema = AnyZodSchema> exte
     readonly zodError: z.ZodError<z.output<T>>;
 
     constructor(modelName: string, zodError: z.ZodError<z.output<T>>, raw: unknown, schema: T) {
-        super(`${modelName} validation failed\n${z.prettifyError(zodError)}`, {
+        super(`${modelName} 校验失败\n${z.prettifyError(zodError)}`, {
             cause: { raw, schema, zodError },
         });
         this.name = 'ZodModelValidationError';
@@ -106,7 +108,7 @@ export abstract class ZodModel<T extends AnyZodSchema = AnyZodSchema> {
         if (Array.isArray(plain)) return plain as any;
 
         const dumpKeys = getEnumerableStringKeys(plain);
-        assertNoReservedKeys(dumpKeys, cstr.getModelName(), 'parsed data');
+        assertNoReservedKeys(dumpKeys, cstr.getModelName(), '解析数据');
 
         // 只记录 schema 解析出的字段，避免后续用户临时挂载属性时污染 modelDump。
         defineHiddenValue(this, zodRawSymbol, raw);
@@ -131,7 +133,7 @@ export abstract class ZodModel<T extends AnyZodSchema = AnyZodSchema> {
     static getSchema(): AnyZodSchema {
         const schema = (this as any)[zodSchemaSymbol];
         if (!schema) {
-            throw new TypeError(`${this.name || 'ZodModel'} does not declare a Zod schema`);
+            throw new TypeError(`${this.name || 'ZodModel'} 未声明 Zod schema`);
         }
         return schema;
     }
@@ -342,7 +344,7 @@ function assertNoReservedKeys(keys: readonly string[], modelName: string, source
     if (!conflicts.length) return;
 
     throw new TypeError(
-        `${modelName} ${source} uses reserved model key(s): ${conflicts.join(', ')}`,
+        `${modelName} ${source} 使用了模型保留字段：${conflicts.join(', ')}`,
     );
 }
 
