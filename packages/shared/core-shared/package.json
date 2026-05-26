@@ -36,7 +36,8 @@
     "scripts": {
         "build:idl": "node scripts/idl.mjs",
         "build": "unbuild --config ./build.config.ts",
-        "dev": "unbuild --config ./build.config.ts --watch"
+        "dev": "unbuild --config ./build.config.ts --watch",
+        "test": "vitest run"
     },
     "dependencies": {
         "crypto-js": "catalog:",
@@ -58,6 +59,7 @@
         "typedoc": "catalog:",
         "typedoc-plugin-markdown": "catalog:",
         "typescript": "catalog:",
-        "unbuild": "catalog:"
+        "unbuild": "catalog:",
+        "vitest": "catalog:"
     }
 }

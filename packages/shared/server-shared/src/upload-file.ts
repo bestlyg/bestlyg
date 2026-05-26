@@ -182,8 +182,7 @@ async function readXlsxRows<Entity extends object>(
         if (!header) return;
         const column = columns.get(header);
         if (!column) throw createBadRequestException(`未识别的 XLSX 表头：${header}`);
-        if (seen.has(column.key))
-            throw createBadRequestException(`XLSX 表头重复：${header}`);
+        if (seen.has(column.key)) throw createBadRequestException(`XLSX 表头重复：${header}`);
         seen.add(column.key);
         headers.push({ key: column.key, columnIndex, column });
     });
