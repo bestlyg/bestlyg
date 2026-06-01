@@ -1,22 +1,9 @@
-class TrieNode:
-    def __init__(self, ch = '') -> None:
-        self.children: dict[str, TrieNode] = {}
-    def insert(self, s: str) -> TrieNode:
-        cur = self
-        for ch in s:
-            if ch not in cur.children: cur.children[ch] = TrieNode()
-            cur = cur.children[ch]
-        return cur
-    def find_longest_prefix(self, s: str):
-        res = 0
-        cur = self
-        for ch in s:
-            if ch not in cur.children: return res
-            cur = cur.children[ch]
-            res += 1
-        return res
 class Solution:
-    def longestCommonPrefix(self, arr1: List[int], arr2: List[int]) -> int:
-        root = TrieNode()
-        for num in arr1: root.insert(str(num))
-        return max(root.find_longest_prefix(str(num)) for num in arr2)
+    def numberOfSpecialChars(self, word: str) -> int:
+        res = 0
+        for i in range(26):
+            ch1 = chr(i + ord('A'))
+            ch2 = chr(i + ord('a'))
+            if ch1 in word and ch2 in word:
+                res += 1
+        return res

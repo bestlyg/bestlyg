@@ -6,20 +6,23 @@ import path from 'path';
 
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {Problem} */
-export const problem: LeetcodeProblem & { exist: boolean } = {
-    exist: true,
-    name: '1752. 检查数组是否经排序和轮转得到',
-    url: 'https://leetcode.cn/problems/check-if-array-is-sorted-and-rotated',
+export const problem: Omit<LeetcodeProblem, 'solutions'> & {
+    exist: boolean;
+    solutions: Partial<NonNullable<LeetcodeProblem['solutions']>[number]>[];
+} = {
+    exist: !true,
+    name: '3120. 统计特殊字母的数量 I',
+    url: 'https://leetcode.cn/problems/count-the-number-of-special-characters-i',
     level: LeetcodeLevelType.Easy,
     tags: [],
-    desc: `如果 nums 能够由源数组轮转若干位置（包括 0 个位置）得到，则返回 true ；否则，返回 false 。`,
+    desc: `给你一个字符串 word。如果 word 中同时出现某个字母 c 的小写形式和大写形式，并且 每个 小写形式的 c 都出现在第一个大写形式的 c 之前，则称字母 c 是一个 特殊字母 。返回 word 中 特殊字母 的数量。`,
     solutions: [
         {
             script: LeetcodeScriptType.python,
-            // date: '2026.05.18',
+            date: '2026.05.26',
             time: 0,
-            memory: 18.94,
-            desc: '复制一份拼接，判断有序有是否为子串',
+            memory: 19.22,
+            desc: '模拟',
             code: fs.readFileSync(path.resolve(__dirname, 'code'), 'utf8'),
         },
     ],
