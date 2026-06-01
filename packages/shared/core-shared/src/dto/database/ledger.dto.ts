@@ -40,12 +40,12 @@ export class LedgerCreateRequestDto extends createZodModel(
             date: z.coerce.date(),
             balance: z.coerce.number().int(),
             comment: z.coerce.string().trim().min(1),
-            io: z.stringbool(),
+            io: z.boolean().default(false),
             from: z.enum(ledgerFromValues).optional().nullable(),
             bank: z.coerce.string().optional().nullable(),
             type: z.enum(ledgerTypeValues),
         })
-        .strict(),
+       ,
 ) {}
 
 /** 更新账本记录请求 DTO，至少需要提交一个可更新字段。 */

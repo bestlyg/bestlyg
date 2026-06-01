@@ -13,6 +13,7 @@ dotenv.config({ path: resolve('.env') });
 export async function loadBestlygConfig(): Promise<BestlygConfig> {
     // c12 根据 BESTLYG_CONFIG_NAME / NODE_ENV 在 config 目录选择配置文件；
     // 环境变量已在上方显式加载，这里关闭 c12 自己的 dotenv。
+
     const { config } = await loadConfigC12<BestlygConfig>({
         name: process.env.BESTLYG_CONFIG_NAME ?? 'bestlyg',
         cwd: process.env.BESTLYG_CONFIG_DIR ?? resolve('config'),
