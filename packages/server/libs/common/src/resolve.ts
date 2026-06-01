@@ -1,3 +1,4 @@
-import { getDirname, getResolveFunction } from '@bestlyg/server-shared';
+import { CWD, getResolveFunction } from '@bestlyg/server-shared';
 
-export const resolve = getResolveFunction(getDirname(), 1);
+// Use the process root instead of caller dirname so webpack output and dev mode agree.
+export const resolve = getResolveFunction(CWD);

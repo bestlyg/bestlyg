@@ -9,7 +9,7 @@ import {
     getResolveFunction,
 } from '@bestlyg/server-shared';
 
-const resolve = getResolveFunction(getDirname(), 1);
+const resolve = getResolveFunction(getDirname(import.meta.url), 1);
 dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'server-shared', '.env'),
 });

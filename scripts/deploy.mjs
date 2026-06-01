@@ -10,7 +10,7 @@ import {
 
 const logger = new Logger({ prefix: 'DEPLOY' });
 const envFileName = '.env';
-const resolve = getResolveFunction(getDirname(), 1);
+const resolve = getResolveFunction(getDirname(import.meta.url), 1);
 
 dotenv.config({ path: resolve('node_modules', '@bestlyg', 'server-shared', envFileName) });
 dotenv.config({ path: resolve(envFileName) });

@@ -15,4 +15,4 @@ export function getResolveFunction(dirname: string, upTimes = 0): (...p: string[
 }
 
 /** 仓库服务端常用路径解析函数，默认从 server-shared 包位置回到项目根附近。 */
-export const resolve = getResolveFunction(getDirname(), 3);
+export const resolve = getResolveFunction(getDirname(import.meta.url), 3);

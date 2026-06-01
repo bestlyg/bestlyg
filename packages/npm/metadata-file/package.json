@@ -13,6 +13,9 @@
         "index.mjs",
         "index.d.ts"
     ],
+    "scripts": {
+        "test": "node index.test.mjs && node index.test.cjs"
+    },
     "type": "module",
     "exports": {
         ".": {

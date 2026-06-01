@@ -8,7 +8,7 @@ import {
 } from '@bestlyg/server-shared';
 import { $, argv, cd, fs, within } from 'zx';
 
-const resolve = getResolveFunction(getDirname(), 1);
+const resolve = getResolveFunction(getDirname(import.meta.url), 1);
 const { name } = argv;
 const logger = new Logger({ prefix: 'TEMPLATE' });
 
