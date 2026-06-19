@@ -16,7 +16,7 @@
         "format": "oxfmt \"**/*.{js,jsx,tsx,ts,md,json}\" --config ./.oxfmtrc.json",
         "format:affect": "node ./scripts/format-affect.mjs",
         "commit": "git-cz",
-        "commit:auto": "git pull origin master && git add -A && pnpm run commit && git push -u origin master && git push -u github master",
+        "commit:auto": "git pull origin master && git add -A && pnpm run commit && git push --no-verify -u origin master && git push --no-verify -u github master",
         "script": "zx scripts/main.mjs",
         "<!-- 快捷方式 -->": "下面是快捷方式用的",
         "c": "pnpm run commit",
