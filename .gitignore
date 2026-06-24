@@ -2,6 +2,7 @@ node_modules
 dist
 es
 lib
+dist-sea
 temp
 .umi
 jest
