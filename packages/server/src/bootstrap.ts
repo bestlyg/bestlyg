@@ -11,7 +11,14 @@ import 'winston-daily-rotate-file';
 export async function bootstrap() {
     const bestlygConfig = await loadBestlygConfig();
     const app = await NestFactory.create(AppModule.forRoot({ config: bestlygConfig }), {});
-    app.useLogger(WinstonModule.createLogger(createLoggerOptions()));
+    app.useLogger(
+        WinstonModule.createLogger(
+            createLoggerOptions({
+                level: bestlygConfig.log.level,
+                retentionDays: bestlygConfig.log.retentionDays,
+            }),
+        ),
+    );
     // const configService = app.get(ConfigService);
     app.use(compression());
     app.use(cookieParser());

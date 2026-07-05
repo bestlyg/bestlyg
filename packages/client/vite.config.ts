@@ -7,9 +7,20 @@ import dotenv from 'dotenv';
 import tailwindcss from '@tailwindcss/vite';
 
 const resolve = (...p: string[]) => path.resolve(__dirname, ...p);
+const WORKSPACE_SOURCE_ALIASES = [
+    {
+        find: /^@bestlyg\/client-shared$/,
+        replacement: resolve('../shared/client-shared/src/index.ts'),
+    },
+    { find: /^@bestlyg\/core-shared$/, replacement: resolve('../shared/core-shared/src/index.ts') },
+    {
+        find: /^@bestlyg\/server-shared$/,
+        replacement: resolve('../shared/server-shared/src/index.ts'),
+    },
+];
 
 dotenv.config({
-    path: resolve('node_modules', '@bestlyg', 'server-shared', '.env'),
+    path: resolve('../shared/server-shared/.env'),
     override: true,
 });
 
@@ -29,9 +40,10 @@ export default defineConfig({
         viteCompression({}),
     ],
     resolve: {
-        alias: {
-            '@': path.resolve(__dirname, './src'),
-        },
+        alias: [
+            ...WORKSPACE_SOURCE_ALIASES,
+            { find: '@', replacement: path.resolve(__dirname, './src') },
+        ],
     },
     define: {
         __MODE__: JSON.stringify(process.env.NODE_ENV),

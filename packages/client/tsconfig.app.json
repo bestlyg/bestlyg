@@ -23,6 +23,12 @@
         "noUncheckedSideEffectImports": true,
         "ignoreDeprecations": "6.0",
         "paths": {
+            "@bestlyg/core-shared": ["../shared/core-shared/src/index.ts"],
+            "@bestlyg/core-shared/*": ["../shared/core-shared/src/*"],
+            "@bestlyg/client-shared": ["../shared/client-shared/src/index.ts"],
+            "@bestlyg/client-shared/*": ["../shared/client-shared/src/*"],
+            "@bestlyg/server-shared": ["../shared/server-shared/src/index.ts"],
+            "@bestlyg/server-shared/*": ["../shared/server-shared/src/*"],
             "@/*": ["./src/*"]
         }
     },

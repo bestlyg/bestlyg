@@ -109,6 +109,14 @@ export function isZodModel(o: unknown): o is ZodModelConstructor {
     return Boolean((o as any)[zodSchemaSymbol]);
 }
 
+const captureStackTrace = (target: object, constructorOpt: Function) => {
+    (
+        Error as ErrorConstructor & {
+            captureStackTrace?: (targetObject: object, constructorOpt?: Function) => void;
+        }
+    ).captureStackTrace?.(target, constructorOpt);
+};
+
 export class ZodModelValidationError<T extends AnyZodSchema = AnyZodSchema> extends TypeError {
     /** Zod 原始 issue 列表，便于上层格式化字段级错误。 */
     readonly issues: z.ZodIssue[];
@@ -131,7 +139,7 @@ export class ZodModelValidationError<T extends AnyZodSchema = AnyZodSchema> exte
         this.schema = schema;
         this.modelName = modelName;
         this.zodError = zodError;
-        Error.captureStackTrace?.(this, ZodModelValidationError);
+        captureStackTrace(this, ZodModelValidationError);
     }
 }
 
@@ -147,7 +155,7 @@ export class ZodModelJsonParseError extends SyntaxError {
         this.name = 'ZodModelJsonParseError';
         this.json = json;
         this.modelName = modelName;
-        Error.captureStackTrace?.(this, ZodModelJsonParseError);
+        captureStackTrace(this, ZodModelJsonParseError);
     }
 }
 

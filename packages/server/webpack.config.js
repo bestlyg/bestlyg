@@ -1,4 +1,7 @@
 const pkgs = require('./package.json');
+const externalDependencies = Object.keys(pkgs.dependencies).filter(
+    (name) => !name.startsWith('@bestlyg/'),
+);
 
 module.exports = function (options) {
     console.log('===>Webpack', options);
@@ -7,6 +10,6 @@ module.exports = function (options) {
         devtool: 'source-map',
         // mode: 'production',
         // optimization: { minimize: false },
-        externals: [...options.externals, ...Object.keys(pkgs.dependencies)],
+        externals: [...options.externals, ...externalDependencies],
     };
 };

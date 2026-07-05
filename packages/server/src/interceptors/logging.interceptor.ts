@@ -1,5 +1,5 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Logger } from '@nestjs/common';
-import { isServerResponse, TimeRecorder } from '@bestlyg/server-shared';
+import { formatLogData, isServerResponse, TimeRecorder } from '@bestlyg/server-shared';
 import type { Request, Response } from 'express';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -7,22 +7,6 @@ import { tap } from 'rxjs/operators';
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
     private readonly logger = new Logger(LoggingInterceptor.name);
-    private readonly maxLogLength = 20_000;
-
-    private stringify(value: unknown) {
-        if (value == null) return '';
-        const visited = new WeakSet<object>();
-        const text = JSON.stringify(value, (_key, item) => {
-            if (typeof item === 'bigint') return item.toString();
-            if (typeof item === 'object' && item !== null) {
-                if (visited.has(item)) return '[Circular Reference]';
-                visited.add(item);
-            }
-            return item;
-        });
-        if (!text) return '';
-        return text.length > this.maxLogLength ? `${text.slice(0, this.maxLogLength)}...` : text;
-    }
 
     private skip(request: Request) {
         const url = request.url || '';
@@ -86,8 +70,10 @@ export class LoggingInterceptor implements NestInterceptor {
                     request.url,
                     response.statusCode,
                     `${timeRecorder.accumulativeTotal()}ms`,
-                    this.shouldLogBody(request) && `body=${this.stringify(request.body)}`,
-                    this.shouldLogResponse(response, data) && `return=${this.stringify(data)}`,
+                    this.shouldLogBody(request) &&
+                        `body=${JSON.stringify(formatLogData(request.body))}`,
+                    this.shouldLogResponse(response, data) &&
+                        `return=${JSON.stringify(formatLogData(data))}`,
                 ]
                     .filter(Boolean)
                     .join(' ');

@@ -20,6 +20,8 @@ const stringList = z.preprocess((value) => {
     return value;
 }, z.array(z.string()).default([]));
 
+const logLevelSchema = z.enum(['error', 'warn', 'info', 'http', 'verbose', 'debug', 'silly']);
+
 /** 服务端运行配置 schema，负责校验环境变量整理后的配置结构。 */
 export const ConfigurationSchema = z
     .object({
@@ -81,6 +83,12 @@ export const ConfigurationSchema = z
             csrf: z.string().readonly(),
             session: z.string().readonly(),
         }),
+        log: z
+            .object({
+                level: logLevelSchema.default('info'),
+                retentionDays: z.coerce.number().positive().default(30),
+            })
+            .default({ level: 'info', retentionDays: 30 }),
     })
     .required();
 export type Configuration = z.infer<typeof ConfigurationSchema>;
@@ -128,6 +136,10 @@ export function getConfiguration() {
         leetcode: {
             csrf: process.env.BESTLYG_LEETCODE_CSRF,
             session: process.env.BESTLYG_LEETCODE_SESSION,
+        },
+        log: {
+            level: process.env.BESTLYG_LOG_LEVEL,
+            retentionDays: process.env.BESTLYG_LOG_RETENTION_DAYS,
         },
     };
 }

@@ -7,6 +7,7 @@ export * from './functions';
 export { PREFIX } from './base';
 export * from './logo';
 export * from './logger';
+export * from './log-data';
 export * from './is-server-response';
 export * from './user-id-crypto';
 export * from './upload-file';

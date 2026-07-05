@@ -13,7 +13,7 @@
         "strictPropertyInitialization": false,
         "outDir": "./dist",
 
-        "rootDir": ".",
+        "rootDir": "../..",
         "esModuleInterop": true,
         "ignoreDeprecations": "6.0",
         "incremental": true,
@@ -29,6 +29,10 @@
         "types": ["node"],
         "strict": true,
         "paths": {
+            "@bestlyg/core-shared": ["../shared/core-shared/src/index.ts"],
+            "@bestlyg/core-shared/*": ["../shared/core-shared/src/*"],
+            "@bestlyg/server-shared": ["../shared/server-shared/src/index.ts"],
+            "@bestlyg/server-shared/*": ["../shared/server-shared/src/*"],
             "@bestlyg-server/api": ["./libs/api/src"],
             "@bestlyg-server/api/*": ["./libs/api/src/*"],
             "@bestlyg-server/auth": ["./libs/auth/src"],

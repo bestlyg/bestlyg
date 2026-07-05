@@ -35,7 +35,7 @@ export function encode(text: string) {
 /** 将 encode 生成的零宽字符序列还原为普通文本。 */
 export function decode(zeroWidthText: string) {
     let text = '';
-    const binaryChunks = [];
+    const binaryChunks: string[] = [];
     let currentChunk = '';
     for (let i = 0; i < zeroWidthText.length; i++) {
         if (zeroWidthText[i] === '\u200b') {

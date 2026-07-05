@@ -3,7 +3,7 @@ import { catchError } from './error';
  * 防抖
  */
 export function debounce(time: number) {
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout> | undefined;
     return (fn: (...args: any[]) => void) => {
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => {
