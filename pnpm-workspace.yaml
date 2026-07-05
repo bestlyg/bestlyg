@@ -149,9 +149,9 @@ catalog:
   next-themes: ^0.4.6
   nodemailer: ^8.0.7
   ora: ^9.4.0
-  oxfmt: ^0.51.0
-  oxlint: ^1.66.0
-  oxlint-tsgolint: ^0.23.0
+  oxfmt: ^0.57.0
+  oxlint: ^1.72.0
+  oxlint-tsgolint: ^0.24.0
   p-queue: ^9.3.0
   pg: ^8.21.0
   pixi.js: ^8.18.1

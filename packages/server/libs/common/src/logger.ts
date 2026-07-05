@@ -1,3 +1,4 @@
+import { inspect } from 'node:util';
 import chalk from 'chalk';
 import DailyRotateFile from 'winston-daily-rotate-file';
 import winston from 'winston';
@@ -99,17 +100,25 @@ function createTextLogFormatter({ color }: { color: boolean }) {
         const clean = color ? identity : stripAnsi;
         return [
             color ? chalk.cyan('BEST') : 'BEST',
-            color ? chalk.gray(`${timestamp}`) : `${timestamp}`,
+            color ? chalk.gray(formatLogValue(timestamp ?? '')) : formatLogValue(timestamp ?? ''),
             paint(level),
-            context ? (color ? chalk.yellow(`[${context}]`) : `[${context}]`) : '',
-            paint(clean(String(message ?? ''))),
-            stack ? paint(clean(String(stack))) : '',
+            context
+                ? color
+                    ? chalk.yellow(`[${formatLogValue(context)}]`)
+                    : `[${formatLogValue(context)}]`
+                : '',
+            paint(clean(formatLogValue(message ?? ''))),
+            stack ? paint(clean(formatLogValue(stack))) : '',
         ]
             .filter(Boolean)
             .join(' ');
     };
 }
 
+function formatLogValue(data: unknown) {
+    return typeof data === 'string' ? data : inspect(data, { colors: false, depth: null });
+}
+
 function stripAnsi(data: string) {
-    return data.replace(/\x1B\[[0-?]*[ -/]*[@-~]/g, '');
+    return data.replace(new RegExp(`${String.fromCharCode(27)}\\[[0-?]*[ -/]*[@-~]`, 'g'), '');
 }

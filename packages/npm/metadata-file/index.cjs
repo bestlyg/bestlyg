@@ -36,7 +36,7 @@ function normalizeFileInput(input) {
 
 // V8 CallSite objects are more stable than matching formatted stack strings.
 function getStackFilename(callerIndex) {
-    const originalPrepareStackTrace = Error.prepareStackTrace;
+    const originalPrepareStackTrace = Reflect.get(Error, 'prepareStackTrace');
     const obj = Object.create(null);
     try {
         Error.prepareStackTrace = (_, callSites) => callSites;
@@ -46,10 +46,12 @@ function getStackFilename(callerIndex) {
             return undefined;
         }
         const callSite = stack[callerIndex];
-        const fileName = callSite?.getFileName?.() ?? callSite?.getScriptNameOrSourceURL?.();
+        const fileName = callSite
+            ? callSite.getFileName() || callSite.getScriptNameOrSourceURL()
+            : undefined;
         return normalizeFileInput(fileName);
     } finally {
-        Error.prepareStackTrace = originalPrepareStackTrace;
+        Reflect.set(Error, 'prepareStackTrace', originalPrepareStackTrace);
     }
 }
 
