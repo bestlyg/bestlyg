@@ -1,6 +1,8 @@
+import { Logger } from '@nestjs/common';
 import { LeetCodeGraphQLQuery } from './types';
 import { BASE_URL_CN as BASE, parseCookie, USER_AGENT } from './utils';
 import { GRAPHQL_GET_PROBLEM, GRAPHQL_GET_USER_PROFILE, Problem, UserResult } from './graphql';
+import { formatLogMessage } from '../../log-message';
 
 // document.cookie
 //     .split('; ')
@@ -18,6 +20,7 @@ export interface LeetCodeOptions {
 }
 
 const defaultLeetCodeOptions: Partial<LeetCodeOptions> = { credential: {} };
+const logger = new Logger('LeetCode');
 
 export class LeetCode {
     constructor(public options: LeetCodeOptions) {
@@ -51,7 +54,7 @@ export class LeetCode {
         try {
             return JSON.parse(data);
         } catch (_err) {
-            console.log('JSON parse fail', data);
+            logger.warn(formatLogMessage('JSON parse fail', data));
             return null;
         }
     }

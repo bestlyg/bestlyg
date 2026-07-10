@@ -4,6 +4,7 @@ import { loadConfig as loadConfigC12 } from 'c12';
 import dotenv from 'dotenv';
 import { z } from 'zod';
 import type { BestlygConfig } from './utils';
+import { formatLogMessage } from '../log-message';
 import { resolve } from '../resolve';
 
 const logger = new Logger('BestlygConfig');
@@ -26,7 +27,7 @@ export async function loadBestlygConfig(): Promise<BestlygConfig> {
     if (error) {
         const str = z.prettifyError(error);
         logger.error(`配置文件出现错误:${str}`);
-        console.log(error);
+        logger.error(formatLogMessage(error));
         throw new Error('Config catch error');
     }
 

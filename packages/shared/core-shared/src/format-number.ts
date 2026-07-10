@@ -52,7 +52,8 @@ export function formatNumber(
         parseTemplate(template);
 
     // If formatting as percentage, multiply the number by 100.
-    const formattedNumber = isPercentage || isPercentagePoint ? +number * 100 : +number;
+    const formattedNumber =
+        isPercentage || isPercentagePoint ? parseFloat((+number * 100).toPrecision(12)) : +number;
 
     let result = formatNumberWithChineseUnit({
         originNum: formattedNumber,

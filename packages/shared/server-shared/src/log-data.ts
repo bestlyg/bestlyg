@@ -1,10 +1,12 @@
 export const NON_JSON_LOG_DATA_PLACEHOLDER = '[non-json data omitted]';
 export const TRUNCATED_LOG_DATA_PLACEHOLDER = '[log data truncated]';
+export const SENSITIVE_LOG_DATA_PLACEHOLDER = '[sensitive data omitted]';
 
 const MAX_LOG_DATA_DEPTH = 5;
 const MAX_LOG_DATA_ENTRIES = 50;
 const MAX_LOG_DATA_STRING_LENGTH = 1000;
 const MAX_LOG_DATA_NODES = 1000;
+const SENSITIVE_LOG_KEY_PATTERN = /(?:token|secret|password|authorization|cookie)/i;
 
 type FormatLogDataResult = { ok: true; value: unknown } | { ok: false };
 
@@ -87,6 +89,10 @@ function formatLogObject(
     const formatted: Record<string, unknown> = {};
     const entries = Object.entries(data).slice(0, MAX_LOG_DATA_ENTRIES);
     for (const [key, value] of entries) {
+        if (SENSITIVE_LOG_KEY_PATTERN.test(key)) {
+            formatted[key] = SENSITIVE_LOG_DATA_PLACEHOLDER;
+            continue;
+        }
         const result = formatJsonLogData(value, depth + 1, budget, seen);
         if (!result.ok) return result;
         formatted[key] = result.value;
