@@ -30,5 +30,8 @@ export async function loadBestlygConfig(): Promise<BestlygConfig> {
         throw new Error('Config catch error');
     }
 
-    return data;
+    return {
+        ...data,
+        log: data.log ?? { level: 'info', retentionDays: 30 },
+    };
 }

@@ -12,7 +12,6 @@
     },
     "dependencies": {
         "@ant-design/cssinjs": "catalog:",
-        "@ant-design/v5-patch-for-react-19": "catalog:",
         "@bestlyg/client-shared": "workspace:^",
         "@hookform/resolvers": "catalog:",
         "@mdx-js/mdx": "catalog:",
@@ -109,6 +108,7 @@
         "dotenv": "catalog:",
         "globals": "catalog:",
         "less": "catalog:",
+        "oxlint": "catalog:",
         "rollup-plugin-visualizer": "catalog:",
         "shadcn": "catalog:",
         "shadcn-ui": "catalog:",

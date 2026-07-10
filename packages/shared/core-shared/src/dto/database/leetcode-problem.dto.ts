@@ -19,50 +19,59 @@ import {
     LeetcodeSolutionResponseDto,
 } from './leetcode-solution.dto';
 
+const hasLeetcodeProblemUpdateFields = (value: object) => Object.keys(value).length > 0;
+
+const tagsSchema = z.preprocess((value) => {
+    if (typeof value !== 'string') {
+        return value;
+    }
+
+    const trimmed = value.trim();
+    return trimmed ? JSON.parse(trimmed) : undefined;
+}, z.array(z.string()).optional());
+
+const leetcodeProblemCreateSchema = z
+    .object({
+        name: z.coerce.string().trim().min(1),
+        url: z.coerce.string().trim().min(1),
+        desc: z.coerce.string().trim().min(1),
+        tags: tagsSchema.default([]),
+        level: z.enum(leetcodeLevelTypeValues),
+        solutions: z.preprocess((value) => {
+            if (typeof value !== 'string') {
+                return value;
+            }
+
+            const trimmed = value.trim();
+            return trimmed ? JSON.parse(trimmed) : undefined;
+        }, z.array(LeetcodeSolutionCreateRequestDto.getSchema().omit({ problem: true })).optional()),
+    })
+    .strict();
+
+const leetcodeProblemUpdateSchema = z
+    .object({
+        name: z.coerce.string().trim().min(1),
+        url: z.coerce.string().trim().min(1),
+        desc: z.coerce.string().trim().min(1),
+        tags: tagsSchema,
+        level: z.enum(leetcodeLevelTypeValues),
+    })
+    .strict()
+    .partial();
+
 /** LeetCode 题目分页查询请求 DTO。 */
 export class LeetcodeProblemPageRequestDto extends createZodModel(
     DatabasePageRequestDto.getSchema(),
 ) {}
 
 /** 创建 LeetCode 题目请求 DTO，可携带内联题解列表。 */
-export class LeetcodeProblemCreateRequestDto extends createZodModel(
-    z
-        .object({
-            name: z.coerce.string().trim().min(1),
-            url: z.coerce.string().trim().min(1),
-            desc: z.coerce.string().trim().min(1),
-            tags: z
-                .preprocess((value) => {
-                    if (typeof value !== 'string') {
-                        return value;
-                    }
-
-                    const trimmed = value.trim();
-                    return trimmed ? JSON.parse(trimmed) : undefined;
-                }, z.array(z.string()).optional())
-                .default([]),
-            level: z.enum(leetcodeLevelTypeValues),
-            solutions: z.preprocess((value) => {
-                if (typeof value !== 'string') {
-                    return value;
-                }
-
-                const trimmed = value.trim();
-                return trimmed ? JSON.parse(trimmed) : undefined;
-            }, z.array(LeetcodeSolutionCreateRequestDto.getSchema().omit({ problem: true })).optional()),
-        })
-        .strict(),
-) {}
+export class LeetcodeProblemCreateRequestDto extends createZodModel(leetcodeProblemCreateSchema) {}
 
 /** 更新 LeetCode 题目请求 DTO，至少需要提交一个可更新字段。 */
 export class LeetcodeProblemUpdateRequestDto extends createZodModel(
-    LeetcodeProblemCreateRequestDto.getSchema()
-        .omit({ solutions: true })
-        .partial()
-        .refine(
-            (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-            { message: '请求体至少需要包含一个字段' },
-        ),
+    leetcodeProblemUpdateSchema.refine(hasLeetcodeProblemUpdateFields, {
+        message: '请求体至少需要包含一个字段',
+    }),
 ) {}
 
 /** 批量创建 LeetCode 题目请求 DTO。 */
@@ -74,13 +83,9 @@ export class LeetcodeProblemBatchCreateRequestDto extends createZodModel(
 export class LeetcodeProblemBatchUpdateRequestDto extends createZodModel(
     z.object({
         ids: z.array(idSchema).min(1),
-        data: LeetcodeProblemCreateRequestDto.getSchema()
-            .omit({ solutions: true })
-            .partial()
-            .refine(
-                (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-                { message: '批量更新数据至少需要包含一个字段' },
-            ),
+        data: leetcodeProblemUpdateSchema.refine(hasLeetcodeProblemUpdateFields, {
+            message: '批量更新数据至少需要包含一个字段',
+        }),
     }),
 ) {}
 
@@ -153,7 +158,7 @@ export type LeetcodeProblem = z.output<ReturnType<typeof LeetcodeProblemResponse
 export const leetcodeProblemResourceSchema = {
     resourceName: 'leetcode-problem',
     createSchema: LeetcodeProblemCreateRequestDto.getSchema(),
-    updateSchema: LeetcodeProblemCreateRequestDto.getSchema().omit({ solutions: true }).partial(),
+    updateSchema: leetcodeProblemUpdateSchema,
     xlsxColumns: [
         { key: 'id', readonly: true, width: 38 },
         { key: 'createdTime', readonly: true, width: 24 },

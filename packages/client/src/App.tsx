@@ -7,7 +7,6 @@ import { instance, xTokenName, hooks as fetchHooks } from '@/utils';
 import { Toaster } from '@/shadcn/ui/toaster';
 import { ResponseEntity } from '@bestlyg/client-shared';
 // import '@/shadcn/styles/globals.css';
-import '@ant-design/v5-patch-for-react-19';
 import '@/styles/globals.less';
 import 'katex/dist/katex.min.css';
 

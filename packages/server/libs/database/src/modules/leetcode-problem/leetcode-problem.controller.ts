@@ -63,6 +63,11 @@ export class LeetcodeProblemController {
         };
     }
 
+    private getNameCandidates(name: string) {
+        const fileName = name.split('/').filter(Boolean).at(-1);
+        return fileName && fileName !== name ? [name, fileName] : [name];
+    }
+
     @Get()
     async findList() {
         const data = await this.service.find(this.getFindManyOptions());
@@ -89,10 +94,14 @@ export class LeetcodeProblemController {
 
     @Get('by-name/:name')
     async findByName(@Param() params: LeetcodeNameParamsRequestDto) {
-        const data = await this.service.findOne({
-            relations: { solutions: true },
-            where: { name: params.name },
-        });
+        let data: Awaited<ReturnType<LeetcodeProblemService['findOne']>> = null;
+        for (const name of this.getNameCandidates(params.name)) {
+            data = await this.service.findOne({
+                relations: { solutions: true },
+                where: { name },
+            });
+            if (data) break;
+        }
         if (!data) throw new NotFoundException(`${config.resourceName} not found`);
         return ResponseEntity.ofSuccess(data);
     }

@@ -16,6 +16,30 @@ import {
 } from './xlsx.dto';
 import { ledgerFromValues, ledgerTypeValues } from './enums';
 
+const hasLedgerUpdateFields = (value: object) => Object.keys(value).length > 0;
+
+const ledgerCreateSchema = z.object({
+    date: z.coerce.date(),
+    balance: z.coerce.number().int(),
+    comment: z.coerce.string().trim().min(1),
+    io: z.boolean().default(false),
+    from: z.enum(ledgerFromValues).optional().nullable(),
+    bank: z.coerce.string().optional().nullable(),
+    type: z.enum(ledgerTypeValues),
+});
+
+const ledgerUpdateSchema = z
+    .object({
+        date: z.coerce.date(),
+        balance: z.coerce.number().int(),
+        comment: z.coerce.string().trim().min(1),
+        io: z.boolean(),
+        from: z.enum(ledgerFromValues).optional().nullable(),
+        bank: z.coerce.string().optional().nullable(),
+        type: z.enum(ledgerTypeValues),
+    })
+    .partial();
+
 /** 账本列表查询请求 DTO。 */
 export class LedgerQueryRequestDto extends createZodModel(
     z
@@ -34,28 +58,11 @@ export class LedgerPageRequestDto extends createZodModel(
 export class LedgerExportRequestDto extends createZodModel(LedgerQueryRequestDto.getSchema()) {}
 
 /** 创建账本记录请求 DTO。 */
-export class LedgerCreateRequestDto extends createZodModel(
-    z
-        .object({
-            date: z.coerce.date(),
-            balance: z.coerce.number().int(),
-            comment: z.coerce.string().trim().min(1),
-            io: z.boolean().default(false),
-            from: z.enum(ledgerFromValues).optional().nullable(),
-            bank: z.coerce.string().optional().nullable(),
-            type: z.enum(ledgerTypeValues),
-        })
-       ,
-) {}
+export class LedgerCreateRequestDto extends createZodModel(ledgerCreateSchema) {}
 
 /** 更新账本记录请求 DTO，至少需要提交一个可更新字段。 */
 export class LedgerUpdateRequestDto extends createZodModel(
-    LedgerCreateRequestDto.getSchema()
-        .partial()
-        .refine(
-            (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-            { message: '请求体至少需要包含一个字段' },
-        ),
+    ledgerUpdateSchema.refine(hasLedgerUpdateFields, { message: '请求体至少需要包含一个字段' }),
 ) {}
 
 /** 批量创建账本记录请求 DTO。 */
@@ -67,12 +74,9 @@ export class LedgerBatchCreateRequestDto extends createZodModel(
 export class LedgerBatchUpdateRequestDto extends createZodModel(
     z.object({
         ids: z.array(idSchema).min(1),
-        data: LedgerCreateRequestDto.getSchema()
-            .partial()
-            .refine(
-                (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-                { message: '批量更新数据至少需要包含一个字段' },
-            ),
+        data: ledgerUpdateSchema.refine(hasLedgerUpdateFields, {
+            message: '批量更新数据至少需要包含一个字段',
+        }),
     }),
 ) {}
 
@@ -129,7 +133,7 @@ export type Ledger = z.output<ReturnType<typeof LedgerResponseDto.getSchema>>;
 export const ledgerResourceSchema = {
     resourceName: 'ledger',
     createSchema: LedgerCreateRequestDto.getSchema(),
-    updateSchema: LedgerCreateRequestDto.getSchema().partial(),
+    updateSchema: ledgerUpdateSchema,
     xlsxColumns: [
         { key: 'id', readonly: true, width: 38 },
         { key: 'createdTime', readonly: true, width: 24 },

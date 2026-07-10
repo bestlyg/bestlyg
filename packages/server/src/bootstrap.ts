@@ -10,12 +10,16 @@ import 'winston-daily-rotate-file';
 
 export async function bootstrap() {
     const bestlygConfig = await loadBestlygConfig();
-    const app = await NestFactory.create(AppModule.forRoot({ config: bestlygConfig }), {});
+    const { log, server } = bestlygConfig;
+    const app = await NestFactory.create(
+        AppModule.forRoot({ config: structuredClone(bestlygConfig) }),
+        {},
+    );
     app.useLogger(
         WinstonModule.createLogger(
             createLoggerOptions({
-                level: bestlygConfig.log.level,
-                retentionDays: bestlygConfig.log.retentionDays,
+                level: log.level,
+                retentionDays: log.retentionDays,
             }),
         ),
     );
@@ -36,5 +40,5 @@ export async function bootstrap() {
     app.useGlobalInterceptors(new LoggingInterceptor());
     app.useGlobalPipes(new ZodValidationPipe());
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
-    await app.listen(bestlygConfig.server.port);
+    await app.listen(server.port);
 }

@@ -6,7 +6,11 @@ import ExcelJS from 'exceljs';
 import { z } from 'zod';
 import { CasbinRuleBatchCreateRequestDto } from '@bestlyg/server-shared';
 import { DatabaseResourceSchema } from '@bestlyg/server-shared';
-import { LedgerPageRequestDto, LedgerUpdateRequestDto } from '@bestlyg/server-shared';
+import {
+    LeetcodeProblemUpdateRequestDto,
+    LedgerPageRequestDto,
+    LedgerUpdateRequestDto,
+} from '@bestlyg/server-shared';
 import { createXlsxBuffer, importUpdateXlsx, importXlsx } from '@bestlyg/server-shared';
 import { BaseEntity } from '../entities/base.entity';
 import '../upload-file-exception';
@@ -99,8 +103,9 @@ describe('database dto and upload file helpers', () => {
         expect(rows).toHaveLength(1);
     });
 
-    it('rejects invalid dto input before controller logic runs', () => {
+    it('rejects empty update dto input before controller logic runs', () => {
         expect(() => new LedgerUpdateRequestDto({})).toThrow(TypeError);
+        expect(() => new LeetcodeProblemUpdateRequestDto({})).toThrow(TypeError);
     });
 
     it('uses page dto defaults to create page params', () => {

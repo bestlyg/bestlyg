@@ -38,6 +38,7 @@
         "oxlint": "catalog:",
         "oxlint-tsgolint": "catalog:",
         "semver": "catalog:",
+        "@typescript/native": "catalog:",
         "typescript": "catalog:",
         "zx": "catalog:"
     },
@@ -46,5 +47,5 @@
             "path": "cz-conventional-changelog"
         }
     },
-    "packageManager": "pnpm@10.15.0"
+    "packageManager": "pnpm@11.11.0"
 }
