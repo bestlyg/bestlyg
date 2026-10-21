@@ -17,16 +17,16 @@
         "url": "git://github.com/bestlyg/package-json-extension.git"
     },
     "bin": {
-        "extend-package-json": "./bin/extend-package-json.js"
+        "extend-package-json": "./bin/extend-package-json.mjs"
     },
     "files": [
         "bin",
-        "lib",
+        "dist",
         "package.json",
         "README.md"
     ],
     "type": "module",
-    "main": "./dist/index.cjs",
+    "main": "./dist/index.mjs",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "typesVersions": {
@@ -38,23 +38,18 @@
     },
     "exports": {
         ".": {
-            "import": {
-                "types": "./dist/index.d.mts",
-                "default": "./dist/index.mjs"
-            },
-            "require": {
-                "types": "./dist/index.d.cts",
-                "default": "./dist/index.cjs"
-            }
+            "types": "./dist/index.d.mts",
+            "default": "./dist/index.mjs"
         }
     },
     "scripts": {
-        "clean": "rimraf ./lib ./node_modules",
-        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts",
-        "dev": "unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts --watch",
-        "test": "node ./tests",
+        "clean": "rimraf ./dist ./node_modules",
+        "build": "rslib build",
+        "dev": "rslib build --watch",
+        "test": "rstest run",
         "extend": "extend-package-json",
-        "prepublishOnly": "pnpm build"
+        "prepublishOnly": "pnpm build",
+        "test:watch": "rstest watch"
     },
     "dependencies": {
         "chalk": "catalog:",
@@ -66,10 +61,11 @@
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/core-shared": "workspace:^",
+        "@rslib/core": "catalog:",
+        "@rstest/core": "catalog:",
         "@types/node": "catalog:",
         "rimraf": "catalog:",
         "tslib": "catalog:",
-        "typescript": "catalog:",
-        "unbuild": "catalog:"
+        "typescript": "catalog:"
     }
 }

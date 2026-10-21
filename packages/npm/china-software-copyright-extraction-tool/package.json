@@ -9,7 +9,7 @@
         "directory": "packages/npm/china-software-copyright-extraction-tool"
     },
     "bin": {
-        "cscet": "./bin/china-software-copyright-extraction-tool.js"
+        "cscet": "./bin/china-software-copyright-extraction-tool.mjs"
     },
     "files": [
         "bin",
@@ -19,7 +19,7 @@
         "template.docx"
     ],
     "type": "module",
-    "main": "./dist/index.cjs",
+    "main": "./dist/index.mjs",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "typesVersions": {
@@ -31,24 +31,20 @@
     },
     "exports": {
         ".": {
-            "import": {
-                "types": "./dist/index.d.mts",
-                "default": "./dist/index.mjs"
-            },
-            "require": {
-                "types": "./dist/index.d.cts",
-                "default": "./dist/index.cjs"
-            }
+            "types": "./dist/index.d.mts",
+            "default": "./dist/index.mjs"
         }
     },
     "scripts": {
         "run:publish": "pnpm publish --registry https://registry.npmjs.org --access=public --no-git-checks",
-        "run:test": "pnpm run:prod --output-path \"C:/bestlyg/信韵.docx\"  --glob-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/**/*.(cs)\" --ignore-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/obj/Debug\" --glob-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/Admin/inRhyme/**/*.js\"",
-        "run:dev": "cross-env CSCET_DEV=1 node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
-        "run:prod": "node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
+        "run:test": "pnpm test",
+        "run:dev": "cross-env CSCET_DEV=1 node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.mjs",
+        "run:prod": "node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.mjs",
         "prepublishOnly": "pnpm build",
-        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts",
-        "dev": "unbuild --config ./node_modules/@bestlyg/core-shared/build.config.ts --watch"
+        "build": "rslib build",
+        "dev": "rslib build --watch",
+        "test": "rstest run",
+        "test:watch": "rstest watch"
     },
     "dependencies": {
         "chalk": "catalog:",
@@ -62,11 +58,11 @@
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/core-shared": "workspace:^",
+        "@rslib/core": "catalog:",
+        "@rstest/core": "catalog:",
         "@types/node": "catalog:",
         "@types/ramda": "catalog:",
         "cross-env": "catalog:",
-        "rimraf": "catalog:",
-        "typescript": "catalog:",
-        "unbuild": "catalog:"
+        "typescript": "catalog:"
     }
 }

@@ -1,20 +1,13 @@
 import * as monaco from 'monaco-editor';
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
-import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker';
-import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
-import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker';
-import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
-import 'monaco-editor/esm/vs/editor/editor.all.js';
+import editorWorker from 'monaco-editor/editor/editor.worker.js?worker';
+import jsonWorker from 'monaco-editor/languages/features/json/json.worker.js?worker';
+import cssWorker from 'monaco-editor/languages/features/css/css.worker.js?worker';
+import htmlWorker from 'monaco-editor/languages/features/html/html.worker.js?worker';
+import tsWorker from 'monaco-editor/languages/features/typescript/ts.worker.js?worker';
 import { useControllableValue } from 'ahooks';
 import React from 'react';
 
-type MonacoJavaScriptDefaults = {
-    setCompilerOptions(options: Record<string, unknown>): void;
-};
-
-(
-    (monaco.languages as any).typescript.javascriptDefaults as MonacoJavaScriptDefaults
-).setCompilerOptions({
+monaco.typescript.javascriptDefaults.setCompilerOptions({
     allowNonTsExtensions: true,
     lib: [],
 });

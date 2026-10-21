@@ -5,7 +5,10 @@ lib
 dist-sea
 temp
 .umi
-jest
+.rstest
+coverage
+rstest-report
+test-results
 types
 .umi-production
 # rust
@@ -22,3 +25,7 @@ venv
 __pycache__
 databases
 .claude/worktrees
+/.codex_tmp/
+
+# Rslib declaration build cache
+.rstack/

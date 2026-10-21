@@ -1,3 +1,4 @@
+import { describe, test, it, expect } from '@rstest/core';
 import fs from 'node:fs';
 import path from 'node:path';
 

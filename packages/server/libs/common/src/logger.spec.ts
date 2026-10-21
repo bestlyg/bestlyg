@@ -1,11 +1,11 @@
-/// <reference types="jest" />
+import { describe, it, expect, rs } from '@rstest/core';
 
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import winston from 'winston';
 
-jest.mock('chalk', () => {
+rs.mock('chalk', () => {
     const paint = (value: string) => value;
     return {
         __esModule: true,

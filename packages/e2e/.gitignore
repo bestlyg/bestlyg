@@ -1,7 +1,7 @@
 dist
 test-results
-playwright-report
-blob-report
+rstest-report
+.rstest
 .env
 .env.*
 !.env.example

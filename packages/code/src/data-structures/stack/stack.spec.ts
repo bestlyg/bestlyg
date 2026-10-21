@@ -1,3 +1,4 @@
+import { describe, test, expect } from '@rstest/core';
 import { Stack } from './stack';
 import { ERROR_EMPTY_ELEMENT } from '@/shared';
 
@@ -23,16 +24,8 @@ describe('Stack', () => {
     });
     test('checkRange', () => {
         const queue = new Stack<number>();
-        const errorStr = `RangeError: ${ERROR_EMPTY_ELEMENT}`;
-        try {
-            queue.pop();
-        } catch (error) {
-            expect(error.toString()).toBe(errorStr);
-        }
-        try {
-            queue.top();
-        } catch (error) {
-            expect(error.toString()).toBe(errorStr);
-        }
+        const error = new RangeError(`${ERROR_EMPTY_ELEMENT}`);
+        expect(() => queue.pop()).toThrow(error);
+        expect(() => queue.top()).toThrow(error);
     });
 });

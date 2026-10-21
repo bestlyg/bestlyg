@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from '@rstest/core';
 import {
     formatLogData,
     NON_JSON_LOG_DATA_PLACEHOLDER,

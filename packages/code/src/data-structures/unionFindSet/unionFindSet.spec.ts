@@ -1,3 +1,4 @@
+import { describe, test, expect, beforeEach } from '@rstest/core';
 import { UnionFindSet } from './unionFindSet';
 describe('UnionFindSet', () => {
     let uf: UnionFindSet<number>;

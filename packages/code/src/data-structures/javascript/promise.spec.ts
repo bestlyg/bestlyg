@@ -1,260 +1,121 @@
+import { describe, test, expect } from '@rstest/core';
 import { ANY_OP, DEFAULT_OP } from '@/shared';
-import { isArray } from 'lodash';
-import { BestPromise, BestPromiseFulfilledResult, BestPromiseRejectedResult } from './promise';
-describe('Promise', () => {
-    test('Promise.resolve', () => {
-        BestPromise.resolve(1).then((val) => {
-            expect(val).toBe(1);
-        });
+import { BestPromise } from './promise';
+
+const fulfilled = (value: number, ms = 10) =>
+    new BestPromise<number>((resolve) => {
+        setTimeout(() => resolve(value), ms);
     });
-    test('Promise.reject', () => {
-        BestPromise.reject(1).catch((val) => {
-            expect(val).toBe(1);
-        });
+const rejected = (reason: number, ms = 10) =>
+    new BestPromise<number>((_, reject) => {
+        setTimeout(() => reject(reason), ms);
+    });
+
+describe('Promise', () => {
+    test('Promise.resolve', async () => {
+        expect(await BestPromise.resolve(1)).toBe(1);
+    });
+    test('Promise.reject', async () => {
+        await expect(Promise.resolve(BestPromise.reject(1))).rejects.toBe(1);
     });
     describe('Promise.race', () => {
-        test('resolve', () => {
-            const arr = [
-                new BestPromise((r) => {
-                    jest.setTimeout(100);
-                    r(1);
-                }),
-                new BestPromise((r) => {
-                    jest.setTimeout(200);
-                    r(2);
-                }),
-                new BestPromise((r) => {
-                    jest.setTimeout(300);
-                    r(3);
-                }),
-            ];
-            BestPromise.race(arr).then((val) => {
-                expect(val).toBe(1);
-            });
+        test('resolve', async () => {
+            expect(await BestPromise.race([fulfilled(1), fulfilled(2, 20), fulfilled(3, 30)])).toBe(
+                1,
+            );
         });
-        test('reject', () => {
-            const arr = [
-                new BestPromise((_, r) => {
-                    jest.setTimeout(100);
-                    r(1);
-                }),
-                new BestPromise((r) => {
-                    jest.setTimeout(200);
-                    r(2);
-                }),
-                new BestPromise((r) => {
-                    jest.setTimeout(300);
-                    r(3);
-                }),
-            ];
-            BestPromise.race(arr).catch((val) => {
-                expect(val).toBe(1);
-            });
+        test('reject', async () => {
+            await expect(
+                Promise.resolve(
+                    BestPromise.race([rejected(1), fulfilled(2, 20), fulfilled(3, 30)]),
+                ),
+            ).rejects.toBe(1);
         });
     });
     describe('Promise.any', () => {
-        test('resolve', () => {
-            const arr = [
-                new BestPromise((r) => {
-                    jest.setTimeout(100);
-                    r(1);
-                }),
-                new BestPromise((r) => {
-                    jest.setTimeout(200);
-                    r(2);
-                }),
-                new BestPromise((r) => {
-                    jest.setTimeout(300);
-                    r(3);
-                }),
-            ];
-            BestPromise.any(arr).then((val) => {
-                expect(val).toBe(1);
-            });
+        test('resolve', async () => {
+            expect(await BestPromise.any([rejected(1), fulfilled(2, 20), fulfilled(3, 30)])).toBe(
+                2,
+            );
         });
-        test('reject', () => {
-            const arr = [
-                new BestPromise((_, r) => {
-                    jest.setTimeout(100);
-                    r(1);
-                }),
-                new BestPromise((_, r) => {
-                    jest.setTimeout(200);
-                    r(2);
-                }),
-                new BestPromise((_, r) => {
-                    jest.setTimeout(300);
-                    r(3);
-                }),
-            ];
-            BestPromise.any(arr).catch((val) => {
-                expect(isArray(val)).toBeTruthy();
-                let i = 1;
-                (val as Array<any>).forEach((v) => {
-                    expect(v).toBe(i++);
-                });
-            });
+        test('reject', async () => {
+            await expect(
+                Promise.resolve(BestPromise.any([rejected(1, 30), rejected(2, 20), rejected(3)])),
+            ).rejects.toEqual([1, 2, 3]);
         });
     });
     describe('Promise.all', () => {
-        test('resolve', () => {
-            const arr = [
-                new BestPromise((r) => {
-                    jest.setTimeout(100);
-                    r(1);
-                }),
-                new BestPromise((r) => {
-                    jest.setTimeout(200);
-                    r(2);
-                }),
-                new BestPromise((r) => {
-                    jest.setTimeout(300);
-                    r(3);
-                }),
-            ];
-            BestPromise.all(arr).then((val) => {
-                expect(isArray(val)).toBeTruthy();
-                let i = 1;
-                (val as Array<any>).forEach((v) => {
-                    expect(v).toBe(i++);
-                });
-            });
-        });
-        test('reject', () => {
-            const arr = [
-                new BestPromise((r) => {
-                    jest.setTimeout(100);
-                    r(1);
-                }),
-                new BestPromise((_, r) => {
-                    jest.setTimeout(200);
-                    r(2);
-                }),
-                new BestPromise((r) => {
-                    jest.setTimeout(300);
-                    r(3);
-                }),
-            ];
-            BestPromise.all(arr).catch((val) => {
-                expect(val).toBe(2);
-            });
-        });
-    });
-    describe('Promise.allSettled', () => {
-        const arr = [
-            new BestPromise((r) => {
-                jest.setTimeout(100);
-                r(1);
-            }),
-            new BestPromise((_, r) => {
-                jest.setTimeout(200);
-                r(2);
-            }),
-            new BestPromise((r) => {
-                jest.setTimeout(300);
-                r(3);
-            }),
-        ];
-        BestPromise.allSettled(arr).then((val) => {
-            expect(isArray(val)).toBeTruthy();
-            for (let i = 0, l = arr.length; i < l; i++) {
-                const list = val[i];
-                if (i === 0 || i === 2) {
-                    expect(list.status).toBe('fulfilled');
-                    expect((list as BestPromiseFulfilledResult<number>).value).toBe(i + 1);
-                } else if (i === 1) {
-                    expect(list.status).toBe('rejected');
-                    expect((list as BestPromiseRejectedResult).reason).toBe(i + 1);
-                }
-            }
-        });
-    });
-    describe('finally', () => {
         test('resolve', async () => {
-            new BestPromise((resolve) => {
-                setTimeout(() => {
-                    resolve(1);
-                }, 0);
-            }).finally(() => {});
+            expect(
+                await BestPromise.all([fulfilled(1, 30), fulfilled(2, 20), fulfilled(3)]),
+            ).toEqual([1, 2, 3]);
         });
         test('reject', async () => {
-            new BestPromise((resolve, reject) => {
-                setTimeout(() => {
-                    reject(1);
-                }, 0);
-            }).finally(() => {});
+            await expect(
+                Promise.resolve(BestPromise.all([fulfilled(1), rejected(2, 20), fulfilled(3, 30)])),
+            ).rejects.toBe(2);
+        });
+    });
+    test('Promise.allSettled', async () => {
+        expect(
+            await BestPromise.allSettled([fulfilled(1, 30), rejected(2, 20), fulfilled(3)]),
+        ).toEqual([
+            { status: 'fulfilled', value: 1 },
+            { status: 'rejected', reason: 2 },
+            { status: 'fulfilled', value: 3 },
+        ]);
+    });
+    describe('finally', () => {
+        test.each(['resolve', 'reject'])('%s', async (state) => {
+            let called = false;
+            await new Promise<void>((done) => {
+                (state === 'resolve' ? fulfilled(1) : rejected(1)).finally(() => {
+                    called = true;
+                    done();
+                });
+            });
+            expect(called).toBe(true);
         });
         test('sync', () => {
-            const val = 0;
+            let called = false;
             BestPromise.resolve(1).finally(() => {
-                expect(val).toBe(0);
+                called = true;
             });
+            expect(called).toBe(true);
         });
     });
     describe('then', () => {
         test('resolve', async () => {
-            const res = await new BestPromise<number>((r) => {
-                jest.setTimeout(100);
-                r(1);
-            }).then((res) => res + 1);
-            expect(res).toBe(2);
+            expect(await fulfilled(1).then((value) => value + 1)).toBe(2);
         });
         test('reject', async () => {
-            const res = await new BestPromise<number>((_, r) => {
-                jest.setTimeout(100);
-                r(1);
-            }).then(ANY_OP, (res) => res + 1);
-            expect(res).toBe(2);
+            expect(await rejected(1).then(ANY_OP, (value) => value + 1)).toBe(2);
         });
         describe('return promise', () => {
             test('resolve', async () => {
-                const res = await new BestPromise<number>((r) => {
-                    jest.setTimeout(100);
-                    r(1);
-                }).then(
-                    (res) =>
-                        new BestPromise((r) => {
-                            r(res + 1);
-                        }),
-                );
-                expect(res).toBe(2);
+                expect(await fulfilled(1).then((value) => fulfilled(value + 1))).toBe(2);
             });
             test('reject', async () => {
-                const res = await new BestPromise<number>((_, r) => {
-                    jest.setTimeout(100);
-                    r(1);
-                })
-                    .then(
-                        DEFAULT_OP,
-                        (res) =>
-                            new BestPromise((_, r) => {
-                                r(res + 1);
-                            }),
-                    )
-                    .then(DEFAULT_OP, DEFAULT_OP);
-                expect(res).toBe(2);
+                expect(
+                    await rejected(1)
+                        .then(DEFAULT_OP, (value) => rejected(value + 1))
+                        .then(DEFAULT_OP, DEFAULT_OP),
+                ).toBe(2);
             });
         });
-        describe('return fn', () => {
-            test('resolve', async () => {
-                const res = await new BestPromise<any>((r) => {
-                    jest.setTimeout(100);
-                    r(() => {});
-                })
-                    .then(DEFAULT_OP)
-                    .catch((err) => err.toString());
-                expect(res).toBe('TypeError: 返回值请不要传递非Promise函数!');
-            });
+        test('return fn', async () => {
+            const value = await BestPromise.resolve(() => {})
+                .then(DEFAULT_OP)
+                .catch((error) => error.toString());
+            expect(value).toBe('TypeError: 返回值请不要传递非Promise函数!');
         });
     });
-    describe('exception', () => {
-        test('resolve ,reject', async () => {
-            new BestPromise((resolve, reject) => {
+    test('settles only once', async () => {
+        expect(
+            await new BestPromise<number>((resolve, reject) => {
                 resolve(1);
                 reject(2);
-            }).then((res) => {
-                expect(res).toBe(1);
-            });
-        });
+            }),
+        ).toBe(1);
     });
 });

@@ -1,4 +1,4 @@
 import { createDefineConfig } from 'c12';
-import type { BestlygConfig } from '../libs/common/src/config/utils';
+import type { BestlygConfig } from '../libs/common/src/config/utils.ts';
 
 export const defineConfig = createDefineConfig<BestlygConfig>();

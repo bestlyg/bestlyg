@@ -1,4 +1,4 @@
-import { expect, type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@rstest/playwright';
 import {
     formatE2EActionValue,
     logE2EAction,

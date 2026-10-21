@@ -6,7 +6,7 @@
 
 **Architecture:** Reuse ask-bi's source-alias pattern with local bestlyg paths. Keep the migration to the current shared packages and logger call sites.
 
-**Tech Stack:** pnpm, TypeScript, Vite, NestJS webpack, winston, vitest/Jest-compatible checks.
+**Tech Stack:** pnpm, TypeScript, Vite, NestJS webpack, winston, Rstest checks.
 
 ## Global Constraints
 

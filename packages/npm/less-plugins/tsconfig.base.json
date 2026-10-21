@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
-        "ignoreDeprecations": "6.0",
-        "module": "CommonJS",
-        "outDir": "./lib",
+        "module": "ESNext",
+        "outDir": "./dist",
         "rootDir": "./src",
         "allowJs": true,
         "noImplicitAny": false,
@@ -10,8 +9,9 @@
         "declaration": true,
         "skipLibCheck": true,
         "esModuleInterop": true,
-        "target": "ES2015",
-        "types": ["node"]
+        "target": "ES2022",
+        "types": ["node"],
+        "moduleResolution": "Bundler"
     },
-    "exclude": ["node_modules", "lib/**/*"]
+    "exclude": ["node_modules", "dist/**/*"]
 }

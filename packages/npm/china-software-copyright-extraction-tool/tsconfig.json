@@ -2,9 +2,9 @@
     "compilerOptions": {
         "rootDir": ".",
         "target": "ESNext",
-        "module": "CommonJS",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
         "allowJs": true,
-        "ignoreDeprecations": "6.0",
         "skipLibCheck": true,
         "lib": ["ESNext"],
         "esModuleInterop": true,

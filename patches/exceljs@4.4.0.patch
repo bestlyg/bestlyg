@@ -1,0 +1,10 @@
+diff --git a/lib/xlsx/xform/sheet/cf-ext/cf-rule-ext-xform.js b/lib/xlsx/xform/sheet/cf-ext/cf-rule-ext-xform.js
+index fecfbf147b4b017be184e91bafdfd5a50d3f43e4..68ae3a6e54381cbede2cd6451eb28c353a24b3f1 100644
+--- a/lib/xlsx/xform/sheet/cf-ext/cf-rule-ext-xform.js
++++ b/lib/xlsx/xform/sheet/cf-ext/cf-rule-ext-xform.js
+@@ -1,4 +1,4 @@
+-const {v4: uuidv4} = require('uuid');
++const {randomUUID: uuidv4} = require('node:crypto');
+ const BaseXform = require('../../base-xform');
+ const CompositeXform = require('../../composite-xform');
+ 

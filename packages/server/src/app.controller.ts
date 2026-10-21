@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Response } from 'express';
+import type { Response } from 'express';
 import { ResponseEntity, sse } from '@bestlyg/server-shared';
 
 @Controller()

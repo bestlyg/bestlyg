@@ -7,4 +7,5 @@ import('./bootstrap')
     .then((mod) => mod.bootstrap())
     .catch((err) => {
         logger.error(formatLogMessage('Server Bootstrap Error', err));
+        process.exitCode = 1;
     });

@@ -17,4 +17,4 @@ function resolvePackageRoot() {
 
 export const PACKAGE_ROOT = resolvePackageRoot();
 export const PROJECTS_ROOT = path.resolve(PACKAGE_ROOT, 'projects');
-export const PLAYWRIGHT_CONFIG_PATH = path.resolve(PACKAGE_ROOT, 'playwright.config.ts');
+export const RSTEST_CONFIG_PATH = path.resolve(PACKAGE_ROOT, 'rstest.config.mts');

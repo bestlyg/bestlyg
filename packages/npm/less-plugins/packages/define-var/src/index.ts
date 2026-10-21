@@ -1,12 +1,12 @@
-const yargs = require('yargs');
+import yargs from 'yargs/yargs';
 
-module.exports = class LessPluginFn {
+export default class LessPluginFn {
     argv: {
         functionName: string;
     } = { functionName: 'define-var' };
     constructor() {}
     setOptions(args: string) {
-        const argv = yargs(args ?? '').argv;
+        const argv = yargs(args ?? '').parseSync();
         for (const key of Object.keys(this.argv)) {
             if (argv[key]) {
                 this.argv[key] = argv[key];
@@ -21,8 +21,7 @@ module.exports = class LessPluginFn {
         // console.log("install");
         //   console.log("install", less, pluginMenager, functions);
         functions.add(this.argv.functionName, (key, value) => {
-            console.log(this.argv);
             return new less.tree.Declaration(`@${key.value}`, value);
         });
     }
-};
+}

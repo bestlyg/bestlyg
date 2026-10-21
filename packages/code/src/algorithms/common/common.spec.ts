@@ -1,3 +1,4 @@
+import { describe, test, expect } from '@rstest/core';
 import { gcd, lcm } from './euclidean';
 import { phi } from './euler';
 import { debounce, throttle, newInstance, random } from './functions';
@@ -60,14 +61,14 @@ describe('functions', () => {
     });
     describe('new', () => {
         test('return void', async () => {
-            function Obj(a: number) {
+            function Obj(this: { a: number }, a: number) {
                 this.a = a;
             }
             const obj = newInstance(Obj, 1);
             expect(obj.a).toBe(1);
         });
         test('return instance', async () => {
-            function Obj(a: number) {
+            function Obj(this: { a: number }, a: number) {
                 this.a = a;
                 return this;
             }

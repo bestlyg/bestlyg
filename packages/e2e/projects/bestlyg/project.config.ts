@@ -17,19 +17,25 @@ export default defineProjectConfig({
         apiURL: environmentConfig.apiURL,
     },
     playwright: {
-        use: {
+        contextOptions: {
             baseURL: environmentConfig.url,
             storageState: env.BESTLYG_E2E_STORAGE_STATE,
         },
-        webServer: env.BESTLYG_E2E_WEB_SERVER_COMMAND
-            ? {
-                  command: env.BESTLYG_E2E_WEB_SERVER_COMMAND,
-                  url: env.BESTLYG_E2E_WEB_SERVER_URL ?? environmentConfig.url,
-                  reuseExistingServer: !env.CI,
-                  timeout: 120_000,
-              }
-            : undefined,
     },
+    webServer: env.BESTLYG_E2E_WEB_SERVER_COMMAND
+        ? {
+              command: env.BESTLYG_E2E_WEB_SERVER_COMMAND,
+              url: env.BESTLYG_E2E_WEB_SERVER_URL ?? environmentConfig.url,
+              reuseExistingServer: !env.CI,
+              timeout: 120_000,
+          }
+        : targetEnv === 'local'
+          ? {
+                command: `pnpm --filter @bestlyg/client preview --host ${new URL(environmentConfig.url).hostname} --port ${new URL(environmentConfig.url).port || 80} --strictPort`,
+                url: environmentConfig.url,
+                reuseExistingServer: !env.CI,
+            }
+          : undefined,
     scripts: {
         smoke: {
             description: 'Bestlyg 冒烟测试',

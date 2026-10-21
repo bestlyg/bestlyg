@@ -19,25 +19,38 @@
         "url": "git://github.com/bestlyg/less-plugins/packages/less-plugin-define-var.git"
     },
     "files": [
-        "lib",
-        "src",
+        "dist",
         "package.json",
         "README.md"
     ],
-    "main": "lib/index.js",
+    "type": "module",
+    "main": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.mts",
+            "import": "./dist/index.mjs",
+            "default": "./dist/index.mjs"
+        },
+        "./package.json": "./package.json"
+    },
     "scripts": {
-        "clean": "rimraf ./lib ./node_modules",
-        "build": "tsc -p tsconfig.json",
-        "dev": "tsc -p tsconfig.json --watch",
+        "clean": "rimraf ./dist",
+        "build": "rslib build",
+        "dev": "rslib build --watch",
         "prepublishOnly": "pnpm build",
         "render": "pnpm exec lessc",
-        "extend-package-json": "extend-package-json"
+        "extend-package-json": "extend-package-json",
+        "test": "rstest run",
+        "test:watch": "rstest watch"
     },
     "dependencies": {
         "less": "catalog:",
         "yargs": "catalog:"
     },
     "devDependencies": {
+        "@rslib/core": "catalog:",
+        "@rstest/core": "catalog:",
         "@types/less": "catalog:",
         "@types/node": "catalog:",
         "@types/yargs": "catalog:",

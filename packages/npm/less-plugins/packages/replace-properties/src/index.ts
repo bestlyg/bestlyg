@@ -1,4 +1,4 @@
-import { addFunctions, LESS_PLUGINS } from '@less-plugins/shared';
+import { addFunctions } from '@less-plugins/shared';
 import { ReplaceData, toReg, getMapkey } from './utils';
 
 export * from './utils';
@@ -8,8 +8,11 @@ export const SKIP_KEY = '__skipReplacePropertiesVisitor';
 export class ReplacePropertiesVisitor {
     isPreVisitor = true;
     visitor;
-    constructor(public replaceMap: Map<string, ReplaceData>) {
-        this.visitor = new LESS_PLUGINS.less.visitors.Visitor(this);
+    constructor(
+        less: any,
+        public replaceMap: Map<string, ReplaceData>,
+    ) {
+        this.visitor = new less.visitors.Visitor(this);
     }
 
     run(root) {
@@ -73,9 +76,9 @@ export function removeReplacePreperties({
 export default class LessPluginsReplaceProperties {
     constructor() {}
     printUsage() {}
-    install(_less, pluginMenager, functions) {
+    install(less, pluginMenager, functions) {
         const replaceMap = new Map<string, ReplaceData>();
-        pluginMenager.addVisitor(new ReplacePropertiesVisitor(replaceMap));
+        pluginMenager.addVisitor(new ReplacePropertiesVisitor(less, replaceMap));
         addFunctions(functions, [
             {
                 addReplacePreperties: function (key, replaceKey, value, replaceValue) {

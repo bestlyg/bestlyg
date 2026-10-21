@@ -9,13 +9,15 @@ export default class LessPluginsReplaceProperties {
         //     new ReplacePropertiesVisitor(less, pluginMenager, functions, replaceMap)
         // );
         addFunctions(functions, [
-            function addReplacePreperties(key, replaceKey) {
-                replaceMap.set(key.value, replaceKey.value);
-                return '';
-            },
-            function removeReplacePreperties(key) {
-                replaceMap.delete(key.value);
-                return '';
+            {
+                addReplacePreperties: function (key, replaceKey) {
+                    replaceMap.set(key.value, replaceKey.value);
+                    return '';
+                },
+                removeReplacePreperties: function (key) {
+                    replaceMap.delete(key.value);
+                    return '';
+                },
             },
         ]);
     }

@@ -1,3 +1,4 @@
+import { describe, test, expect } from '@rstest/core';
 import { Comparator } from '@/shared';
 import { random } from 'lodash';
 import { bubbleSort } from './bubbleSort';
@@ -7,7 +8,7 @@ import { mergeSort } from './mergeSort';
 import { quickSort1, quickSort2, quickSort3 } from './quickSort';
 import { radixSort } from './radixSort';
 const RANDOM_BASE = 100;
-const compare = (a, b) => a - b;
+const compare = (a: number, b: number) => a - b;
 const getList = () => new Array(RANDOM_BASE).fill(0).map((_) => random(0, RANDOM_BASE));
 const compareRun = (sort: (compare: Comparator<number>, list: number[], ...args: any) => void) => {
     test('common sort', () => {

@@ -6,7 +6,6 @@
         "target": "ESNext",
         "module": "ESNext",
         "allowJs": true,
-        "ignoreDeprecations": "6.0",
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
         "lib": ["ESNext", "DOM"],

@@ -1,7 +1,7 @@
 import { Catch, ArgumentsHost, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { ResponseEntity } from '@bestlyg/server-shared';
-import { Request } from 'express';
+import type { Request } from 'express';
 
 @Catch()
 export class AllExceptionsFilter extends BaseExceptionFilter {

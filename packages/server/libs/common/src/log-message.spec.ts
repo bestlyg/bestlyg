@@ -1,3 +1,4 @@
+import { describe, it, expect } from '@rstest/core';
 import { formatLogMessage } from './log-message';
 
 describe('formatLogMessage', () => {

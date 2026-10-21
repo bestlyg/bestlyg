@@ -1,0 +1,27 @@
+{
+    "name": "@bestlyg/input-engine",
+    "version": "0.0.0",
+    "private": true,
+    "description": "Framework-independent input state, configuration and plugin core.",
+    "type": "module",
+    "main": "./dist/index.mjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.mts",
+            "default": "./dist/index.mjs"
+        }
+    },
+    "scripts": {
+        "build": "rslib build",
+        "test": "rstest run",
+        "test:watch": "rstest watch"
+    },
+    "devDependencies": {
+        "@rslib/core": "catalog:",
+        "@rstest/core": "catalog:",
+        "@types/node": "catalog:",
+        "typescript": "catalog:"
+    }
+}

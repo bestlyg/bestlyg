@@ -5,7 +5,7 @@
     "license": "ISC",
     "author": "bestlyg",
     "type": "module",
-    "main": "./dist/index.cjs",
+    "main": "./dist/index.mjs",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "typesVersions": {
@@ -18,28 +18,22 @@
     "exports": {
         "./package.json": "./package.json",
         ".": {
-            "import": {
-                "types": "./dist/index.d.mts",
-                "default": "./dist/index.mjs"
-            },
-            "require": {
-                "types": "./dist/index.d.cts",
-                "default": "./dist/index.cjs"
-            }
+            "types": "./dist/index.d.mts",
+            "default": "./dist/index.mjs"
         },
         "./*": {
             "import": "./*",
-            "require": "./*",
             "default": "./*"
         }
     },
     "scripts": {
-        "build": "unbuild --config ./build.config.ts",
-        "dev": "unbuild --config ./build.config.ts --watch"
+        "build": "rslib build",
+        "dev": "rslib build --watch",
+        "test": "rstest run",
+        "test:watch": "rstest watch"
     },
     "dependencies": {
         "@bestlyg/core-shared": "workspace:^",
-        "crypto-js": "catalog:",
         "dayjs": "catalog:",
         "exceljs": "catalog:",
         "figlet": "catalog:",
@@ -49,12 +43,10 @@
         "zod": "catalog:"
     },
     "devDependencies": {
-        "@types/crypto-js": "catalog:",
-        "@types/figlet": "catalog:",
+        "@rslib/core": "catalog:",
+        "@rstest/core": "catalog:",
         "@types/fs-extra": "catalog:",
         "@types/node": "catalog:",
-        "rimraf": "catalog:",
-        "typescript": "catalog:",
-        "unbuild": "catalog:"
+        "typescript": "catalog:"
     }
 }

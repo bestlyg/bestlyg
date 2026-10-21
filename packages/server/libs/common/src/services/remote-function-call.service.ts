@@ -1,7 +1,7 @@
 import vm from 'node:vm';
-import ts from 'typescript';
+import ts from '@typescript/typescript6';
 import _ from 'lodash';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { Injectable, Logger } from '@nestjs/common';
 
 export type RemoteFunctionCallGlobalContext = {

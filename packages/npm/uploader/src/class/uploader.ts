@@ -1,5 +1,5 @@
 import tapable from 'tapable';
-import R from 'ramda';
+import * as R from 'ramda';
 import { Task } from './task';
 import PQueue from 'p-queue';
 import { Transporter, TransporterManager } from './transporter';

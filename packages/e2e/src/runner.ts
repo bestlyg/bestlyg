@@ -10,7 +10,7 @@ import {
     listScripts,
     loadConfig,
 } from './config';
-import { PACKAGE_ROOT, PLAYWRIGHT_CONFIG_PATH } from './paths';
+import { PACKAGE_ROOT, RSTEST_CONFIG_PATH } from './paths';
 import {
     BESTLYG_E2E_TARGET_ENV_OVERRIDES,
     parseTargetEnvOverrideArgs,
@@ -21,7 +21,7 @@ import type { BestlygE2EScriptConfig } from './types';
 const require = createRequire(import.meta.url);
 const DEFAULT_RUN_CONCURRENCY = 1;
 
-export interface RunPlaywrightOptions {
+export interface RunRstestOptions {
     projectName?: string;
     scriptName?: string;
     specFile?: string;
@@ -30,7 +30,7 @@ export interface RunPlaywrightOptions {
     envOverrides?: string[];
     concurrency?: number;
     headless?: boolean;
-    playwrightArgs?: string[];
+    rstestArgs?: string[];
 }
 
 interface E2ERunTask {
@@ -187,14 +187,17 @@ function escapeRegExp(value: string) {
     return value.replace(/[|\\{}()[\]^$+?.]/g, '\\$&');
 }
 
-function hasPlaywrightGrepArg(args: string[]) {
+function hasRstestNameArg(args: string[]) {
     return args.some(
         (arg) =>
-            arg === '--grep' || arg === '-g' || arg.startsWith('--grep=') || arg.startsWith('-g='),
+            arg === '--testNamePattern' ||
+            arg === '-t' ||
+            arg.startsWith('--testNamePattern=') ||
+            arg.startsWith('-t='),
     );
 }
 
-function createTestGrepArgs(testName: string | undefined, playwrightArgs: string[]) {
+function createTestGrepArgs(testName: string | undefined, rstestArgs: string[]) {
     if (!testName) {
         return [];
     }
@@ -205,11 +208,11 @@ function createTestGrepArgs(testName: string | undefined, playwrightArgs: string
         throw new Error('--test 不能为空。');
     }
 
-    if (hasPlaywrightGrepArg(playwrightArgs)) {
-        throw new Error('--test 不能和透传给 Playwright 的 --grep/-g 同时使用。');
+    if (hasRstestNameArg(rstestArgs)) {
+        throw new Error('--test 不能和透传给 Rstest 的 --testNamePattern/-t 同时使用。');
     }
 
-    return ['--grep', escapeRegExp(normalizedTestName)];
+    return ['--testNamePattern', escapeRegExp(normalizedTestName)];
 }
 
 function globToRegExp(pattern: string) {
@@ -316,11 +319,11 @@ async function runCommandScript(
     });
 }
 
-async function runPlaywrightScript(
+async function runRstestScript(
     config: LoadedE2EConfig,
     projectName: string,
     scriptName: string,
-    playwrightArgs: string[] = [],
+    rstestArgs: string[] = [],
     targetEnv?: string,
     targetEnvOverrides?: string,
     headless?: boolean,
@@ -335,7 +338,7 @@ async function runPlaywrightScript(
             projectName,
             scriptName,
             scriptConfig,
-            playwrightArgs,
+            rstestArgs,
             targetEnv,
             targetEnvOverrides,
             headless,
@@ -345,19 +348,24 @@ async function runPlaywrightScript(
         return;
     }
 
-    const cliEntrypoint = require.resolve('@playwright/test/cli');
-    const testGrepArgs = createTestGrepArgs(testName, playwrightArgs);
+    const cliEntrypoint = path.join(
+        path.dirname(require.resolve('@rstest/core/package.json')),
+        'bin/rstest.js',
+    );
+    const listOnly = rstestArgs.includes('--list');
+    const forwardedArgs = rstestArgs.filter((arg) => arg !== '--list');
+    const testGrepArgs = createTestGrepArgs(testName, forwardedArgs);
 
     await new Promise<void>((resolve, reject) => {
         const specArgs = specFile ? [specFile] : [];
         const args = [
             cliEntrypoint,
-            'test',
+            listOnly ? 'list' : 'run',
             ...specArgs,
             '--config',
-            PLAYWRIGHT_CONFIG_PATH,
+            RSTEST_CONFIG_PATH,
             ...testGrepArgs,
-            ...playwrightArgs,
+            ...forwardedArgs,
         ];
         const child = spawn(process.execPath, args, {
             cwd: PACKAGE_ROOT,
@@ -373,19 +381,19 @@ async function runPlaywrightScript(
             }
 
             if (signal) {
-                reject(new Error(`Playwright 被信号 ${signal} 终止。`));
+                reject(new Error(`Rstest 被信号 ${signal} 终止。`));
                 return;
             }
 
-            reject(new Error(`Playwright 退出码为 ${code ?? '未知'}。`));
+            reject(new Error(`Rstest 退出码为 ${code ?? '未知'}。`));
         });
     });
 }
 
-async function runPlaywrightTask(
+async function runRstestTask(
     config: LoadedE2EConfig,
     task: E2ERunTask,
-    playwrightArgs: string[] = [],
+    rstestArgs: string[] = [],
     targetEnv?: string,
     targetEnvOverrides?: string,
     headless?: boolean,
@@ -396,11 +404,11 @@ async function runPlaywrightTask(
     let taskError: unknown;
 
     try {
-        await runPlaywrightScript(
+        await runRstestScript(
             config,
             task.projectName,
             task.scriptName,
-            playwrightArgs,
+            rstestArgs,
             targetEnv,
             targetEnvOverrides,
             headless,
@@ -414,11 +422,11 @@ async function runPlaywrightTask(
     if (!task.specFile && !testName) {
         for (const afterScriptName of scriptConfig.afterScripts ?? []) {
             try {
-                await runPlaywrightScript(
+                await runRstestScript(
                     config,
                     task.projectName,
                     afterScriptName,
-                    playwrightArgs,
+                    rstestArgs,
                     targetEnv,
                     targetEnvOverrides,
                     headless,
@@ -550,7 +558,7 @@ function getRunTasks(
     return tasks;
 }
 
-export async function runPlaywright(options: RunPlaywrightOptions) {
+export async function runRstest(options: RunRstestOptions) {
     const {
         projectName,
         scriptName,
@@ -558,7 +566,7 @@ export async function runPlaywright(options: RunPlaywrightOptions) {
         testName,
         targetEnv,
         envOverrides = [],
-        playwrightArgs = [],
+        rstestArgs = [],
         concurrency,
         headless,
     } = options;
@@ -574,10 +582,10 @@ export async function runPlaywright(options: RunPlaywrightOptions) {
     for (const batch of createBatches(tasks, runConcurrency)) {
         const results = await Promise.allSettled(
             batch.map(async (task) => {
-                await runPlaywrightTask(
+                await runRstestTask(
                     config,
                     task,
-                    playwrightArgs,
+                    rstestArgs,
                     targetEnv,
                     targetEnvOverrides,
                     headless,

@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import type { Page } from '@rstest/playwright';
 import { logE2EAction } from '../helpers/action-log';
 
 export async function openPage(page: Page, pathname = '/') {

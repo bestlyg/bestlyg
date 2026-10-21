@@ -1,6 +1,6 @@
 import { Command, Help } from 'commander';
 import { loadConfig, listProjects, listScripts } from './config';
-import { runPlaywright } from './runner';
+import { runRstest } from './runner';
 
 interface RunCommandOptions {
     project?: string;
@@ -74,7 +74,7 @@ function formatProjectScripts(projectName: string, scripts: ReturnType<typeof li
 async function main() {
     const program = new Command()
         .name('bestlyg-e2e')
-        .description('面向 Bestlyg 项目的 Playwright E2E 运行器。')
+        .description('面向 Bestlyg 项目的 Rstest E2E 运行器。')
         .helpOption('-h, --help', '显示帮助信息。')
         .helpCommand('help [命令]', '显示指定命令的帮助信息。')
         .configureHelp({ formatHelp: formatChineseHelp })
@@ -100,7 +100,7 @@ async function main() {
 
     program
         .command('run')
-        .description('运行已配置的 Playwright 脚本。')
+        .description('运行已配置的 Rstest 脚本。')
         .helpOption('-h, --help', '显示帮助信息。')
         .option('--project <项目>', '项目名称；不传时运行所有已配置项目。')
         .option('--script <脚本>', '脚本名称；不传时运行目标项目下的所有默认脚本。')
@@ -110,7 +110,7 @@ async function main() {
         )
         .option(
             '--test <测试名称>',
-            '只运行名称包含该文本的单个测试；内部按 Playwright grep 过滤。',
+            '只运行名称包含该文本的单个测试；内部按 Rstest testNamePattern 过滤。',
         )
         .option('--target-env <环境>', '目标环境名称，例如 local 或 production。')
         .option(
@@ -125,7 +125,7 @@ async function main() {
         .allowExcessArguments(true)
         .passThroughOptions()
         .action(async (options: RunCommandOptions, command: Command) => {
-            await runPlaywright({
+            await runRstest({
                 projectName: options.project,
                 scriptName: options.script,
                 specFile: options.spec,
@@ -134,7 +134,7 @@ async function main() {
                 envOverrides: options.env,
                 concurrency: parseConcurrency(options.concurrency),
                 headless: parseHeadlessOption(options),
-                playwrightArgs: command.args,
+                rstestArgs: command.args,
             });
         });
 

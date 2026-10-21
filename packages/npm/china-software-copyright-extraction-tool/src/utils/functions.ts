@@ -1,4 +1,13 @@
 import { path } from 'zx';
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+let packageRoot = path.dirname(fileURLToPath(import.meta.url));
+while (!existsSync(path.join(packageRoot, 'package.json'))) {
+    const parent = path.dirname(packageRoot);
+    if (parent === packageRoot) throw new Error('Cannot locate cscet package.json');
+    packageRoot = parent;
+}
 
 export function tryToNumber(s: string | undefined, defaultValue: number): number {
     const num = Number(s);
@@ -10,7 +19,7 @@ export function getEnv(s: string) {
 }
 
 export function resolve(...p: string[]) {
-    return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
+    return path.resolve(packageRoot, ...p);
 }
 
 export function mount<O extends object, T extends object>(base: O, mountRecord: T): O & T {

@@ -1,3 +1,4 @@
+import { describe, test, expect } from '@rstest/core';
 import { ERROR_EMPTY_ELEMENT } from '@/shared';
 import { random } from 'lodash';
 import { BinaryHeap } from './binaryHeap';
@@ -36,16 +37,8 @@ describe('BinaryHeap', () => {
 
     test('checkRange', () => {
         const heap = new BinaryHeap<number>((t1, t2) => t1 - t2);
-        const errorStr = `RangeError: ${ERROR_EMPTY_ELEMENT}`;
-        try {
-            heap.remove();
-        } catch (error) {
-            expect(error.toString()).toBe(errorStr);
-        }
-        try {
-            heap.top();
-        } catch (error) {
-            expect(error.toString()).toBe(errorStr);
-        }
+        const error = new RangeError(`${ERROR_EMPTY_ELEMENT}`);
+        expect(() => heap.remove()).toThrow(error);
+        expect(() => heap.top()).toThrow(error);
     });
 });

@@ -17,7 +17,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { PageParam, ResponseEntity } from '@bestlyg/server-shared';
 import { AuthGuard } from '@bestlyg-server/auth/auth.guard';
 import dayjs from 'dayjs';
-import { Response } from 'express';
+import type { Response } from 'express';
 import { Between, FindManyOptions } from 'typeorm';
 import {
     DatabaseBatchDeleteRequestDto,

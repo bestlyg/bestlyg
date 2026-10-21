@@ -5,6 +5,7 @@
     "scripts": {
         "deploy": "node ./scripts/deploy.mjs",
         "build": "pnpm -r build",
+        "typecheck": "node scripts/typecheck.mts",
         "submodule:update": "git submodule update --init --recursive",
         "version:node": "node -v",
         "setup": "rm -rf node_modules && rm -rf ./**/node_modules && pnpm i --force",
@@ -13,14 +14,17 @@
         "e2e:run": "pnpm --filter @bestlyg/e2e e2e:run",
         "e2e:list": "pnpm --filter @bestlyg/e2e e2e:list",
         "e2e:install": "pnpm --filter @bestlyg/e2e install:browsers",
-        "format": "oxfmt \"**/*.{js,jsx,tsx,ts,md,json}\" --config ./.oxfmtrc.json",
+        "format": "oxfmt \"**/*.{js,mjs,cjs,jsx,tsx,ts,mts,cts,md,json}\" --config ./.oxfmtrc.json",
         "format:affect": "node ./scripts/format-affect.mjs",
         "commit": "git-cz",
         "commit:auto": "git pull origin master && git add -A && pnpm run commit && git push --no-verify -u origin master && git push --no-verify -u github master",
         "script": "zx scripts/main.mjs",
         "<!-- 快捷方式 -->": "下面是快捷方式用的",
         "c": "pnpm run commit",
-        "ca": "pnpm run commit:auto"
+        "ca": "pnpm run commit:auto",
+        "test": "rstest run",
+        "test:watch": "rstest watch",
+        "test:unit": "rstest run --project code --project server --project core-shared --project server-shared --project input-engine --project generator-helpers --project metadata-file --project package-json-extension --project '@less-plugins/*' --project cscet --project less-plugin-define-var --project uploader --project client-unit"
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
@@ -31,6 +35,9 @@
         "@commitlint/cli": "catalog:",
         "@commitlint/config-conventional": "catalog:",
         "@manypkg/get-packages": "catalog:",
+        "@rslib/core": "catalog:",
+        "@rstest/core": "catalog:",
+        "@types/node": "catalog:",
         "dotenv": "catalog:",
         "figlet": "catalog:",
         "git-cz": "catalog:",
@@ -38,7 +45,6 @@
         "oxlint": "catalog:",
         "oxlint-tsgolint": "catalog:",
         "semver": "catalog:",
-        "@typescript/native": "catalog:",
         "typescript": "catalog:",
         "zx": "catalog:"
     },
@@ -47,5 +53,12 @@
             "path": "cz-conventional-changelog"
         }
     },
-    "packageManager": "pnpm@11.11.0"
+    "devEngines": {
+        "runtime": {
+            "name": "node",
+            "version": "24.22.0",
+            "onFail": "download"
+        }
+    },
+    "packageManager": "pnpm@12.14.0"
 }

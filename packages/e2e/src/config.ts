@@ -105,7 +105,9 @@ export async function loadConfig(options: LoadConfigOptions = {}) {
     );
 
     return {
+        rstest: rootConfig.rstest,
         playwright: rootConfig.playwright,
+        webServer: rootConfig.webServer,
         projects: Object.fromEntries(projects),
     } satisfies BestlygE2EConfig;
 }

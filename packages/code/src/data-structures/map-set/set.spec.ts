@@ -1,10 +1,11 @@
+import { describe, test, expect, beforeEach } from '@rstest/core';
 import { HashSet } from './hashSet';
 import { TreeSet } from './treeSet';
 import { Set } from './set';
 
 const list = [TreeSet, HashSet];
 list.forEach(run);
-function run(Cstr: new (compare) => Set<number>) {
+function run(Cstr: new (compare: (left: number, right: number) => number) => Set<number>) {
     describe(`Set 【${Cstr.name}】`, () => {
         let set!: Set<number>;
         beforeEach(() => {

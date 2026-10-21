@@ -2,7 +2,6 @@
     "files": [],
     "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
     "compilerOptions": {
-        "ignoreDeprecations": "6.0",
         "paths": {
             "@bestlyg/core-shared": ["../shared/core-shared/src/index.ts"],
             "@bestlyg/core-shared/*": ["../shared/core-shared/src/*"],

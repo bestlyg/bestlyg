@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ResponseEntity } from '@bestlyg/server-shared';
 import { ServerlessService } from './serverless.service';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { AuthGuard } from '@bestlyg-server/auth';
 
 @Controller('/serverless')

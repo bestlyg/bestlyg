@@ -1,7 +1,10 @@
 dist
 .umi
 node_modules
-jest
+.rstest
+coverage
+rstest-report
+test-results
 training
 echarts.js
 target

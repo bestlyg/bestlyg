@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { findClosestFile } from './find-closest-file';
 import { FILE_NAME_PACKAGE_JSON } from './constants';
 import path from 'path';
@@ -22,7 +23,7 @@ export function getPackageJson(currentDirectory: string): Record<string, any> | 
     try {
         const pkgPath = getPackageJsonPath(currentDirectory);
         if (!pkgPath) return null;
-        return require(pkgPath);
+        return JSON.parse(readFileSync(pkgPath, 'utf8'));
     } catch (_err) {
         return null;
     }

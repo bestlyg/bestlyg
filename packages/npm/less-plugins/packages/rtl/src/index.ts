@@ -1,4 +1,4 @@
-import { cloneLessTreeNode, LESS_PLUGINS, parseOptions } from '@less-plugins/shared';
+import { cloneLessTreeNode, parseOptions } from '@less-plugins/shared';
 import { SKIP_KEY } from '@less-plugins/replace-properties';
 import { cssLogicalMap } from '@less-plugins/css-logical';
 import {
@@ -23,8 +23,11 @@ function pickShorthandsValue(node) {
 export class RtlPreVisitor {
     isPreVisitor = true;
     visitor;
-    constructor(public lessPlugin: LessPluginsRtl) {
-        this.visitor = new LESS_PLUGINS.less.visitors.Visitor(this);
+    constructor(
+        private less: any,
+        public lessPlugin: LessPluginsRtl,
+    ) {
+        this.visitor = new this.less.visitors.Visitor(this);
     }
 
     run(root) {
@@ -37,17 +40,17 @@ export class RtlPreVisitor {
             const shorthandsValue = pickShorthandsValue(rule);
             if (REG_Node.test(rule.name) && shorthandsValue) {
                 const cloneNode = (suffix: string, index: number) =>
-                    new LESS_PLUGINS.less.tree.Declaration(
+                    new this.less.tree.Declaration(
                         rule.name + '-' + suffix,
                         typeof shorthandsValue[index] === 'string'
                             ? shorthandsValue[index]
-                            : cloneLessTreeNode(LESS_PLUGINS.less, shorthandsValue[index]),
+                            : cloneLessTreeNode(this.less, shorthandsValue[index]),
                     );
                 if (this.lessPlugin.options.selector || this.lessPlugin.options.enableSelector) {
                     if (!appendRuleset) {
-                        appendRuleset = new LESS_PLUGINS.less.tree.Ruleset(
+                        appendRuleset = new this.less.tree.Ruleset(
                             [
-                                new LESS_PLUGINS.less.tree.Selector(
+                                new this.less.tree.Selector(
                                     this.lessPlugin.options.selector ?? 'html[data-rtl] &',
                                 ),
                             ],
@@ -90,7 +93,7 @@ export default class LessPluginsRtl {
         // console.log('===>', this.options);
     }
     printUsage() {}
-    install(_less, pluginMenager, _functions) {
+    install(less, pluginMenager, _functions) {
         const replaceMap = new Map<string, ReplaceData>();
         for (const replaceData of cssLogicalMap.filter(
             ({ key, value }) =>
@@ -104,8 +107,8 @@ export default class LessPluginsRtl {
                 replaceMap,
             });
         }
-        pluginMenager.addVisitor(new ReplacePropertiesVisitor(replaceMap));
+        pluginMenager.addVisitor(new ReplacePropertiesVisitor(less, replaceMap));
 
-        pluginMenager.addVisitor(new RtlPreVisitor(this));
+        pluginMenager.addVisitor(new RtlPreVisitor(less, this));
     }
 }

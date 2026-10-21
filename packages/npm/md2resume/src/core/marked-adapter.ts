@@ -2,7 +2,7 @@ import { Marked } from 'marked';
 import { MarkdownTransformer } from './types';
 import { DirectiveConfig, createDirectives, presetDirectiveConfigs } from 'marked-directive';
 import * as icons from '@ant-design/icons-svg';
-import { renderIconDefinitionToSVGElement } from '@ant-design/icons-svg/es/helpers';
+import { renderIconDefinitionToSVGElement } from '@ant-design/icons-svg/es/helpers.js';
 
 const iconDirective: DirectiveConfig = {
     level: 'inline',

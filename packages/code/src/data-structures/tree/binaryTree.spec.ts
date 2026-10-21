@@ -1,3 +1,4 @@
+import { describe, test, expect, beforeEach } from '@rstest/core';
 import { AVLTree } from './avlTree';
 import { BinarySearchTree } from './binarySearchTree';
 import { BinaryTreeNode } from './binaryTree';
@@ -91,7 +92,7 @@ describe('BinaryTreeNode', () => {
             expect(root.right?.right?.successor()?.val).toBeUndefined();
         });
     });
-    describe('remove', () => {
+    test('remove', () => {
         const root = new BinaryTreeNode<number>(0);
         root.remove();
         expect(root.degree).toBe(0);

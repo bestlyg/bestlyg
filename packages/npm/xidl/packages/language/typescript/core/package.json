@@ -8,7 +8,7 @@
     "license": "MIT",
     "author": "bestlyg@foxmail.com",
     "type": "module",
-    "main": "./dist/index.cjs",
+    "main": "./dist/index.mjs",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "typesVersions": {
@@ -20,29 +20,22 @@
     },
     "exports": {
         ".": {
-            "import": {
-                "types": "./dist/index.d.mts",
-                "default": "./dist/index.mjs"
-            },
-            "require": {
-                "types": "./dist/index.d.cts",
-                "default": "./dist/index.cjs"
-            }
+            "types": "./dist/index.d.mts",
+            "default": "./dist/index.mjs"
         }
     },
     "scripts": {
         "prepublishOnly": "pnpm build",
-        "build": "rimraf dist && unbuild --config ./node_modules/@xidl/shared/build.config.ts",
-        "dev": "unbuild --config ./node_modules/@xidl/shared/build.config.ts --watch"
+        "build": "rslib build",
+        "dev": "rslib build --watch"
     },
     "dependencies": {
         "@xidl/core": "workspace:^",
         "@xidl/shared": "workspace:^"
     },
     "devDependencies": {
+        "@rslib/core": "catalog:",
         "@types/node": "catalog:",
-        "rimraf": "catalog:",
-        "typescript": "catalog:",
-        "unbuild": "catalog:"
+        "typescript": "catalog:"
     }
 }

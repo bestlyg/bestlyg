@@ -4,6 +4,7 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "start": "vite",
         "dev": "vite",
         "build": "cross-env NODE_OPTIONS=--max-old-space-size=4096 vite build",
         "lint": "oxlint .",
@@ -59,7 +60,6 @@
         "eventemitter3": "catalog:",
         "github-markdown-css": "catalog:",
         "highlight.js": "catalog:",
-        "html2canvas": "catalog:",
         "html2canvas-pro": "catalog:",
         "immer": "catalog:",
         "input-otp": "catalog:",
@@ -96,6 +96,7 @@
     },
     "devDependencies": {
         "@bestlyg/server-shared": "workspace:^",
+        "@rstest/core": "catalog:",
         "@tailwindcss/postcss": "catalog:",
         "@tailwindcss/vite": "catalog:",
         "@types/lodash": "catalog:",
@@ -111,12 +112,10 @@
         "oxlint": "catalog:",
         "rollup-plugin-visualizer": "catalog:",
         "shadcn": "catalog:",
-        "shadcn-ui": "catalog:",
         "tailwindcss": "catalog:",
         "tw-animate-css": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:",
-        "vite-plugin-compression": "catalog:",
         "zx": "catalog:"
     }
 }

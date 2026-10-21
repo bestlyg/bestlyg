@@ -4,7 +4,6 @@
         "target": "ESNext",
         "module": "ESNext",
         "allowJs": true,
-        "ignoreDeprecations": "6.0",
         "skipLibCheck": true,
         "lib": ["ESNext", "DOM"],
         "moduleResolution": "Bundler",

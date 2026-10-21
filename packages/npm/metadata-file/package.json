@@ -13,9 +13,6 @@
         "index.mjs",
         "index.d.ts"
     ],
-    "scripts": {
-        "test": "node index.test.mjs && node index.test.cjs"
-    },
     "type": "module",
     "exports": {
         ".": {
@@ -25,7 +22,14 @@
             "default": "./index.mjs"
         }
     },
+    "scripts": {
+        "test": "rstest run",
+        "test:watch": "rstest watch"
+    },
     "dependencies": {
         "module-checker": "workspace:^"
+    },
+    "devDependencies": {
+        "@rstest/core": "catalog:"
     }
 }

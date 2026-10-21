@@ -1,4 +1,4 @@
-import { expect } from '@playwright/test';
+import { expect } from '@rstest/playwright';
 import { BasePage } from '../../../common/page-objects/base.page';
 import { logE2EAction } from '../../../common/helpers/action-log';
 

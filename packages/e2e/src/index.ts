@@ -7,7 +7,7 @@ export {
     loadConfig,
     normalizeScriptProjects,
 } from './config';
-export { buildPlaywrightConfig } from './playwright';
+export { buildRstestConfig } from './rstest';
 export {
     applyTargetEnvOverrides,
     BESTLYG_E2E_TARGET_ENV_OVERRIDES,

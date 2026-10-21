@@ -1,9 +1,14 @@
 {
     "name": "@bestlyg/code",
+    "scripts": {
+        "test": "rstest run",
+        "test:watch": "rstest watch"
+    },
     "dependencies": {
         "lodash": "catalog:"
     },
     "devDependencies": {
+        "@rstest/core": "catalog:",
         "@types/lodash": "catalog:",
         "@types/node": "catalog:"
     }

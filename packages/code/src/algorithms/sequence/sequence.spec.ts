@@ -1,3 +1,4 @@
+import { describe, test, expect } from '@rstest/core';
 import { bruteForce } from './bruteForce';
 import { kmp } from './kmp';
 import { shiftAnd } from './shiftAnd';

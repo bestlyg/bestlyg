@@ -10,23 +10,23 @@
     ],
     "type": "module",
     "sideEffects": false,
-    "main": "./dist/index.js",
+    "main": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/index.js",
-            "default": "./dist/index.js"
+            "import": "./dist/index.mjs",
+            "default": "./dist/index.mjs"
         },
         "./svg-icon": {
             "types": "./dist/svg-icon.d.ts",
-            "import": "./dist/svg-icon.js",
-            "default": "./dist/svg-icon.js"
+            "import": "./dist/svg-icon.mjs",
+            "default": "./dist/svg-icon.mjs"
         },
         "./svg/*": {
             "types": "./dist/svg/*.d.ts",
-            "import": "./dist/svg/*.js",
-            "default": "./dist/svg/*.js"
+            "import": "./dist/svg/*.mjs",
+            "default": "./dist/svg/*.mjs"
         },
         "./package.json": "./package.json"
     },
@@ -35,22 +35,21 @@
         "lint": "tsc --noEmit",
         "lint:ci": "pnpm lint",
         "prepublishOnly": "pnpm build",
-        "build": "rimraf dist && tsc",
-        "dev": "tsc --watch"
+        "build": "rslib build",
+        "dev": "rslib build --watch"
     },
     "dependencies": {
         "clsx": "catalog:",
         "react": "catalog:"
     },
     "devDependencies": {
+        "@rslib/core": "catalog:",
         "@types/node": "catalog:",
         "@types/react": "catalog:",
         "change-case": "catalog:",
         "consola": "catalog:",
         "dayjs": "catalog:",
-        "rimraf": "catalog:",
         "typescript": "catalog:",
-        "unbuild": "catalog:",
         "zx": "catalog:"
     }
 }

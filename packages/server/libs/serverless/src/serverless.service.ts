@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { RemoteFunctionCallService } from '@bestlyg-server/common';
 import { ServerlessService as ServerlessDBService } from '@bestlyg-server/database';
 

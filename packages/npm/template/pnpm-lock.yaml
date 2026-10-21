@@ -13,7 +13,19 @@ catalogs:
       specifier: ^8.8.5
       version: 8.8.5
 
-pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
+overrides:
+  '@rslib/core>@microsoft/api-extractor': '-'
+  rsbuild-plugin-dts>@microsoft/api-extractor: '-'
+  rehype-katex>katex: ^0.19.0
+  micromark-extension-math>katex: ^0.19.0
+  monaco-editor>dompurify: ^3.4.17
+  exceljs>uuid: '-'
+  '@nestjs/cli>webpack': '-'
+  '@nestjs/cli>ts-loader': '-'
+  '@nestjs/cli>fork-ts-checker-webpack-plugin': '-'
+
+patchedDependencies:
+  exceljs@4.4.0: 2297de477e173c5ec0b9a36bd3f5982fbd16bb370caa78192cc6a6452d7ff968
 
 importers:
 

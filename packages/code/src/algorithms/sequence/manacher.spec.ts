@@ -1,3 +1,4 @@
+import { describe, test, expect } from '@rstest/core';
 import { manacher } from './manacher';
 
 describe('Manacher', () => {

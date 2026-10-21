@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "ignoreDeprecations": "6.0",
         "sourceMap": true,
         "target": "ESNext",
         "module": "ESNext",

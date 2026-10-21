@@ -8,7 +8,7 @@ import path from 'path';
 // /** @type {Problem} */
 export const problem: Omit<LeetcodeProblem, 'solutions'> & {
     exist: boolean;
-    solutions: Partial<NonNullable<LeetcodeProblem['solutions']>[number]>[];
+    solutions: NonNullable<LeetcodeProblem['solutions']>;
 } = {
     exist: !true,
     name: '3120. 统计特殊字母的数量 I',

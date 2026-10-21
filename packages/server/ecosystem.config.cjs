@@ -8,7 +8,7 @@ module.exports = {
         {
             name: 'bestlyg-server',
             cwd: __dirname,
-            script: resolve('dist', 'main.js'),
+            script: resolve('dist', 'main.mjs'),
             interpreter: 'node',
             // interpreter_args: '--input-type=module',
             env: {

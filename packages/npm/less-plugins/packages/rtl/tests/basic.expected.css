@@ -1,0 +1,76 @@
+body {
+  margin: 1px var(--a) 3px 4px;
+  padding: 1px 2px 3px 20px;
+  inset: 1px 2px 3px 4px;
+}
+html[data-rtl] body {
+  margin-left: var(--a);
+  margin-right: 4px;
+  padding-left: 2px;
+  padding-right: 20px;
+  inset-left: 2px;
+  inset-right: 4px;
+}
+body {
+  margin: 1px var(--a) 3px 4px;
+  padding: 1px 2px 3px 20px;
+  inset: 1px 2px 3px 4px;
+  caption-side: inline-start;
+  caption-side: inline-end;
+  float: inline-start;
+  float: inline-end;
+  clear: inline-start;
+  clear: inline-end;
+  text-align: start;
+  text-align: end;
+  height: 1px;
+  width: 2px;
+  min-height: 3px;
+  min-width: 4px;
+  max-height: 5px;
+  max-width: 6px;
+  border-start-start-radius: 7px;
+  border-start-end-radius: 8px;
+  border-end-start-radius: 9px;
+  border-end-end-radius: 10px;
+  top: 11px;
+  bottom: 12px;
+  inset-inline-start: 13px;
+  inset-inline-end: 14px;
+  margin-top: 15px;
+  margin-bottom: 16px;
+  margin-inline-start: 17px;
+  margin-inline-end: 18px;
+  padding-top: 19px;
+  padding-bottom: 20px;
+  padding-inline-start: 21px;
+  padding-inline-end: 22px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-inline-start-style: solid;
+  border-inline-end-style: solid;
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+  border-inline-start-color: #fff;
+  border-inline-end-color: #fff;
+  border-top-width: 23px;
+  border-bottom-width: 24px;
+  border-inline-start-width: 25px;
+  border-inline-end-width: 26px;
+  scroll-margin-top: 15px;
+  scroll-margin-bottom: 16px;
+  scroll-margin-inline-start: 17px;
+  scroll-margin-inline-end: 18px;
+  scroll-padding-top: 19px;
+  scroll-padding-bottom: 20px;
+  scroll-padding-inline-start: 21px;
+  scroll-padding-inline-end: 22px;
+}
+html[data-rtl] body {
+  margin-left: var(--a);
+  margin-right: 4px;
+  padding-left: 2px;
+  padding-right: 20px;
+  inset-left: 2px;
+  inset-right: 4px;
+}

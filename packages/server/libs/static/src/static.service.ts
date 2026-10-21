@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Response } from 'express';
+import type { Response } from 'express';
 import fs from 'fs-extra';
 import { resolve } from '@bestlyg-server/common';
 import { ResponseEntity } from '@bestlyg/server-shared';

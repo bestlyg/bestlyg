@@ -16,16 +16,25 @@
     "license": "MIT",
     "author": "BestLyg",
     "files": [
-        "lib",
+        "dist",
         "package.json",
         "README.md"
     ],
-    "main": "lib/index.js",
-    "typings": "lib/index.d.ts",
+    "type": "module",
+    "main": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.mts",
+            "import": "./dist/index.mjs",
+            "default": "./dist/index.mjs"
+        },
+        "./package.json": "./package.json"
+    },
     "scripts": {
-        "clean": "rimraf ./lib",
-        "build": "tsc -p tsconfig.json",
-        "dev": "tsc -p tsconfig.json --watch",
+        "clean": "rimraf ./dist",
+        "build": "rslib build",
+        "dev": "rslib build --watch",
         "prepublishOnly": "pnpm build"
     },
     "dependencies": {
@@ -33,7 +42,9 @@
         "yargs": "catalog:"
     },
     "devDependencies": {
+        "@rslib/core": "catalog:",
         "@types/yargs": "catalog:",
+        "rimraf": "catalog:",
         "typescript": "catalog:"
     }
 }

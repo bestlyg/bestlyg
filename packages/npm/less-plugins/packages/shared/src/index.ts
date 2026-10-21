@@ -34,10 +34,8 @@ export function getFunctionArgs(func: Function): string[] {
         .filter(Boolean);
 }
 
-export function cloneLessTreeNode(less, node) {
-    const Conostructor = getLessTreeNodeConstructor(less, node);
-    const args = getFunctionArgs(Conostructor).map((key) => node[key]);
-    const newNode = new Conostructor(...args);
-    Object.assign(newNode, node);
-    return newNode;
+export function cloneLessTreeNode(_less, node) {
+    // Preserve the node's prototype without rerunning its constructor. Less nodes
+    // may use class constructors whose arguments cannot be recovered from fields.
+    return Object.assign(Object.create(Object.getPrototypeOf(node)), node);
 }

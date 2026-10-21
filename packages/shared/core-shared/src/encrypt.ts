@@ -1,60 +1,33 @@
-import CryptoJS from 'crypto-js';
-/**
- * 使用 CryptoJS 将 UTF-8 字符串编码为 Base64。
- * @param str 原始字符串
- * @returns Base64 字符串
- */
-export const getCryptoJsBase64 = (str: string) => {
-    // 将密码字符串转换为 UTF-8 编码的字节数组
-    const utf8Bytes = CryptoJS.enc.Utf8.parse(str);
-    // 将字节数组编码为 Base64 字符串
-    const base64String = CryptoJS.enc.Base64.stringify(utf8Bytes);
-    return base64String;
-};
+import { cbc } from '@noble/ciphers/aes.js';
 
-/**
- * 使用 CryptoJS 将 Base64 字符串解码为 UTF-8。
- * @param base64String Base64 字符串
- * @returns 解码后的原始字符串
- */
-export const getCryptoJsParseBase64 = (base64String: string) => {
-    const decodedBytes = CryptoJS.enc.Base64.parse(base64String);
-    const decodedString = CryptoJS.enc.Utf8.stringify(decodedBytes);
-    return decodedString;
-};
+const encoder = new TextEncoder();
+const decoder = new TextDecoder('utf-8', { fatal: true });
 
-/**
- * 使用 AES-CBC + Pkcs7 加密文本。
- * @param text 待加密的文本或 WordArray 对象
- * @param aesKey AES 密钥
- * @param aesIV AES 初始化向量
- * @returns 加密后的 Base64 密文
- */
-export function encrypt(text: string | CryptoJS.lib.WordArray, aesKey: string, aesIV: string) {
-    const key = CryptoJS.enc.Utf8.parse(aesKey);
-    const iv = CryptoJS.enc.Utf8.parse(aesIV);
-    const encrypted = CryptoJS.AES.encrypt(text, key, {
-        iv,
-        mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7,
-    });
-    return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+function encodeBase64(bytes: Uint8Array): string {
+    let binary = '';
+    for (const byte of bytes) binary += String.fromCharCode(byte);
+    return btoa(binary);
 }
 
-/**
- * 使用 AES-CBC + Pkcs7 解密密文。
- * @param text 待解密的密文
- * @param aesKey AES 密钥
- * @param aesIV AES 初始化向量
- * @returns 解密后的 UTF-8 字符串
- */
-export function decrypt(text: string | CryptoJS.lib.CipherParams, aesKey: string, aesIV: string) {
-    const key = CryptoJS.enc.Utf8.parse(aesKey);
-    const iv = CryptoJS.enc.Utf8.parse(aesIV);
-    const encrypted = CryptoJS.AES.decrypt(text, key, {
-        iv,
-        mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7,
-    });
-    return encrypted.toString(CryptoJS.enc.Utf8);
+function decodeBase64(base64: string): Uint8Array {
+    return Uint8Array.from(atob(base64), (character) => character.charCodeAt(0));
+}
+
+/** 将 UTF-8 字符串编码为 Base64；保留原导出名称以兼容现有调用。 */
+export const getCryptoJsBase64 = (str: string) => encodeBase64(encoder.encode(str));
+
+/** 将 Base64 解码为 UTF-8 字符串；保留原导出名称以兼容现有调用。 */
+export const getCryptoJsParseBase64 = (base64: string) => decoder.decode(decodeBase64(base64));
+
+/** 使用 AES-CBC + PKCS7 同步加密，返回与现有协议兼容的 Base64 密文。 */
+export function encrypt(text: string | Uint8Array, aesKey: string, aesIV: string): string {
+    const plaintext = typeof text === 'string' ? encoder.encode(text) : text;
+    return encodeBase64(cbc(encoder.encode(aesKey), encoder.encode(aesIV)).encrypt(plaintext));
+}
+
+/** 使用 AES-CBC + PKCS7 同步解密 Base64 密文。 */
+export function decrypt(text: string, aesKey: string, aesIV: string): string {
+    return decoder.decode(
+        cbc(encoder.encode(aesKey), encoder.encode(aesIV)).decrypt(decodeBase64(text)),
+    );
 }

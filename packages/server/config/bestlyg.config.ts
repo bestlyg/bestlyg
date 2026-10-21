@@ -1,5 +1,5 @@
 import { ConfigurationSchema, getConfiguration } from '@bestlyg/server-shared';
-import { defineConfig } from './utils';
+import { defineConfig } from './utils.ts';
 
 const config = ConfigurationSchema.parse(getConfiguration());
 

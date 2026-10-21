@@ -3,11 +3,11 @@
     "version": "0.0.0",
     "private": true,
     "author": "bestlyg",
+    "type": "module",
     "exports": {
         "./package.json": "./package.json",
         "./*": {
             "import": "./*",
-            "require": "./*",
             "default": "./*"
         }
     },
@@ -17,13 +17,14 @@
         "start": "cross-env NODE_ENV=development nest start",
         "start:dev": "cross-env NODE_ENV=development nest start --watch",
         "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
-        "start:prod": "cross-env NODE_ENV=production node dist/main",
+        "start:prod": "cross-env NODE_ENV=production node dist/main.mjs",
         "lint": "oxlint --fix .",
-        "test": "jest",
-        "test:watch": "jest --watch",
-        "test:cov": "jest --coverage",
-        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-        "test:e2e": "jest --config ./test/jest-e2e.json",
+        "test": "rstest run",
+        "test:watch": "rstest watch",
+        "test:cov": "rstest run --coverage",
+        "test:debug": "cross-env RSTEST_DEBUG=1 rstest run",
+        "test:e2e": "rstest run --config rstest.dist.config.mts",
+        "test:dist": "rstest run --config rstest.dist.config.mts",
         "create:problem": "tsx scripts/create-problem.ts",
         "create:ledger": "tsx scripts/create-ledger.ts",
         "create:xuan": "tsx scripts/create-xuan.ts"
@@ -41,6 +42,7 @@
         "@nestjs/schedule": "catalog:",
         "@nestjs/serve-static": "catalog:",
         "@nestjs/typeorm": "catalog:",
+        "@typescript/typescript6": "catalog:",
         "axios": "catalog:",
         "c12": "catalog:",
         "chalk": "catalog:",
@@ -69,59 +71,24 @@
         "@nestjs/cli": "catalog:",
         "@nestjs/schematics": "catalog:",
         "@nestjs/testing": "catalog:",
+        "@rspack/core": "catalog:",
+        "@rstest/core": "catalog:",
+        "@rstest/coverage-v8": "catalog:",
         "@types/compression": "catalog:",
         "@types/cookie-parser": "catalog:",
         "@types/express": "catalog:",
         "@types/fs-extra": "catalog:",
-        "@types/jest": "catalog:",
         "@types/lodash": "catalog:",
         "@types/multer": "catalog:",
         "@types/node": "catalog:",
-        "@types/nodemailer": "catalog:",
         "cross-env": "catalog:",
-        "jest": "catalog:",
         "oxlint": "catalog:",
         "oxlint-tsgolint": "catalog:",
-        "source-map-support": "catalog:",
         "supertest": "catalog:",
-        "ts-jest": "catalog:",
-        "ts-loader": "catalog:",
-        "ts-node": "catalog:",
         "tsconfig-paths": "catalog:",
+        "tsconfig-paths-webpack-plugin": "catalog:",
         "tsx": "catalog:",
-        "typescript": "catalog:"
-    },
-    "jest": {
-        "collectCoverageFrom": [
-            "**/*.(t|j)s"
-        ],
-        "coverageDirectory": "./coverage",
-        "moduleFileExtensions": [
-            "js",
-            "json",
-            "ts"
-        ],
-        "moduleNameMapper": {
-            "^@bestlyg-server/api(|/.*)$": "<rootDir>/libs/api/src/$1",
-            "^@bestlyg-server/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
-            "^@bestlyg-server/common(|/.*)$": "<rootDir>/libs/common/src/$1",
-            "^@bestlyg-server/database(|/.*)$": "<rootDir>/libs/database/src/$1",
-            "^@bestlyg-server/dev(|/.*)$": "<rootDir>/libs/dev/src/$1",
-            "^@bestlyg-server/serverless(|/.*)$": "<rootDir>/libs/serverless/src/$1",
-            "^@bestlyg-server/static(|/.*)$": "<rootDir>/libs/static/src/$1",
-            "^@bestlyg-server/zjuer(|/.*)$": "<rootDir>/libs/zjuer/src/$1",
-            "^nanoid$": "<rootDir>/src/test/nanoid.mock.ts"
-        },
-        "passWithNoTests": true,
-        "rootDir": ".",
-        "roots": [
-            "<rootDir>/src/",
-            "<rootDir>/libs/"
-        ],
-        "testEnvironment": "node",
-        "testRegex": ".*\\.spec\\.ts$",
-        "transform": {
-            "^.+\\.(t|j)s$": "ts-jest"
-        }
+        "typescript": "catalog:compilerApi",
+        "webpack-node-externals": "catalog:"
     }
 }

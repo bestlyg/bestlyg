@@ -10,7 +10,6 @@
         "esModuleInterop": true,
         "types": ["node"],
         "rootDir": "src",
-        "ignoreDeprecations": "6.0",
         "typeRoots": ["./node_modules/@types"],
         "paths": {
             "@/*": ["./src/*"]

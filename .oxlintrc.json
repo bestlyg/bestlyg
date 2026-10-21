@@ -10,7 +10,6 @@
     },
     "env": {
         "node": true,
-        "jest": true,
         "browser": true,
         "webextensions": true
     },

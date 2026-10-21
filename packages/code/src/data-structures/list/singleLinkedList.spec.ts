@@ -1,3 +1,4 @@
+import { describe, test, expect } from '@rstest/core';
 import { ELEMENT_NOT_FOUNT, ERROR_SUBSCRIPT_OUT_OF_BOUNDS } from '@/shared';
 import { SingleLinkedList } from './singleLinkedList';
 
@@ -52,26 +53,10 @@ describe('SingleLinkedList', () => {
     });
     test('checkRange', () => {
         const list = new SingleLinkedList<number>();
-        const errorStr = `RangeError: ${ERROR_SUBSCRIPT_OUT_OF_BOUNDS}`;
-        try {
-            list.add(1, 1);
-        } catch (error) {
-            expect(error.toString()).toBe(errorStr);
-        }
-        try {
-            list.get(1);
-        } catch (error) {
-            expect(error.toString()).toBe(errorStr);
-        }
-        try {
-            list.set(1, 1);
-        } catch (error) {
-            expect(error.toString()).toBe(errorStr);
-        }
-        try {
-            list.delete(1);
-        } catch (error) {
-            expect(error.toString()).toBe(errorStr);
-        }
+        const error = new RangeError(`${ERROR_SUBSCRIPT_OUT_OF_BOUNDS}`);
+        expect(() => list.add(1, 1)).toThrow(error);
+        expect(() => list.get(1)).toThrow(error);
+        expect(() => list.set(1, 1)).toThrow(error);
+        expect(() => list.delete(1)).toThrow(error);
     });
 });

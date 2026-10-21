@@ -5,9 +5,11 @@ export default class LessPluginsGetEnv {
     printUsage() {}
     install(_less, _pluginManager, functions) {
         addFunctions(functions, [
-            function getEnv(key) {
-                key = key?.value;
-                return process.env[key];
+            {
+                getEnv: function (key) {
+                    key = key?.value;
+                    return process.env[key];
+                },
             },
         ]);
     }

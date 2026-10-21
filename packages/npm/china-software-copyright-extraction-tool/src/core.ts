@@ -1,6 +1,6 @@
 import docxtemplater from 'docxtemplater';
 import PizZip from 'pizzip';
-import R from 'ramda';
+import * as R from 'ramda';
 import { path, fs, glob } from 'zx';
 import { CWD, DEV, MAX_HALF_LINES } from './utils/constants';
 import { resolve } from './utils/functions';

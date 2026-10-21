@@ -95,16 +95,19 @@ export class EventSource extends EventEmitter<SSEHooks> {
             args[1] = produce(args[1] ?? {}, (draft) => {
                 draft ??= {};
                 draft.signal ??= this.ac.signal;
-                draft.headers ??= {};
-                const headers = draft.headers as Record<string, string>;
+                const headers = new Headers(draft.headers);
                 for (const [k, v] of Object.entries(sseDefaultRequestHeaders)) {
-                    headers[k] ??= v;
+                    if (!headers.has(k)) headers.set(k, v);
                 }
-                headers.traceId ??= createTraceId();
+                if (!headers.has('traceId')) headers.set('traceId', createTraceId());
+                draft.headers = headers;
             });
             const response = await fetch(...args);
             this.emit('onOpen', response);
-            if (!response.ok) throw new Error('请求失败');
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(errorText || '请求失败');
+            }
             this.setStatus('reading');
             await getBytes(
                 response.body!,

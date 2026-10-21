@@ -1,4 +1,4 @@
-/// <reference types="jest" />
+import { describe, test, it, expect, rs } from '@rstest/core';
 
 import { BadRequestException } from '@nestjs/common';
 import { PageParam } from '@bestlyg/server-shared';
@@ -47,14 +47,14 @@ const config = {
 
 function createService() {
     return {
-        save: jest.fn(async (input) =>
+        save: rs.fn(async (input) =>
             Array.isArray(input)
                 ? input.map((item, index) => ({ id: index === 0 ? UUID_1 : UUID_2, ...item }))
                 : { id: UUID_1, ...input },
         ),
-        update: jest.fn(async (id, data) => ({ affected: 1, id, data })),
-        findOne: jest.fn(async () => ({ id: UUID_1, name: 'row' })),
-        find: jest.fn(async () => [{ id: UUID_1, name: 'row', count: 2 }]),
+        update: rs.fn(async (id, data) => ({ affected: 1, id, data })),
+        findOne: rs.fn(async () => ({ id: UUID_1, name: 'row' })),
+        find: rs.fn(async () => [{ id: UUID_1, name: 'row', count: 2 }]),
     };
 }
 

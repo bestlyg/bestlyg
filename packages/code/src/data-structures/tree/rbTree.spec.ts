@@ -1,10 +1,11 @@
+import { describe, test, expect, beforeEach } from '@rstest/core';
 import { IRBTree, RBTree } from './rbTree';
 import { RBTree2 } from './rbTree2';
 import { RBTree3 } from './rbTree3';
 
 const list = [RBTree, RBTree2, RBTree3];
 list.forEach(run);
-function run(Cstr: new (compare) => IRBTree<number>) {
+function run(Cstr: new (compare: (left: number, right: number) => number) => IRBTree<number>) {
     describe(`RedBlackTree 【${Cstr.name}】`, () => {
         let tree: IRBTree<number>;
         beforeEach(() => {

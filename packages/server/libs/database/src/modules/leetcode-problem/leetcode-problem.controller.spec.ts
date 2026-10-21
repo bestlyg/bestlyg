@@ -1,4 +1,5 @@
-jest.mock('@bestlyg-server/common', () => ({
+import { describe, it, expect, rs } from '@rstest/core';
+rs.mock('@bestlyg-server/common', () => ({
     leetcode: {},
 }));
 
@@ -16,7 +17,7 @@ describe('LeetcodeProblemController', () => {
             solutions: [],
         };
         const service = {
-            findOne: jest.fn().mockResolvedValueOnce(null).mockResolvedValueOnce(problem),
+            findOne: rs.fn().mockResolvedValueOnce(null).mockResolvedValueOnce(problem),
         };
         const controller = new LeetcodeProblemController(service as never, {} as never);
 

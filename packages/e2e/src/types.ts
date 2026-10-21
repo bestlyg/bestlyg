@@ -1,4 +1,12 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
+import type { RstestConfig } from '@rstest/core';
+import type { PlaywrightOptions } from '@rstest/playwright';
+
+export interface E2EWebServerConfig {
+    command: string;
+    url: string;
+    reuseExistingServer?: boolean;
+    timeout?: number;
+}
 
 export type BestlygE2ETargetEnvironmentConfigValue =
     | string
@@ -38,13 +46,17 @@ export interface BestlygE2EProjectConfig {
     targetEnv?: string;
     environments?: Record<string, BestlygE2ETargetEnvironmentConfig>;
     runner?: BestlygE2ERunnerConfig;
-    playwright?: Partial<PlaywrightTestConfig>;
+    rstest?: RstestConfig;
+    playwright?: PlaywrightOptions;
+    webServer?: E2EWebServerConfig;
     runtime?: Record<string, unknown>;
     scripts: Record<string, BestlygE2EScriptConfig>;
 }
 
 export interface BestlygE2EConfig {
-    playwright?: Partial<PlaywrightTestConfig>;
+    rstest?: RstestConfig;
+    playwright?: PlaywrightOptions;
+    webServer?: E2EWebServerConfig;
     projects: Record<string, BestlygE2EProjectConfig>;
 }
 

@@ -1,7 +1,7 @@
 import { UserService } from '@bestlyg-server/database';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { omit } from 'lodash';
+import omit from 'lodash/omit.js';
 
 @Injectable()
 export class AuthService {

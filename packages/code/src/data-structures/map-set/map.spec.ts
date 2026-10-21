@@ -1,10 +1,11 @@
+import { describe, test, expect, beforeEach } from '@rstest/core';
 import { HashMap } from './hashMap';
 import { TreeMap } from './treeMap';
 import { Map } from './map';
 
 const list = [TreeMap, HashMap];
 list.forEach(run);
-function run(Cstr: new (compare) => Map<number, string>) {
+function run(Cstr: new (compare: (left: number, right: number) => number) => Map<number, string>) {
     describe(`Map 【${Cstr.name}】`, () => {
         let map!: Map<number, string>;
         beforeEach(() => {

@@ -17,27 +17,30 @@
         "lint": "tsc --noEmit",
         "lint:ci": "pnpm lint",
         "prepublishOnly": "pnpm build",
-        "build": "rimraf dist && unbuild --config ./build.config.ts",
+        "build": "rslib build",
         "e2e": "tsx src/cli.ts",
         "e2e:run": "tsx src/cli.ts run",
         "e2e:list": "tsx src/cli.ts list",
-        "install:browsers": "playwright install chromium"
+        "install:browsers": "playwright install chromium",
+        "test": "rstest run",
+        "test:watch": "rstest watch"
     },
     "dependencies": {
-        "@playwright/test": "catalog:",
+        "@rstest/core": "catalog:",
+        "@rstest/playwright": "catalog:",
         "c12": "catalog:",
         "chalk": "catalog:",
         "commander": "catalog:",
         "consola": "catalog:",
         "defu": "catalog:",
         "ora": "catalog:",
+        "playwright": "catalog:",
         "zod": "catalog:"
     },
     "devDependencies": {
+        "@rslib/core": "catalog:",
         "@types/node": "catalog:",
-        "rimraf": "catalog:",
         "tsx": "catalog:",
-        "typescript": "catalog:",
-        "unbuild": "catalog:"
+        "typescript": "catalog:"
     }
 }

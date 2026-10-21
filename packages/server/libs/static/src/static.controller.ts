@@ -1,5 +1,5 @@
 import { Get, Controller, Res, Query, ParseBoolPipe } from '@nestjs/common';
-import { Response } from 'express';
+import type { Response } from 'express';
 import { StaticService } from './static.service';
 
 @Controller('/static')

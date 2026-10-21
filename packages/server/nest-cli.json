@@ -4,8 +4,12 @@
     "sourceRoot": "src",
     "compilerOptions": {
         "deleteOutDir": true,
-        "webpack": true,
-        "webpackConfigPath": "webpack.config.js"
+        "builder": {
+            "type": "rspack",
+            "options": {
+                "configPath": "rspack.config.mts"
+            }
+        }
     },
     "projects": {
         "api": {
@@ -80,5 +84,6 @@
                 "tsConfigPath": "libs/zjuer/tsconfig.lib.json"
             }
         }
-    }
+    },
+    "exec": "./scripts/start-esm.mjs"
 }

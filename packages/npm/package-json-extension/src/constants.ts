@@ -1,4 +1,7 @@
 import { resolve } from './functions';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 export const PREFIX = process.env.PACKAGE_JSON_EXTEND_PREFIX ?? 'EXTEND';
 

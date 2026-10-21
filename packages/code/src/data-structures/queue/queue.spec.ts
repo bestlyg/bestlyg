@@ -1,3 +1,4 @@
+import { describe, test, expect } from '@rstest/core';
 import { Queue } from './queue';
 describe('Queue', () => {
     test('size', () => {
@@ -22,16 +23,8 @@ describe('Queue', () => {
     });
     test('checkRange', () => {
         const queue = new Queue<number>();
-        const errorStr = `RangeError: 空元素`;
-        try {
-            queue.deQueue();
-        } catch (error) {
-            expect(error.toString()).toBe(errorStr);
-        }
-        try {
-            queue.top();
-        } catch (error) {
-            expect(error.toString()).toBe(errorStr);
-        }
+        const error = new RangeError(`空元素`);
+        expect(() => queue.deQueue()).toThrow(error);
+        expect(() => queue.top()).toThrow(error);
     });
 });

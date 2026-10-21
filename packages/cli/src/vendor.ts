@@ -9,7 +9,7 @@ export { default as minimist } from 'minimist';
 export { default as dotenv } from 'dotenv';
 export { default as dayjs } from 'dayjs';
 export { default as axios } from 'axios';
-export { default as ts } from 'typescript';
+export { default as ts } from '@typescript/typescript6';
 export * as manypkg from '@manypkg/get-packages';
 export * as commander from 'commander';
 export * as jsdom from 'jsdom';

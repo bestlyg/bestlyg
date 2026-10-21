@@ -35,8 +35,8 @@
         "lint": "tsc --noEmit",
         "lint:ci": "pnpm lint",
         "prepublishOnly": "pnpm build",
-        "build": "rimraf dist && unbuild --config ./build.config.ts",
-        "dev": "unbuild --config ./build.config.ts --watch"
+        "build": "rslib build",
+        "dev": "rslib build --watch"
     },
     "dependencies": {
         "c12": "catalog:",
@@ -52,12 +52,11 @@
         "tapable": "catalog:"
     },
     "devDependencies": {
+        "@rslib/core": "catalog:",
         "@types/fs-extra": "catalog:",
         "@types/lodash": "catalog:",
         "@types/mustache": "catalog:",
         "@types/node": "catalog:",
-        "rimraf": "catalog:",
-        "typescript": "catalog:",
-        "unbuild": "catalog:"
+        "typescript": "catalog:"
     }
 }

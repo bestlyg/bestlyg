@@ -1,3 +1,4 @@
+import { describe, test, expect, beforeEach } from '@rstest/core';
 import { Trie } from './trie';
 
 describe('Trie', () => {
