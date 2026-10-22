@@ -103,7 +103,7 @@ export interface ZodModelConstructor<T extends AnyZodSchema = AnyZodSchema> {
     is(value: unknown): value is ZodModelInstance<T>;
 }
 
-/** 判断对象是否是 ZodModel.withSchema/createZodModel 创建的模型构造器。 */
+/** 判断对象是否是 ZodModel.withSchema 创建的模型构造器。 */
 export function isZodModel(o: unknown): o is ZodModelConstructor {
     if (typeof o !== 'function') return false;
     return Boolean((o as any)[zodSchemaSymbol]);
@@ -458,14 +458,6 @@ export abstract class ZodModel<T extends AnyZodSchema = AnyZodSchema> {
     get [Symbol.toStringTag]() {
         return this.getModelName();
     }
-}
-
-/** 基于 Zod schema 创建可被 class extends 的模型父类。 */
-export function createZodModel<T extends AnyZodSchema = AnyZodSchema>(
-    schema: T,
-    config: ZodModelConfig = {},
-) {
-    return createZodModelClass(schema, config);
 }
 
 function createZodModelClass<T extends AnyZodSchema>(

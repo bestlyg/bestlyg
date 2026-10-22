@@ -2,7 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import { Calendar } from '@/shadcn/ui/calendar';
 import {
-    LedgerPageRequestDto,
+    LedgerPageRequestSchema,
     ledgerFindPageAndCount,
     PageData,
     PageParam,
@@ -19,7 +19,7 @@ async function fetchLedgers({
     param: { date?: Date };
 }): Promise<PageData<Ledger> | null> {
     const data = await ledgerFindPageAndCount(
-        new LedgerPageRequestDto({
+        LedgerPageRequestSchema.parse({
             current: pageParam.current,
             pageSize: pageParam.pageSize,
             date: param.date ? dayjs(param.date).format('YYYY-MM-DD') : undefined,

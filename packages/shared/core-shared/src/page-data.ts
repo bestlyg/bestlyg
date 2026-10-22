@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createZodModel, type ZodModelConfig } from './zod';
+import { ZodModel, type ZodModelConfig } from './zod';
 
 /** 分页接口返回结构，封装列表和总数。 */
 export class PageData<T> {
@@ -21,12 +21,12 @@ export class PageData<T> {
         return this.schema(itemSchema);
     }
 
-    /** 创建绑定分页 schema 的 ZodModel 父类，便于业务 DTO class extends。 */
+    /** 创建绑定分页 schema 的 ZodModel 父类，便于业务模型 class extends。 */
     static model<ItemSchema extends z.ZodType>(
         itemSchema: ItemSchema,
         config: ZodModelConfig = {},
     ) {
-        return createZodModel(this.schema(itemSchema), config);
+        return ZodModel.withSchema(this.schema(itemSchema), config);
     }
 
     /** 使用 item schema 校验普通对象，并恢复为 PageData 实例。 */

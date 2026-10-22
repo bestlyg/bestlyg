@@ -1,8 +1,9 @@
+import { StandardSchemaValidationPipe } from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
-import { createLoggerOptions, loadBestlygConfig, ZodValidationPipe } from '@bestlyg-server/common';
+import { createLoggerOptions, loadBestlygConfig } from '@bestlyg-server/common';
 import compression from 'compression';
 import { WinstonModule } from 'nest-winston';
 import cookieParser from 'cookie-parser';
@@ -38,7 +39,7 @@ export async function bootstrap() {
     });
     const { httpAdapter } = app.get(HttpAdapterHost);
     app.useGlobalInterceptors(new LoggingInterceptor());
-    app.useGlobalPipes(new ZodValidationPipe());
+    app.useGlobalPipes(new StandardSchemaValidationPipe());
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
     await app.listen(server.port);
 }

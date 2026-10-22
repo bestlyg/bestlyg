@@ -1,111 +1,97 @@
-import { createZodModel } from '../../zod';
 import { z } from 'zod';
 import { PageData } from '../../page-data';
 import {
-    DatabasePageRequestDto,
-    DatabaseWriteResponseDto,
-    EntityBaseResponseDto,
+    DatabasePageRequestSchema,
+    DatabaseWriteResponseSchema,
+    EntityBaseResponseSchema,
     idSchema,
 } from './common.dto';
 import {
-    DatabaseImportUpdateResponseDto,
+    DatabaseImportUpdateResponseSchema,
     DatabaseResourceSchema,
-    DatabaseXlsxExportResponseDto,
-    DatabaseXlsxImportResponseDto,
+    DatabaseXlsxExportResponseSchema,
+    DatabaseXlsxImportResponseSchema,
 } from './xlsx.dto';
 
 /** 密钥分页查询请求 DTO。 */
-export class SecretsPageRequestDto extends createZodModel(DatabasePageRequestDto.getSchema()) {}
+export const SecretsPageRequestSchema = DatabasePageRequestSchema;
+export type SecretsPageRequestDto = z.output<typeof SecretsPageRequestSchema>;
 
 /** 创建密钥请求 DTO。 */
-export class SecretsCreateRequestDto extends createZodModel(
-    z
-        .object({
-            name: z.coerce.string().trim().min(1),
-            data: z.coerce.string().trim().min(1),
-        })
-        .strict(),
-) {}
+export const SecretsCreateRequestSchema = z
+    .object({
+        name: z.coerce.string().trim().min(1),
+        data: z.coerce.string().trim().min(1),
+    })
+    .strict();
+export type SecretsCreateRequestDto = z.output<typeof SecretsCreateRequestSchema>;
 
 /** 更新密钥请求 DTO，至少需要提交一个可更新字段。 */
-export class SecretsUpdateRequestDto extends createZodModel(
-    SecretsCreateRequestDto.getSchema()
-        .partial()
-        .refine(
-            (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-            { message: '请求体至少需要包含一个字段' },
-        ),
-) {}
+export const SecretsUpdateRequestSchema = SecretsCreateRequestSchema.partial().refine(
+    (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+    { message: '请求体至少需要包含一个字段' },
+);
+export type SecretsUpdateRequestDto = z.output<typeof SecretsUpdateRequestSchema>;
 
 /** 批量创建密钥请求 DTO。 */
-export class SecretsBatchCreateRequestDto extends createZodModel(
-    z.array(SecretsCreateRequestDto.getSchema()).min(1),
-) {}
+export const SecretsBatchCreateRequestSchema = z.array(SecretsCreateRequestSchema).min(1);
+export type SecretsBatchCreateRequestDto = z.output<typeof SecretsBatchCreateRequestSchema>;
 
 /** 批量更新密钥请求 DTO。 */
-export class SecretsBatchUpdateRequestDto extends createZodModel(
-    z.object({
-        ids: z.array(idSchema).min(1),
-        data: SecretsCreateRequestDto.getSchema()
-            .partial()
-            .refine(
-                (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-                { message: '批量更新数据至少需要包含一个字段' },
-            ),
-    }),
-) {}
+export const SecretsBatchUpdateRequestSchema = z.object({
+    ids: z.array(idSchema).min(1),
+    data: SecretsCreateRequestSchema.partial().refine(
+        (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+        { message: '批量更新数据至少需要包含一个字段' },
+    ),
+});
+export type SecretsBatchUpdateRequestDto = z.output<typeof SecretsBatchUpdateRequestSchema>;
 
 /** 密钥响应 DTO。 */
-export class SecretsResponseDto extends createZodModel(
-    EntityBaseResponseDto.getSchema().extend({
-        name: z.string(),
-        data: z.string(),
-    }),
-) {}
+export const SecretsResponseSchema = EntityBaseResponseSchema.extend({
+    name: z.string(),
+    data: z.string(),
+});
+export type SecretsResponseDto = z.output<typeof SecretsResponseSchema>;
 
 /** 密钥列表响应 DTO。 */
-export class SecretsListResponseDto extends createZodModel(
-    z.array(SecretsResponseDto.getSchema()),
-) {}
+export const SecretsListResponseSchema = z.array(SecretsResponseSchema);
+export type SecretsListResponseDto = z.output<typeof SecretsListResponseSchema>;
 
 /** 密钥分页响应 DTO。 */
-export class SecretsPageResponseDto extends createZodModel(
-    PageData.schema(SecretsResponseDto.getSchema()),
-) {}
+export const SecretsPageResponseSchema = PageData.schema(SecretsResponseSchema);
+export type SecretsPageResponseDto = z.output<typeof SecretsPageResponseSchema>;
 
 /** 批量创建密钥响应 DTO。 */
-export class SecretsBatchCreateResponseDto extends createZodModel(
-    z.array(SecretsResponseDto.getSchema()),
-) {}
+export const SecretsBatchCreateResponseSchema = z.array(SecretsResponseSchema);
+export type SecretsBatchCreateResponseDto = z.output<typeof SecretsBatchCreateResponseSchema>;
 
 /** 密钥 XLSX 新增导入响应 DTO。 */
-export class SecretsImportResponseDto extends createZodModel(
-    DatabaseXlsxImportResponseDto.getSchema().extend({
-        data: z.array(SecretsResponseDto.getSchema()),
-    }),
-) {}
+export const SecretsImportResponseSchema = DatabaseXlsxImportResponseSchema.extend({
+    data: z.array(SecretsResponseSchema),
+});
+export type SecretsImportResponseDto = z.output<typeof SecretsImportResponseSchema>;
 
 /** 密钥 XLSX 更新导入响应 DTO。 */
-export class SecretsImportUpdateResponseDto extends createZodModel(
-    DatabaseImportUpdateResponseDto.getSchema(),
-) {}
+export const SecretsImportUpdateResponseSchema = DatabaseImportUpdateResponseSchema;
+export type SecretsImportUpdateResponseDto = z.output<typeof SecretsImportUpdateResponseSchema>;
 
 /** 密钥 XLSX 导出响应 DTO。 */
-export class SecretsExportResponseDto extends createZodModel(
-    DatabaseXlsxExportResponseDto.getSchema(),
-) {}
+export const SecretsExportResponseSchema = DatabaseXlsxExportResponseSchema;
+export type SecretsExportResponseDto = z.output<typeof SecretsExportResponseSchema>;
 
 /** 密钥写操作响应 DTO。 */
-export class SecretsWriteResponseDto extends createZodModel(DatabaseWriteResponseDto.getSchema()) {}
+export const SecretsWriteResponseSchema = DatabaseWriteResponseSchema;
+export type SecretsWriteResponseDto = z.output<typeof SecretsWriteResponseSchema>;
 
 /** 前端消费的密钥 DTO。 */
-export type Secrets = z.output<ReturnType<typeof SecretsResponseDto.getSchema>>;
+export type Secrets = SecretsResponseDto;
 
 /** 密钥资源的 XLSX 导入导出配置。 */
 export const secretsResourceSchema = {
     resourceName: 'secrets',
-    createSchema: SecretsCreateRequestDto.getSchema(),
-    updateSchema: SecretsCreateRequestDto.getSchema().partial(),
+    createSchema: SecretsCreateRequestSchema,
+    updateSchema: SecretsCreateRequestSchema.partial(),
     xlsxColumns: [
         { key: 'id', readonly: true, width: 38 },
         { key: 'createdTime', readonly: true, width: 24 },

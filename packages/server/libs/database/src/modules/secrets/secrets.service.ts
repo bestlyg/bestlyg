@@ -3,23 +3,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import {
     createXlsxBuffer,
-    DatabaseBatchDeleteRequestDto,
-    DatabaseIdParamsRequestDto,
-    DatabaseXlsxFileRequestDto,
+    type DatabaseBatchDeleteRequestDto,
+    type DatabaseIdParamsRequestDto,
+    type DatabaseXlsxFileRequestDto,
     importUpdateXlsx,
     importXlsx,
     PageParam,
-    SecretsBatchCreateRequestDto,
-    SecretsBatchCreateResponseDto,
-    SecretsBatchUpdateRequestDto,
-    SecretsCreateRequestDto,
-    SecretsImportResponseDto,
-    SecretsImportUpdateResponseDto,
-    SecretsListResponseDto,
-    SecretsPageResponseDto,
-    SecretsResponseDto,
-    SecretsUpdateRequestDto,
-    SecretsWriteResponseDto,
+    type SecretsBatchCreateRequestDto,
+    SecretsBatchCreateResponseSchema,
+    type SecretsBatchUpdateRequestDto,
+    type SecretsCreateRequestDto,
+    SecretsImportResponseSchema,
+    SecretsImportUpdateResponseSchema,
+    SecretsListResponseSchema,
+    SecretsPageResponseSchema,
+    SecretsResponseSchema,
+    type SecretsUpdateRequestDto,
+    SecretsWriteResponseSchema,
     secretsResourceSchema,
 } from '@bestlyg/server-shared';
 import { Secrets } from '../../entities';
@@ -33,7 +33,7 @@ export class SecretsService {
 
     async find(options: FindManyOptions<Secrets> = {}) {
         const data = await this.repository.find(options);
-        return new SecretsListResponseDto(data as any);
+        return SecretsListResponseSchema.parse(data as any);
     }
 
     async findPageAndCount(pageParam: PageParam, options: FindManyOptions<Secrets> = {}) {
@@ -43,29 +43,29 @@ export class SecretsService {
             take: pageParam.take,
         };
         const [list, total] = await this.repository.findAndCount(pageOptions);
-        return new SecretsPageResponseDto({ list, total } as any);
+        return SecretsPageResponseSchema.parse({ list, total } as any);
     }
 
     async findOne(options: FindOneOptions<Secrets>) {
         const data = await this.repository.findOne(options);
-        return data ? new SecretsResponseDto(data as any) : null;
+        return data ? SecretsResponseSchema.parse(data as any) : null;
     }
 
     async save(body: SecretsCreateRequestDto | SecretsBatchCreateRequestDto) {
         const data = await this.repository.save(body as any);
         return Array.isArray(body)
-            ? new SecretsBatchCreateResponseDto(data as any)
-            : new SecretsResponseDto(data as any);
+            ? SecretsBatchCreateResponseSchema.parse(data as any)
+            : SecretsResponseSchema.parse(data as any);
     }
 
     async importUpdateXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importUpdateXlsx(this, secretsResourceSchema, file);
-        return new SecretsImportUpdateResponseDto(data as any);
+        return SecretsImportUpdateResponseSchema.parse(data as any);
     }
 
     async importXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importXlsx(this, secretsResourceSchema, file);
-        return new SecretsImportResponseDto(data as any);
+        return SecretsImportResponseSchema.parse(data as any);
     }
 
     async exportXlsx(options: FindManyOptions<Secrets> = {}) {
@@ -75,14 +75,14 @@ export class SecretsService {
 
     async update(
         id: DatabaseIdParamsRequestDto['id'] | SecretsBatchUpdateRequestDto['ids'],
-        data: SecretsUpdateRequestDto | SecretsBatchUpdateRequestDto['data'],
+        data: SecretsUpdateRequestDto,
     ) {
         const result = await this.repository.update(id as any, data as any);
-        return new SecretsWriteResponseDto(result as any);
+        return SecretsWriteResponseSchema.parse(result as any);
     }
 
     async delete(id: DatabaseIdParamsRequestDto['id'] | DatabaseBatchDeleteRequestDto['ids']) {
         const result = await this.repository.delete(id as any);
-        return new SecretsWriteResponseDto(result as any);
+        return SecretsWriteResponseSchema.parse(result as any);
     }
 }

@@ -1,4 +1,3 @@
-import { createZodModel } from '../../zod';
 import { z } from 'zod';
 import { idSchema } from './common.dto';
 
@@ -6,81 +5,73 @@ export const maxXlsxSize = 10 * 1024 * 1024;
 export const xlsxMime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
 /** XLSX 上传文件元信息请求 DTO。 */
-export class DatabaseXlsxFileMetaRequestDto extends createZodModel(
-    z.object({
-        originalname: z
-            .string()
-            .min(1)
-            .refine((value) => value.toLowerCase().endsWith('.xlsx'), {
-                message: '仅支持 .xlsx 文件',
-            }),
-        mimetype: z
-            .string()
-            .min(1)
-            .refine(
-                (value) =>
-                    value === xlsxMime ||
-                    value === 'application/octet-stream' ||
-                    value === 'application/zip',
-                { message: '仅支持 XLSX 文件类型' },
-            ),
-        size: z.number().int().positive().max(maxXlsxSize),
-    }),
-) {}
+export const DatabaseXlsxFileMetaRequestSchema = z.object({
+    originalname: z
+        .string()
+        .min(1)
+        .refine((value) => value.toLowerCase().endsWith('.xlsx'), {
+            message: '仅支持 .xlsx 文件',
+        }),
+    mimetype: z
+        .string()
+        .min(1)
+        .refine(
+            (value) =>
+                value === xlsxMime ||
+                value === 'application/octet-stream' ||
+                value === 'application/zip',
+            { message: '仅支持 XLSX 文件类型' },
+        ),
+    size: z.number().int().positive().max(maxXlsxSize),
+});
+export type DatabaseXlsxFileMetaRequestDto = z.output<typeof DatabaseXlsxFileMetaRequestSchema>;
 
 /** XLSX 上传文件请求 DTO，包含服务端读取到的文件 buffer。 */
-export class DatabaseXlsxFileRequestDto extends createZodModel(
-    DatabaseXlsxFileMetaRequestDto.getSchema()
-        .extend({
-            buffer: z.custom<Uint8Array>(
-                (value) => {
-                    const bufferCtor = (
-                        globalThis as typeof globalThis & {
-                            Buffer?: { isBuffer(value: unknown): boolean };
-                        }
-                    ).Buffer;
-                    return value instanceof Uint8Array || Boolean(bufferCtor?.isBuffer(value));
-                },
-                { message: '文件内容不能为空' },
-            ),
-        })
-        .loose(),
-) {}
+export const DatabaseXlsxFileRequestSchema = DatabaseXlsxFileMetaRequestSchema.extend({
+    buffer: z.custom<Uint8Array>(
+        (value) => {
+            const bufferCtor = (
+                globalThis as typeof globalThis & {
+                    Buffer?: { isBuffer(value: unknown): boolean };
+                }
+            ).Buffer;
+            return value instanceof Uint8Array || Boolean(bufferCtor?.isBuffer(value));
+        },
+        { message: '文件内容不能为空' },
+    ),
+}).loose();
+export type DatabaseXlsxFileRequestDto = z.output<typeof DatabaseXlsxFileRequestSchema>;
 
 /** XLSX 新增导入响应 DTO。 */
-export class DatabaseXlsxImportResponseDto extends createZodModel(
-    z.object({
-        count: z.number().int().nonnegative(),
-        data: z.array(z.unknown()),
-    }),
-) {}
+export const DatabaseXlsxImportResponseSchema = z.object({
+    count: z.number().int().nonnegative(),
+    data: z.array(z.unknown()),
+});
+export type DatabaseXlsxImportResponseDto = z.output<typeof DatabaseXlsxImportResponseSchema>;
 
 /** XLSX 更新导入响应 DTO。 */
-export class DatabaseXlsxUpdateResponseDto extends createZodModel(
-    z.object({
-        count: z.number().int().nonnegative(),
-        ids: z.array(idSchema),
-    }),
-) {}
+export const DatabaseXlsxUpdateResponseSchema = z.object({
+    count: z.number().int().nonnegative(),
+    ids: z.array(idSchema),
+});
+export type DatabaseXlsxUpdateResponseDto = z.output<typeof DatabaseXlsxUpdateResponseSchema>;
 
 /** XLSX 导出响应元信息 DTO。 */
-export class DatabaseXlsxExportResponseDto extends createZodModel(
-    z.object({
-        filename: z
-            .string()
-            .min(1)
-            .refine((value) => value.toLowerCase().endsWith('.xlsx'), {
-                message: '文件名必须以 .xlsx 结尾',
-            }),
-        contentType: z.literal(xlsxMime),
-        size: z.number().int().positive(),
-    }),
-) {}
+export const DatabaseXlsxExportResponseSchema = z.object({
+    filename: z
+        .string()
+        .min(1)
+        .refine((value) => value.toLowerCase().endsWith('.xlsx'), {
+            message: '文件名必须以 .xlsx 结尾',
+        }),
+    contentType: z.literal(xlsxMime),
+    size: z.number().int().positive(),
+});
+export type DatabaseXlsxExportResponseDto = z.output<typeof DatabaseXlsxExportResponseSchema>;
 
 /** 数据库 XLSX 更新导入响应 DTO。 */
-export class DatabaseImportUpdateResponseDto extends createZodModel(
-    DatabaseXlsxUpdateResponseDto.getSchema(),
-) {}
+export const DatabaseImportUpdateResponseSchema = DatabaseXlsxUpdateResponseSchema;
+export type DatabaseImportUpdateResponseDto = z.output<typeof DatabaseImportUpdateResponseSchema>;
 
 /** 参与 XLSX 导入导出的数据库实体基础字段。 */
 export interface DatabaseBaseEntity {
@@ -114,24 +105,18 @@ export interface DatabaseResourceSchema<
 }
 
 /** 服务端接收的 XLSX 文件请求类型。 */
-export type DatabaseXlsxFileRequest = z.input<
-    ReturnType<typeof DatabaseXlsxFileRequestDto.getSchema>
->;
+export type DatabaseXlsxFileRequest = z.input<typeof DatabaseXlsxFileRequestSchema>;
 
 /** XLSX 新增导入响应类型。 */
 export type DatabaseXlsxImportResponse<Entity = unknown> = Omit<
-    z.output<ReturnType<typeof DatabaseXlsxImportResponseDto.getSchema>>,
+    DatabaseXlsxImportResponseDto,
     'data'
 > & {
     data: Entity[];
 };
 
 /** XLSX 更新导入响应类型。 */
-export type DatabaseXlsxUpdateResponse = z.output<
-    ReturnType<typeof DatabaseXlsxUpdateResponseDto.getSchema>
->;
+export type DatabaseXlsxUpdateResponse = DatabaseXlsxUpdateResponseDto;
 
 /** XLSX 导出响应元信息类型。 */
-export type DatabaseXlsxExportResponse = z.output<
-    ReturnType<typeof DatabaseXlsxExportResponseDto.getSchema>
->;
+export type DatabaseXlsxExportResponse = DatabaseXlsxExportResponseDto;

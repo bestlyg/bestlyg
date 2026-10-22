@@ -16,10 +16,17 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
         const url = request.url;
 
         const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.OK;
+        const exceptionResponse =
+            exception instanceof HttpException ? exception.getResponse() : undefined;
+        const responseMessage =
+            typeof exceptionResponse === 'string'
+                ? exceptionResponse
+                : (exceptionResponse as { message?: string | string[] } | undefined)?.message;
         const msg =
-            exception instanceof HttpException
-                ? exception?.message
-                : ((exception as any)?.message ?? exception?.toString() ?? 'Internal Server Error');
+            (Array.isArray(responseMessage) ? responseMessage.join('; ') : responseMessage) ??
+            (exception as any)?.message ??
+            exception?.toString() ??
+            'Internal Server Error';
         this.logger.error(`${url} ${status} ${msg}`);
         response
             .status(status === HttpStatus.NOT_FOUND ? status : HttpStatus.OK)

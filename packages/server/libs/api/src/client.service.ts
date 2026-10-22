@@ -4,8 +4,10 @@ import { LeetcodeProblemService } from '@bestlyg-server/database';
 import fs from 'fs-extra';
 import path from 'path';
 import {
-    ClientGetDocsSidebarsResponseDto,
-    ClientGetLeetcodeSidebarsResponseDto,
+    type ClientGetDocsSidebarsResponseDto,
+    ClientGetDocsSidebarsResponseSchema,
+    type ClientGetLeetcodeSidebarsResponseDto,
+    ClientGetLeetcodeSidebarsResponseSchema,
     type Sidebar,
     type SidebarGroup,
     type SidebarItem,
@@ -78,7 +80,7 @@ export class ClientService {
     }
 
     async getDocsSidebars(): Promise<ClientGetDocsSidebarsResponseDto> {
-        return new ClientGetDocsSidebarsResponseDto({ groups: await this.getGroups() });
+        return ClientGetDocsSidebarsResponseSchema.parse({ groups: await this.getGroups() });
     }
 
     async getLeetcodeSidebars(): Promise<ClientGetLeetcodeSidebarsResponseDto> {
@@ -95,7 +97,7 @@ export class ClientService {
         }
         groups.map(({ items }) => items?.sort((a, b) => leetcode.problemSort(a.name, b.name)));
         groups.sort((a, b) => leetcode.dirSort(a.name, b.name));
-        return new ClientGetLeetcodeSidebarsResponseDto({
+        return ClientGetLeetcodeSidebarsResponseSchema.parse({
             groups: [
                 {
                     name: 'LeetCode',

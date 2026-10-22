@@ -3,7 +3,7 @@ import { describe, expect, it } from '@rstest/core';
 import { z } from 'zod';
 
 import {
-    createZodModel,
+    ZodModel,
     isZodModel,
     zodSchemaSymbol,
     ZodModelJsonParseError,
@@ -19,7 +19,7 @@ const userSchema = z
     })
     .strip();
 
-class UserModel extends createZodModel(userSchema) {}
+class UserModel extends ZodModel.withSchema(userSchema) {}
 
 describe('ZodModel', () => {
     it('validates raw input and exposes parsed fields', () => {
@@ -152,7 +152,7 @@ describe('ZodModel', () => {
     });
 
     it('exposes object schema fields and returns an empty field map for root schemas', () => {
-        const rootModel = createZodModel(z.array(z.number()));
+        const rootModel = ZodModel.withSchema(z.array(z.number()));
 
         expect(Object.keys(UserModel.modelFields)).toEqual(['id', 'name', 'optional', 'nullable']);
         expect(UserModel.model_fields.id).toBe(userSchema.shape.id);
@@ -160,7 +160,7 @@ describe('ZodModel', () => {
     });
 
     it('keeps array and root schema behavior unchanged', () => {
-        const ArrayModel = createZodModel(z.array(z.number()));
+        const ArrayModel = ZodModel.withSchema(z.array(z.number()));
         const value = new ArrayModel([1, 2]);
 
         expect(Array.isArray(value)).toBe(true);
@@ -171,7 +171,7 @@ describe('ZodModel', () => {
     it('runs post-init before opt-in freezing', () => {
         const calls: number[] = [];
 
-        class FrozenModel extends createZodModel(
+        class FrozenModel extends ZodModel.withSchema(
             z.object({
                 id: z.number(),
             }),
@@ -196,7 +196,7 @@ describe('ZodModel', () => {
     it('allows overriding the snake_case post-init hook', () => {
         const calls: number[] = [];
 
-        class SnakePostInitModel extends createZodModel(
+        class SnakePostInitModel extends ZodModel.withSchema(
             z.object({
                 id: z.number(),
             }),

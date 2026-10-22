@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import {
-    ClientGetDocsSidebarsResponseDto,
-    ClientGetLeetcodeSidebarsResponseDto,
+    type ClientGetDocsSidebarsResponseDto,
+    type ClientGetLeetcodeSidebarsResponseDto,
     ResponseEntity,
 } from '@bestlyg/server-shared';
 import { ClientService } from './client.service';

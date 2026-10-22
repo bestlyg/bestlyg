@@ -20,6 +20,10 @@
 
 服务端通过 Rspack 2.2.9 和内置 SWC loader 构建，配置在 `packages/server/rspack.config.mts`。开发构建启用持久化缓存，类型检查使用 `pnpm typecheck`，代码检查使用 `pnpm lint`。
 
+请求校验使用 NestJS 12 内置的 `StandardSchemaValidationPipe`，在 `@Body`、`@Query`、`@Param` 上显式声明 `schema`，例如 `@Body({ schema: UserCreateRequestSchema })`。请求和响应 DTO 均采用 schema + type：`XxxSchema` 是运行时校验器，`XxxDto` 仅作为 `z.output<typeof XxxSchema>` 类型导出；构造数据使用 `XxxSchema.parse(data)`。XLSX 上传由共享文件校验函数检查。
+
+独立的模型能力通过 `ZodModel.withSchema(schema)` 提供，保留模型校验、复制、序列化等 API；`createZodModel` 工厂已删除。
+
 主编译器为 TypeScript 7.0.2。`pnpm typecheck` 使用根目录的 TS 7 检查全部工作区配置。Nest CLI 和 TypeDoc 仍依赖旧编译器 API，因此 `server`、`core-shared` 的构建工具使用 `compilerApi` catalog 中的 TS 6.0.3。升级范围、兼容处理和验证结果见[依赖升级报告](./docs/dependency-upgrade-result-2026-10-21.md)。
 
 32 个库包使用 Rslib 1.0.3 构建，JavaScript 产物统一为 ESM `.mjs`，类型声明由原生 TS 7 生成。共享配置在 `scripts/rslib-config.ts`；图标包采用 bundleless 模式保留 SVG 子路径。服务端通过 Rspack 输出 `dist/main.mjs`。PM2 配置、metadata-file、module-checker 和前端应用产物维持原模块格式。详见 [ESM 迁移记录](./docs/esm-migration-2026-10-21.md) 和 [Less 插件用法](./packages/npm/less-plugins/README.md)。

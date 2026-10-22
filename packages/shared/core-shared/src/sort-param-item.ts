@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { SortOrderEnum } from './sort-order-enum';
-import { createZodModel, type ZodModelConfig } from './zod';
+import { ZodModel, type ZodModelConfig } from './zod';
 
 /** 单字段排序参数。 */
 export class SortParamItem {
@@ -37,7 +37,7 @@ export class SortParamItem {
 
     /** 创建绑定排序项 schema 的 ZodModel 父类。 */
     static model(config: ZodModelConfig = {}) {
-        return createZodModel(this.schema, config);
+        return ZodModel.withSchema(this.schema, config);
     }
 
     /** 校验排序项对象并恢复为 SortParamItem 实例。 */

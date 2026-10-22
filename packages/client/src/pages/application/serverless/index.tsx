@@ -22,9 +22,9 @@ import {
     serverlessFindList,
     serverlessSave,
     serverlessUpdate,
-    DatabaseIdParamsRequestDto,
-    ServerlessCreateRequestDto,
-    ServerlessUpdateRequestDto,
+    DatabaseIdParamsRequestSchema,
+    ServerlessCreateRequestSchema,
+    ServerlessUpdateRequestSchema,
     type Serverless as ServerlessCode,
 } from '@bestlyg/client-shared';
 
@@ -73,7 +73,7 @@ export default function Serverless() {
                     variant="outline"
                     onClick={async () => {
                         await serverlessSave(
-                            new ServerlessCreateRequestDto({
+                            ServerlessCreateRequestSchema.parse({
                                 name: Date.now().toString(),
                                 code: 'resolve(1)',
                             }),
@@ -109,8 +109,10 @@ export default function Serverless() {
                             variant="outline"
                             onClick={async () => {
                                 await serverlessUpdate({
-                                    params: new DatabaseIdParamsRequestDto({ id: activeCodeId }),
-                                    body: new ServerlessUpdateRequestDto({
+                                    params: DatabaseIdParamsRequestSchema.parse({
+                                        id: activeCodeId,
+                                    }),
+                                    body: ServerlessUpdateRequestSchema.parse({
                                         name,
                                         code,
                                     }),
@@ -140,7 +142,7 @@ export default function Serverless() {
                                     <AlertDialogAction
                                         onClick={async () => {
                                             await serverlessDelete(
-                                                new DatabaseIdParamsRequestDto({
+                                                DatabaseIdParamsRequestSchema.parse({
                                                     id: activeCodeId,
                                                 }),
                                             );

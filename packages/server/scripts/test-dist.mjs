@@ -265,6 +265,29 @@ export async function runDistSmoke(watchMode = false) {
             400,
             'Zod validation and exception filter must handle invalid DTOs',
         );
+        assert.match(invalid.msg, /name/, 'Schema errors must preserve field details');
+        const page = await json('/api/database/user/page?current=1&pageSize=1', { headers });
+        assert.equal(page.code, 0, 'Schema query coercion must preserve pagination');
+        const invalidId = await json('/api/database/user/not-a-uuid', { headers });
+        assert.equal(invalidId.code, 400, 'Invalid path parameters must be rejected');
+        const emptyUpdate = await json(`/api/database/user/${created.data.id}`, {
+            method: 'PATCH',
+            headers,
+            body: '{}',
+        });
+        assert.equal(emptyUpdate.code, 400, 'Empty updates must retain schema refinements');
+        const emptyBatch = await json('/api/database/user/batch', {
+            method: 'POST',
+            headers,
+            body: '[]',
+        });
+        assert.equal(emptyBatch.code, 400, 'Empty batch arrays must be rejected');
+        const missingUpload = await json('/api/database/user/import', {
+            method: 'POST',
+            headers,
+            body: '{}',
+        });
+        assert.equal(missingUpload.code, 400, 'XLSX validation must still reject missing files');
         const sse = await fetch(`${baseURL}/api/sse`, {
             method: 'POST',
             headers,

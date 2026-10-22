@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createZodModel, type ZodModelConfig } from './zod';
+import { ZodModel, type ZodModelConfig } from './zod';
 
 /** 分页查询参数，提供 TypeORM 常用的 take/skip 计算。 */
 export class PageParam {
@@ -38,7 +38,7 @@ export class PageParam {
 
     /** 创建绑定分页 schema 的 ZodModel 父类。 */
     static model(config: ZodModelConfig = {}) {
-        return createZodModel(this.schema, config);
+        return ZodModel.withSchema(this.schema, config);
     }
 
     /** 校验分页查询对象并恢复为 PageParam 实例。 */

@@ -1,8 +1,8 @@
 import {
-    DatabaseIdParamsRequestDto,
-    DatabaseXlsxFileRequestDto,
-    DatabaseXlsxImportResponseDto,
-    DatabaseXlsxUpdateResponseDto,
+    DatabaseIdParamsRequestSchema,
+    DatabaseXlsxFileRequestSchema,
+    DatabaseXlsxImportResponseSchema,
+    DatabaseXlsxUpdateResponseSchema,
     maxXlsxSize,
     xlsxMime,
 } from '@bestlyg/core-shared';
@@ -53,7 +53,7 @@ export function setUploadFileBadRequestFactory(factory: UploadFileBadRequestFact
 export function validateXlsxFile(file: DatabaseXlsxFileRequest | undefined) {
     if (!file) throw createBadRequestException('请上传 XLSX 文件');
     try {
-        return new DatabaseXlsxFileRequestDto(file);
+        return DatabaseXlsxFileRequestSchema.parse(file);
     } catch (error) {
         throw createBadRequestException((error as any)?.message ?? '文件校验失败');
     }
@@ -72,10 +72,10 @@ export async function importXlsx<Entity extends object>(
         'XLSX 数据行',
     );
     const saved = (await service.save(data as any)) as Entity[];
-    return new DatabaseXlsxImportResponseDto({
+    return DatabaseXlsxImportResponseSchema.parse({
         count: saved.length,
         data: saved,
-    }).modelDump() as DatabaseXlsxImportResponse<Entity>;
+    }) as DatabaseXlsxImportResponse<Entity>;
 }
 
 export async function importUpdateXlsx<Entity extends object>(
@@ -88,7 +88,7 @@ export async function importUpdateXlsx<Entity extends object>(
     const parsedRows = rows.map((row) => {
         const id = validateWithSchema(
             { id: row.data.id },
-            DatabaseIdParamsRequestDto.getSchema(),
+            DatabaseIdParamsRequestSchema,
             `XLSX 第 ${row.rowNumber} 行 id`,
         ).id;
         const { id: _, ...data } = row.data;
@@ -107,10 +107,10 @@ export async function importUpdateXlsx<Entity extends object>(
         await service.update(row.id, row.data as any);
     }
 
-    return new DatabaseXlsxUpdateResponseDto({
+    return DatabaseXlsxUpdateResponseSchema.parse({
         count: parsedRows.length,
         ids: parsedRows.map((row) => row.id),
-    }).modelDump();
+    });
 }
 
 export async function createXlsxBuffer<Entity extends object>(

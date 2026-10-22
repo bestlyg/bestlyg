@@ -3,23 +3,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import {
     createXlsxBuffer,
-    DatabaseBatchDeleteRequestDto,
-    DatabaseIdParamsRequestDto,
-    DatabaseXlsxFileRequestDto,
+    type DatabaseBatchDeleteRequestDto,
+    type DatabaseIdParamsRequestDto,
+    type DatabaseXlsxFileRequestDto,
     importUpdateXlsx,
     importXlsx,
-    LedgerBatchCreateRequestDto,
-    LedgerBatchCreateResponseDto,
-    LedgerBatchUpdateRequestDto,
-    LedgerCreateRequestDto,
-    LedgerImportResponseDto,
-    LedgerImportUpdateResponseDto,
-    LedgerListResponseDto,
-    LedgerPageResponseDto,
-    LedgerResponseDto,
+    type LedgerBatchCreateRequestDto,
+    LedgerBatchCreateResponseSchema,
+    type LedgerBatchUpdateRequestDto,
+    type LedgerCreateRequestDto,
+    LedgerImportResponseSchema,
+    LedgerImportUpdateResponseSchema,
+    LedgerListResponseSchema,
+    LedgerPageResponseSchema,
+    LedgerResponseSchema,
     ledgerResourceSchema,
-    LedgerUpdateRequestDto,
-    LedgerWriteResponseDto,
+    type LedgerUpdateRequestDto,
+    LedgerWriteResponseSchema,
     PageParam,
 } from '@bestlyg/server-shared';
 import { Ledger } from '../../entities';
@@ -33,7 +33,7 @@ export class LedgerService {
 
     async find(options: FindManyOptions<Ledger> = {}) {
         const data = await this.repository.find(options);
-        return new LedgerListResponseDto(data as any);
+        return LedgerListResponseSchema.parse(data as any);
     }
 
     async findPageAndCount(pageParam: PageParam, options: FindManyOptions<Ledger> = {}) {
@@ -43,29 +43,29 @@ export class LedgerService {
             take: pageParam.take,
         };
         const [list, total] = await this.repository.findAndCount(pageOptions);
-        return new LedgerPageResponseDto({ list, total } as any);
+        return LedgerPageResponseSchema.parse({ list, total } as any);
     }
 
     async findOne(options: FindOneOptions<Ledger>) {
         const data = await this.repository.findOne(options);
-        return data ? new LedgerResponseDto(data as any) : null;
+        return data ? LedgerResponseSchema.parse(data as any) : null;
     }
 
     async save(body: LedgerCreateRequestDto | LedgerBatchCreateRequestDto) {
         const data = await this.repository.save(body as any);
         return Array.isArray(body)
-            ? new LedgerBatchCreateResponseDto(data as any)
-            : new LedgerResponseDto(data as any);
+            ? LedgerBatchCreateResponseSchema.parse(data as any)
+            : LedgerResponseSchema.parse(data as any);
     }
 
     async importUpdateXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importUpdateXlsx(this, ledgerResourceSchema, file);
-        return new LedgerImportUpdateResponseDto(data as any);
+        return LedgerImportUpdateResponseSchema.parse(data as any);
     }
 
     async importXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importXlsx(this, ledgerResourceSchema, file);
-        return new LedgerImportResponseDto(data as any);
+        return LedgerImportResponseSchema.parse(data as any);
     }
 
     async exportXlsx(options: FindManyOptions<Ledger> = {}) {
@@ -75,14 +75,14 @@ export class LedgerService {
 
     async update(
         id: DatabaseIdParamsRequestDto['id'] | LedgerBatchUpdateRequestDto['ids'],
-        data: LedgerUpdateRequestDto | LedgerBatchUpdateRequestDto['data'],
+        data: LedgerUpdateRequestDto,
     ) {
         const result = await this.repository.update(id as any, data as any);
-        return new LedgerWriteResponseDto(result as any);
+        return LedgerWriteResponseSchema.parse(result as any);
     }
 
     async delete(id: DatabaseIdParamsRequestDto['id'] | DatabaseBatchDeleteRequestDto['ids']) {
         const result = await this.repository.delete(id as any);
-        return new LedgerWriteResponseDto(result as any);
+        return LedgerWriteResponseSchema.parse(result as any);
     }
 }

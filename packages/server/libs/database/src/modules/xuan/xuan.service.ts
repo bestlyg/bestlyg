@@ -3,23 +3,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import {
     createXlsxBuffer,
-    DatabaseBatchDeleteRequestDto,
-    DatabaseIdParamsRequestDto,
-    DatabaseXlsxFileRequestDto,
+    type DatabaseBatchDeleteRequestDto,
+    type DatabaseIdParamsRequestDto,
+    type DatabaseXlsxFileRequestDto,
     importUpdateXlsx,
     importXlsx,
     PageParam,
-    XuanBatchCreateRequestDto,
-    XuanBatchCreateResponseDto,
-    XuanBatchUpdateRequestDto,
-    XuanCreateRequestDto,
-    XuanImportResponseDto,
-    XuanImportUpdateResponseDto,
-    XuanListResponseDto,
-    XuanPageResponseDto,
-    XuanResponseDto,
-    XuanUpdateRequestDto,
-    XuanWriteResponseDto,
+    type XuanBatchCreateRequestDto,
+    XuanBatchCreateResponseSchema,
+    type XuanBatchUpdateRequestDto,
+    type XuanCreateRequestDto,
+    XuanImportResponseSchema,
+    XuanImportUpdateResponseSchema,
+    XuanListResponseSchema,
+    XuanPageResponseSchema,
+    XuanResponseSchema,
+    type XuanUpdateRequestDto,
+    XuanWriteResponseSchema,
     xuanResourceSchema,
 } from '@bestlyg/server-shared';
 import { Xuan } from '../../entities';
@@ -33,7 +33,7 @@ export class XuanService {
 
     async find(options: FindManyOptions<Xuan> = {}) {
         const data = await this.repository.find(options);
-        return new XuanListResponseDto(data as any);
+        return XuanListResponseSchema.parse(data as any);
     }
 
     async findPageAndCount(pageParam: PageParam, options: FindManyOptions<Xuan> = {}) {
@@ -43,29 +43,29 @@ export class XuanService {
             take: pageParam.take,
         };
         const [list, total] = await this.repository.findAndCount(pageOptions);
-        return new XuanPageResponseDto({ list, total } as any);
+        return XuanPageResponseSchema.parse({ list, total } as any);
     }
 
     async findOne(options: FindOneOptions<Xuan>) {
         const data = await this.repository.findOne(options);
-        return data ? new XuanResponseDto(data as any) : null;
+        return data ? XuanResponseSchema.parse(data as any) : null;
     }
 
     async save(body: XuanCreateRequestDto | XuanBatchCreateRequestDto) {
         const data = await this.repository.save(body as any);
         return Array.isArray(body)
-            ? new XuanBatchCreateResponseDto(data as any)
-            : new XuanResponseDto(data as any);
+            ? XuanBatchCreateResponseSchema.parse(data as any)
+            : XuanResponseSchema.parse(data as any);
     }
 
     async importUpdateXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importUpdateXlsx(this, xuanResourceSchema, file);
-        return new XuanImportUpdateResponseDto(data as any);
+        return XuanImportUpdateResponseSchema.parse(data as any);
     }
 
     async importXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importXlsx(this, xuanResourceSchema, file);
-        return new XuanImportResponseDto(data as any);
+        return XuanImportResponseSchema.parse(data as any);
     }
 
     async exportXlsx(options: FindManyOptions<Xuan> = {}) {
@@ -75,14 +75,14 @@ export class XuanService {
 
     async update(
         id: DatabaseIdParamsRequestDto['id'] | XuanBatchUpdateRequestDto['ids'],
-        data: XuanUpdateRequestDto | XuanBatchUpdateRequestDto['data'],
+        data: XuanUpdateRequestDto,
     ) {
         const result = await this.repository.update(id as any, data as any);
-        return new XuanWriteResponseDto(result as any);
+        return XuanWriteResponseSchema.parse(result as any);
     }
 
     async delete(id: DatabaseIdParamsRequestDto['id'] | DatabaseBatchDeleteRequestDto['ids']) {
         const result = await this.repository.delete(id as any);
-        return new XuanWriteResponseDto(result as any);
+        return XuanWriteResponseSchema.parse(result as any);
     }
 }

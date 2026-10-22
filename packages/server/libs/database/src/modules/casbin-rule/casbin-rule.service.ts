@@ -2,22 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import {
-    CasbinRuleBatchCreateRequestDto,
-    CasbinRuleBatchCreateResponseDto,
-    CasbinRuleBatchUpdateRequestDto,
-    CasbinRuleCreateRequestDto,
-    CasbinRuleImportResponseDto,
-    CasbinRuleImportUpdateResponseDto,
-    CasbinRuleListResponseDto,
-    CasbinRulePageResponseDto,
-    CasbinRuleResponseDto,
-    CasbinRuleUpdateRequestDto,
-    CasbinRuleWriteResponseDto,
+    type CasbinRuleBatchCreateRequestDto,
+    CasbinRuleBatchCreateResponseSchema,
+    type CasbinRuleBatchUpdateRequestDto,
+    type CasbinRuleCreateRequestDto,
+    CasbinRuleImportResponseSchema,
+    CasbinRuleImportUpdateResponseSchema,
+    CasbinRuleListResponseSchema,
+    CasbinRulePageResponseSchema,
+    CasbinRuleResponseSchema,
+    type CasbinRuleUpdateRequestDto,
+    CasbinRuleWriteResponseSchema,
     casbinRuleResourceSchema,
     createXlsxBuffer,
-    DatabaseBatchDeleteRequestDto,
-    DatabaseIdParamsRequestDto,
-    DatabaseXlsxFileRequestDto,
+    type DatabaseBatchDeleteRequestDto,
+    type DatabaseIdParamsRequestDto,
+    type DatabaseXlsxFileRequestDto,
     importUpdateXlsx,
     importXlsx,
     PageParam,
@@ -33,7 +33,7 @@ export class CasbinRuleService {
 
     async find(options: FindManyOptions<CasbinRule> = {}) {
         const data = await this.repository.find(options);
-        return new CasbinRuleListResponseDto(data as any);
+        return CasbinRuleListResponseSchema.parse(data as any);
     }
 
     async findPageAndCount(pageParam: PageParam, options: FindManyOptions<CasbinRule> = {}) {
@@ -43,29 +43,29 @@ export class CasbinRuleService {
             take: pageParam.take,
         };
         const [list, total] = await this.repository.findAndCount(pageOptions);
-        return new CasbinRulePageResponseDto({ list, total } as any);
+        return CasbinRulePageResponseSchema.parse({ list, total } as any);
     }
 
     async findOne(options: FindOneOptions<CasbinRule>) {
         const data = await this.repository.findOne(options);
-        return data ? new CasbinRuleResponseDto(data as any) : null;
+        return data ? CasbinRuleResponseSchema.parse(data as any) : null;
     }
 
     async save(body: CasbinRuleCreateRequestDto | CasbinRuleBatchCreateRequestDto) {
         const data = await this.repository.save(body as any);
         return Array.isArray(body)
-            ? new CasbinRuleBatchCreateResponseDto(data as any)
-            : new CasbinRuleResponseDto(data as any);
+            ? CasbinRuleBatchCreateResponseSchema.parse(data as any)
+            : CasbinRuleResponseSchema.parse(data as any);
     }
 
     async importUpdateXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importUpdateXlsx(this, casbinRuleResourceSchema, file);
-        return new CasbinRuleImportUpdateResponseDto(data as any);
+        return CasbinRuleImportUpdateResponseSchema.parse(data as any);
     }
 
     async importXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importXlsx(this, casbinRuleResourceSchema, file);
-        return new CasbinRuleImportResponseDto(data as any);
+        return CasbinRuleImportResponseSchema.parse(data as any);
     }
 
     async exportXlsx(options: FindManyOptions<CasbinRule> = {}) {
@@ -75,14 +75,14 @@ export class CasbinRuleService {
 
     async update(
         id: DatabaseIdParamsRequestDto['id'] | CasbinRuleBatchUpdateRequestDto['ids'],
-        data: CasbinRuleUpdateRequestDto | CasbinRuleBatchUpdateRequestDto['data'],
+        data: CasbinRuleUpdateRequestDto,
     ) {
         const result = await this.repository.update(id as any, data as any);
-        return new CasbinRuleWriteResponseDto(result as any);
+        return CasbinRuleWriteResponseSchema.parse(result as any);
     }
 
     async delete(id: DatabaseIdParamsRequestDto['id'] | DatabaseBatchDeleteRequestDto['ids']) {
         const result = await this.repository.delete(id as any);
-        return new CasbinRuleWriteResponseDto(result as any);
+        return CasbinRuleWriteResponseSchema.parse(result as any);
     }
 }

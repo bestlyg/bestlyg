@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { SortParamItem } from './sort-param-item';
-import { createZodModel, type ZodModelConfig } from './zod';
+import { ZodModel, type ZodModelConfig } from './zod';
 
 /** 多字段排序参数集合。 */
 export class SortParam {
@@ -41,7 +41,7 @@ export class SortParam {
 
     /** 创建绑定排序集合 schema 的 ZodModel 父类。 */
     static model(config: ZodModelConfig = {}) {
-        return createZodModel(this.schema, config);
+        return ZodModel.withSchema(this.schema, config);
     }
 
     /** 校验排序集合对象并恢复为 SortParam 实例。 */

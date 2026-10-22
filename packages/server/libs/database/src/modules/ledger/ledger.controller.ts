@@ -20,19 +20,28 @@ import dayjs from 'dayjs';
 import type { Response } from 'express';
 import { Between, FindManyOptions } from 'typeorm';
 import {
-    DatabaseBatchDeleteRequestDto,
-    DatabaseIdParamsRequestDto,
-    DatabaseXlsxFileRequestDto,
+    type DatabaseBatchDeleteRequestDto,
+    DatabaseBatchDeleteRequestSchema,
+    type DatabaseIdParamsRequestDto,
+    DatabaseIdParamsRequestSchema,
+    type DatabaseXlsxFileRequestDto,
 } from '@bestlyg/server-shared';
 import {
-    LedgerBatchCreateRequestDto,
-    LedgerBatchUpdateRequestDto,
-    LedgerCreateRequestDto,
-    LedgerExportRequestDto,
-    LedgerExportResponseDto,
-    LedgerPageRequestDto,
-    LedgerQueryRequestDto,
-    LedgerUpdateRequestDto,
+    type LedgerBatchCreateRequestDto,
+    LedgerBatchCreateRequestSchema,
+    type LedgerBatchUpdateRequestDto,
+    LedgerBatchUpdateRequestSchema,
+    type LedgerCreateRequestDto,
+    LedgerCreateRequestSchema,
+    type LedgerExportRequestDto,
+    LedgerExportRequestSchema,
+    LedgerExportResponseSchema,
+    type LedgerPageRequestDto,
+    LedgerPageRequestSchema,
+    type LedgerQueryRequestDto,
+    LedgerQueryRequestSchema,
+    type LedgerUpdateRequestDto,
+    LedgerUpdateRequestSchema,
     ledgerResourceSchema,
 } from '@bestlyg/server-shared';
 import { Ledger } from '../../entities';
@@ -60,22 +69,27 @@ export class LedgerController {
     }
 
     @Get()
-    async findList(@Query() query: LedgerQueryRequestDto) {
+    async findList(@Query({ schema: LedgerQueryRequestSchema }) query: LedgerQueryRequestDto) {
         const data = await this.service.find(this.getFindManyOptions(query));
         return ResponseEntity.ofSuccess(data);
     }
 
     @Get('page')
-    async findPageAndCount(@Query() query: LedgerPageRequestDto) {
+    async findPageAndCount(
+        @Query({ schema: LedgerPageRequestSchema }) query: LedgerPageRequestDto,
+    ) {
         const pageParam = new PageParam(query.current, query.pageSize);
         const data = await this.service.findPageAndCount(pageParam, this.getFindManyOptions(query));
         return ResponseEntity.ofSuccess(data);
     }
 
     @Get('export')
-    async exportXlsx(@Query() query: LedgerExportRequestDto, @Res() res: Response) {
+    async exportXlsx(
+        @Query({ schema: LedgerExportRequestSchema }) query: LedgerExportRequestDto,
+        @Res() res: Response,
+    ) {
         const buffer = await this.service.exportXlsx(this.getFindManyOptions(query));
-        const output = new LedgerExportResponseDto({
+        const output = LedgerExportResponseSchema.parse({
             filename: `${config.resourceName}.xlsx`,
             contentType: XLSX_MIME,
             size: buffer.length,
@@ -84,20 +98,24 @@ export class LedgerController {
     }
 
     @Get(':id')
-    async findOne(@Param() params: DatabaseIdParamsRequestDto) {
+    async findOne(
+        @Param({ schema: DatabaseIdParamsRequestSchema }) params: DatabaseIdParamsRequestDto,
+    ) {
         const data = await this.service.findOne({ where: { id: params.id } });
         if (!data) throw new NotFoundException(`${config.resourceName} not found`);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Post()
-    async save(@Body() body: LedgerCreateRequestDto) {
+    async save(@Body({ schema: LedgerCreateRequestSchema }) body: LedgerCreateRequestDto) {
         const data = await this.service.save(body);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Post('batch')
-    async saveBatch(@Body() body: LedgerBatchCreateRequestDto) {
+    async saveBatch(
+        @Body({ schema: LedgerBatchCreateRequestSchema }) body: LedgerBatchCreateRequestDto,
+    ) {
         const data = await this.service.save(body);
         return ResponseEntity.ofSuccess(data);
     }
@@ -117,28 +135,34 @@ export class LedgerController {
     }
 
     @Patch('batch')
-    async updateBatch(@Body() body: LedgerBatchUpdateRequestDto) {
+    async updateBatch(
+        @Body({ schema: LedgerBatchUpdateRequestSchema }) body: LedgerBatchUpdateRequestDto,
+    ) {
         const data = await this.service.update(body.ids, body.data);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Patch(':id')
     async update(
-        @Param() params: DatabaseIdParamsRequestDto,
-        @Body() body: LedgerUpdateRequestDto,
+        @Param({ schema: DatabaseIdParamsRequestSchema }) params: DatabaseIdParamsRequestDto,
+        @Body({ schema: LedgerUpdateRequestSchema }) body: LedgerUpdateRequestDto,
     ) {
         const data = await this.service.update(params.id, body);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Delete('batch')
-    async deleteBatch(@Body() body: DatabaseBatchDeleteRequestDto) {
+    async deleteBatch(
+        @Body({ schema: DatabaseBatchDeleteRequestSchema }) body: DatabaseBatchDeleteRequestDto,
+    ) {
         const data = await this.service.delete(body.ids);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Delete(':id')
-    async delete(@Param() params: DatabaseIdParamsRequestDto) {
+    async delete(
+        @Param({ schema: DatabaseIdParamsRequestSchema }) params: DatabaseIdParamsRequestDto,
+    ) {
         const data = await this.service.delete(params.id);
         return ResponseEntity.ofSuccess(data);
     }

@@ -20,20 +20,29 @@ import { leetcode } from '@bestlyg-server/common';
 import type { Response } from 'express';
 import { FindManyOptions, FindOneOptions } from 'typeorm';
 import {
-    DatabaseBatchDeleteRequestDto,
-    DatabaseIdParamsRequestDto,
-    DatabaseXlsxFileRequestDto,
+    type DatabaseBatchDeleteRequestDto,
+    DatabaseBatchDeleteRequestSchema,
+    type DatabaseIdParamsRequestDto,
+    DatabaseIdParamsRequestSchema,
+    type DatabaseXlsxFileRequestDto,
 } from '@bestlyg/server-shared';
 import {
-    LeetcodeNameParamsRequestDto,
-    LeetcodeProblemBatchCreateRequestDto,
-    LeetcodeProblemBatchUpdateRequestDto,
-    LeetcodeProblemBySlugResponseDto,
-    LeetcodeProblemCreateRequestDto,
-    LeetcodeProblemExportResponseDto,
-    LeetcodeProblemPageRequestDto,
-    LeetcodeProblemUpdateRequestDto,
-    LeetcodeSlugParamsRequestDto,
+    type LeetcodeNameParamsRequestDto,
+    LeetcodeNameParamsRequestSchema,
+    type LeetcodeProblemBatchCreateRequestDto,
+    LeetcodeProblemBatchCreateRequestSchema,
+    type LeetcodeProblemBatchUpdateRequestDto,
+    LeetcodeProblemBatchUpdateRequestSchema,
+    LeetcodeProblemBySlugResponseSchema,
+    type LeetcodeProblemCreateRequestDto,
+    LeetcodeProblemCreateRequestSchema,
+    LeetcodeProblemExportResponseSchema,
+    type LeetcodeProblemPageRequestDto,
+    LeetcodeProblemPageRequestSchema,
+    type LeetcodeProblemUpdateRequestDto,
+    LeetcodeProblemUpdateRequestSchema,
+    type LeetcodeSlugParamsRequestDto,
+    LeetcodeSlugParamsRequestSchema,
     leetcodeProblemResourceSchema,
 } from '@bestlyg/server-shared';
 import { LeetcodeProblem } from '../../entities';
@@ -75,7 +84,9 @@ export class LeetcodeProblemController {
     }
 
     @Get('page')
-    async findPageAndCount(@Query() query: LeetcodeProblemPageRequestDto) {
+    async findPageAndCount(
+        @Query({ schema: LeetcodeProblemPageRequestSchema }) query: LeetcodeProblemPageRequestDto,
+    ) {
         const pageParam = new PageParam(query.current, query.pageSize);
         const data = await this.service.findPageAndCount(pageParam, this.getFindManyOptions());
         return ResponseEntity.ofSuccess(data);
@@ -84,7 +95,7 @@ export class LeetcodeProblemController {
     @Get('export')
     async exportXlsx(@Res() res: Response) {
         const buffer = await this.service.exportXlsx(this.getFindManyOptions());
-        const output = new LeetcodeProblemExportResponseDto({
+        const output = LeetcodeProblemExportResponseSchema.parse({
             filename: `${config.resourceName}.xlsx`,
             contentType: XLSX_MIME,
             size: buffer.length,
@@ -93,7 +104,9 @@ export class LeetcodeProblemController {
     }
 
     @Get('by-name/:name')
-    async findByName(@Param() params: LeetcodeNameParamsRequestDto) {
+    async findByName(
+        @Param({ schema: LeetcodeNameParamsRequestSchema }) params: LeetcodeNameParamsRequestDto,
+    ) {
         let data: Awaited<ReturnType<LeetcodeProblemService['findOne']>> = null;
         for (const name of this.getNameCandidates(params.name)) {
             data = await this.service.findOne({
@@ -107,26 +120,35 @@ export class LeetcodeProblemController {
     }
 
     @Get('by-slug/:slug')
-    async findBySlug(@Param() params: LeetcodeSlugParamsRequestDto) {
+    async findBySlug(
+        @Param({ schema: LeetcodeSlugParamsRequestSchema }) params: LeetcodeSlugParamsRequestDto,
+    ) {
         const data = await this.leetcodeService.getProblem(params.slug);
-        return ResponseEntity.ofSuccess(new LeetcodeProblemBySlugResponseDto(data as any));
+        return ResponseEntity.ofSuccess(LeetcodeProblemBySlugResponseSchema.parse(data as any));
     }
 
     @Get(':id')
-    async findOne(@Param() params: DatabaseIdParamsRequestDto) {
+    async findOne(
+        @Param({ schema: DatabaseIdParamsRequestSchema }) params: DatabaseIdParamsRequestDto,
+    ) {
         const data = await this.service.findOne(this.getFindOneOptions(params.id));
         if (!data) throw new NotFoundException(`${config.resourceName} not found`);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Post()
-    async save(@Body() body: LeetcodeProblemCreateRequestDto) {
+    async save(
+        @Body({ schema: LeetcodeProblemCreateRequestSchema }) body: LeetcodeProblemCreateRequestDto,
+    ) {
         const data = await this.service.save(body);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Post('batch')
-    async saveBatch(@Body() body: LeetcodeProblemBatchCreateRequestDto) {
+    async saveBatch(
+        @Body({ schema: LeetcodeProblemBatchCreateRequestSchema })
+        body: LeetcodeProblemBatchCreateRequestDto,
+    ) {
         const data = await this.service.save(body);
         return ResponseEntity.ofSuccess(data);
     }
@@ -146,28 +168,35 @@ export class LeetcodeProblemController {
     }
 
     @Patch('batch')
-    async updateBatch(@Body() body: LeetcodeProblemBatchUpdateRequestDto) {
+    async updateBatch(
+        @Body({ schema: LeetcodeProblemBatchUpdateRequestSchema })
+        body: LeetcodeProblemBatchUpdateRequestDto,
+    ) {
         const data = await this.service.update(body.ids, body.data);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Patch(':id')
     async update(
-        @Param() params: DatabaseIdParamsRequestDto,
-        @Body() body: LeetcodeProblemUpdateRequestDto,
+        @Param({ schema: DatabaseIdParamsRequestSchema }) params: DatabaseIdParamsRequestDto,
+        @Body({ schema: LeetcodeProblemUpdateRequestSchema }) body: LeetcodeProblemUpdateRequestDto,
     ) {
         const data = await this.service.update(params.id, body);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Delete('batch')
-    async deleteBatch(@Body() body: DatabaseBatchDeleteRequestDto) {
+    async deleteBatch(
+        @Body({ schema: DatabaseBatchDeleteRequestSchema }) body: DatabaseBatchDeleteRequestDto,
+    ) {
         const data = await this.service.delete(body.ids);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Delete(':id')
-    async delete(@Param() params: DatabaseIdParamsRequestDto) {
+    async delete(
+        @Param({ schema: DatabaseIdParamsRequestSchema }) params: DatabaseIdParamsRequestDto,
+    ) {
         const data = await this.service.delete(params.id);
         return ResponseEntity.ofSuccess(data);
     }

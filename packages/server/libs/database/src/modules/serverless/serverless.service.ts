@@ -3,23 +3,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import {
     createXlsxBuffer,
-    DatabaseBatchDeleteRequestDto,
-    DatabaseIdParamsRequestDto,
-    DatabaseXlsxFileRequestDto,
+    type DatabaseBatchDeleteRequestDto,
+    type DatabaseIdParamsRequestDto,
+    type DatabaseXlsxFileRequestDto,
     importUpdateXlsx,
     importXlsx,
     PageParam,
-    ServerlessBatchCreateRequestDto,
-    ServerlessBatchCreateResponseDto,
-    ServerlessBatchUpdateRequestDto,
-    ServerlessCreateRequestDto,
-    ServerlessImportResponseDto,
-    ServerlessImportUpdateResponseDto,
-    ServerlessListResponseDto,
-    ServerlessPageResponseDto,
-    ServerlessResponseDto,
-    ServerlessUpdateRequestDto,
-    ServerlessWriteResponseDto,
+    type ServerlessBatchCreateRequestDto,
+    ServerlessBatchCreateResponseSchema,
+    type ServerlessBatchUpdateRequestDto,
+    type ServerlessCreateRequestDto,
+    ServerlessImportResponseSchema,
+    ServerlessImportUpdateResponseSchema,
+    ServerlessListResponseSchema,
+    ServerlessPageResponseSchema,
+    ServerlessResponseSchema,
+    type ServerlessUpdateRequestDto,
+    ServerlessWriteResponseSchema,
     serverlessResourceSchema,
 } from '@bestlyg/server-shared';
 import { Serverless } from '../../entities';
@@ -33,7 +33,7 @@ export class ServerlessService {
 
     async find(options: FindManyOptions<Serverless> = {}) {
         const data = await this.repository.find(options);
-        return new ServerlessListResponseDto(data as any);
+        return ServerlessListResponseSchema.parse(data as any);
     }
 
     async findPageAndCount(pageParam: PageParam, options: FindManyOptions<Serverless> = {}) {
@@ -43,29 +43,29 @@ export class ServerlessService {
             take: pageParam.take,
         };
         const [list, total] = await this.repository.findAndCount(pageOptions);
-        return new ServerlessPageResponseDto({ list, total } as any);
+        return ServerlessPageResponseSchema.parse({ list, total } as any);
     }
 
     async findOne(options: FindOneOptions<Serverless>) {
         const data = await this.repository.findOne(options);
-        return data ? new ServerlessResponseDto(data as any) : null;
+        return data ? ServerlessResponseSchema.parse(data as any) : null;
     }
 
     async save(body: ServerlessCreateRequestDto | ServerlessBatchCreateRequestDto) {
         const data = await this.repository.save(body as any);
         return Array.isArray(body)
-            ? new ServerlessBatchCreateResponseDto(data as any)
-            : new ServerlessResponseDto(data as any);
+            ? ServerlessBatchCreateResponseSchema.parse(data as any)
+            : ServerlessResponseSchema.parse(data as any);
     }
 
     async importUpdateXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importUpdateXlsx(this, serverlessResourceSchema, file);
-        return new ServerlessImportUpdateResponseDto(data as any);
+        return ServerlessImportUpdateResponseSchema.parse(data as any);
     }
 
     async importXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importXlsx(this, serverlessResourceSchema, file);
-        return new ServerlessImportResponseDto(data as any);
+        return ServerlessImportResponseSchema.parse(data as any);
     }
 
     async exportXlsx(options: FindManyOptions<Serverless> = {}) {
@@ -75,14 +75,14 @@ export class ServerlessService {
 
     async update(
         id: DatabaseIdParamsRequestDto['id'] | ServerlessBatchUpdateRequestDto['ids'],
-        data: ServerlessUpdateRequestDto | ServerlessBatchUpdateRequestDto['data'],
+        data: ServerlessUpdateRequestDto,
     ) {
         const result = await this.repository.update(id as any, data as any);
-        return new ServerlessWriteResponseDto(result as any);
+        return ServerlessWriteResponseSchema.parse(result as any);
     }
 
     async delete(id: DatabaseIdParamsRequestDto['id'] | DatabaseBatchDeleteRequestDto['ids']) {
         const result = await this.repository.delete(id as any);
-        return new ServerlessWriteResponseDto(result as any);
+        return ServerlessWriteResponseSchema.parse(result as any);
     }
 }

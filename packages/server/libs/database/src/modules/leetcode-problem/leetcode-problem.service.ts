@@ -3,23 +3,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import {
     createXlsxBuffer,
-    DatabaseBatchDeleteRequestDto,
-    DatabaseIdParamsRequestDto,
-    DatabaseXlsxFileRequestDto,
+    type DatabaseBatchDeleteRequestDto,
+    type DatabaseIdParamsRequestDto,
+    type DatabaseXlsxFileRequestDto,
     importUpdateXlsx,
     importXlsx,
-    LeetcodeProblemBatchCreateRequestDto,
-    LeetcodeProblemBatchCreateResponseDto,
-    LeetcodeProblemBatchUpdateRequestDto,
-    LeetcodeProblemCreateRequestDto,
-    LeetcodeProblemImportResponseDto,
-    LeetcodeProblemImportUpdateResponseDto,
-    LeetcodeProblemListResponseDto,
-    LeetcodeProblemPageResponseDto,
-    LeetcodeProblemResponseDto,
+    type LeetcodeProblemBatchCreateRequestDto,
+    LeetcodeProblemBatchCreateResponseSchema,
+    type LeetcodeProblemBatchUpdateRequestDto,
+    type LeetcodeProblemCreateRequestDto,
+    LeetcodeProblemImportResponseSchema,
+    LeetcodeProblemImportUpdateResponseSchema,
+    LeetcodeProblemListResponseSchema,
+    LeetcodeProblemPageResponseSchema,
+    LeetcodeProblemResponseSchema,
     leetcodeProblemResourceSchema,
-    LeetcodeProblemUpdateRequestDto,
-    LeetcodeProblemWriteResponseDto,
+    type LeetcodeProblemUpdateRequestDto,
+    LeetcodeProblemWriteResponseSchema,
     PageParam,
 } from '@bestlyg/server-shared';
 import { LeetcodeProblem } from '../../entities';
@@ -33,7 +33,7 @@ export class LeetcodeProblemService {
 
     async find(options: FindManyOptions<LeetcodeProblem> = {}) {
         const data = await this.repository.find(options);
-        return new LeetcodeProblemListResponseDto(data as any);
+        return LeetcodeProblemListResponseSchema.parse(data as any);
     }
 
     async findPageAndCount(pageParam: PageParam, options: FindManyOptions<LeetcodeProblem> = {}) {
@@ -43,29 +43,29 @@ export class LeetcodeProblemService {
             take: pageParam.take,
         };
         const [list, total] = await this.repository.findAndCount(pageOptions);
-        return new LeetcodeProblemPageResponseDto({ list, total } as any);
+        return LeetcodeProblemPageResponseSchema.parse({ list, total } as any);
     }
 
     async findOne(options: FindOneOptions<LeetcodeProblem>) {
         const data = await this.repository.findOne(options);
-        return data ? new LeetcodeProblemResponseDto(data as any) : null;
+        return data ? LeetcodeProblemResponseSchema.parse(data as any) : null;
     }
 
     async save(body: LeetcodeProblemCreateRequestDto | LeetcodeProblemBatchCreateRequestDto) {
         const data = await this.repository.save(body as any);
         return Array.isArray(body)
-            ? new LeetcodeProblemBatchCreateResponseDto(data as any)
-            : new LeetcodeProblemResponseDto(data as any);
+            ? LeetcodeProblemBatchCreateResponseSchema.parse(data as any)
+            : LeetcodeProblemResponseSchema.parse(data as any);
     }
 
     async importUpdateXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importUpdateXlsx(this, leetcodeProblemResourceSchema, file);
-        return new LeetcodeProblemImportUpdateResponseDto(data as any);
+        return LeetcodeProblemImportUpdateResponseSchema.parse(data as any);
     }
 
     async importXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importXlsx(this, leetcodeProblemResourceSchema, file);
-        return new LeetcodeProblemImportResponseDto(data as any);
+        return LeetcodeProblemImportResponseSchema.parse(data as any);
     }
 
     async exportXlsx(options: FindManyOptions<LeetcodeProblem> = {}) {
@@ -75,14 +75,14 @@ export class LeetcodeProblemService {
 
     async update(
         id: DatabaseIdParamsRequestDto['id'] | LeetcodeProblemBatchUpdateRequestDto['ids'],
-        data: LeetcodeProblemUpdateRequestDto | LeetcodeProblemBatchUpdateRequestDto['data'],
+        data: LeetcodeProblemUpdateRequestDto,
     ) {
         const result = await this.repository.update(id as any, data as any);
-        return new LeetcodeProblemWriteResponseDto(result as any);
+        return LeetcodeProblemWriteResponseSchema.parse(result as any);
     }
 
     async delete(id: DatabaseIdParamsRequestDto['id'] | DatabaseBatchDeleteRequestDto['ids']) {
         const result = await this.repository.delete(id as any);
-        return new LeetcodeProblemWriteResponseDto(result as any);
+        return LeetcodeProblemWriteResponseSchema.parse(result as any);
     }
 }

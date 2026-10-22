@@ -18,17 +18,24 @@ import { PageParam, ResponseEntity } from '@bestlyg/server-shared';
 import { AuthGuard } from '@bestlyg-server/auth/auth.guard';
 import type { Response } from 'express';
 import {
-    DatabaseBatchDeleteRequestDto,
-    DatabaseIdParamsRequestDto,
-    DatabaseXlsxFileRequestDto,
+    type DatabaseBatchDeleteRequestDto,
+    DatabaseBatchDeleteRequestSchema,
+    type DatabaseIdParamsRequestDto,
+    DatabaseIdParamsRequestSchema,
+    type DatabaseXlsxFileRequestDto,
 } from '@bestlyg/server-shared';
 import {
-    ServerlessBatchCreateRequestDto,
-    ServerlessBatchUpdateRequestDto,
-    ServerlessCreateRequestDto,
-    ServerlessExportResponseDto,
-    ServerlessPageRequestDto,
-    ServerlessUpdateRequestDto,
+    type ServerlessBatchCreateRequestDto,
+    ServerlessBatchCreateRequestSchema,
+    type ServerlessBatchUpdateRequestDto,
+    ServerlessBatchUpdateRequestSchema,
+    type ServerlessCreateRequestDto,
+    ServerlessCreateRequestSchema,
+    ServerlessExportResponseSchema,
+    type ServerlessPageRequestDto,
+    ServerlessPageRequestSchema,
+    type ServerlessUpdateRequestDto,
+    ServerlessUpdateRequestSchema,
     serverlessResourceSchema,
 } from '@bestlyg/server-shared';
 import { ServerlessService } from './serverless.service';
@@ -48,7 +55,9 @@ export class ServerlessController {
     }
 
     @Get('page')
-    async findPageAndCount(@Query() query: ServerlessPageRequestDto) {
+    async findPageAndCount(
+        @Query({ schema: ServerlessPageRequestSchema }) query: ServerlessPageRequestDto,
+    ) {
         const pageParam = new PageParam(query.current, query.pageSize);
         const data = await this.service.findPageAndCount(pageParam, {});
         return ResponseEntity.ofSuccess(data);
@@ -57,7 +66,7 @@ export class ServerlessController {
     @Get('export')
     async exportXlsx(@Res() res: Response) {
         const buffer = await this.service.exportXlsx({});
-        const output = new ServerlessExportResponseDto({
+        const output = ServerlessExportResponseSchema.parse({
             filename: `${config.resourceName}.xlsx`,
             contentType: XLSX_MIME,
             size: buffer.length,
@@ -66,20 +75,24 @@ export class ServerlessController {
     }
 
     @Get(':id')
-    async findOne(@Param() params: DatabaseIdParamsRequestDto) {
+    async findOne(
+        @Param({ schema: DatabaseIdParamsRequestSchema }) params: DatabaseIdParamsRequestDto,
+    ) {
         const data = await this.service.findOne({ where: { id: params.id } });
         if (!data) throw new NotFoundException(`${config.resourceName} not found`);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Post()
-    async save(@Body() body: ServerlessCreateRequestDto) {
+    async save(@Body({ schema: ServerlessCreateRequestSchema }) body: ServerlessCreateRequestDto) {
         const data = await this.service.save(body);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Post('batch')
-    async saveBatch(@Body() body: ServerlessBatchCreateRequestDto) {
+    async saveBatch(
+        @Body({ schema: ServerlessBatchCreateRequestSchema }) body: ServerlessBatchCreateRequestDto,
+    ) {
         const data = await this.service.save(body);
         return ResponseEntity.ofSuccess(data);
     }
@@ -99,28 +112,34 @@ export class ServerlessController {
     }
 
     @Patch('batch')
-    async updateBatch(@Body() body: ServerlessBatchUpdateRequestDto) {
+    async updateBatch(
+        @Body({ schema: ServerlessBatchUpdateRequestSchema }) body: ServerlessBatchUpdateRequestDto,
+    ) {
         const data = await this.service.update(body.ids, body.data);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Patch(':id')
     async update(
-        @Param() params: DatabaseIdParamsRequestDto,
-        @Body() body: ServerlessUpdateRequestDto,
+        @Param({ schema: DatabaseIdParamsRequestSchema }) params: DatabaseIdParamsRequestDto,
+        @Body({ schema: ServerlessUpdateRequestSchema }) body: ServerlessUpdateRequestDto,
     ) {
         const data = await this.service.update(params.id, body);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Delete('batch')
-    async deleteBatch(@Body() body: DatabaseBatchDeleteRequestDto) {
+    async deleteBatch(
+        @Body({ schema: DatabaseBatchDeleteRequestSchema }) body: DatabaseBatchDeleteRequestDto,
+    ) {
         const data = await this.service.delete(body.ids);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Delete(':id')
-    async delete(@Param() params: DatabaseIdParamsRequestDto) {
+    async delete(
+        @Param({ schema: DatabaseIdParamsRequestSchema }) params: DatabaseIdParamsRequestDto,
+    ) {
         const data = await this.service.delete(params.id);
         return ResponseEntity.ofSuccess(data);
     }

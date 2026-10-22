@@ -4,14 +4,19 @@ import { BadRequestException } from '@nestjs/common';
 import { PageParam } from '@bestlyg/server-shared';
 import ExcelJS from 'exceljs';
 import { z } from 'zod';
-import { CasbinRuleBatchCreateRequestDto } from '@bestlyg/server-shared';
+import { CasbinRuleBatchCreateRequestSchema } from '@bestlyg/server-shared';
 import { DatabaseResourceSchema } from '@bestlyg/server-shared';
 import {
-    LeetcodeProblemUpdateRequestDto,
-    LedgerPageRequestDto,
-    LedgerUpdateRequestDto,
+    LeetcodeProblemUpdateRequestSchema,
+    LedgerPageRequestSchema,
+    LedgerUpdateRequestSchema,
 } from '@bestlyg/server-shared';
-import { createXlsxBuffer, importUpdateXlsx, importXlsx } from '@bestlyg/server-shared';
+import {
+    createXlsxBuffer,
+    importUpdateXlsx,
+    importXlsx,
+    validateXlsxFile,
+} from '@bestlyg/server-shared';
 import { BaseEntity } from '../entities/base.entity';
 import '../upload-file-exception';
 
@@ -78,13 +83,25 @@ async function createFile(headers: string[], rows: unknown[][]) {
 }
 
 describe('database dto and upload file helpers', () => {
-    it('creates zod DTO classes for object and array inputs', () => {
-        const query = new LedgerPageRequestDto({
+    it('rejects missing or invalid XLSX files without relying on a global DTO pipe', () => {
+        expect(() => validateXlsxFile(undefined)).toThrow(BadRequestException);
+        expect(() =>
+            validateXlsxFile({
+                originalname: 'data.txt',
+                mimetype: 'text/plain',
+                size: 1,
+                buffer: Buffer.from('x'),
+            }),
+        ).toThrow(BadRequestException);
+    });
+
+    it('parses object and array DTO schemas', () => {
+        const query = LedgerPageRequestSchema.parse({
             current: '2',
             pageSize: '5',
             date: '2026-05-24',
         } as any);
-        const rows = new CasbinRuleBatchCreateRequestDto([
+        const rows = CasbinRuleBatchCreateRequestSchema.parse([
             {
                 ptype: 'p',
                 p0: 'a',
@@ -96,6 +113,7 @@ describe('database dto and upload file helpers', () => {
             },
         ] as any) as any;
 
+        expect(Object.getPrototypeOf(query)).toBe(Object.prototype);
         expect(query.current).toBe(2);
         expect(query.pageSize).toBe(5);
         expect(query.date).toBe('2026-05-24');
@@ -104,12 +122,12 @@ describe('database dto and upload file helpers', () => {
     });
 
     it('rejects empty update dto input before controller logic runs', () => {
-        expect(() => new LedgerUpdateRequestDto({})).toThrow(TypeError);
-        expect(() => new LeetcodeProblemUpdateRequestDto({})).toThrow(TypeError);
+        expect(() => LedgerUpdateRequestSchema.parse({})).toThrow(z.ZodError);
+        expect(() => LeetcodeProblemUpdateRequestSchema.parse({})).toThrow(z.ZodError);
     });
 
     it('uses page dto defaults to create page params', () => {
-        const query = new LedgerPageRequestDto({});
+        const query = LedgerPageRequestSchema.parse({});
         const pageParam = new PageParam(query.current, query.pageSize);
 
         expect(pageParam).toEqual(new PageParam(1, 10));

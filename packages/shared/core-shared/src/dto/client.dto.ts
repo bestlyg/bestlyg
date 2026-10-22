@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { createZodModel } from '../zod';
 
 const sidebarItemSchema = z.object({
     name: z.string(),
@@ -34,13 +33,21 @@ const sidebarSchema: z.ZodType<Sidebar> = z.object({
 });
 
 /** 获取文档侧边栏请求 DTO。 */
-export class ClientGetDocsSidebarsRequestDto extends createZodModel(z.object({}).strip()) {}
+export const ClientGetDocsSidebarsRequestSchema = z.object({}).strip();
+export type ClientGetDocsSidebarsRequestDto = z.output<typeof ClientGetDocsSidebarsRequestSchema>;
 
 /** 获取文档侧边栏响应 DTO。 */
-export class ClientGetDocsSidebarsResponseDto extends createZodModel(sidebarSchema) {}
+export const ClientGetDocsSidebarsResponseSchema = sidebarSchema;
+export type ClientGetDocsSidebarsResponseDto = z.output<typeof ClientGetDocsSidebarsResponseSchema>;
 
 /** 获取 LeetCode 侧边栏请求 DTO。 */
-export class ClientGetLeetcodeSidebarsRequestDto extends createZodModel(z.object({}).strip()) {}
+export const ClientGetLeetcodeSidebarsRequestSchema = z.object({}).strip();
+export type ClientGetLeetcodeSidebarsRequestDto = z.output<
+    typeof ClientGetLeetcodeSidebarsRequestSchema
+>;
 
 /** 获取 LeetCode 侧边栏响应 DTO。 */
-export class ClientGetLeetcodeSidebarsResponseDto extends createZodModel(sidebarSchema) {}
+export const ClientGetLeetcodeSidebarsResponseSchema = sidebarSchema;
+export type ClientGetLeetcodeSidebarsResponseDto = z.output<
+    typeof ClientGetLeetcodeSidebarsResponseSchema
+>;

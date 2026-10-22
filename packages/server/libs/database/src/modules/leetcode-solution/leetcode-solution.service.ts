@@ -3,23 +3,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import {
     createXlsxBuffer,
-    DatabaseBatchDeleteRequestDto,
-    DatabaseIdParamsRequestDto,
-    DatabaseXlsxFileRequestDto,
+    type DatabaseBatchDeleteRequestDto,
+    type DatabaseIdParamsRequestDto,
+    type DatabaseXlsxFileRequestDto,
     importUpdateXlsx,
     importXlsx,
-    LeetcodeSolutionBatchCreateRequestDto,
-    LeetcodeSolutionBatchCreateResponseDto,
-    LeetcodeSolutionBatchUpdateRequestDto,
-    LeetcodeSolutionCreateRequestDto,
-    LeetcodeSolutionImportResponseDto,
-    LeetcodeSolutionImportUpdateResponseDto,
-    LeetcodeSolutionListResponseDto,
-    LeetcodeSolutionPageResponseDto,
-    LeetcodeSolutionResponseDto,
+    type LeetcodeSolutionBatchCreateRequestDto,
+    LeetcodeSolutionBatchCreateResponseSchema,
+    type LeetcodeSolutionBatchUpdateRequestDto,
+    type LeetcodeSolutionCreateRequestDto,
+    LeetcodeSolutionImportResponseSchema,
+    LeetcodeSolutionImportUpdateResponseSchema,
+    LeetcodeSolutionListResponseSchema,
+    LeetcodeSolutionPageResponseSchema,
+    LeetcodeSolutionResponseSchema,
     leetcodeSolutionResourceSchema,
-    LeetcodeSolutionUpdateRequestDto,
-    LeetcodeSolutionWriteResponseDto,
+    type LeetcodeSolutionUpdateRequestDto,
+    LeetcodeSolutionWriteResponseSchema,
     PageParam,
 } from '@bestlyg/server-shared';
 import { LeetcodeSolution } from '../../entities';
@@ -33,7 +33,7 @@ export class LeetcodeSolutionService {
 
     async find(options: FindManyOptions<LeetcodeSolution> = {}) {
         const data = await this.repository.find(options);
-        return new LeetcodeSolutionListResponseDto(data as any);
+        return LeetcodeSolutionListResponseSchema.parse(data as any);
     }
 
     async findPageAndCount(pageParam: PageParam, options: FindManyOptions<LeetcodeSolution> = {}) {
@@ -43,29 +43,29 @@ export class LeetcodeSolutionService {
             take: pageParam.take,
         };
         const [list, total] = await this.repository.findAndCount(pageOptions);
-        return new LeetcodeSolutionPageResponseDto({ list, total } as any);
+        return LeetcodeSolutionPageResponseSchema.parse({ list, total } as any);
     }
 
     async findOne(options: FindOneOptions<LeetcodeSolution>) {
         const data = await this.repository.findOne(options);
-        return data ? new LeetcodeSolutionResponseDto(data as any) : null;
+        return data ? LeetcodeSolutionResponseSchema.parse(data as any) : null;
     }
 
     async save(body: LeetcodeSolutionCreateRequestDto | LeetcodeSolutionBatchCreateRequestDto) {
         const data = await this.repository.save(body as any);
         return Array.isArray(body)
-            ? new LeetcodeSolutionBatchCreateResponseDto(data as any)
-            : new LeetcodeSolutionResponseDto(data as any);
+            ? LeetcodeSolutionBatchCreateResponseSchema.parse(data as any)
+            : LeetcodeSolutionResponseSchema.parse(data as any);
     }
 
     async importUpdateXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importUpdateXlsx(this, leetcodeSolutionResourceSchema, file);
-        return new LeetcodeSolutionImportUpdateResponseDto(data as any);
+        return LeetcodeSolutionImportUpdateResponseSchema.parse(data as any);
     }
 
     async importXlsx(file: DatabaseXlsxFileRequestDto) {
         const data = await importXlsx(this, leetcodeSolutionResourceSchema, file);
-        return new LeetcodeSolutionImportResponseDto(data as any);
+        return LeetcodeSolutionImportResponseSchema.parse(data as any);
     }
 
     async exportXlsx(options: FindManyOptions<LeetcodeSolution> = {}) {
@@ -75,14 +75,14 @@ export class LeetcodeSolutionService {
 
     async update(
         id: DatabaseIdParamsRequestDto['id'] | LeetcodeSolutionBatchUpdateRequestDto['ids'],
-        data: LeetcodeSolutionUpdateRequestDto | LeetcodeSolutionBatchUpdateRequestDto['data'],
+        data: LeetcodeSolutionUpdateRequestDto,
     ) {
         const result = await this.repository.update(id as any, data as any);
-        return new LeetcodeSolutionWriteResponseDto(result as any);
+        return LeetcodeSolutionWriteResponseSchema.parse(result as any);
     }
 
     async delete(id: DatabaseIdParamsRequestDto['id'] | DatabaseBatchDeleteRequestDto['ids']) {
         const result = await this.repository.delete(id as any);
-        return new LeetcodeSolutionWriteResponseDto(result as any);
+        return LeetcodeSolutionWriteResponseSchema.parse(result as any);
     }
 }

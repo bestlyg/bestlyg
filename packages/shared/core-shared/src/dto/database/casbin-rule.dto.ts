@@ -1,123 +1,109 @@
-import { createZodModel } from '../../zod';
 import { z } from 'zod';
 import { PageData } from '../../page-data';
 import {
-    DatabasePageRequestDto,
-    DatabaseWriteResponseDto,
-    EntityBaseResponseDto,
+    DatabasePageRequestSchema,
+    DatabaseWriteResponseSchema,
+    EntityBaseResponseSchema,
     idSchema,
 } from './common.dto';
 import {
-    DatabaseImportUpdateResponseDto,
+    DatabaseImportUpdateResponseSchema,
     DatabaseResourceSchema,
-    DatabaseXlsxExportResponseDto,
-    DatabaseXlsxImportResponseDto,
+    DatabaseXlsxExportResponseSchema,
+    DatabaseXlsxImportResponseSchema,
 } from './xlsx.dto';
 
 /** Casbin 规则分页查询请求 DTO。 */
-export class CasbinRulePageRequestDto extends createZodModel(DatabasePageRequestDto.getSchema()) {}
+export const CasbinRulePageRequestSchema = DatabasePageRequestSchema;
+export type CasbinRulePageRequestDto = z.output<typeof CasbinRulePageRequestSchema>;
 
 /** 创建 Casbin 规则请求 DTO。 */
-export class CasbinRuleCreateRequestDto extends createZodModel(
-    z
-        .object({
-            ptype: z.coerce.string().trim().min(1),
-            p0: z.coerce.string().trim().min(1),
-            p1: z.coerce.string().trim().min(1),
-            p2: z.coerce.string().trim().min(1),
-            p3: z.coerce.string().trim().min(1),
-            p4: z.coerce.string().trim().min(1),
-            p5: z.coerce.string().trim().min(1),
-        })
-        .strict(),
-) {}
+export const CasbinRuleCreateRequestSchema = z
+    .object({
+        ptype: z.coerce.string().trim().min(1),
+        p0: z.coerce.string().trim().min(1),
+        p1: z.coerce.string().trim().min(1),
+        p2: z.coerce.string().trim().min(1),
+        p3: z.coerce.string().trim().min(1),
+        p4: z.coerce.string().trim().min(1),
+        p5: z.coerce.string().trim().min(1),
+    })
+    .strict();
+export type CasbinRuleCreateRequestDto = z.output<typeof CasbinRuleCreateRequestSchema>;
 
 /** 更新 Casbin 规则请求 DTO，至少需要提交一个可更新字段。 */
-export class CasbinRuleUpdateRequestDto extends createZodModel(
-    CasbinRuleCreateRequestDto.getSchema()
-        .partial()
-        .refine(
-            (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-            { message: '请求体至少需要包含一个字段' },
-        ),
-) {}
+export const CasbinRuleUpdateRequestSchema = CasbinRuleCreateRequestSchema.partial().refine(
+    (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+    { message: '请求体至少需要包含一个字段' },
+);
+export type CasbinRuleUpdateRequestDto = z.output<typeof CasbinRuleUpdateRequestSchema>;
 
 /** 批量创建 Casbin 规则请求 DTO。 */
-export class CasbinRuleBatchCreateRequestDto extends createZodModel(
-    z.array(CasbinRuleCreateRequestDto.getSchema()).min(1),
-) {}
+export const CasbinRuleBatchCreateRequestSchema = z.array(CasbinRuleCreateRequestSchema).min(1);
+export type CasbinRuleBatchCreateRequestDto = z.output<typeof CasbinRuleBatchCreateRequestSchema>;
 
 /** 批量更新 Casbin 规则请求 DTO。 */
-export class CasbinRuleBatchUpdateRequestDto extends createZodModel(
-    z.object({
-        ids: z.array(idSchema).min(1),
-        data: CasbinRuleCreateRequestDto.getSchema()
-            .partial()
-            .refine(
-                (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
-                { message: '批量更新数据至少需要包含一个字段' },
-            ),
-    }),
-) {}
+export const CasbinRuleBatchUpdateRequestSchema = z.object({
+    ids: z.array(idSchema).min(1),
+    data: CasbinRuleCreateRequestSchema.partial().refine(
+        (value) => Boolean(value && typeof value === 'object' && Object.keys(value).length),
+        { message: '批量更新数据至少需要包含一个字段' },
+    ),
+});
+export type CasbinRuleBatchUpdateRequestDto = z.output<typeof CasbinRuleBatchUpdateRequestSchema>;
 
 /** Casbin 规则响应 DTO。 */
-export class CasbinRuleResponseDto extends createZodModel(
-    EntityBaseResponseDto.getSchema().extend({
-        ptype: z.string(),
-        p0: z.string(),
-        p1: z.string(),
-        p2: z.string(),
-        p3: z.string(),
-        p4: z.string(),
-        p5: z.string(),
-    }),
-) {}
+export const CasbinRuleResponseSchema = EntityBaseResponseSchema.extend({
+    ptype: z.string(),
+    p0: z.string(),
+    p1: z.string(),
+    p2: z.string(),
+    p3: z.string(),
+    p4: z.string(),
+    p5: z.string(),
+});
+export type CasbinRuleResponseDto = z.output<typeof CasbinRuleResponseSchema>;
 
 /** Casbin 规则列表响应 DTO。 */
-export class CasbinRuleListResponseDto extends createZodModel(
-    z.array(CasbinRuleResponseDto.getSchema()),
-) {}
+export const CasbinRuleListResponseSchema = z.array(CasbinRuleResponseSchema);
+export type CasbinRuleListResponseDto = z.output<typeof CasbinRuleListResponseSchema>;
 
 /** Casbin 规则分页响应 DTO。 */
-export class CasbinRulePageResponseDto extends createZodModel(
-    PageData.schema(CasbinRuleResponseDto.getSchema()),
-) {}
+export const CasbinRulePageResponseSchema = PageData.schema(CasbinRuleResponseSchema);
+export type CasbinRulePageResponseDto = z.output<typeof CasbinRulePageResponseSchema>;
 
 /** 批量创建 Casbin 规则响应 DTO。 */
-export class CasbinRuleBatchCreateResponseDto extends createZodModel(
-    z.array(CasbinRuleResponseDto.getSchema()),
-) {}
+export const CasbinRuleBatchCreateResponseSchema = z.array(CasbinRuleResponseSchema);
+export type CasbinRuleBatchCreateResponseDto = z.output<typeof CasbinRuleBatchCreateResponseSchema>;
 
 /** Casbin 规则 XLSX 新增导入响应 DTO。 */
-export class CasbinRuleImportResponseDto extends createZodModel(
-    DatabaseXlsxImportResponseDto.getSchema().extend({
-        data: z.array(CasbinRuleResponseDto.getSchema()),
-    }),
-) {}
+export const CasbinRuleImportResponseSchema = DatabaseXlsxImportResponseSchema.extend({
+    data: z.array(CasbinRuleResponseSchema),
+});
+export type CasbinRuleImportResponseDto = z.output<typeof CasbinRuleImportResponseSchema>;
 
 /** Casbin 规则 XLSX 更新导入响应 DTO。 */
-export class CasbinRuleImportUpdateResponseDto extends createZodModel(
-    DatabaseImportUpdateResponseDto.getSchema(),
-) {}
+export const CasbinRuleImportUpdateResponseSchema = DatabaseImportUpdateResponseSchema;
+export type CasbinRuleImportUpdateResponseDto = z.output<
+    typeof CasbinRuleImportUpdateResponseSchema
+>;
 
 /** Casbin 规则 XLSX 导出响应 DTO。 */
-export class CasbinRuleExportResponseDto extends createZodModel(
-    DatabaseXlsxExportResponseDto.getSchema(),
-) {}
+export const CasbinRuleExportResponseSchema = DatabaseXlsxExportResponseSchema;
+export type CasbinRuleExportResponseDto = z.output<typeof CasbinRuleExportResponseSchema>;
 
 /** Casbin 规则写操作响应 DTO。 */
-export class CasbinRuleWriteResponseDto extends createZodModel(
-    DatabaseWriteResponseDto.getSchema(),
-) {}
+export const CasbinRuleWriteResponseSchema = DatabaseWriteResponseSchema;
+export type CasbinRuleWriteResponseDto = z.output<typeof CasbinRuleWriteResponseSchema>;
 
 /** 前端消费的 Casbin 规则 DTO。 */
-export type CasbinRule = z.output<ReturnType<typeof CasbinRuleResponseDto.getSchema>>;
+export type CasbinRule = CasbinRuleResponseDto;
 
 /** Casbin 规则资源的 XLSX 导入导出配置。 */
 export const casbinRuleResourceSchema = {
     resourceName: 'casbin-rule',
-    createSchema: CasbinRuleCreateRequestDto.getSchema(),
-    updateSchema: CasbinRuleCreateRequestDto.getSchema().partial(),
+    createSchema: CasbinRuleCreateRequestSchema,
+    updateSchema: CasbinRuleCreateRequestSchema.partial(),
     xlsxColumns: [
         { key: 'id', readonly: true, width: 38 },
         { key: 'createdTime', readonly: true, width: 24 },
