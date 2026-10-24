@@ -14,7 +14,7 @@
 
 ## Development
 
-项目固定使用 pnpm 12.14.0 和 Node.js 24.22.0。首次安装 pnpm 后，在仓库内运行命令会自动使用 `packageManager` 指定的版本；pnpm 会按 `devEngines.runtime` 下载并使用指定的 Node.js。
+项目固定使用 pnpm 12.14.0 和 Node.js 24.22.1。首次安装 pnpm 后，在仓库内运行命令会自动使用 `packageManager` 指定的版本；pnpm 会按 `devEngines.runtime` 下载并使用指定的 Node.js。
 
 `@bestlyg/server` 使用 NestJS 12。Node.js 24 满足 Nest CLI 生成器和统一测试工具链的要求。
 

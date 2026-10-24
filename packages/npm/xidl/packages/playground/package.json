@@ -10,12 +10,15 @@
     "type": "module",
     "scripts": {
         "start": "tsx src/index.ts",
-        "build": "echo 'playground build'"
+        "build": "echo 'playground build'",
+        "test": "rstest run",
+        "test:watch": "rstest watch"
     },
     "dependencies": {
         "axios": "catalog:"
     },
     "devDependencies": {
+        "@rstest/core": "catalog:",
         "@types/node": "catalog:",
         "@xidl/core": "workspace:^",
         "@xidl/python-core": "workspace:^",

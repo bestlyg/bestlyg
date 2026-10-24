@@ -1,4 +1,4 @@
-syntax = "proto3";
+syntax = "proto2";
 
 package mobius.event;
 
@@ -26,12 +26,12 @@ message MobiusEndEvent {
 
 message MobiusHumanInLoopEvent {
   option (extend) = "MobiusContent";
-  string schema = 2; // 原本是 any[]，这里简化成 string[]
+  optional string schema = 2; // 原本是 any[]，这里简化成 string[]
 }
 
 message MobiusMessageEvent {
   option (extend) = "MobiusContent";
-  MobiusMessage message = 2;
+  optional MobiusMessage message = 2;
 }
 
 // ========== Message ==========
@@ -64,8 +64,8 @@ message MobiusContent {
 
 
 message MobiusTableContentColumn {
-  string column_name = 1;
-  string column_type = 2;
+  optional string column_name = 1;
+  optional string column_type = 2;
 }
 message MobiusTableContentRow {
   map<string, string> values = 1;
@@ -79,13 +79,13 @@ message MobiusTableContent {
 
 message MobiusImageContent {
   option (extend) = "MobiusContent";
-  string link = 2;
-  string base64 = 3;
+  optional string link = 2;
+  optional string base64 = 3;
 }
 
 message MobiusCodeContent {
   option (extend) = "MobiusContent";
-  string code = 2;
+  optional string code = 2;
 }
 
 message MobiusChartContent {

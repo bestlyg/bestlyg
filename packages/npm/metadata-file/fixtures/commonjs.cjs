@@ -1,6 +1,10 @@
 const assert = require('node:assert/strict');
 const { pathToFileURL } = require('node:url');
+const { isCJS, isESM } = require('module-checker');
 const { getDirname, getFilename } = require('../index.cjs');
+
+assert.equal(isCJS(), true);
+assert.equal(isESM(), false);
 
 assert.equal(getFilename(__filename), __filename);
 assert.equal(getFilename(pathToFileURL(__filename)), __filename);

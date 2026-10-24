@@ -1,6 +1,6 @@
 const path = require('path');
 
-exports.isCJS = function isCJS() {
+function isCJS() {
     return (
         typeof module !== 'undefined' &&
         typeof require !== 'undefined' &&
@@ -11,7 +11,9 @@ exports.isCJS = function isCJS() {
         module.filename === __filename &&
         path.dirname(module.filename) === __dirname
     );
-};
+}
+
+exports.isCJS = isCJS;
 
 exports.isESM = function isESM() {
     return !isCJS();

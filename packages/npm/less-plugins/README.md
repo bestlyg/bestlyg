@@ -1,6 +1,6 @@
 # Less plugins（ESM）
 
-这些插件现在由 Rslib 构建，仅发布 `dist/*.mjs` 和 TypeScript 声明。使用 Node.js 24.22.0 开发、构建和测试。
+这些插件现在由 Rslib 构建，仅发布 `dist/*.mjs` 和 TypeScript 声明。使用 Node.js 24.22.1 开发、构建和测试。
 
 通过 Less JavaScript API 显式安装插件：
 

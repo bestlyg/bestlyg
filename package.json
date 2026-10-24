@@ -24,7 +24,7 @@
         "ca": "pnpm run commit:auto",
         "test": "rstest run",
         "test:watch": "rstest watch",
-        "test:unit": "rstest run --project code --project server --project core-shared --project server-shared --project input-engine --project generator-helpers --project metadata-file --project package-json-extension --project '@less-plugins/*' --project cscet --project less-plugin-define-var --project uploader --project client-unit"
+        "test:unit": "rstest run --project code --project server --project core-shared --project server-shared --project input-engine --project generator-helpers --project metadata-file --project package-json-extension --project '@less-plugins/*' --project cscet --project less-plugin-define-var --project uploader --project client-unit --project xidl-playground"
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
@@ -56,7 +56,7 @@
     "devEngines": {
         "runtime": {
             "name": "node",
-            "version": "24.22.0",
+            "version": "24.22.1",
             "onFail": "download"
         }
     },

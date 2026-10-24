@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isCJS, isESM } from 'module-checker';
 import { getDirname, getFilename } from '../index.mjs';
+
+assert.equal(isCJS(), false);
+assert.equal(isESM(), true);
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
